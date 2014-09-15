@@ -7,14 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace FrbaHotel.Login
+namespace FrbaHotel.ABM_de_Rol
 {
-    public partial class FrmLogin : Form
+    public partial class AltaRol : Form
     {
-        public FrmLogin()
+        public AltaRol()
         {
             InitializeComponent();
         }
-
     }
 }

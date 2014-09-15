@@ -77,6 +77,7 @@
             this.button1.TabIndex = 4;
             this.button1.Text = "INGRESAR";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -87,7 +88,7 @@
             this.button2.Text = "INGRESAR COMO GUEST";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // Login
+            // FrmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -98,7 +99,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "Login";
+            this.Name = "FrmLogin";
             this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();
