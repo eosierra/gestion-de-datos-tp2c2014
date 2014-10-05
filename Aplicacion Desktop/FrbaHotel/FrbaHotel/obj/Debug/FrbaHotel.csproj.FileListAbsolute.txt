@@ -8,3 +8,6 @@ C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Deskt
 C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\bin\Debug\FrbaHotel.pdb
 C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.exe
 C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.pdb
+C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.ABM_de_Rol.AltaRol.resources
+C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Cancelar_Reserva.FrmCancelarReserva.resources
+C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Form1.resources
