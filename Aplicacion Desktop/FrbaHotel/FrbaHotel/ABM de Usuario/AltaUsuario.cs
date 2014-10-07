@@ -16,5 +16,6 @@ namespace FrbaHotel.ABM_de_Usuario
             InitializeComponent();
         }
 
+
     }
 }
