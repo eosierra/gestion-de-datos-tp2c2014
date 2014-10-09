@@ -192,9 +192,12 @@ CHECK (CantNochesOcupada > 0),
 FOREIGN KEY (Id_Hotel,Num_Habitacion) REFERENCES FUGAZZETA.Habitaciones
 )
 CREATE TABLE FUGAZZETA.[Habitaciones x Reservas](
-Id_Reserva int FOREIGN KEY REFERENCES FUGAZZETA.Reservas,
-Num_Habitacion int FOREIGN KEY REFERENCES FUGAZZETA.Habitaciones,
-PRIMARY KEY (Id_Reserva, Num_Habitacion)
+Id_Reserva int,
+Id_Hotel int,
+Num_Habitacion int,
+PRIMARY KEY (Id_Reserva, Id_Hotel, Num_Habitacion),
+FOREIGN KEY (Id_Reserva) REFERENCES FUGAZZETA.Reservas,
+FOREIGN KEY (Id_Hotel,Num_Habitacion) REFERENCES FUGAZZETA.Habitaciones
 )
 
 
@@ -202,8 +205,9 @@ PRIMARY KEY (Id_Reserva, Num_Habitacion)
 
 
 
----------------------------/* Poblado de Datos*/--------------------------------------------
+----------------/* Poblado de Datos*/--/*FALTA PROBARLO */----------------------------------
 --------------------------------------------------------------------------------------------
+
 INSERT INTO FUGAZZETA.Roles
 values('Administrador',1)
 insert into FUGAZZETA.Roles values('Recepcionista',1)
