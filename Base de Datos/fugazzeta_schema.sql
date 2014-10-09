@@ -8,7 +8,7 @@ GO
 CREATE TABLE FUGAZZETA.Hoteles(
 Id_Hotel int identity(1,1) PRIMARY KEY,
 Nombre nvarchar(40),
-Mail nvarchar (70) check (Mail LIKE '%@%'),
+Mail nvarchar (70),
 Telefono numeric(20,0),
 Calle varchar(70),
 Nro_Calle numeric(6,0),
@@ -17,7 +17,7 @@ Pais varchar(50),
 CantEstrella int,
 Fec_Creacion date,
 Recarga int,
-Habilitado bit /* 1 Habilitado, 0 deshabilitado ...? */
+Habilitado bit /* 1 Habilitado, 0 deshabilitado ...? */,
 )go
 CREATE TABLE FUGAZZETA.Roles(
 Id_Rol int identity(1,1) PRIMARY KEY,
@@ -31,7 +31,7 @@ Nombre varchar(50),
 Apellido varchar(50),
 Tipo_Doc varchar(5),
 Nro_Doc numeric(11,0),
-Mail nvarchar (70) check (Mail LIKE '%@%'),
+Mail nvarchar (70),
 Telefono numeric (20,0),
 Calle varchar(70),
 NroCalle numeric(6,0),
@@ -46,7 +46,7 @@ Apellido varchar (50),
 Tipo_Doc varchar(5),
 Nro_Doc numeric (11,0),
 Fecha_Nac date,
-Mail nvarchar (70) check (Mail LIKE '%@%'),
+Mail nvarchar (70),
 Telefono numeric (20,0),
 Dom_Calle varchar(70),
 Nro_Calle numeric(6,0),
@@ -92,7 +92,7 @@ FOREIGN KEY (Id_Rol) REFERENCES FUGAZZETA.Roles
 CREATE TABLE FUGAZZETA.Regimenes(
 Id_Regimen int identity(1,1) PRIMARY KEY,
 Descripcion varchar(50),
-Precio money,
+Precio numeric (7,2),
 Activo bit
 ) go
 CREATE TABLE FUGAZZETA.Reservas(
