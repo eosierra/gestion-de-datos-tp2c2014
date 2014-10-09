@@ -183,20 +183,21 @@ Comodidades nvarchar (140),
 Baja bit,
 PRIMARY KEY (Id_Hotel, Num_Habitacion)
 )
-
+CREATE TABLE FUGAZZETA.HistorialHabitaciones(
+Id_Hotel int,
+Num_Habitacion int,
+FechaOcupacion date,
+CantNochesOcupada int,
+CHECK (CantNochesOcupada > 0),
+FOREIGN KEY (Id_Hotel,Num_Habitacion) REFERENCES FUGAZZETA.Habitaciones
+)
 CREATE TABLE FUGAZZETA.[Habitaciones x Reservas](
 Id_Reserva int FOREIGN KEY REFERENCES FUGAZZETA.Reservas,
 Num_Habitacion int FOREIGN KEY REFERENCES FUGAZZETA.Habitaciones,
 PRIMARY KEY (Id_Reserva, Num_Habitacion)
 )
 
-CREATE TABLE FUGAZZETA.HistorialHabitaciones(
-Id_Hotel int FOREIGN KEY REFERENCES FUGAZZETA.Habitaciones,
-Num_Habitacion int FOREIGN KEY REFERENCES FUGAZZETA.Habitaciones,
-FechaOcupacion date,
-CantNochesOcupada int,
-CHECK (CantNochesOcupada > 0)
-)
+
 
 
 
