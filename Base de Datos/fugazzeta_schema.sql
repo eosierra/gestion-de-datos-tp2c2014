@@ -200,19 +200,20 @@ FOREIGN KEY (Id_Reserva) REFERENCES FUGAZZETA.Reservas,
 FOREIGN KEY (Id_Hotel,Num_Habitacion) REFERENCES FUGAZZETA.Habitaciones
 )
 
-
---- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.
-
+go
 
 
-----------------/* Poblado de Datos*/--/*FALTA PROBARLO */----------------------------------
+
+--------------------------/* Poblado de Datos*/---------------------------------------------
 --------------------------------------------------------------------------------------------
 
 INSERT INTO FUGAZZETA.Roles
-values('Administrador',1)
+values('Administrador General',1)
+insert into FUGAZZETA.Roles values('Administrador',1)
 insert into FUGAZZETA.Roles values('Recepcionista',1)
 insert into FUGAZZETA.Roles values('Guest',1)
 go
+
 INSERT INTO FUGAZZETA.Hoteles
 (Calle, Ciudad, Nro_Calle, CantEstrella, Recarga)
 SELECT DISTINCT
@@ -223,6 +224,15 @@ Hotel_CantEstrella,
 Hotel_Recarga_Estrella 
 FROM gd_esquema.Maestra
 go
+UPDATE FUGAZZETA.Hoteles set Pais = 'Argentina'
+INSERT INTO FUGAZZETA.Usuarios
+(Username, Contraseña, CantFallos_Login, Baja) values ('admin','w23e',0,0)
+INSERT INTO FUGAZZETA.[Usuarios x Roles] values ('admin',1)
+go
+
+--- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.
+
+
 INSERT INTO FUGAZZETA.Clientes
 (Nro_Doc,Apellido,Nombre,Fecha_Nac,Mail,Dom_Calle,Nro_Calle,Piso,Depto,Nacionalidad)
 SELECT DISTINCT

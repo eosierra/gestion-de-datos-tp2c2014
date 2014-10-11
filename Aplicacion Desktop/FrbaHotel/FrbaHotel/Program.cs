@@ -18,7 +18,7 @@ namespace FrbaHotel
             //SqlConnection conn = Conexion.conectar();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ABM_de_Usuario.AltaUsuario());
+            Application.Run(new Form1());
         }
     }
 }
