@@ -127,6 +127,12 @@
     <Compile Include="Login\FrmLogin.Designer.cs">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Login\LoginOK.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\LoginOK.Designer.cs">
+      <DependentUpon>LoginOK.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ABM de Cliente\AltaCliente.resx">

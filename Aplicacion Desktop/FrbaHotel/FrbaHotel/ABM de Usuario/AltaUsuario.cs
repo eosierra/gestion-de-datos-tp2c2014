@@ -18,7 +18,7 @@ namespace FrbaHotel.ABM_de_Usuario
 
         private void AltaUsuario_Load(object sender, EventArgs e)
         {
-            Calendario.MaxDate = System.DateTime.Today;
+            Calendario.MaxDate = Program.hoy();
             
         }
 
