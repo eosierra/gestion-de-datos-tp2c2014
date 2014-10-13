@@ -7,13 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace FrbaHotel.ABM_de_Rol
+namespace FrbaHotel.ABM_de_Habitacion
 {
-    public partial class Form1 : Form
+    public partial class AltaHabitacion : Form
     {
-        public Form1()
+        public AltaHabitacion()
         {
             InitializeComponent();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
