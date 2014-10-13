@@ -12,13 +12,25 @@ namespace FrbaHotel
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+      
         [STAThread]
         static void Main()
         {
-            //SqlConnection conn = Conexion.conectar();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new FrmLogin());
         }
+
+        internal static DateTime ahora()
+        {
+            //Año, mes, dia, hora, minuto, segundo
+            return new DateTime(2014, 11, 12, 12, 00, 00);
+        }
+
+        internal static DateTime hoy()
+        {
+            return ahora().Date;
+        }
+
     }
 }
