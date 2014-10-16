@@ -54,15 +54,22 @@ namespace FrbaHotel.ABM_de_Usuario
 
         private void validarUser()
         {
-            BD bd = new BD();
-            SqlConnection conexion = bd.obtenerConexion();
-            string comando = "SELECT Username,Contraseña FROM FUGAZZETA.Usuarios WHERE Username='" + TxtUser.Text + "'";
-            DataTableReader tabla = new DataTableReader(bd.ejecutar(comando));
-            if (!tabla.HasRows)
+            if (TxtUser.Text != "")
             {
-                MessageBox.Show("El nombre de usuario está disponible");
+                BD bd = new BD();
+                SqlConnection conexion = bd.obtenerConexion();
+                string comando = "SELECT Username,Contraseña FROM FUGAZZETA.Usuarios WHERE Username='" + TxtUser.Text + "'";
+                DataTableReader tabla = new DataTableReader(bd.ejecutar(comando));
+                if (!tabla.HasRows)
+                {
+                    MessageBox.Show("El nombre de usuario está disponible");
+                }
+                else { LblError1.Text = "El usuario ya existe"; }
             }
-            else { LblError1.Text = "El usuario ya existe"; }
+            else
+            {
+                LblError1.Text = "El usuario debe tener al menos un caracter";
+            }
         }
 
         private void LinkValida_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

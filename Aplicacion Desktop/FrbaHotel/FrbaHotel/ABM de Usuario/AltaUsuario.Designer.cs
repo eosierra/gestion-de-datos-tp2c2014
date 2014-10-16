@@ -88,8 +88,10 @@
             // 
             // TxtPass1
             // 
+            this.TxtPass1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtPass1.Location = new System.Drawing.Point(79, 56);
             this.TxtPass1.Name = "TxtPass1";
+            this.TxtPass1.PasswordChar = '*';
             this.TxtPass1.Size = new System.Drawing.Size(129, 20);
             this.TxtPass1.TabIndex = 3;
             this.TxtPass1.TextChanged += new System.EventHandler(this.validarContraseñas);
@@ -407,8 +409,10 @@
             // 
             // TxtPass2
             // 
+            this.TxtPass2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtPass2.Location = new System.Drawing.Point(174, 81);
             this.TxtPass2.Name = "TxtPass2";
+            this.TxtPass2.PasswordChar = '*';
             this.TxtPass2.Size = new System.Drawing.Size(129, 20);
             this.TxtPass2.TabIndex = 7;
             this.TxtPass2.TextChanged += new System.EventHandler(this.validarContraseñas);
