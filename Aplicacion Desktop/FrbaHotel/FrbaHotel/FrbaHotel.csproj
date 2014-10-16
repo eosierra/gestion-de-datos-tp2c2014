@@ -54,6 +54,12 @@
     <Compile Include="ABM de Cliente\AltaCliente.Designer.cs">
       <DependentUpon>AltaCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="ABM de Habitacion\AltaHabitacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM de Habitacion\AltaHabitacion.Designer.cs">
+      <DependentUpon>AltaHabitacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="ABM de Regimen\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +121,9 @@
       <DependentUpon>AltaCliente.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="ABM de Habitacion\AltaHabitacion.resx">
+      <DependentUpon>AltaHabitacion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ABM de Rol\AltaRol.resx">
       <DependentUpon>AltaRol.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -165,9 +174,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ABM de Habitacion\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
