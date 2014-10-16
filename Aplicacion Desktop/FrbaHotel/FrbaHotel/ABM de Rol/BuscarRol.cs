@@ -13,9 +13,11 @@ namespace FrbaHotel.ABM_de_Rol
     {
         string todoslosRoles = "SELECT Id_Rol,Nombre FROM FUGAZZETA.ROLES";
         BD bd = new BD();
+        Form dondeVuelve;
 
-        public BuscarRol()
+        public BuscarRol(Form owner)
         {
+            dondeVuelve = owner;
             InitializeComponent();
         }
 
@@ -50,7 +52,8 @@ namespace FrbaHotel.ABM_de_Rol
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(GridRoles.SelectedRows.ToString());
+            string hola = GridRoles.CurrentRow.Cells[1].Value.ToString();
+            MessageBox.Show(hola);
         }
     }
 }

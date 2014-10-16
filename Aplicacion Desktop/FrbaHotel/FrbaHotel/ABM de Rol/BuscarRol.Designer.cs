@@ -45,6 +45,7 @@
             this.GridRoles.Location = new System.Drawing.Point(246, 12);
             this.GridRoles.Name = "GridRoles";
             this.GridRoles.ReadOnly = true;
+            this.GridRoles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.GridRoles.Size = new System.Drawing.Size(313, 331);
             this.GridRoles.TabIndex = 0;
             // 
