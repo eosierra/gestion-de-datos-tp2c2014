@@ -41,9 +41,9 @@ namespace FrbaHotel
                 tabla.Locale = System.Globalization.CultureInfo.InvariantCulture;
                 dataAdapter.Fill(tabla);
             }
-            catch (SqlException)
+            catch (SqlException ex)
             {
-                MessageBox.Show("No se pudo conectar a la base de datos");
+                MessageBox.Show("No se pudo conectar a la base de datos, error " + ex.Number.ToString());
             }
             return tabla;
         }
