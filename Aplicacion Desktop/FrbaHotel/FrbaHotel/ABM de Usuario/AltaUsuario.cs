@@ -72,7 +72,33 @@ namespace FrbaHotel.ABM_de_Usuario
 
         private void AgregarRol_Click_1(object sender, EventArgs e)
         {
-            new BuscarRol(this).Show();
+            new BuscarRol(this).ShowDialog();
+        }
+
+        private void LimpiarPantalla_Click(object sender, EventArgs e)
+        {
+            DialogResult confirma = MessageBox.Show("Está seguro de borrar todos los datos?","Nuevo Usuario", MessageBoxButtons.OKCancel);
+            if (confirma == DialogResult.OK)
+            {
+                TxtUser.Text="";
+                TxtPass1.Text = "";
+                TxtPass2.Text = "";
+                ListaRoles.Items.Clear();
+                LblError1.Text = "";
+
+                
+
+            } 
+        }
+
+        private void ListaRoles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CmdQuitarRol_Click(object sender, EventArgs e)
+        {
+            ListaRoles.Items.Remove(ListaRoles.SelectedItem);
         }
 
         //public void agregarRol(Rol unRol)

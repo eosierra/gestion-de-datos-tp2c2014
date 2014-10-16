@@ -33,8 +33,7 @@ namespace FrbaHotel.Login
                     if (TxtPass.Text == pass)
                     {
                         LblError.Text = "";
-                        MessageBox.Show("LOGIN CORRECTO");
-                        //bd.cerrar();
+                        IrAMenuPrincipal();
                     }
                     else
                     {
@@ -79,12 +78,16 @@ namespace FrbaHotel.Login
 
         private void FrmLogin_Load(object sender, EventArgs e)
         {
-
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            
+            IrAMenuPrincipal();
+        }
+
+        private void IrAMenuPrincipal()
+        {
+            this.Close();
         }
 
     }

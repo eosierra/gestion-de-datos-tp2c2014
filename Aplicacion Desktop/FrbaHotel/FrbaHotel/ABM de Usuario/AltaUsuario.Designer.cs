@@ -34,28 +34,29 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.GrupoDatos = new System.Windows.Forms.GroupBox();
+            this.CmdQuitaHotel = new System.Windows.Forms.Button();
+            this.CmdAddHotel = new System.Windows.Forms.Button();
+            this.ListHoteles = new System.Windows.Forms.ListBox();
             this.Calendario = new System.Windows.Forms.DateTimePicker();
-            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.Apellido = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.NroDirec = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.Direc = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.Telefono = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.TxtMail = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.NroDoc = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.Nombre = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.Limpiar = new System.Windows.Forms.Button();
+            this.Guardar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.LinkValida = new System.Windows.Forms.LinkLabel();
             this.CmdQuitarRol = new System.Windows.Forms.Button();
@@ -64,6 +65,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.TxtPass2 = new System.Windows.Forms.TextBox();
             this.LblError1 = new System.Windows.Forms.Label();
+            this.LblError2 = new System.Windows.Forms.Label();
             this.GrupoDatos.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -112,32 +114,60 @@
             // 
             // GrupoDatos
             // 
+            this.GrupoDatos.Controls.Add(this.CmdQuitaHotel);
+            this.GrupoDatos.Controls.Add(this.CmdAddHotel);
+            this.GrupoDatos.Controls.Add(this.ListHoteles);
             this.GrupoDatos.Controls.Add(this.Calendario);
-            this.GrupoDatos.Controls.Add(this.textBox12);
+            this.GrupoDatos.Controls.Add(this.Apellido);
             this.GrupoDatos.Controls.Add(this.label13);
-            this.GrupoDatos.Controls.Add(this.textBox11);
+            this.GrupoDatos.Controls.Add(this.NroDirec);
             this.GrupoDatos.Controls.Add(this.label12);
-            this.GrupoDatos.Controls.Add(this.textBox8);
-            this.GrupoDatos.Controls.Add(this.button1);
             this.GrupoDatos.Controls.Add(this.label10);
             this.GrupoDatos.Controls.Add(this.label9);
-            this.GrupoDatos.Controls.Add(this.textBox7);
+            this.GrupoDatos.Controls.Add(this.Direc);
             this.GrupoDatos.Controls.Add(this.label8);
-            this.GrupoDatos.Controls.Add(this.textBox6);
+            this.GrupoDatos.Controls.Add(this.Telefono);
             this.GrupoDatos.Controls.Add(this.label7);
-            this.GrupoDatos.Controls.Add(this.textBox5);
+            this.GrupoDatos.Controls.Add(this.TxtMail);
             this.GrupoDatos.Controls.Add(this.label6);
             this.GrupoDatos.Controls.Add(this.comboBox2);
-            this.GrupoDatos.Controls.Add(this.textBox3);
+            this.GrupoDatos.Controls.Add(this.NroDoc);
             this.GrupoDatos.Controls.Add(this.label4);
-            this.GrupoDatos.Controls.Add(this.textBox4);
+            this.GrupoDatos.Controls.Add(this.Nombre);
             this.GrupoDatos.Controls.Add(this.label5);
-            this.GrupoDatos.Location = new System.Drawing.Point(29, 281);
+            this.GrupoDatos.Enabled = false;
+            this.GrupoDatos.Location = new System.Drawing.Point(427, 12);
             this.GrupoDatos.Name = "GrupoDatos";
-            this.GrupoDatos.Size = new System.Drawing.Size(373, 257);
+            this.GrupoDatos.Size = new System.Drawing.Size(373, 344);
             this.GrupoDatos.TabIndex = 6;
             this.GrupoDatos.TabStop = false;
             this.GrupoDatos.Text = "Datos identificatorios";
+            // 
+            // CmdQuitaHotel
+            // 
+            this.CmdQuitaHotel.Location = new System.Drawing.Point(278, 280);
+            this.CmdQuitaHotel.Name = "CmdQuitaHotel";
+            this.CmdQuitaHotel.Size = new System.Drawing.Size(53, 24);
+            this.CmdQuitaHotel.TabIndex = 27;
+            this.CmdQuitaHotel.Text = "Quitar";
+            this.CmdQuitaHotel.UseVisualStyleBackColor = true;
+            // 
+            // CmdAddHotel
+            // 
+            this.CmdAddHotel.Location = new System.Drawing.Point(278, 249);
+            this.CmdAddHotel.Name = "CmdAddHotel";
+            this.CmdAddHotel.Size = new System.Drawing.Size(53, 25);
+            this.CmdAddHotel.TabIndex = 26;
+            this.CmdAddHotel.Text = "Agregar";
+            this.CmdAddHotel.UseVisualStyleBackColor = true;
+            // 
+            // ListHoteles
+            // 
+            this.ListHoteles.FormattingEnabled = true;
+            this.ListHoteles.Location = new System.Drawing.Point(187, 226);
+            this.ListHoteles.Name = "ListHoteles";
+            this.ListHoteles.Size = new System.Drawing.Size(85, 108);
+            this.ListHoteles.TabIndex = 25;
             // 
             // Calendario
             // 
@@ -148,12 +178,12 @@
             this.Calendario.Size = new System.Drawing.Size(227, 20);
             this.Calendario.TabIndex = 16;
             // 
-            // textBox12
+            // Apellido
             // 
-            this.textBox12.Location = new System.Drawing.Point(79, 53);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(277, 20);
-            this.textBox12.TabIndex = 6;
+            this.Apellido.Location = new System.Drawing.Point(79, 53);
+            this.Apellido.Name = "Apellido";
+            this.Apellido.Size = new System.Drawing.Size(277, 20);
+            this.Apellido.TabIndex = 6;
             // 
             // label13
             // 
@@ -164,12 +194,12 @@
             this.label13.TabIndex = 24;
             this.label13.Text = "Apellido:";
             // 
-            // textBox11
+            // NroDirec
             // 
-            this.textBox11.Location = new System.Drawing.Point(305, 161);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(51, 20);
-            this.textBox11.TabIndex = 15;
+            this.NroDirec.Location = new System.Drawing.Point(305, 161);
+            this.NroDirec.Name = "NroDirec";
+            this.NroDirec.Size = new System.Drawing.Size(51, 20);
+            this.NroDirec.TabIndex = 15;
             // 
             // label12
             // 
@@ -179,24 +209,6 @@
             this.label12.Size = new System.Drawing.Size(37, 13);
             this.label12.TabIndex = 22;
             this.label12.Text = "Altura:";
-            // 
-            // textBox8
-            // 
-            this.textBox8.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.textBox8.Enabled = false;
-            this.textBox8.Location = new System.Drawing.Point(158, 223);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(117, 20);
-            this.textBox8.TabIndex = 19;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(281, 221);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "Seleccionar";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // label10
             // 
@@ -216,12 +228,12 @@
             this.label9.TabIndex = 15;
             this.label9.Text = "Fecha de nacimiento:";
             // 
-            // textBox7
+            // Direc
             // 
-            this.textBox7.Location = new System.Drawing.Point(79, 161);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(177, 20);
-            this.textBox7.TabIndex = 14;
+            this.Direc.Location = new System.Drawing.Point(79, 161);
+            this.Direc.Name = "Direc";
+            this.Direc.Size = new System.Drawing.Size(177, 20);
+            this.Direc.TabIndex = 14;
             // 
             // label8
             // 
@@ -232,12 +244,12 @@
             this.label8.TabIndex = 13;
             this.label8.Text = "Dirección:";
             // 
-            // textBox6
+            // Telefono
             // 
-            this.textBox6.Location = new System.Drawing.Point(79, 135);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(277, 20);
-            this.textBox6.TabIndex = 12;
+            this.Telefono.Location = new System.Drawing.Point(79, 135);
+            this.Telefono.Name = "Telefono";
+            this.Telefono.Size = new System.Drawing.Size(277, 20);
+            this.Telefono.TabIndex = 12;
             // 
             // label7
             // 
@@ -248,12 +260,12 @@
             this.label7.TabIndex = 11;
             this.label7.Text = "Teléfono:";
             // 
-            // textBox5
+            // TxtMail
             // 
-            this.textBox5.Location = new System.Drawing.Point(79, 107);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(277, 20);
-            this.textBox5.TabIndex = 10;
+            this.TxtMail.Location = new System.Drawing.Point(79, 107);
+            this.TxtMail.Name = "TxtMail";
+            this.TxtMail.Size = new System.Drawing.Size(277, 20);
+            this.TxtMail.TabIndex = 10;
             // 
             // label6
             // 
@@ -272,12 +284,12 @@
             this.comboBox2.Size = new System.Drawing.Size(66, 21);
             this.comboBox2.TabIndex = 7;
             // 
-            // textBox3
+            // NroDoc
             // 
-            this.textBox3.Location = new System.Drawing.Point(219, 80);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(137, 20);
-            this.textBox3.TabIndex = 7;
+            this.NroDoc.Location = new System.Drawing.Point(219, 80);
+            this.NroDoc.Name = "NroDoc";
+            this.NroDoc.Size = new System.Drawing.Size(137, 20);
+            this.NroDoc.TabIndex = 7;
             // 
             // label4
             // 
@@ -288,12 +300,12 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Tipo y N° de Documento:";
             // 
-            // textBox4
+            // Nombre
             // 
-            this.textBox4.Location = new System.Drawing.Point(79, 28);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(277, 20);
-            this.textBox4.TabIndex = 5;
+            this.Nombre.Location = new System.Drawing.Point(79, 28);
+            this.Nombre.Name = "Nombre";
+            this.Nombre.Size = new System.Drawing.Size(277, 20);
+            this.Nombre.TabIndex = 5;
             // 
             // label5
             // 
@@ -304,24 +316,25 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "Nombre:";
             // 
-            // button2
+            // Limpiar
             // 
-            this.button2.Location = new System.Drawing.Point(33, 584);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(118, 29);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "Limpiar pantalla";
-            this.button2.UseVisualStyleBackColor = true;
+            this.Limpiar.Location = new System.Drawing.Point(284, 406);
+            this.Limpiar.Name = "Limpiar";
+            this.Limpiar.Size = new System.Drawing.Size(118, 29);
+            this.Limpiar.TabIndex = 7;
+            this.Limpiar.Text = "Limpiar pantalla";
+            this.Limpiar.UseVisualStyleBackColor = true;
+            this.Limpiar.Click += new System.EventHandler(this.LimpiarPantalla_Click);
             // 
-            // button3
+            // Guardar
             // 
-            this.button3.Location = new System.Drawing.Point(284, 584);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(118, 29);
-            this.button3.TabIndex = 8;
-            this.button3.Text = "Guardar";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.Guardar.Location = new System.Drawing.Point(434, 406);
+            this.Guardar.Name = "Guardar";
+            this.Guardar.Size = new System.Drawing.Size(118, 29);
+            this.Guardar.TabIndex = 8;
+            this.Guardar.Text = "Guardar";
+            this.Guardar.UseVisualStyleBackColor = true;
+            this.Guardar.Click += new System.EventHandler(this.button3_Click);
             // 
             // groupBox2
             // 
@@ -362,6 +375,7 @@
             this.CmdQuitarRol.TabIndex = 10;
             this.CmdQuitarRol.Text = "Quitar";
             this.CmdQuitarRol.UseVisualStyleBackColor = true;
+            this.CmdQuitarRol.Click += new System.EventHandler(this.CmdQuitarRol_Click);
             // 
             // CmdAgregarRol
             // 
@@ -380,6 +394,7 @@
             this.ListaRoles.Name = "ListaRoles";
             this.ListaRoles.Size = new System.Drawing.Size(85, 108);
             this.ListaRoles.TabIndex = 8;
+            this.ListaRoles.SelectedIndexChanged += new System.EventHandler(this.ListaRoles_SelectedIndexChanged);
             // 
             // label11
             // 
@@ -404,20 +419,32 @@
             this.LblError1.ForeColor = System.Drawing.Color.Red;
             this.LblError1.Location = new System.Drawing.Point(32, 258);
             this.LblError1.Name = "LblError1";
-            this.LblError1.Size = new System.Drawing.Size(29, 13);
+            this.LblError1.Size = new System.Drawing.Size(49, 13);
             this.LblError1.TabIndex = 10;
-            this.LblError1.Text = "Error";
+            this.LblError1.Text = "..............";
+            // 
+            // LblError2
+            // 
+            this.LblError2.AutoSize = true;
+            this.LblError2.ForeColor = System.Drawing.Color.Red;
+            this.LblError2.Location = new System.Drawing.Point(424, 368);
+            this.LblError2.Name = "LblError2";
+            this.LblError2.Size = new System.Drawing.Size(49, 13);
+            this.LblError2.TabIndex = 11;
+            this.LblError2.Text = "..............";
             // 
             // AltaUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(426, 636);
+            this.ClientSize = new System.Drawing.Size(819, 447);
+            this.Controls.Add(this.LblError2);
             this.Controls.Add(this.LblError1);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.Guardar);
+            this.Controls.Add(this.Limpiar);
             this.Controls.Add(this.GrupoDatos);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AltaUsuario";
@@ -441,35 +468,37 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox GrupoDatos;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox NroDoc;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox Nombre;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox Direc;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox Telefono;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox TxtMail;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button Limpiar;
+        private System.Windows.Forms.Button Guardar;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox TxtPass2;
         private System.Windows.Forms.ListBox ListaRoles;
         private System.Windows.Forms.Button CmdQuitarRol;
         private System.Windows.Forms.Button CmdAgregarRol;
-        private System.Windows.Forms.TextBox textBox12;
+        private System.Windows.Forms.TextBox Apellido;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.TextBox NroDirec;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.DateTimePicker Calendario;
         private System.Windows.Forms.Label LblError1;
         private System.Windows.Forms.LinkLabel LinkValida;
+        private System.Windows.Forms.Button CmdQuitaHotel;
+        private System.Windows.Forms.Button CmdAddHotel;
+        private System.Windows.Forms.ListBox ListHoteles;
+        private System.Windows.Forms.Label LblError2;
     }
 }
