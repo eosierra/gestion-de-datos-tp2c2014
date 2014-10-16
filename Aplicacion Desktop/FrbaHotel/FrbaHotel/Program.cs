@@ -18,7 +18,8 @@ namespace FrbaHotel
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmLogin());
+            //Application.Run(new FrmLogin());
+            Application.Run(new ABM_de_Usuario.AltaUsuario());
         }
 
         internal static DateTime ahora()

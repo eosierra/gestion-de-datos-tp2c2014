@@ -84,8 +84,7 @@ namespace FrbaHotel.Login
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //de prueba
-            new ABM_de_Rol.BuscarRol(this).Show();
+            
         }
 
     }

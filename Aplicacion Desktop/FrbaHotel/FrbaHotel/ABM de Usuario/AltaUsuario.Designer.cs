@@ -58,9 +58,9 @@
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.LinkValida = new System.Windows.Forms.LinkLabel();
-            this.QuitarRol = new System.Windows.Forms.Button();
-            this.AgregarRol = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.CmdQuitarRol = new System.Windows.Forms.Button();
+            this.CmdAgregarRol = new System.Windows.Forms.Button();
+            this.ListaRoles = new System.Windows.Forms.ListBox();
             this.label11 = new System.Windows.Forms.Label();
             this.TxtPass2 = new System.Windows.Forms.TextBox();
             this.LblError1 = new System.Windows.Forms.Label();
@@ -326,9 +326,9 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.LinkValida);
-            this.groupBox2.Controls.Add(this.QuitarRol);
-            this.groupBox2.Controls.Add(this.AgregarRol);
-            this.groupBox2.Controls.Add(this.listBox1);
+            this.groupBox2.Controls.Add(this.CmdQuitarRol);
+            this.groupBox2.Controls.Add(this.CmdAgregarRol);
+            this.groupBox2.Controls.Add(this.ListaRoles);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.TxtPass2);
             this.groupBox2.Controls.Add(this.label1);
@@ -354,31 +354,32 @@
             this.LinkValida.Text = "Validar";
             this.LinkValida.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkValida_LinkClicked);
             // 
-            // QuitarRol
+            // CmdQuitarRol
             // 
-            this.QuitarRol.Location = new System.Drawing.Point(115, 153);
-            this.QuitarRol.Name = "QuitarRol";
-            this.QuitarRol.Size = new System.Drawing.Size(53, 24);
-            this.QuitarRol.TabIndex = 10;
-            this.QuitarRol.Text = "Quitar";
-            this.QuitarRol.UseVisualStyleBackColor = true;
+            this.CmdQuitarRol.Location = new System.Drawing.Point(115, 153);
+            this.CmdQuitarRol.Name = "CmdQuitarRol";
+            this.CmdQuitarRol.Size = new System.Drawing.Size(53, 24);
+            this.CmdQuitarRol.TabIndex = 10;
+            this.CmdQuitarRol.Text = "Quitar";
+            this.CmdQuitarRol.UseVisualStyleBackColor = true;
             // 
-            // AgregarRol
+            // CmdAgregarRol
             // 
-            this.AgregarRol.Location = new System.Drawing.Point(115, 122);
-            this.AgregarRol.Name = "AgregarRol";
-            this.AgregarRol.Size = new System.Drawing.Size(53, 25);
-            this.AgregarRol.TabIndex = 9;
-            this.AgregarRol.Text = "Agregar";
-            this.AgregarRol.UseVisualStyleBackColor = true;
+            this.CmdAgregarRol.Location = new System.Drawing.Point(115, 122);
+            this.CmdAgregarRol.Name = "CmdAgregarRol";
+            this.CmdAgregarRol.Size = new System.Drawing.Size(53, 25);
+            this.CmdAgregarRol.TabIndex = 9;
+            this.CmdAgregarRol.Text = "Agregar";
+            this.CmdAgregarRol.UseVisualStyleBackColor = true;
+            this.CmdAgregarRol.Click += new System.EventHandler(this.AgregarRol_Click_1);
             // 
-            // listBox1
+            // ListaRoles
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(16, 122);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(85, 108);
-            this.listBox1.TabIndex = 8;
+            this.ListaRoles.FormattingEnabled = true;
+            this.ListaRoles.Location = new System.Drawing.Point(16, 122);
+            this.ListaRoles.Name = "ListaRoles";
+            this.ListaRoles.Size = new System.Drawing.Size(85, 108);
+            this.ListaRoles.TabIndex = 8;
             // 
             // label11
             // 
@@ -460,9 +461,9 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox TxtPass2;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button QuitarRol;
-        private System.Windows.Forms.Button AgregarRol;
+        private System.Windows.Forms.ListBox ListaRoles;
+        private System.Windows.Forms.Button CmdQuitarRol;
+        private System.Windows.Forms.Button CmdAgregarRol;
         private System.Windows.Forms.TextBox textBox12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox textBox11;

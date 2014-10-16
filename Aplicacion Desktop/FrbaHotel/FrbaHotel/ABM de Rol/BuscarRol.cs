@@ -52,8 +52,11 @@ namespace FrbaHotel.ABM_de_Rol
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string hola = GridRoles.CurrentRow.Cells[1].Value.ToString();
-            MessageBox.Show(hola);
+            string id = GridRoles.CurrentRow.Cells[0].Value.ToString();
+            string name = GridRoles.CurrentRow.Cells[1].Value.ToString();
+            Rol rol = new Rol(id, name);
+            //dondeVuelve.agregarRol(rol);
+            this.Close();
         }
     }
 }

@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using FrbaHotel.ABM_de_Rol;
+using System.Data.SqlClient;
 
 namespace FrbaHotel.ABM_de_Usuario
 {
@@ -30,7 +32,7 @@ namespace FrbaHotel.ABM_de_Usuario
 
         private void QuitarRol_Click(object sender, EventArgs e)
         {
-            listBox1.Items.Remove(listBox1.SelectedItem);
+            ListaRoles.Items.Remove(ListaRoles.SelectedItem);
         }
 
         private void validarContraseñas(object sender, EventArgs e)
@@ -52,9 +54,15 @@ namespace FrbaHotel.ABM_de_Usuario
 
         private void validarUser()
         {
-            //busca al user
-            MessageBox.Show("El nombre de usuario está disponible");
-            LblError1.Text = "El usuario no está disponible";
+            BD bd = new BD();
+            SqlConnection conexion = bd.obtenerConexion();
+            string comando = "SELECT Username,Contraseña FROM FUGAZZETA.Usuarios WHERE Username='" + TxtUser.Text + "'";
+            DataTableReader tabla = new DataTableReader(bd.ejecutar(comando));
+            if (!tabla.HasRows)
+            {
+                MessageBox.Show("El nombre de usuario está disponible");
+            }
+            else { LblError1.Text = "El usuario ya existe"; }
         }
 
         private void LinkValida_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -62,5 +70,14 @@ namespace FrbaHotel.ABM_de_Usuario
             validarUser();
         }
 
+        private void AgregarRol_Click_1(object sender, EventArgs e)
+        {
+            new BuscarRol(this).Show();
+        }
+
+        //public void agregarRol(Rol unRol)
+        //{
+          //  ListaRoles.Items.Add(unRol.ToString());
+        //}
      }
 }

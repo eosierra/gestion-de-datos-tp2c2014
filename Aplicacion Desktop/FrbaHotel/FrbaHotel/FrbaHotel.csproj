@@ -78,6 +78,7 @@
     <Compile Include="ABM de Rol\BuscarRol.Designer.cs">
       <DependentUpon>BuscarRol.cs</DependentUpon>
     </Compile>
+    <Compile Include="ABM de Rol\Rol.cs" />
     <Compile Include="ABM de Usuario\AltaUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
