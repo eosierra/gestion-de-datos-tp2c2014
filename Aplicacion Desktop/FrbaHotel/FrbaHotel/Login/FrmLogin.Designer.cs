@@ -99,6 +99,7 @@
             this.LblError.Size = new System.Drawing.Size(35, 13);
             this.LblError.TabIndex = 6;
             this.LblError.Text = "label3";
+            this.LblError.Visible = false;
             // 
             // FrmLogin
             // 
