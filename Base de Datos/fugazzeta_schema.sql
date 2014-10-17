@@ -249,6 +249,7 @@ Hotel_CantEstrella,
 Hotel_Recarga_Estrella 
 FROM gd_esquema.Maestra
 go
+
 UPDATE FUGAZZETA.Hoteles set Pais = 'Argentina'
 
 INSERT INTO FUGAZZETA.Usuarios
@@ -293,6 +294,11 @@ INSERT INTO	FUGAZZETA.EstadosReserva values('Cancelada por Cliente')
 INSERT INTO	FUGAZZETA.EstadosReserva values('Cancelada por No-Show')
 INSERT INTO	FUGAZZETA.EstadosReserva values('Efectivizada')
 go
+
+INSERT INTO FUGAZZETA.[Usuarios x Hoteles] (Username,Id_Hotel)
+SELECT U.Username, H.Id_Hotel FROM FUGAZZETA.Usuarios U, FUGAZZETA.Hoteles H
+where U.Username = 'admin'
+GO
 
 --- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.
 CREATE FUNCTION FUGAZZETA.Fx_LoginCorrecto(@USER nvarchar(30),@PASS nvarchar(32)) RETURNS BIT
