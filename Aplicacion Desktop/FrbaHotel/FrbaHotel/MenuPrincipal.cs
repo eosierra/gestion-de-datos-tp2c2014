@@ -45,7 +45,12 @@ namespace FrbaHotel
         private void abrir(Form form)
         {
             form.MdiParent = this;
+            form.FormBorderStyle = FormBorderStyle.FixedSingle;
+            form.MaximizeBox = false;
+            form.MinimizeBox = false;
+            form.StartPosition = FormStartPosition.CenterScreen;
             form.Show();
+
         }
     }
 }
