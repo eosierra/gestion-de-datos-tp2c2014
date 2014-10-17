@@ -15,6 +15,7 @@ namespace FrbaHotel.ABM_de_Rol
         {
             InitializeComponent();
             crearBuscador(formu, "Descripcion", "Funcionalidades");
+            setearGrid(GridFunciones);
         }
 
         private void BuscarFuncionalidad_Load(object sender, EventArgs e)

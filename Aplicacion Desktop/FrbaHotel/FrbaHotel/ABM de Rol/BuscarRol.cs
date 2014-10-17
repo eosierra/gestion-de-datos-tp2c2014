@@ -16,6 +16,7 @@ namespace FrbaHotel.ABM_de_Rol
         {
             InitializeComponent();
             crearBuscador(owner, "Id_Rol,Nombre", "Roles");
+            setearGrid(GridRoles);
         }
 
         private void BuscarRol_Load(object sender, EventArgs e)

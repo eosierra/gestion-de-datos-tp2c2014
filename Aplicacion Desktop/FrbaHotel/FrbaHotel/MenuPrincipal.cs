@@ -52,5 +52,15 @@ namespace FrbaHotel
             form.Show();
 
         }
+
+        private void modificarUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            abrir(new ABM_de_Usuario.BuscarUsuario(this));
+        }
+
+        private void eliminarUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            abrir(new ABM_de_Usuario.BuscarUsuario(this));
+        }
     }
 }

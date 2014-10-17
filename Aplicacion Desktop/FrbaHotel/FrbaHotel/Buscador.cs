@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace FrbaHotel.ABM_de_Rol
+namespace FrbaHotel
 {
-    public abstract class Buscador : Form
+    public class Buscador : Form
     {
         public Form dondeVuelve;
         public BD bd = new BD();
-        public string todos; 
+        public string todos;
+         
 
         public void crearBuscador(Form owner, string campos, string categoria)
         {
@@ -33,5 +34,29 @@ namespace FrbaHotel.ABM_de_Rol
             }
             else { cargarGrilla(grid, todos); }
         }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // Buscador
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Name = "Buscador";
+            this.ResumeLayout(false);
+
+        }
+
+        public void setearGrid(DataGridView grid)
+        {
+            grid.AllowUserToAddRows = false;
+            grid.AllowUserToDeleteRows = false;
+            grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            grid.ReadOnly = true;
+            grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        }
+
+
     }
 }
