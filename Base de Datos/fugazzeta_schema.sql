@@ -30,7 +30,6 @@ DROP TABLE FUGAZZETA.Regimenes
 DROP TABLE FUGAZZETA.Habitaciones
 DROP TABLE FUGAZZETA.TiposHabitacion
 DROP TABLE FUGAZZETA.Hoteles
-
 ---------------------------/*Creacion de Tablas*/-------------------------------------------
 --------------------------------------------------------------------------------------------
 CREATE TABLE FUGAZZETA.Hoteles(
@@ -234,8 +233,7 @@ go
 
 --------------------------/* Poblado de Datos*/---------------------------------------------
 --------------------------------------------------------------------------------------------
-INSERT INTO FUGAZZETA.Roles
-values('Administrador General',1)
+INSERT INTO FUGAZZETA.Roles values('Administrador General',1)
 insert into FUGAZZETA.Roles values('Administrador',1)
 insert into FUGAZZETA.Roles values('Recepcionista',1)
 insert into FUGAZZETA.Roles values('Guest',1)
@@ -255,6 +253,20 @@ UPDATE FUGAZZETA.Hoteles set Pais = 'Argentina'
 INSERT INTO FUGAZZETA.Usuarios
 (Username, Contraseña, CantFallos_Login, Baja) values ('admin','w23e',0,0)
 INSERT INTO FUGAZZETA.[Usuarios x Roles] values ('admin',1)
+go
+
+select * from FUGAZZETA.Funcionalidades
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Rol')
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Usuario')
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Cliente')
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Hotel')
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Habitacion')
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Regimen')
+INSERT INTO FUGAZZETA.Funcionalidades values('Generar/Modificar Reserva')
+INSERT INTO FUGAZZETA.Funcionalidades values('Cancelar Reserva')
+INSERT INTO FUGAZZETA.Funcionalidades values('Registrar Estadia')
+INSERT INTO FUGAZZETA.Funcionalidades values('Registrar Consumible')
+INSERT INTO FUGAZZETA.Funcionalidades values('Facturar')
 go
 
 
