@@ -3,6 +3,33 @@ GO
 CREATE SCHEMA FUGAZZETA AUTHORIZATION gd
 GO
 
+--------------------Borrando Tablas------------------------
+-----------------------------------------------------------
+DROP TABLE FUGAZZETA.AbonoFacturas
+DROP TABLE FUGAZZETA.Acompañantes
+DROP TABLE FUGAZZETA.Bancos
+DROP TABLE FUGAZZETA.[Usuarios x Hoteles]
+DROP TABLE FUGAZZETA.[Usuarios x Roles]
+DROP TABLE FUGAZZETA.TiposPago
+DROP TABLE FUGAZZETA.[Funcionalidades x Roles]
+DROP TABLE FUGAZZETA.Funcionalidades
+DROP TABLE FUGAZZETA.[Habitaciones x Reservas]
+DROP TABLE FUGAZZETA.HistorialHabitaciones
+DROP TABLE FUGAZZETA.Items_Consumible
+DROP TABLE FUGAZZETA.Items_Hospedaje
+DROP TABLE FUGAZZETA.MovimientosHotel
+DROP TABLE FUGAZZETA.MovimientosReserva
+DROP TABLE FUGAZZETA.Usuarios
+DROP TABLE FUGAZZETA.Consumibles
+DROP TABLE FUGAZZETA.Facturas
+DROP TABLE FUGAZZETA.Roles
+DROP TABLE FUGAZZETA.Reservas
+DROP TABLE FUGAZZETA.EstadosReserva
+DROP TABLE FUGAZZETA.Clientes
+DROP TABLE FUGAZZETA.Regimenes
+DROP TABLE FUGAZZETA.Habitaciones
+DROP TABLE FUGAZZETA.TiposHabitacion
+DROP TABLE FUGAZZETA.Hoteles
 ---------------------------/*Creacion de Tablas*/-------------------------------------------
 --------------------------------------------------------------------------------------------
 CREATE TABLE FUGAZZETA.Hoteles(
@@ -206,9 +233,7 @@ go
 
 --------------------------/* Poblado de Datos*/---------------------------------------------
 --------------------------------------------------------------------------------------------
-
-INSERT INTO FUGAZZETA.Roles
-values('Administrador General',1)
+INSERT INTO FUGAZZETA.Roles values('Administrador General',1)
 insert into FUGAZZETA.Roles values('Administrador',1)
 insert into FUGAZZETA.Roles values('Recepcionista',1)
 insert into FUGAZZETA.Roles values('Guest',1)
@@ -225,11 +250,49 @@ Hotel_Recarga_Estrella
 FROM gd_esquema.Maestra
 go
 UPDATE FUGAZZETA.Hoteles set Pais = 'Argentina'
+
 INSERT INTO FUGAZZETA.Usuarios
 (Username, Contraseña, CantFallos_Login, Baja) values ('admin','w23e',0,0)
 INSERT INTO FUGAZZETA.[Usuarios x Roles] values ('admin',1)
 go
 
+INSERT INTO FUGAZZETA.Regimenes
+(Precio,Descripcion)
+SELECT DISTINCT
+Regimen_Descripcion,
+Regimen_Precio
+FROM gd_esquema.Maestra
+go
+
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Rol')
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Usuario')
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Cliente')
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Hotel')
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Habitacion')
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Regimen')
+INSERT INTO FUGAZZETA.Funcionalidades values('Generar/Modificar Reserva')
+INSERT INTO FUGAZZETA.Funcionalidades values('Cancelar Reserva')
+INSERT INTO FUGAZZETA.Funcionalidades values('Registrar Estadia')
+INSERT INTO FUGAZZETA.Funcionalidades values('Registrar Consumible')
+INSERT INTO FUGAZZETA.Funcionalidades values('Facturar')
+go
+
+INSERT INTO FUGAZZETA.Bancos values('Banco Frances')
+INSERT INTO FUGAZZETA.Bancos values('Banco Ciudad')
+go
+
+INSERT INTO FUGAZZETA.TiposPago values('Efectivo')
+INSERT INTO FUGAZZETA.TiposPago values('Tarjeta de Crédito')
+INSERT INTO FUGAZZETA.TiposPago values('Tarjeta de Débito')
+go
+
+INSERT INTO	FUGAZZETA.EstadosReserva values('Correcta')
+INSERT INTO	FUGAZZETA.EstadosReserva values('Modificada')
+INSERT INTO	FUGAZZETA.EstadosReserva values('Cancelada por Recepcion')
+INSERT INTO	FUGAZZETA.EstadosReserva values('Cancelada por Cliente')
+INSERT INTO	FUGAZZETA.EstadosReserva values('Cancelada por No-Show')
+INSERT INTO	FUGAZZETA.EstadosReserva values('Efectivizada')
+go
 
 --- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.
 CREATE FUNCTION FUGAZZETA.Fx_LoginCorrecto(@USER nvarchar(30),@PASS nvarchar(32)) RETURNS BIT
