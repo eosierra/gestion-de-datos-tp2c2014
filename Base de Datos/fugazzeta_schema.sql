@@ -250,6 +250,7 @@ Hotel_Recarga_Estrella
 FROM gd_esquema.Maestra
 go
 UPDATE FUGAZZETA.Hoteles set Pais = 'Argentina'
+
 INSERT INTO FUGAZZETA.Usuarios
 (Username, Contraseña, CantFallos_Login, Baja) values ('admin','w23e',0,0)
 INSERT INTO FUGAZZETA.[Usuarios x Roles] values ('admin',1)
@@ -276,6 +277,14 @@ INSERT INTO FUGAZZETA.Funcionalidades values('Registrar Consumible')
 INSERT INTO FUGAZZETA.Funcionalidades values('Facturar')
 go
 
+INSERT INTO FUGAZZETA.Bancos values('Banco Frances')
+INSERT INTO FUGAZZETA.Bancos values('Banco Ciudad')
+go
+
+INSERT INTO FUGAZZETA.TiposPago values('Efectivo')
+INSERT INTO FUGAZZETA.TiposPago values('Tarjeta de Crédito')
+INSERT INTO FUGAZZETA.TiposPago values('Tarjeta de Débito')
+go
 
 --- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.
 CREATE FUNCTION FUGAZZETA.Fx_LoginCorrecto(@USER nvarchar(30),@PASS nvarchar(32)) RETURNS BIT
