@@ -9,40 +9,25 @@ using System.Windows.Forms;
 
 namespace FrbaHotel.ABM_de_Rol
 {
-    public partial class BuscarRol : Form
+    public partial class BuscarRol : Buscador
     {
-        string todoslosRoles = "SELECT Id_Rol,Nombre FROM FUGAZZETA.ROLES";
-        BD bd = new BD();
-        Form dondeVuelve;
-
+        
         public BuscarRol(Form owner)
         {
-            dondeVuelve = owner;
             InitializeComponent();
+            crearBuscador(owner, "Id_Rol,Nombre", "Roles");
         }
 
         private void BuscarRol_Load(object sender, EventArgs e)
         {
             bd.obtenerConexion();
-            cargarGrilla(todoslosRoles);
+            cargarGrilla(GridRoles, todos);
             
-        }
-
-        private void cargarGrilla(string condicion)
-        {
-            //bd.obtenerConexion();
-            GridRoles.DataSource = bd.ejecutar(condicion);
-            bd.cerrar();
         }
 
         private void TxtRol_TextChanged(object sender, EventArgs e)
         {
-            if (TxtRol.Text != "")
-            {
-                string condicionNueva = todoslosRoles + " WHERE Nombre like '%" + TxtRol.Text + "%'";
-                cargarGrilla(condicionNueva);
-            }
-            else { cargarGrilla(todoslosRoles); }
+            filtroTexto(TxtRol, "Nombre", GridRoles);
         }
 
         private void button2_Click(object sender, EventArgs e)

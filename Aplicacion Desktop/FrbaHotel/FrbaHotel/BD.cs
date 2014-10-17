@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace FrbaHotel
 {
-    class BD
+    public class BD
     {
             
         static SqlConnection Conexion = new SqlConnection();

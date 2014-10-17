@@ -15,5 +15,15 @@ namespace FrbaHotel.ABM_de_Rol
         {
             InitializeComponent();
         }
+
+        private void CmdQuitar_Click(object sender, EventArgs e)
+        {
+            ListFunciones.Items.Remove(ListFunciones.SelectedItem);
+        }
+
+        private void CmdAgregar_Click(object sender, EventArgs e)
+        {
+            new BuscarFuncionalidad(this).ShowDialog();
+        }
     }
 }
