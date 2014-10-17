@@ -286,6 +286,14 @@ INSERT INTO FUGAZZETA.TiposPago values('Tarjeta de Crédito')
 INSERT INTO FUGAZZETA.TiposPago values('Tarjeta de Débito')
 go
 
+INSERT INTO	FUGAZZETA.EstadosReserva values('Correcta')
+INSERT INTO	FUGAZZETA.EstadosReserva values('Modificada')
+INSERT INTO	FUGAZZETA.EstadosReserva values('Cancelada por Recepcion')
+INSERT INTO	FUGAZZETA.EstadosReserva values('Cancelada por Cliente')
+INSERT INTO	FUGAZZETA.EstadosReserva values('Cancelada por No-Show')
+INSERT INTO	FUGAZZETA.EstadosReserva values('Efectivizada')
+go
+
 --- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.
 CREATE FUNCTION FUGAZZETA.Fx_LoginCorrecto(@USER nvarchar(30),@PASS nvarchar(32)) RETURNS BIT
 	AS BEGIN
