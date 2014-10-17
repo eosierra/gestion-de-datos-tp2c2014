@@ -255,7 +255,14 @@ INSERT INTO FUGAZZETA.Usuarios
 INSERT INTO FUGAZZETA.[Usuarios x Roles] values ('admin',1)
 go
 
-select * from FUGAZZETA.Funcionalidades
+INSERT INTO FUGAZZETA.Regimenes
+(Precio,Descripcion)
+SELECT DISTINCT
+Regimen_Descripcion,
+Regimen_Precio
+FROM gd_esquema.Maestra
+go
+
 INSERT INTO FUGAZZETA.Funcionalidades values('ABM Rol')
 INSERT INTO FUGAZZETA.Funcionalidades values('ABM Usuario')
 INSERT INTO FUGAZZETA.Funcionalidades values('ABM Cliente')
