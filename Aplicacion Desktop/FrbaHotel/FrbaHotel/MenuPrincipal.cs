@@ -24,9 +24,7 @@ namespace FrbaHotel
 
         private void nuevoUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form form = new ABM_de_Usuario.AltaUsuario();
-            form.MdiParent = this;
-            form.Show();
+            abrir(new ABM_de_Usuario.AltaUsuario());
         }
 
         private void iniciarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
@@ -37,6 +35,17 @@ namespace FrbaHotel
         private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
         {
             abrirLogin();
+        }
+
+        private void nuevoRolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            abrir(new ABM_de_Rol.AltaRol());
+        }
+
+        private void abrir(Form form)
+        {
+            form.MdiParent = this;
+            form.Show();
         }
     }
 }
