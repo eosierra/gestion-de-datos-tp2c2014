@@ -12,7 +12,7 @@ namespace FrbaHotel.ABM_de_Rol
     public partial class BuscarRol : Buscador
     {
         
-        public BuscarRol(Form owner)
+        public BuscarRol(ITraeBusqueda owner)
         {
             InitializeComponent();
             crearBuscador(owner, "Id_Rol,Nombre", "Roles");
@@ -38,8 +38,8 @@ namespace FrbaHotel.ABM_de_Rol
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string id = GridRoles.CurrentRow.Cells[0].Value.ToString();
-            string name = GridRoles.CurrentRow.Cells[1].Value.ToString();
+            string id = celdaElegida(GridRoles,0);
+            string name = celdaElegida(GridRoles,1);
             Rol rol = new Rol(id, name);
             //dondeVuelve.agregarRol(rol);
             this.Close();

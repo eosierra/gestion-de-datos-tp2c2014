@@ -11,10 +11,10 @@ namespace FrbaHotel.ABM_de_Rol
 {
     public partial class BuscarFuncionalidad : Buscador
     {
-        public BuscarFuncionalidad(Form formu)
+        public BuscarFuncionalidad(ITraeBusqueda formu)
         {
             InitializeComponent();
-            crearBuscador(formu, "Descripcion", "Funcionalidades");
+            crearBuscador(formu, "Id_Funcionalidad,Descripcion", "Funcionalidades");
             setearGrid(GridFunciones);
         }
 
@@ -28,5 +28,18 @@ namespace FrbaHotel.ABM_de_Rol
         {
             filtroTexto(TxtFunc, "Descripcion", GridFunciones);
         }
+
+        private void Seleccionar_Click(object sender, EventArgs e)
+        {
+            string id = celdaElegida(GridFunciones,0);
+            string desc = celdaElegida(GridFunciones,1);
+            dondeVuelve.agregar(id,desc);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
     }
 }

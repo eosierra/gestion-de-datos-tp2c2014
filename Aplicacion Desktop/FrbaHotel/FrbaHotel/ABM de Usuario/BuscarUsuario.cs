@@ -12,7 +12,7 @@ namespace FrbaHotel.ABM_de_Usuario
 {
     public partial class BuscarUsuario : Buscador
     {
-        public BuscarUsuario(Form owner)
+        public BuscarUsuario(ITraeBusqueda owner)
         {
             InitializeComponent();
             crearBuscador(owner,"Username,Nombre,Apellido,Tipo_Doc,Nro_Doc,Mail,Telefono,Calle,NroCalle,Fecha_Nac","Usuarios");

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace FrbaHotel.ABM_de_Rol
 {
-    public partial class AltaRol : Form
+    public partial class AltaRol : Form,ITraeBusqueda
     {
         public AltaRol()
         {
@@ -25,5 +25,19 @@ namespace FrbaHotel.ABM_de_Rol
         {
             new BuscarFuncionalidad(this).ShowDialog();
         }
+
+        public void agregar(string id, string desc)
+        {
+            
+        }
+
+        #region ITraeBusqueda
+
+        void ITraeBusqueda.agregar(string id, string descripcion)
+        {
+            ListFunciones.Items.Add(descripcion);
+        }
+
+        #endregion
     }
 }

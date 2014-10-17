@@ -32,7 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.TxtFunc = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Seleccionar = new System.Windows.Forms.Button();
             this.GridFunciones = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GridFunciones)).BeginInit();
@@ -74,15 +74,17 @@
             this.button2.TabIndex = 8;
             this.button2.Text = "CANCELAR SELECCION";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button1
+            // Seleccionar
             // 
-            this.button1.Location = new System.Drawing.Point(207, 349);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(108, 34);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "SELECCIONAR";
-            this.button1.UseVisualStyleBackColor = true;
+            this.Seleccionar.Location = new System.Drawing.Point(207, 349);
+            this.Seleccionar.Name = "Seleccionar";
+            this.Seleccionar.Size = new System.Drawing.Size(108, 34);
+            this.Seleccionar.TabIndex = 7;
+            this.Seleccionar.Text = "SELECCIONAR";
+            this.Seleccionar.UseVisualStyleBackColor = true;
+            this.Seleccionar.Click += new System.EventHandler(this.Seleccionar_Click);
             // 
             // GridFunciones
             // 
@@ -92,17 +94,17 @@
             this.GridFunciones.Name = "GridFunciones";
             this.GridFunciones.ReadOnly = true;
             this.GridFunciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.GridFunciones.Size = new System.Drawing.Size(172, 331);
+            this.GridFunciones.Size = new System.Drawing.Size(260, 331);
             this.GridFunciones.TabIndex = 6;
             // 
             // BuscarFuncionalidad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(386, 394);
+            this.ClientSize = new System.Drawing.Size(475, 394);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Seleccionar);
             this.Controls.Add(this.GridFunciones);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -123,7 +125,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox TxtFunc;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Seleccionar;
         private System.Windows.Forms.DataGridView GridFunciones;
     }
 }

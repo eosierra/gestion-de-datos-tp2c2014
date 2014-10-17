@@ -119,6 +119,7 @@
     <Compile Include="Generar Modificar Reserva\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ITraeBusqueda.cs" />
     <Compile Include="Listado Estadistico\Form1.cs">
       <SubType>Form</SubType>
     </Compile>

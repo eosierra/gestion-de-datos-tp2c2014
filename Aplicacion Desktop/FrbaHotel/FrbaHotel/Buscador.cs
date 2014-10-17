@@ -8,12 +8,12 @@ namespace FrbaHotel
 {
     public class Buscador : Form
     {
-        public Form dondeVuelve;
+        public ITraeBusqueda dondeVuelve;
         public BD bd = new BD();
         public string todos;
          
 
-        public void crearBuscador(Form owner, string campos, string categoria)
+        public void crearBuscador(ITraeBusqueda owner, string campos, string categoria)
         {
             todos = "SELECT " + campos + " FROM FUGAZZETA." + categoria;
             dondeVuelve = owner;
@@ -57,6 +57,9 @@ namespace FrbaHotel
             grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
-
+        public string celdaElegida(DataGridView grid, int columna)
+        {
+            return grid.CurrentRow.Cells[columna].Value.ToString();
+        }
     }
 }

@@ -11,7 +11,7 @@ using System.Data.SqlClient;
 
 namespace FrbaHotel.ABM_de_Usuario
 {
-    public partial class AltaUsuario : Form
+    public partial class AltaUsuario : Form, ITraeBusqueda
     {
         public AltaUsuario()
         {
@@ -108,9 +108,13 @@ namespace FrbaHotel.ABM_de_Usuario
             ListaRoles.Items.Remove(ListaRoles.SelectedItem);
         }
 
-        //public void agregarRol(Rol unRol)
-        //{
-          //  ListaRoles.Items.Add(unRol.ToString());
-        //}
-     }
+        #region ITraeBusqueda Members
+
+        public void agregar(string id, string descripcion)
+        {
+            ListaRoles.Items.Add(descripcion);
+        }
+
+        #endregion
+    }
 }
