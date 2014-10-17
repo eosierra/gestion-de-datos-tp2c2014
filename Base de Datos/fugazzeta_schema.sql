@@ -3,6 +3,34 @@ GO
 CREATE SCHEMA FUGAZZETA AUTHORIZATION gd
 GO
 
+--------------------Borrando Tablas------------------------
+-----------------------------------------------------------
+DROP TABLE FUGAZZETA.AbonoFacturas
+DROP TABLE FUGAZZETA.Acompañantes
+DROP TABLE FUGAZZETA.Bancos
+DROP TABLE FUGAZZETA.[Usuarios x Hoteles]
+DROP TABLE FUGAZZETA.[Usuarios x Roles]
+DROP TABLE FUGAZZETA.TiposPago
+DROP TABLE FUGAZZETA.[Funcionalidades x Roles]
+DROP TABLE FUGAZZETA.Funcionalidades
+DROP TABLE FUGAZZETA.[Habitaciones x Reservas]
+DROP TABLE FUGAZZETA.HistorialHabitaciones
+DROP TABLE FUGAZZETA.Items_Consumible
+DROP TABLE FUGAZZETA.Items_Hospedaje
+DROP TABLE FUGAZZETA.MovimientosHotel
+DROP TABLE FUGAZZETA.MovimientosReserva
+DROP TABLE FUGAZZETA.Usuarios
+DROP TABLE FUGAZZETA.Consumibles
+DROP TABLE FUGAZZETA.Facturas
+DROP TABLE FUGAZZETA.Roles
+DROP TABLE FUGAZZETA.Reservas
+DROP TABLE FUGAZZETA.EstadosReserva
+DROP TABLE FUGAZZETA.Clientes
+DROP TABLE FUGAZZETA.Regimenes
+DROP TABLE FUGAZZETA.Habitaciones
+DROP TABLE FUGAZZETA.TiposHabitacion
+DROP TABLE FUGAZZETA.Hoteles
+
 ---------------------------/*Creacion de Tablas*/-------------------------------------------
 --------------------------------------------------------------------------------------------
 CREATE TABLE FUGAZZETA.Hoteles(
@@ -206,7 +234,6 @@ go
 
 --------------------------/* Poblado de Datos*/---------------------------------------------
 --------------------------------------------------------------------------------------------
-
 INSERT INTO FUGAZZETA.Roles
 values('Administrador General',1)
 insert into FUGAZZETA.Roles values('Administrador',1)
