@@ -17,3 +17,4 @@ C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Deskt
 C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Release\FrbaHotel.ABM_de_Rol.BuscarFuncionalidad.resources
 C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Release\FrbaHotel.ABM_de_Usuario.BuscarUsuario.resources
 C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Release\FrbaHotel.Buscador.resources
+C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Release\FrbaHotel.Generar_Modificar_Reserva.GenerarReserva.resources

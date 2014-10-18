@@ -45,6 +45,8 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rolesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoRolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reservasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.realizarNuevaReservaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,7 +66,8 @@
             this.sesiónToolStripMenuItem,
             this.usuariosToolStripMenuItem,
             this.helpToolStripMenuItem,
-            this.rolesToolStripMenuItem});
+            this.rolesToolStripMenuItem,
+            this.reservasToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1009, 24);
@@ -182,6 +185,21 @@
             this.nuevoRolToolStripMenuItem.Text = "Nuevo Rol";
             this.nuevoRolToolStripMenuItem.Click += new System.EventHandler(this.nuevoRolToolStripMenuItem_Click);
             // 
+            // reservasToolStripMenuItem
+            // 
+            this.reservasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.realizarNuevaReservaToolStripMenuItem});
+            this.reservasToolStripMenuItem.Name = "reservasToolStripMenuItem";
+            this.reservasToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.reservasToolStripMenuItem.Text = "Reservas";
+            // 
+            // realizarNuevaReservaToolStripMenuItem
+            // 
+            this.realizarNuevaReservaToolStripMenuItem.Name = "realizarNuevaReservaToolStripMenuItem";
+            this.realizarNuevaReservaToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.realizarNuevaReservaToolStripMenuItem.Text = "Realizar nueva reserva";
+            this.realizarNuevaReservaToolStripMenuItem.Click += new System.EventHandler(this.realizarNuevaReservaToolStripMenuItem_Click);
+            // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -220,5 +238,7 @@
         private System.Windows.Forms.ToolStripMenuItem eliminarUsuarioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rolesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nuevoRolToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reservasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem realizarNuevaReservaToolStripMenuItem;
     }
 }

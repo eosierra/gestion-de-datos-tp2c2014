@@ -64,5 +64,10 @@ namespace FrbaHotel
         {
             abrir(new ABM_de_Usuario.BuscarUsuario(interfaz));
         }
+
+        private void realizarNuevaReservaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            abrir(new Generar_Modificar_Reserva.GenerarReserva());
+        }
     }
 }
