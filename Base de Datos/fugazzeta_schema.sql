@@ -260,8 +260,9 @@ go
 INSERT INTO FUGAZZETA.Regimenes
 (Precio,Descripcion)
 SELECT DISTINCT
-Regimen_Descripcion,
 Regimen_Precio
+Regimen_Descripcion,
+
 FROM gd_esquema.Maestra
 go
 
@@ -351,3 +352,5 @@ WHERE
 Consumible_Descripcion IS NOT NULL AND 
 Consumible_Precio IS NOT NULL
 go
+
+
