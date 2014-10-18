@@ -340,3 +340,14 @@ Cliente_Depto,
 Cliente_Nacionalidad
 FROM gd_esquema.Maestra
 go
+
+INSERT INTO FUGAZZETA.Consumibles
+(Descripcion, Precio)
+SELECT DISTINCT
+Consumible_Descripcion,
+Consumible_Precio
+FROM gd_esquema.Maestra
+WHERE 
+Consumible_Descripcion IS NOT NULL AND 
+Consumible_Precio IS NOT NULL
+go
