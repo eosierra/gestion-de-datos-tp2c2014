@@ -59,9 +59,11 @@
             this.LabelSesion.AutoSize = true;
             this.LabelSesion.BackColor = System.Drawing.SystemColors.ControlDark;
             this.LabelSesion.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.LabelSesion.Location = new System.Drawing.Point(0, 579);
+            this.LabelSesion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelSesion.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LabelSesion.Location = new System.Drawing.Point(0, 575);
             this.LabelSesion.Name = "LabelSesion";
-            this.LabelSesion.Size = new System.Drawing.Size(78, 13);
+            this.LabelSesion.Size = new System.Drawing.Size(118, 17);
             this.LabelSesion.TabIndex = 1;
             this.LabelSesion.Text = "Sesión iniciada";
             // 
@@ -234,7 +236,7 @@
             this.HotelesSesion.FormattingEnabled = true;
             this.HotelesSesion.Location = new System.Drawing.Point(26, 128);
             this.HotelesSesion.Name = "HotelesSesion";
-            this.HotelesSesion.Size = new System.Drawing.Size(129, 21);
+            this.HotelesSesion.Size = new System.Drawing.Size(234, 21);
             this.HotelesSesion.TabIndex = 6;
             // 
             // RolesSesion

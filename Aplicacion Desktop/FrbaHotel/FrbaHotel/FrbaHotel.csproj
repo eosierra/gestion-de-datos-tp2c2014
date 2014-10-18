@@ -107,12 +107,6 @@
     <Compile Include="Cancelar Reserva\FrmCancelarReserva.Designer.cs">
       <DependentUpon>FrmCancelarReserva.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Generar Modificar Reserva\GenerarReserva.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,9 +162,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Cancelar Reserva\FrmCancelarReserva.resx">
       <DependentUpon>FrmCancelarReserva.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Modificar Reserva\GenerarReserva.resx">
       <DependentUpon>GenerarReserva.cs</DependentUpon>

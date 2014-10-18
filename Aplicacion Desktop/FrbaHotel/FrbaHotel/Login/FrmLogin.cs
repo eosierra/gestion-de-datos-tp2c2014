@@ -12,6 +12,8 @@ namespace FrbaHotel.Login
 {
     public partial class FrmLogin : Form
     {
+        public string userActual;
+
         public FrmLogin()
         {
             InitializeComponent();
@@ -33,7 +35,7 @@ namespace FrbaHotel.Login
                     if (TxtPass.Text == pass)
                     {
                         LblError.Text = "";
-                        IrAMenuPrincipal();
+                        IrAMenuPrincipal(TxtUser.Text);
                     }
                     else
                     {
@@ -53,42 +55,16 @@ namespace FrbaHotel.Login
             bd.cerrar();
         }
 
-        private void viejoLogin()
-        {
-            BD bd = new BD();
-            SqlConnection conexion = bd.obtenerConexion();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "FUGAZZETA.ValidarLogin";
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Connection = conexion;
-            cmd.Parameters.AddWithValue("USER2", TxtUser.Text);
-            cmd.Parameters.AddWithValue("PASS2", TxtPass.Text);
-
-            try
-            {
-                Int32 reader = cmd.ExecuteNonQuery();
-                bd.cerrar();
-            }
-            catch (SqlException ex)
-            {
-                LblError.Text = ex.Number.ToString();
-            }
-            MessageBox.Show("Login correcto");
-        }
-
-        private void FrmLogin_Load(object sender, EventArgs e)
-        {
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
-            IrAMenuPrincipal();
+            IrAMenuPrincipal("guest");
         }
 
-        private void IrAMenuPrincipal()
+        private void IrAMenuPrincipal(string elUser)
         {
+            userActual = elUser;
             this.Close();
         }
 
     }
-}
+} 

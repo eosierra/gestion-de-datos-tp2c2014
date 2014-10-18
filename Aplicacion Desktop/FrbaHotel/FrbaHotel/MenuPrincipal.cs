@@ -11,15 +11,36 @@ namespace FrbaHotel
 {
     public partial class MenuPrincipal : Form
     {
+        string usuarioActual;
+
         public MenuPrincipal()
         {
             InitializeComponent();
             abrirLogin();
         }
 
-        private static void abrirLogin()
+        private void abrirLogin()
         {
-            new Login.FrmLogin().ShowDialog();
+            Login.FrmLogin elLogin = new Login.FrmLogin();
+            elLogin.ShowDialog();
+            usuarioActual = elLogin.userActual;
+            LabelSesion.Text = "SESION INICIADA COMO " + usuarioActual;
+            completarHotelesSesion();
+        }
+
+        #region Abrir Menues
+        
+        private void abrir(Form form)
+        {
+            form.MdiParent = this;
+            form.FormBorderStyle = FormBorderStyle.FixedSingle;
+            form.MaximizeBox = false;
+            form.MinimizeBox = false;
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.Show();
+            RolesSesion.Enabled = false;
+            HotelesSesion.Enabled = false;
+
         }
 
         private void nuevoUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
@@ -42,19 +63,6 @@ namespace FrbaHotel
             abrir(new ABM_de_Rol.AltaRol());
         }
 
-        private void abrir(Form form)
-        {
-            form.MdiParent = this;
-            form.FormBorderStyle = FormBorderStyle.FixedSingle;
-            form.MaximizeBox = false;
-            form.MinimizeBox = false;
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.Show();
-
-        }
-
-        ITraeBusqueda interfaz;
-
         private void modificarUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
         {
             abrir(new ABM_de_Usuario.BuscarUsuario(interfaz));
@@ -68,6 +76,20 @@ namespace FrbaHotel
         private void realizarNuevaReservaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             abrir(new Generar_Modificar_Reserva.GenerarReserva());
+        }
+
+        #endregion
+
+        ITraeBusqueda interfaz; //esto habrá que sacarlo después
+
+        private void completarHotelesSesion()
+        {
+            HotelesSesion.Items.Clear();
+            BD bd = new BD();
+            bd.obtenerConexion();
+            string comando = "SELECT H.Calle FROM FUGAZZETA.[Usuarios x Hoteles] U, FUGAZZETA.Hoteles H WHERE U.Id_Hotel = H.Id_Hotel AND U.Username like '" + usuarioActual + "'";
+            DataTable tabla = bd.ejecutar(comando);
+            HotelesSesion.DataSource = tabla;
         }
     }
 }
