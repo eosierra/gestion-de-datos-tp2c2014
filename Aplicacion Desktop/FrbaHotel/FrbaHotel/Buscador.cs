@@ -29,7 +29,7 @@ namespace FrbaHotel
         {
             if (txt.Text != "")
             {
-                string conCondicion = "WHERE " + campo + " like '%" + txt.Text + "%'";
+                string conCondicion = " WHERE " + campo + " like '%" + txt.Text + "%'";
                 actual = todos + conCondicion;
                 cargarGrilla(grid, actual);
             }

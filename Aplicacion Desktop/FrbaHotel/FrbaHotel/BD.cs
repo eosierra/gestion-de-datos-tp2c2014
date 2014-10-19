@@ -43,7 +43,7 @@ namespace FrbaHotel
             }
             catch (SqlException ex)
             {
-                MessageBox.Show("No se pudo conectar a la base de datos, error " + ex.Number.ToString());
+                MessageBox.Show("No se pudo conectar a la base de datos. Error " + ex.Number.ToString() + ": " + ex.Message);
             }
             return tabla;
         }
