@@ -90,6 +90,7 @@
     <Compile Include="ABM de Rol\AltaRol.Designer.cs">
       <DependentUpon>AltaRol.cs</DependentUpon>
     </Compile>
+    <Compile Include="ABM de Rol\Funcionalidad.cs" />
     <Compile Include="Buscador.cs">
       <SubType>Form</SubType>
     </Compile>

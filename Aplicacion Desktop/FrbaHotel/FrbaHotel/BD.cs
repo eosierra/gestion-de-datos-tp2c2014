@@ -48,6 +48,19 @@ namespace FrbaHotel
             return tabla;
         }
 
+        public void insertar(string tablaDestino, string campos, string valores)
+        {
+            string comando = "INSERT INTO FUGAZZETA." + tablaDestino + "(" + campos + ") values (" + valores + ")";
+            this.ejecutar(comando);
+        }
+
+        public void insertar(string tablaDestino, string valores)
+        {
+            string comando = "INSERT INTO FUGAZZETA." + tablaDestino + " values (" + valores + ")";
+            this.ejecutar(comando);
+        }
+
+
         public void cerrar()
         {
             Conexion.Close();

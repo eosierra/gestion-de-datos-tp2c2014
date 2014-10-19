@@ -30,10 +30,10 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.CheckActivo = new System.Windows.Forms.CheckBox();
+            this.LimpiarTodo = new System.Windows.Forms.Button();
+            this.Guardar = new System.Windows.Forms.Button();
+            this.TxtRol = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.CmdAgregar = new System.Windows.Forms.Button();
             this.CmdQuitar = new System.Windows.Forms.Button();
@@ -58,40 +58,42 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "Estado:";
             // 
-            // checkBox1
+            // CheckActivo
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(78, 395);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(56, 17);
-            this.checkBox1.TabIndex = 3;
-            this.checkBox1.Text = "Activo";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.CheckActivo.AutoSize = true;
+            this.CheckActivo.Location = new System.Drawing.Point(78, 395);
+            this.CheckActivo.Name = "CheckActivo";
+            this.CheckActivo.Size = new System.Drawing.Size(56, 17);
+            this.CheckActivo.TabIndex = 3;
+            this.CheckActivo.Text = "Activo";
+            this.CheckActivo.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // LimpiarTodo
             // 
-            this.button1.Location = new System.Drawing.Point(24, 420);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(109, 24);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Limpiar pantalla";
-            this.button1.UseVisualStyleBackColor = true;
+            this.LimpiarTodo.Location = new System.Drawing.Point(179, 426);
+            this.LimpiarTodo.Name = "LimpiarTodo";
+            this.LimpiarTodo.Size = new System.Drawing.Size(109, 24);
+            this.LimpiarTodo.TabIndex = 5;
+            this.LimpiarTodo.Text = "Limpiar pantalla";
+            this.LimpiarTodo.UseVisualStyleBackColor = true;
+            this.LimpiarTodo.Click += new System.EventHandler(this.LimpiarTodo_Click);
             // 
-            // button2
+            // Guardar
             // 
-            this.button2.Location = new System.Drawing.Point(179, 420);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(109, 24);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Guardar";
-            this.button2.UseVisualStyleBackColor = true;
+            this.Guardar.Location = new System.Drawing.Point(24, 426);
+            this.Guardar.Name = "Guardar";
+            this.Guardar.Size = new System.Drawing.Size(109, 24);
+            this.Guardar.TabIndex = 6;
+            this.Guardar.Text = "Guardar";
+            this.Guardar.UseVisualStyleBackColor = true;
+            this.Guardar.Click += new System.EventHandler(this.Guardar_Click);
             // 
-            // textBox1
+            // TxtRol
             // 
-            this.textBox1.Location = new System.Drawing.Point(113, 38);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(175, 20);
-            this.textBox1.TabIndex = 7;
+            this.TxtRol.Location = new System.Drawing.Point(113, 38);
+            this.TxtRol.Name = "TxtRol";
+            this.TxtRol.Size = new System.Drawing.Size(175, 20);
+            this.TxtRol.TabIndex = 7;
             // 
             // label2
             // 
@@ -139,10 +141,10 @@
             this.Controls.Add(this.CmdQuitar);
             this.Controls.Add(this.CmdAgregar);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.TxtRol);
+            this.Controls.Add(this.Guardar);
+            this.Controls.Add(this.LimpiarTodo);
+            this.Controls.Add(this.CheckActivo);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Name = "AltaRol";
@@ -156,10 +158,10 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.CheckBox CheckActivo;
+        private System.Windows.Forms.Button LimpiarTodo;
+        private System.Windows.Forms.Button Guardar;
+        private System.Windows.Forms.TextBox TxtRol;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button CmdAgregar;
         private System.Windows.Forms.Button CmdQuitar;
