@@ -50,7 +50,7 @@ namespace FrbaHotel
 
         public void insertar(string tablaDestino, string campos, string valores)
         {
-            string comando = "INSERT INTO FUGAZZETA." + tablaDestino + "(" + campos + ") values (" + valores + ")";
+            string comando = "INSERT INTO FUGAZZETA." + tablaDestino + " (" + campos + ") values (" + valores + ")";
             this.ejecutar(comando);
         }
 

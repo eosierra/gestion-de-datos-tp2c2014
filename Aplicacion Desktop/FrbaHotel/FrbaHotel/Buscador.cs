@@ -85,7 +85,7 @@ namespace FrbaHotel
             }
             else
             {
-                cargarGrilla(grid, todos);
+                cargarGrilla(grid, actual);
                 actual = todos;
             }
         }

@@ -52,7 +52,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 396);
+            this.label3.Location = new System.Drawing.Point(31, 299);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(43, 13);
             this.label3.TabIndex = 2;
@@ -61,7 +61,7 @@
             // CheckActivo
             // 
             this.CheckActivo.AutoSize = true;
-            this.CheckActivo.Location = new System.Drawing.Point(78, 395);
+            this.CheckActivo.Location = new System.Drawing.Point(80, 298);
             this.CheckActivo.Name = "CheckActivo";
             this.CheckActivo.Size = new System.Drawing.Size(56, 17);
             this.CheckActivo.TabIndex = 3;
@@ -70,7 +70,7 @@
             // 
             // LimpiarTodo
             // 
-            this.LimpiarTodo.Location = new System.Drawing.Point(179, 426);
+            this.LimpiarTodo.Location = new System.Drawing.Point(155, 329);
             this.LimpiarTodo.Name = "LimpiarTodo";
             this.LimpiarTodo.Size = new System.Drawing.Size(109, 24);
             this.LimpiarTodo.TabIndex = 5;
@@ -80,7 +80,7 @@
             // 
             // Guardar
             // 
-            this.Guardar.Location = new System.Drawing.Point(24, 426);
+            this.Guardar.Location = new System.Drawing.Point(26, 329);
             this.Guardar.Name = "Guardar";
             this.Guardar.Size = new System.Drawing.Size(109, 24);
             this.Guardar.TabIndex = 6;
@@ -92,7 +92,7 @@
             // 
             this.TxtRol.Location = new System.Drawing.Point(113, 38);
             this.TxtRol.Name = "TxtRol";
-            this.TxtRol.Size = new System.Drawing.Size(175, 20);
+            this.TxtRol.Size = new System.Drawing.Size(151, 20);
             this.TxtRol.TabIndex = 7;
             // 
             // label2
@@ -106,7 +106,7 @@
             // 
             // CmdAgregar
             // 
-            this.CmdAgregar.Location = new System.Drawing.Point(227, 140);
+            this.CmdAgregar.Location = new System.Drawing.Point(203, 140);
             this.CmdAgregar.Name = "CmdAgregar";
             this.CmdAgregar.Size = new System.Drawing.Size(61, 24);
             this.CmdAgregar.TabIndex = 9;
@@ -116,7 +116,7 @@
             // 
             // CmdQuitar
             // 
-            this.CmdQuitar.Location = new System.Drawing.Point(227, 170);
+            this.CmdQuitar.Location = new System.Drawing.Point(203, 170);
             this.CmdQuitar.Name = "CmdQuitar";
             this.CmdQuitar.Size = new System.Drawing.Size(61, 24);
             this.CmdQuitar.TabIndex = 10;
@@ -129,14 +129,14 @@
             this.ListFunciones.FormattingEnabled = true;
             this.ListFunciones.Location = new System.Drawing.Point(24, 114);
             this.ListFunciones.Name = "ListFunciones";
-            this.ListFunciones.Size = new System.Drawing.Size(197, 264);
+            this.ListFunciones.Size = new System.Drawing.Size(139, 173);
             this.ListFunciones.TabIndex = 11;
             // 
             // AltaRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(304, 462);
+            this.ClientSize = new System.Drawing.Size(285, 371);
             this.Controls.Add(this.ListFunciones);
             this.Controls.Add(this.CmdQuitar);
             this.Controls.Add(this.CmdAgregar);

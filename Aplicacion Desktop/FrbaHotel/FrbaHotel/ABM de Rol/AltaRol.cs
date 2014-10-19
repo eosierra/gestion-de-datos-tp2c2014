@@ -54,13 +54,22 @@ namespace FrbaHotel.ABM_de_Rol
 
         void ITraeBusqueda.agregar(string id, string descripcion)
         {
-            if (ListFunciones.Items.Contains(descripcion))
+            bool sePuede = true;
+            bool sigue = true;
+            for (int i = 0; (i < ListFunciones.Items.Count - 1) && sigue; i++)
+            {
+                if (ListFunciones.Items[i].ToString() == descripcion)
+                {
+                    sigue = false;
+                    sePuede = false;
+                }
+            }
+            if (!sePuede)
             {
                 MessageBox.Show("No se puede agregar. Ya agregó esa funcionalidad");
             } else {
                 ListFunciones.Items.Add(new Funcionalidad(id, descripcion));
             }
-
         }
         
         private void validaFunciones()
@@ -83,10 +92,10 @@ namespace FrbaHotel.ABM_de_Rol
         {
             BD bd = new BD();
             bd.obtenerConexion();
-            string valores = TxtRol.Text/* + ", " + CheckActivo.Checked*/;
-            bd.insertar("Roles","Descripcion",valores);       
+            string valores = "'" + TxtRol.Text + "', " + Convert.ToSByte(CheckActivo.Checked);
+            bd.insertar("Roles",valores);       
             
-            DataTable laTabla = bd.ejecutar("SELECT * FROM FUGAZZETA.Roles where Descripcion like '" + TxtRol.Text + "'");
+            DataTable laTabla = bd.ejecutar("SELECT * FROM FUGAZZETA.Roles where Nombre like '" + TxtRol.Text + "'");
             
             string idRol = laTabla.Rows[0][0].ToString();
 
