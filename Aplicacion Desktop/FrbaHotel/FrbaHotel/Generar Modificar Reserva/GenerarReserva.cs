@@ -71,6 +71,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             }
             if (grupo == group2)
             {
+                group1.Enabled = false;
                 group2.Enabled = false;
                 group3.Enabled = true;
                 PasoAtras.Enabled = true;
@@ -90,7 +91,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             /*
              * BUSCA AL CLIENTE
              */
-            siguiente(group1);
+            siguiente(group2);
         }
 
         private void Reservar_Click(object sender, EventArgs e)
