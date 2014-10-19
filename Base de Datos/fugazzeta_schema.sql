@@ -173,6 +173,7 @@ CHECK (CantNoches >= 0)
 )
 CREATE TABLE FUGAZZETA.Consumibles(
 Id_Consumible INT IDENTITY(1,1) PRIMARY KEY,
+Codigo numeric(18,0),
 Descripcion nvarchar(50),
 Precio numeric (7,2)
 )
@@ -260,8 +261,8 @@ go
 INSERT INTO FUGAZZETA.Regimenes
 (Precio,Descripcion)
 SELECT DISTINCT
-Regimen_Descripcion,
-Regimen_Precio
+Regimen_Precio,
+Regimen_Descripcion
 FROM gd_esquema.Maestra
 go
 
@@ -299,6 +300,19 @@ INSERT INTO FUGAZZETA.[Usuarios x Hoteles] (Username,Id_Hotel)
 SELECT U.Username, H.Id_Hotel FROM FUGAZZETA.Usuarios U, FUGAZZETA.Hoteles H
 where U.Username = 'admin'
 GO
+
+INSERT INTO FUGAZZETA.Consumibles
+(Codigo,Descripcion, Precio)
+SELECT DISTINCT
+Consumible_Codigo,
+Consumible_Descripcion,
+Consumible_Precio
+FROM gd_esquema.Maestra
+WHERE 
+Consumible_Codigo IS NOT NULL AND 
+Consumible_Descripcion IS NOT NULL AND 
+Consumible_Precio IS NOT NULL
+go
 
 --- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.
 CREATE FUNCTION FUGAZZETA.Fx_LoginCorrecto(@USER nvarchar(30),@PASS nvarchar(32)) RETURNS BIT
@@ -340,3 +354,6 @@ Cliente_Depto,
 Cliente_Nacionalidad
 FROM gd_esquema.Maestra
 go
+
+
+
