@@ -14,12 +14,30 @@ namespace FrbaHotel.ABM_de_Cliente
         public BuscarCliente(ITraeBusqueda owner)
         {
             InitializeComponent();
-            crearBuscador(owner,,"Clientes");
+            crearBuscador(owner,"*","Clientes");
+            setearGrid(GridClientes);
         }
 
         private void BuscarCliente_Load(object sender, EventArgs e)
         {
-
+            bd.obtenerConexion();
+            cargarGrilla(GridClientes, todos);
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void TxtNumero_TextChanged(object sender, EventArgs e)
+        {
+            filtroTexto(TxtNumero,"Nro_Doc",GridClientes);
+        }
+
+        private void TxtMail_TextChanged(object sender, EventArgs e)
+        {
+            filtroTexto(TxtMail, "Mail", GridClientes);
+        }
+
     }
 }

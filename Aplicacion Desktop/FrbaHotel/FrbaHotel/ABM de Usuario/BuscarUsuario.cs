@@ -27,7 +27,7 @@ namespace FrbaHotel.ABM_de_Usuario
 
         private void TxtUser_TextChanged(object sender, EventArgs e)
         {
-            filtroTexto(TxtUser, "Username", GridUsuarios);
+            addFiltroTextBox(TxtUser, "Username", GridUsuarios);
         }
 
         private void Cancelar_Click(object sender, EventArgs e)

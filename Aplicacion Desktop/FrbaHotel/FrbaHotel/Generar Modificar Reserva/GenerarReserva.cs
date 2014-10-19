@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace FrbaHotel.Generar_Modificar_Reserva
 {
-    public partial class GenerarReserva : Form
+    public partial class GenerarReserva : Form, ITraeBusqueda
     {
         public GenerarReserva()
         {
@@ -88,6 +88,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
 
         private void BuscarCliente_Click(object sender, EventArgs e)
         {
+            new ABM_de_Cliente.BuscarCliente(this).ShowDialog();
             /*
              * BUSCA AL CLIENTE
              */
@@ -108,5 +109,14 @@ namespace FrbaHotel.Generar_Modificar_Reserva
 
 
         }
+
+        #region ITraeBusqueda Members
+
+        void ITraeBusqueda.agregar(string id, string descripcion)
+        {
+
+        }
+
+        #endregion
     }
 }

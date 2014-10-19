@@ -11,7 +11,7 @@ namespace FrbaHotel
         public ITraeBusqueda dondeVuelve;
         public BD bd = new BD();
         public string todos;
-         
+        public string actual;
 
         public void crearBuscador(ITraeBusqueda owner, string campos, string categoria)
         {
@@ -29,10 +29,15 @@ namespace FrbaHotel
         {
             if (txt.Text != "")
             {
-                string condicionNueva = todos + " WHERE " + campo + " like '%" + txt.Text + "%'";
-                cargarGrilla(grid, condicionNueva);
+                string conCondicion = "WHERE " + campo + " like '%" + txt.Text + "%'";
+                actual = todos + conCondicion;
+                cargarGrilla(grid, actual);
             }
-            else { cargarGrilla(grid, todos); }
+            else 
+            {
+                cargarGrilla(grid, todos);
+                actual = todos;
+            }
         }
 
         private void InitializeComponent()
@@ -60,6 +65,29 @@ namespace FrbaHotel
         public string celdaElegida(DataGridView grid, int columna)
         {
             return grid.CurrentRow.Cells[columna].Value.ToString();
+        }
+
+        public void addFiltroTextBox(TextBox txt, string campo, DataGridView grid)
+        {
+            if (txt.Text != "")
+            {
+                string conCondicion;
+                if (!actual.Contains("WHERE"))
+                {
+                    conCondicion = "WHERE " + campo + " like '%" + txt.Text + "%'";
+                }
+                else
+                {
+                    conCondicion = "AND " + campo + " like '%" + txt.Text + "%'";
+                }
+                actual = todos + conCondicion;
+                cargarGrilla(grid, actual);
+            }
+            else
+            {
+                cargarGrilla(grid, todos);
+                actual = todos;
+            }
         }
     }
 }

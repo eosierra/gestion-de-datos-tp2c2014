@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace FrbaHotel.ABM_de_Hotel
 {
-    public class BuscarHotel : Buscador
+    public partial class BuscarHotel : Buscador
     {
         public BuscarHotel(ITraeBusqueda owner)
         {
