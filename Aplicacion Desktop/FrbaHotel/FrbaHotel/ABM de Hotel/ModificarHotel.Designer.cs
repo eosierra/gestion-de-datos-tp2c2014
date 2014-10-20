@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.ActualizarDatos = new System.Windows.Forms.Button();
             this.Mostrar = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -52,9 +51,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.FechaPick = new System.Windows.Forms.DateTimePicker();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // ActualizarDatos
@@ -236,18 +233,20 @@
             // TxtId
             // 
             this.TxtId.AutoSize = true;
-            this.TxtId.Location = new System.Drawing.Point(38, 28);
+            this.TxtId.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtId.Location = new System.Drawing.Point(48, 28);
             this.TxtId.Name = "TxtId";
-            this.TxtId.Size = new System.Drawing.Size(37, 13);
+            this.TxtId.Size = new System.Drawing.Size(58, 18);
             this.TxtId.TabIndex = 24;
             this.TxtId.Text = "..........";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(13, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(21, 13);
+            this.label1.Size = new System.Drawing.Size(29, 18);
             this.label1.TabIndex = 10;
             this.label1.Text = "ID:";
             // 
@@ -282,7 +281,6 @@
             this.Load += new System.EventHandler(this.ModificarHotel_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -313,7 +311,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox ComboPais;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.BindingSource bindingSource1;
 
     }
 }
