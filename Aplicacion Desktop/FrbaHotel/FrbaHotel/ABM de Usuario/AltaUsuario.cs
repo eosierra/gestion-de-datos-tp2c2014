@@ -89,10 +89,13 @@ namespace FrbaHotel.ABM_de_Usuario
             }
         }
 
-        public void agregar(string id, string descripcion)
+        #region ITraeBusqueda Members
+
+        void ITraeBusqueda.agregar(string id, string descripcion)
         {
-            ListaRoles.Items.Add(new Funcionalidad(id,descripcion));
+            ListaRoles.Items.Add(new ABM_de_Rol.Funcionalidad(id, descripcion));
         }
 
+        #endregion
     }
 }

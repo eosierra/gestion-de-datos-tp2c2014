@@ -24,7 +24,7 @@ namespace FrbaHotel
             Login.FrmLogin elLogin = new Login.FrmLogin();
             elLogin.ShowDialog();
             usuarioActual = elLogin.userActual;
-            LabelSesion.Text = "SESION INICIADA COMO " + usuarioActual;
+            LabelSesion.Text = "Sesión iniciada como " + usuarioActual;
             completarHotelesSesion();
         }
 
@@ -38,7 +38,6 @@ namespace FrbaHotel
             form.MinimizeBox = false;
             form.StartPosition = FormStartPosition.CenterScreen;
             form.Show();
-            RolesSesion.Enabled = false;
             HotelesSesion.Enabled = false;
 
         }
@@ -87,9 +86,14 @@ namespace FrbaHotel
             HotelesSesion.Items.Clear();
             BD bd = new BD();
             bd.obtenerConexion();
-            string comando = "SELECT H.Calle FROM FUGAZZETA.[Usuarios x Hoteles] U, FUGAZZETA.Hoteles H WHERE U.Id_Hotel = H.Id_Hotel AND U.Username like '" + usuarioActual + "'";
-            DataTable tabla = bd.ejecutar(comando);
-            HotelesSesion.DataSource = tabla;
+            string tabla = "[Usuarios x Hoteles] U, FUGAZZETA.Hoteles H WHERE U.Id_Hotel = H.Id_Hotel AND U.Username like '" + usuarioActual + "'";
+            bd.rellenarDesde("H.Calle", tabla, HotelesSesion);
         }
+
+        private void MenuPrincipal_Load(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

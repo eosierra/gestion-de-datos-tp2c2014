@@ -9,8 +9,7 @@ using System.Windows.Forms;
 namespace FrbaHotel
 {
     public class BD
-    {
-            
+    {    
         static SqlConnection Conexion = new SqlConnection();
         SqlDataAdapter dataAdapter;
 
@@ -60,13 +59,51 @@ namespace FrbaHotel
             this.ejecutar(comando);
         }
 
-
         public void cerrar()
         {
             Conexion.Close();
         }
 
-        
-     }
+        #region rellenarListasCombos
+        public void rellenarDesde(string campo, string tablaOrigen, ListBox lista)
+        {
+            try
+            {
+                string comando = "SELECT " + campo + "FROM FUGAZZETA." + tablaOrigen;
+                SqlCommand enunciado = new SqlCommand(comando, Conexion);
+                SqlDataReader respuesta = enunciado.ExecuteReader();
+
+                while (respuesta.Read())
+                {
+                    lista.Items.Add(respuesta[campo].ToString());
+                }
+                respuesta.Close();
+            } catch (Exception ex)
+            {
+                MessageBox.Show("Error al completar: " + ex.Message);
+            }
+        }
+
+        public void rellenarDesde(string campo, string tablaOrigen, ComboBox cb)
+        {
+            try
+            {
+                string comando = "SELECT " + campo + " FROM FUGAZZETA." + tablaOrigen;
+                SqlCommand enunciado = new SqlCommand(comando, Conexion);
+                SqlDataReader respuesta = enunciado.ExecuteReader();
+
+                while (respuesta.Read())
+                {
+                    cb.Items.Add(respuesta[campo].ToString());
+                }
+                respuesta.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al completar: " + ex.Message);
+            }
+        }
+        #endregion
+    }
 }
 

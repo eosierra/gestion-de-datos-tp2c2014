@@ -47,10 +47,9 @@
             this.nuevoRolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reservasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.realizarNuevaReservaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.HotelesSesion = new System.Windows.Forms.ComboBox();
-            this.RolesSesion = new System.Windows.Forms.ComboBox();
+            this.CambiarHotel = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,14 +57,16 @@
             // 
             this.LabelSesion.AutoSize = true;
             this.LabelSesion.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.LabelSesion.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.LabelSesion.Dock = System.Windows.Forms.DockStyle.Top;
             this.LabelSesion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelSesion.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.LabelSesion.Location = new System.Drawing.Point(0, 575);
+            this.LabelSesion.Location = new System.Drawing.Point(0, 24);
             this.LabelSesion.Name = "LabelSesion";
+            this.LabelSesion.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.LabelSesion.Size = new System.Drawing.Size(118, 17);
             this.LabelSesion.TabIndex = 1;
             this.LabelSesion.Text = "Sesión iniciada";
+            this.LabelSesion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // menuStrip1
             // 
@@ -207,45 +208,34 @@
             this.realizarNuevaReservaToolStripMenuItem.Text = "Realizar nueva reserva";
             this.realizarNuevaReservaToolStripMenuItem.Click += new System.EventHandler(this.realizarNuevaReservaToolStripMenuItem_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label2.Location = new System.Drawing.Point(23, 43);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(132, 17);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "CAMBIAR A ROL:";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.SystemColors.ControlDark;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(23, 108);
+            this.label3.Location = new System.Drawing.Point(12, 62);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(152, 17);
+            this.label3.Size = new System.Drawing.Size(130, 17);
             this.label3.TabIndex = 5;
-            this.label3.Text = "CAMBIAR A HOTEL:";
+            this.label3.Text = "HOTEL ACTUAL:";
             // 
             // HotelesSesion
             // 
             this.HotelesSesion.FormattingEnabled = true;
-            this.HotelesSesion.Location = new System.Drawing.Point(26, 128);
+            this.HotelesSesion.Location = new System.Drawing.Point(15, 82);
             this.HotelesSesion.Name = "HotelesSesion";
             this.HotelesSesion.Size = new System.Drawing.Size(234, 21);
             this.HotelesSesion.TabIndex = 6;
             // 
-            // RolesSesion
+            // CambiarHotel
             // 
-            this.RolesSesion.FormattingEnabled = true;
-            this.RolesSesion.Location = new System.Drawing.Point(26, 63);
-            this.RolesSesion.Name = "RolesSesion";
-            this.RolesSesion.Size = new System.Drawing.Size(129, 21);
-            this.RolesSesion.TabIndex = 7;
+            this.CambiarHotel.Location = new System.Drawing.Point(19, 114);
+            this.CambiarHotel.Name = "CambiarHotel";
+            this.CambiarHotel.Size = new System.Drawing.Size(113, 21);
+            this.CambiarHotel.TabIndex = 9;
+            this.CambiarHotel.Text = "CAMBIAR";
+            this.CambiarHotel.UseVisualStyleBackColor = true;
             // 
             // MenuPrincipal
             // 
@@ -253,10 +243,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(1009, 592);
-            this.Controls.Add(this.RolesSesion);
+            this.Controls.Add(this.CambiarHotel);
             this.Controls.Add(this.HotelesSesion);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.LabelSesion);
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
@@ -265,6 +254,7 @@
             this.Name = "MenuPrincipal";
             this.Text = "FRBA Hoteles - Menú principal";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.MenuPrincipal_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -293,9 +283,8 @@
         private System.Windows.Forms.ToolStripMenuItem nuevoRolToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reservasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem realizarNuevaReservaToolStripMenuItem;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox HotelesSesion;
-        private System.Windows.Forms.ComboBox RolesSesion;
+        private System.Windows.Forms.Button CambiarHotel;
     }
 }
