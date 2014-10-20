@@ -21,19 +21,41 @@ namespace FrbaHotel.ABM_de_Usuario
         private void AltaUsuario_Load(object sender, EventArgs e)
         {
             Calendario.MaxDate = Program.hoy();
-            
-        }
 
-        private void AgregarRol_Click(object sender, EventArgs e)
+        }
+        #region Botones
+        private void AgregarRol_Click_1(object sender, EventArgs e)
         {
-          
-            //listBox1.Items.Add(   );
+            new BuscarRol(this).ShowDialog();
         }
 
         private void QuitarRol_Click(object sender, EventArgs e)
         {
             ListaRoles.Items.Remove(ListaRoles.SelectedItem);
         }
+
+        private void LinkValida_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            validarUser();
+        }
+
+        private void LimpiarPantalla_Click(object sender, EventArgs e)
+        {
+            DialogResult confirma = MessageBox.Show("Está seguro de borrar todos los datos?", "Nuevo Usuario", MessageBoxButtons.OKCancel);
+            if (confirma == DialogResult.OK)
+            {
+                TxtUser.Text = "";
+                TxtPass1.Text = "";
+                TxtPass2.Text = "";
+                ListaRoles.Items.Clear();
+                LblError1.Text = "";
+
+
+
+            }
+        }
+
+        #endregion
 
         private void validarContraseñas(object sender, EventArgs e)
         {
@@ -45,11 +67,6 @@ namespace FrbaHotel.ABM_de_Usuario
             {
                 LblError1.Text = "";
             }
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void validarUser()
@@ -72,49 +89,10 @@ namespace FrbaHotel.ABM_de_Usuario
             }
         }
 
-        private void LinkValida_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            validarUser();
-        }
-
-        private void AgregarRol_Click_1(object sender, EventArgs e)
-        {
-            new BuscarRol(this).ShowDialog();
-        }
-
-        private void LimpiarPantalla_Click(object sender, EventArgs e)
-        {
-            DialogResult confirma = MessageBox.Show("Está seguro de borrar todos los datos?","Nuevo Usuario", MessageBoxButtons.OKCancel);
-            if (confirma == DialogResult.OK)
-            {
-                TxtUser.Text="";
-                TxtPass1.Text = "";
-                TxtPass2.Text = "";
-                ListaRoles.Items.Clear();
-                LblError1.Text = "";
-
-                
-
-            } 
-        }
-
-        private void ListaRoles_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void CmdQuitarRol_Click(object sender, EventArgs e)
-        {
-            ListaRoles.Items.Remove(ListaRoles.SelectedItem);
-        }
-
-        #region ITraeBusqueda Members
-
         public void agregar(string id, string descripcion)
         {
-            ListaRoles.Items.Add(descripcion);
+            ListaRoles.Items.Add(new Funcionalidad(id,descripcion));
         }
 
-        #endregion
     }
 }

@@ -336,7 +336,6 @@
             this.Guardar.TabIndex = 8;
             this.Guardar.Text = "Guardar";
             this.Guardar.UseVisualStyleBackColor = true;
-            this.Guardar.Click += new System.EventHandler(this.button3_Click);
             // 
             // groupBox2
             // 
@@ -377,7 +376,7 @@
             this.CmdQuitarRol.TabIndex = 10;
             this.CmdQuitarRol.Text = "Quitar";
             this.CmdQuitarRol.UseVisualStyleBackColor = true;
-            this.CmdQuitarRol.Click += new System.EventHandler(this.CmdQuitarRol_Click);
+            this.CmdQuitarRol.Click += new System.EventHandler(this.QuitarRol_Click);
             // 
             // CmdAgregarRol
             // 
@@ -396,7 +395,6 @@
             this.ListaRoles.Name = "ListaRoles";
             this.ListaRoles.Size = new System.Drawing.Size(85, 108);
             this.ListaRoles.TabIndex = 8;
-            this.ListaRoles.SelectedIndexChanged += new System.EventHandler(this.ListaRoles_SelectedIndexChanged);
             // 
             // label11
             // 
