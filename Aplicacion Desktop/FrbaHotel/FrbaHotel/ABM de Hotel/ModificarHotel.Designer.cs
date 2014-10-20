@@ -63,7 +63,7 @@
             this.ActualizarDatos.Name = "ActualizarDatos";
             this.ActualizarDatos.Size = new System.Drawing.Size(208, 40);
             this.ActualizarDatos.TabIndex = 9;
-            this.ActualizarDatos.Text = "ACTUALIZAR DATOS DE LA RESERVA";
+            this.ActualizarDatos.Text = "ACTUALIZAR DATOS";
             this.ActualizarDatos.UseVisualStyleBackColor = true;
             // 
             // Mostrar

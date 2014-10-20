@@ -95,5 +95,10 @@ namespace FrbaHotel
 
         }
 
+        private void modificarHotelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            abrir(new ABM_de_Hotel.ModificarHotel());
+        }
+
     }
 }

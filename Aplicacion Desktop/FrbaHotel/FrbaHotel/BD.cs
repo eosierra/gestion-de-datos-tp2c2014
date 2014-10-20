@@ -104,6 +104,11 @@ namespace FrbaHotel
             }
         }
         #endregion
+
+        internal SqlConnection getConexion()
+        {
+            return Conexion;
+        }
     }
 }
 

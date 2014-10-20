@@ -50,6 +50,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.HotelesSesion = new System.Windows.Forms.ComboBox();
             this.CambiarHotel = new System.Windows.Forms.Button();
+            this.hotelesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modificarHotelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,7 +77,8 @@
             this.usuariosToolStripMenuItem,
             this.helpToolStripMenuItem,
             this.rolesToolStripMenuItem,
-            this.reservasToolStripMenuItem});
+            this.reservasToolStripMenuItem,
+            this.hotelesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1009, 24);
@@ -237,6 +240,21 @@
             this.CambiarHotel.Text = "CAMBIAR";
             this.CambiarHotel.UseVisualStyleBackColor = true;
             // 
+            // hotelesToolStripMenuItem
+            // 
+            this.hotelesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.modificarHotelToolStripMenuItem});
+            this.hotelesToolStripMenuItem.Name = "hotelesToolStripMenuItem";
+            this.hotelesToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.hotelesToolStripMenuItem.Text = "Hoteles";
+            // 
+            // modificarHotelToolStripMenuItem
+            // 
+            this.modificarHotelToolStripMenuItem.Name = "modificarHotelToolStripMenuItem";
+            this.modificarHotelToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.modificarHotelToolStripMenuItem.Text = "Modificar Hotel";
+            this.modificarHotelToolStripMenuItem.Click += new System.EventHandler(this.modificarHotelToolStripMenuItem_Click);
+            // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -286,5 +304,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox HotelesSesion;
         private System.Windows.Forms.Button CambiarHotel;
+        private System.Windows.Forms.ToolStripMenuItem hotelesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem modificarHotelToolStripMenuItem;
     }
 }

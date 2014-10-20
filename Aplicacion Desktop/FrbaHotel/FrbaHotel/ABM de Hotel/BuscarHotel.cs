@@ -14,7 +14,7 @@ namespace FrbaHotel.ABM_de_Hotel
         public BuscarHotel(ITraeBusqueda owner)
         {
             InitializeComponent();
-            crearBuscador(owner, "Id_Hotel,Nombre,Calle,NroCalle,Ciudad", "Hoteles");
+            crearBuscador(owner, "Id_Hotel,Nombre,Calle,Nro_Calle,Ciudad", "Hoteles");
             setearGrid(GridHoteles);
         }
 
@@ -32,6 +32,13 @@ namespace FrbaHotel.ABM_de_Hotel
         private void TxtCiudad_TextChanged(object sender, EventArgs e)
         {
             filtroTexto(TxtCiudad, "Ciudad", GridHoteles);
+        }
+
+        private void Seleccionar_Click(object sender, EventArgs e)
+        {
+            string id = celdaElegida(GridHoteles,0);
+            string desc = celdaElegida(GridHoteles,1);
+            dondeVuelve.agregar(id,desc);
         }
     }
 }
