@@ -24,14 +24,14 @@ namespace FrbaHotel.Login
             //viejoLogin();
             BD bd = new BD();
             SqlConnection conexion = bd.obtenerConexion();
-            string comando = "SELECT Username,Contraseña FROM FUGAZZETA.Usuarios WHERE Username='" + TxtUser.Text + "'";
+            string comando = "SELECT Username,Contraseña FROM FUGAZZETA.[UsuariosHabilitados] WHERE Username='" + TxtUser.Text + "'";
             DataTableReader tabla = new DataTableReader(bd.ejecutar(comando));
             try
             {
                 if (tabla.HasRows)
                 {
                     tabla.Read();
-                    string pass = tabla.GetValue(1).ToString();
+                    string pass = tabla[1].ToString();
                     if (TxtPass.Text == pass)
                     {
                         LblError.Text = "";
@@ -40,8 +40,15 @@ namespace FrbaHotel.Login
                     }
                     else
                     {
-                        bd.ejecutar("EXEC FUGAZZETA.LoginIncorrecto '" + TxtUser.Text + "'");
-                        throw new Exception("Contraseña incorrecta");
+                        try
+                        {
+                            bd.ejecutar("EXEC FUGAZZETA.LoginIncorrecto '" + TxtUser.Text + "'");
+                            throw new Exception("Contraseña incorrecta");
+                        }
+                        catch (SqlException ex)
+                        {
+                            throw (ex as Exception);
+                        }
                     }
                 }
                 else

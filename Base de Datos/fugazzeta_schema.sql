@@ -313,6 +313,16 @@ WHERE
 Consumible_Codigo IS NOT NULL
 go
 
+----------------------------------------/*VISTAS*/------------------------------------------
+--------------------------------------------------------------------------------------------
+
+CREATE VIEW FUGAZZETA.[UsuariosHabilitados] AS
+SELECT * FROM FUGAZZETA.Usuarios
+WHERE (Habilitado = 1)
+GO
+
+
+
 ----------------------------/* PROCEDIMIENTOS Y FUNCIONES*/---------------------------------
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE FUGAZZETA.LoginCorrecto(@USER nvarchar(30))
