@@ -36,15 +36,17 @@ namespace FrbaHotel.Login
                     {
                         LblError.Text = "";
                         IrAMenuPrincipal(TxtUser.Text);
+                        bd.ejecutar("EXEC FUGAZZETA.LoginCorrecto '" + TxtUser.Text + "'");
                     }
                     else
                     {
+                        bd.ejecutar("EXEC FUGAZZETA.LoginIncorrecto '" + TxtUser.Text + "'");
                         throw new Exception("Contraseña incorrecta");
                     }
                 }
                 else
                 {
-                    throw new Exception("Usuario no encontrado");
+                    throw new Exception("Usuario no encontrado o inhabilitado por el administrador");
                 }
             }
             catch (Exception ex)

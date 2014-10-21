@@ -30,6 +30,8 @@ DROP TABLE FUGAZZETA.Regimenes
 DROP TABLE FUGAZZETA.Habitaciones
 DROP TABLE FUGAZZETA.TiposHabitacion
 DROP TABLE FUGAZZETA.Hoteles
+GO
+
 ---------------------------/*Creacion de Tablas*/-------------------------------------------
 --------------------------------------------------------------------------------------------
 CREATE TABLE FUGAZZETA.Hoteles(
@@ -44,7 +46,7 @@ Pais varchar(50),
 CantEstrella int,
 Fec_Creacion date,
 Recarga int,
-Habilitado bit /* 1 Habilitado, 0 deshabilitado ...? */,
+Habilitado bit
 )
 CREATE TABLE FUGAZZETA.Roles(
 Id_Rol int identity(1,1) PRIMARY KEY,
@@ -64,7 +66,7 @@ Calle varchar(70),
 NroCalle numeric(6,0),
 Fecha_Nac date,
 CantFallos_Login int default 0,
-Baja bit
+Habilitado bit
 )
 CREATE TABLE FUGAZZETA.Clientes(
 Id_Cliente int identity(1,1) PRIMARY KEY,
@@ -172,8 +174,7 @@ PRIMARY KEY (NroFactura,Ocupadas),
 CHECK (CantNoches >= 0)
 )
 CREATE TABLE FUGAZZETA.Consumibles(
-Id_Consumible INT IDENTITY(1,1) PRIMARY KEY,
-Codigo numeric(18,0),
+Id_Consumible INT PRIMARY KEY,
 Descripcion nvarchar(50),
 Precio numeric (7,2)
 )
@@ -238,7 +239,7 @@ INSERT INTO FUGAZZETA.Roles values('Administrador General',1)
 insert into FUGAZZETA.Roles values('Administrador',1)
 insert into FUGAZZETA.Roles values('Recepcionista',1)
 insert into FUGAZZETA.Roles values('Guest',1)
-go
+
 
 INSERT INTO FUGAZZETA.Hoteles
 (Calle, Ciudad, Nro_Calle, CantEstrella, Recarga)
@@ -254,7 +255,7 @@ go
 UPDATE FUGAZZETA.Hoteles set Pais = 'Argentina'
 
 INSERT INTO FUGAZZETA.Usuarios
-(Username, Contraseña, CantFallos_Login, Baja) values ('admin','w23e',0,0)
+(Username, Contraseña, CantFallos_Login, Habilitado) values ('admin','w23e',0,1)
 INSERT INTO FUGAZZETA.[Usuarios x Roles] values ('admin',1)
 go
 
@@ -302,42 +303,46 @@ where U.Username = 'admin'
 GO
 
 INSERT INTO FUGAZZETA.Consumibles
-(Codigo,Descripcion, Precio)
+(Id_Consumible,Descripcion, Precio)
 SELECT DISTINCT
 Consumible_Codigo,
 Consumible_Descripcion,
 Consumible_Precio
 FROM gd_esquema.Maestra
 WHERE 
-Consumible_Codigo IS NOT NULL AND 
-Consumible_Descripcion IS NOT NULL AND 
-Consumible_Precio IS NOT NULL
+Consumible_Codigo IS NOT NULL
 go
 
---- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.
-CREATE FUNCTION FUGAZZETA.Fx_LoginCorrecto(@USER nvarchar(30),@PASS nvarchar(32)) RETURNS BIT
-	AS BEGIN
-	DECLARE @CONTRAPOSTA nvarchar(32)
-	DECLARE @BOOL bit
-	SET @CONTRAPOSTA = (SELECT Contraseña FROM FUGAZZETA.Usuarios WHERE Username = @USER)
-	IF @PASS = @CONTRAPOSTA
-	SET @BOOL = 1
-	ELSE SET @BOOL = 0
-	RETURN @BOOL END GO
-
-CREATE PROCEDURE FUGAZZETA.ValidarLogin(@USER2 nvarchar(30),@PASS2 nvarchar(32))
-AS BEGIN	
-	DECLARE @RESULTADO bit
-	SET @RESULTADO = FUGAZZETA.Fx_LoginCorrecto (@USER2,@PASS2)
-	IF @RESULTADO = 0
-	BEGIN
-		DECLARE @CANT int
-		SET @CANT = (SELECT COUNT(*) FROM FUGAZZETA.Usuarios WHERE Username = @USER2)
-		IF @CANT = 0
-		RAISERROR('NO EXISTE EL USUARIO',49999,1)
-		ELSE RAISERROR ('CONTRASEÑA INCORRECTA',49999,1)
-	END
+----------------------------/* PROCEDIMIENTOS Y FUNCIONES*/---------------------------------
+--------------------------------------------------------------------------------------------
+CREATE PROCEDURE FUGAZZETA.LoginCorrecto(@USER nvarchar(30))
+AS BEGIN
+UPDATE FUGAZZETA.Usuarios
+SET CantFallos_Login = 0 WHERE Username like @USER
 END
+GO
+
+CREATE PROCEDURE FUGAZZETA.LoginIncorrecto(@USER nvarchar(30))
+AS BEGIN
+DECLARE @FALLOS int
+BEGIN TRANSACTION
+UPDATE FUGAZZETA.Usuarios 
+SET CantFallos_Login = CantFallos_Login + 1
+WHERE Username like @USER
+COMMIT TRANSACTION 
+SET @FALLOS = (SELECT CantFallos_Login FROM FUGAZZETA.Usuarios WHERE Username like @USER)
+IF @FALLOS = 3
+BEGIN
+	UPDATE FUGAZZETA.Usuarios
+	SET Habilitado = 0 WHERE Username like @USER 
+	RAISERROR('El usuario ha sido inhabilitado por haber llegado a 3 intentos fallidos. Comuníquese con el administrador',10,1)
+END
+END
+GO
+
+
+
+--- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.
 
 INSERT INTO FUGAZZETA.Clientes
 (Nro_Doc,Apellido,Nombre,Fecha_Nac,Mail,Dom_Calle,Nro_Calle,Piso,Depto,Nacionalidad)
