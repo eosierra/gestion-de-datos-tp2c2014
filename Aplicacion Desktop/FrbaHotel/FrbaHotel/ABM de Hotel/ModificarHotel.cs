@@ -51,7 +51,9 @@ namespace FrbaHotel.ABM_de_Hotel
                 TxtNumero.Text = dr["Nro_Calle"].ToString();
                 TxtCiudad.Text = dr["Ciudad"].ToString();
                 ComboPais.Text = dr["Pais"].ToString();
-                FechaPick.Value = Convert.ToDateTime(dr["Fec_creacion"].ToString());
+                string fecha = dr["Fec_creacion"].ToString();
+                if (fecha != "") { FechaPick.Value = Convert.ToDateTime(fecha); }
+
             }
             bd.cerrar();
         }

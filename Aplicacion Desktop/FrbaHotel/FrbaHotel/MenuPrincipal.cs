@@ -16,11 +16,15 @@ namespace FrbaHotel
         public MenuPrincipal()
         {
             InitializeComponent();
-            abrirLogin();
+            while (usuarioActual == null)
+            {
+                abrirLogin();
+            }
         }
 
         private void abrirLogin()
         {
+            usuarioActual = null;
             Login.FrmLogin elLogin = new Login.FrmLogin();
             elLogin.ShowDialog();
             usuarioActual = elLogin.userActual;
@@ -92,7 +96,6 @@ namespace FrbaHotel
 
         private void MenuPrincipal_Load(object sender, EventArgs e)
         {
-
         }
 
         private void modificarHotelToolStripMenuItem_Click(object sender, EventArgs e)

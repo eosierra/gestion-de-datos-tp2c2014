@@ -47,11 +47,11 @@
             this.nuevoRolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reservasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.realizarNuevaReservaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hotelesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modificarHotelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label3 = new System.Windows.Forms.Label();
             this.HotelesSesion = new System.Windows.Forms.ComboBox();
             this.CambiarHotel = new System.Windows.Forms.Button();
-            this.hotelesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.modificarHotelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -211,6 +211,21 @@
             this.realizarNuevaReservaToolStripMenuItem.Text = "Realizar nueva reserva";
             this.realizarNuevaReservaToolStripMenuItem.Click += new System.EventHandler(this.realizarNuevaReservaToolStripMenuItem_Click);
             // 
+            // hotelesToolStripMenuItem
+            // 
+            this.hotelesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.modificarHotelToolStripMenuItem});
+            this.hotelesToolStripMenuItem.Name = "hotelesToolStripMenuItem";
+            this.hotelesToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.hotelesToolStripMenuItem.Text = "Hoteles";
+            // 
+            // modificarHotelToolStripMenuItem
+            // 
+            this.modificarHotelToolStripMenuItem.Name = "modificarHotelToolStripMenuItem";
+            this.modificarHotelToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.modificarHotelToolStripMenuItem.Text = "Modificar Hotel";
+            this.modificarHotelToolStripMenuItem.Click += new System.EventHandler(this.modificarHotelToolStripMenuItem_Click);
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -239,21 +254,6 @@
             this.CambiarHotel.TabIndex = 9;
             this.CambiarHotel.Text = "CAMBIAR";
             this.CambiarHotel.UseVisualStyleBackColor = true;
-            // 
-            // hotelesToolStripMenuItem
-            // 
-            this.hotelesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.modificarHotelToolStripMenuItem});
-            this.hotelesToolStripMenuItem.Name = "hotelesToolStripMenuItem";
-            this.hotelesToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
-            this.hotelesToolStripMenuItem.Text = "Hoteles";
-            // 
-            // modificarHotelToolStripMenuItem
-            // 
-            this.modificarHotelToolStripMenuItem.Name = "modificarHotelToolStripMenuItem";
-            this.modificarHotelToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.modificarHotelToolStripMenuItem.Text = "Modificar Hotel";
-            this.modificarHotelToolStripMenuItem.Click += new System.EventHandler(this.modificarHotelToolStripMenuItem_Click);
             // 
             // MenuPrincipal
             // 
