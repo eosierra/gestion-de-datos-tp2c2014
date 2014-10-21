@@ -12,7 +12,7 @@ namespace FrbaHotel.ABM_de_Hotel
 {
     public partial class ModificarHotel : Form, ITraeBusqueda
     {
-        //string hotelElegido;
+        //Hotel hotelin;
 
         public ModificarHotel()
         {
@@ -50,12 +50,38 @@ namespace FrbaHotel.ABM_de_Hotel
                 TxtCalle.Text = dr["Calle"].ToString();
                 TxtNumero.Text = dr["Nro_Calle"].ToString();
                 TxtCiudad.Text = dr["Ciudad"].ToString();
-                ComboPais.Text = dr["Pais"].ToString();
+                //ComboPais.Text = dr["Pais"].ToString();
+                //ComboCE.SelectedItem = dr["CantEstrellas"].ToString();
                 string fecha = dr["Fec_creacion"].ToString();
-                if (fecha != "") { FechaPick.Value = Convert.ToDateTime(fecha); }
+                if (fecha != "") { FechaPick.Value = convertirFecha(fecha); }
 
             }
             bd.cerrar();
+        }
+
+        private DateTime convertirFecha(string fecha)
+        {
+            return Convert.ToDateTime(fecha);
+        }
+
+        private void ActualizarDatos_Click(object sender, EventArgs e)
+        {
+            DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", "Confirmar actualización de hotel", MessageBoxButtons.YesNo);
+
+            if (confirma == DialogResult.Yes)
+            {
+                int elId = Convert.ToInt32(TxtId.Text);
+                //int elPais = Convert.ToInt32(ComboPais.Text);
+                int nc = Convert.ToInt32(TxtNumero.Text);
+                //int cantE = Convert.ToInt32(ComboCE.Text);
+                Hotel hotelin = new Hotel(
+                    elId, TxtNombre.Text, TxtMail.Text, TxtTelefono.Text, TxtCalle.Text,
+                    nc, TxtCiudad.Text, 0, 0, FechaPick.Value);
+
+                hotelin.actualizar();
+                MessageBox.Show("Actualización realizada con éxito");
+                this.Close();
+            }
         }
 
     }

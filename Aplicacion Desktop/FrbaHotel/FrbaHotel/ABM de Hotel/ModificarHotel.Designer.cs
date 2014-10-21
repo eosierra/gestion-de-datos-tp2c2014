@@ -33,6 +33,8 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ComboCE = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.ComboPais = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.TxtCiudad = new System.Windows.Forms.TextBox();
@@ -62,6 +64,7 @@
             this.ActualizarDatos.TabIndex = 9;
             this.ActualizarDatos.Text = "ACTUALIZAR DATOS";
             this.ActualizarDatos.UseVisualStyleBackColor = true;
+            this.ActualizarDatos.Click += new System.EventHandler(this.ActualizarDatos_Click);
             // 
             // Mostrar
             // 
@@ -92,6 +95,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.ComboCE);
+            this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.ComboPais);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.TxtCiudad);
@@ -116,6 +121,29 @@
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos del hotel";
+            // 
+            // ComboCE
+            // 
+            this.ComboCE.FormattingEnabled = true;
+            this.ComboCE.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
+            this.ComboCE.Location = new System.Drawing.Point(113, 210);
+            this.ComboCE.Name = "ComboCE";
+            this.ComboCE.Size = new System.Drawing.Size(80, 21);
+            this.ComboCE.TabIndex = 40;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(13, 213);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(94, 13);
+            this.label5.TabIndex = 39;
+            this.label5.Text = "Cantidad Estrellas:";
             // 
             // ComboPais
             // 
@@ -311,6 +339,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox ComboPais;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox ComboCE;
+        private System.Windows.Forms.Label label5;
 
     }
 }

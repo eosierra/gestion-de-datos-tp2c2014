@@ -29,7 +29,7 @@ namespace FrbaHotel
             elLogin.ShowDialog();
             usuarioActual = elLogin.userActual;
             LabelSesion.Text = "Sesión iniciada como " + usuarioActual;
-            completarHotelesSesion();
+            //completarHotelesSesion();
         }
 
         #region Abrir Menues
@@ -81,6 +81,12 @@ namespace FrbaHotel
             abrir(new Generar_Modificar_Reserva.GenerarReserva());
         }
 
+        private void modificarHotelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            abrir(new ABM_de_Hotel.ModificarHotel());
+        }
+
+
         #endregion
 
         ITraeBusqueda interfaz; //esto habrá que sacarlo después
@@ -92,15 +98,6 @@ namespace FrbaHotel
             bd.obtenerConexion();
             string tabla = "[Usuarios x Hoteles] U, FUGAZZETA.Hoteles H WHERE U.Id_Hotel = H.Id_Hotel AND U.Username like '" + usuarioActual + "'";
             bd.rellenarDesde("H.Calle", tabla, HotelesSesion);
-        }
-
-        private void MenuPrincipal_Load(object sender, EventArgs e)
-        {
-        }
-
-        private void modificarHotelToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            abrir(new ABM_de_Hotel.ModificarHotel());
         }
 
     }
