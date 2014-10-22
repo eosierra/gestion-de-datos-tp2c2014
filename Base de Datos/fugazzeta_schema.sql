@@ -250,6 +250,7 @@ Hotel_Nro_Calle,
 Hotel_CantEstrella,
 Hotel_Recarga_Estrella 
 FROM gd_esquema.Maestra
+
 go
 
 UPDATE FUGAZZETA.Hoteles set Pais = 'Argentina'
@@ -356,6 +357,7 @@ GO
 
 INSERT INTO FUGAZZETA.Clientes
 (Nro_Doc,Apellido,Nombre,Fecha_Nac,Mail,Dom_Calle,Nro_Calle,Piso,Depto,Nacionalidad)
+
 SELECT DISTINCT
 Cliente_Pasaporte_Nro,
 Cliente_Apellido,
@@ -368,7 +370,17 @@ Cliente_Piso,
 Cliente_Depto,
 Cliente_Nacionalidad
 FROM gd_esquema.Maestra
+
 go
+
+
+SELECT * FROM FUGAZZETA.Clientes MAIN
+INNER JOIN (SELECT
+Nro_Doc, COUNT(*) cuenta
+FROM FUGAZZETA.Clientes
+group by Nro_Doc
+having COUNT(*)>1) AS T2
+ON MAIN.Nro_Doc = T2.Nro_Doc
 
 
 
