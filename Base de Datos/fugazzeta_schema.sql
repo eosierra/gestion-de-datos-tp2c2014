@@ -1,7 +1,10 @@
 USE GD2C2014
-GO
-CREATE SCHEMA FUGAZZETA AUTHORIZATION gd
-GO
+
+IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'FUGAZZETA')
+BEGIN
+	EXEC ('CREATE SCHEMA FUGAZZETA AUTHORIZATION gd')
+END
+
 
 --------------------Borrando Tablas------------------------
 -----------------------------------------------------------
@@ -374,13 +377,22 @@ FROM gd_esquema.Maestra
 go
 
 
-SELECT * FROM FUGAZZETA.Clientes MAIN
+SELECT
+Cliente_Pasaporte_Nro,
+Cliente_Apellido,
+Cliente_Nombre,
+Cliente_Fecha_Nac,
+Cliente_Mail,
+Cliente_Dom_Calle,
+Cliente_Nro_Calle,
+Cliente_Piso,
+Cliente_Depto,
+Cliente_Nacionalidad
+ FROM gd_esquema.Maestra MAIN
 INNER JOIN (SELECT
 Nro_Doc, COUNT(*) cuenta
-FROM FUGAZZETA.Clientes
+FROM gd_esquema.Maestra
 group by Nro_Doc
 having COUNT(*)>1) AS T2
 ON MAIN.Nro_Doc = T2.Nro_Doc
-
-
 
