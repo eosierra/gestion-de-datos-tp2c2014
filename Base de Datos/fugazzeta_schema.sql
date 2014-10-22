@@ -35,6 +35,18 @@ DROP TABLE FUGAZZETA.TiposHabitacion
 DROP TABLE FUGAZZETA.Hoteles
 GO
 
+---------------------------/*Borrado de procedimientos,vistas*/------------------------------------
+--------------------------------------------------------------------------------------------
+IF OBJECT_ID('FUGAZZETA.LoginCorrecto', 'P') IS NOT NULL
+DROP PROCEDURE FUGAZZETA.LoginCorrecto
+
+IF OBJECT_ID('FUGAZZETA.LoginIncorrecto', 'P') IS NOT NULL
+DROP PROCEDURE FUGAZZETA.LoginIncorrecto
+
+IF OBJECT_ID('FUGAZZETA.[UsuariosHabilitados]') IS NOT NULL
+DROP VIEW FUGAZZETA.[UsuariosHabilitados]
+
+
 ---------------------------/*Creacion de Tablas*/-------------------------------------------
 --------------------------------------------------------------------------------------------
 CREATE TABLE FUGAZZETA.Hoteles(
