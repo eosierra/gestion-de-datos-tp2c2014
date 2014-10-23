@@ -30,7 +30,6 @@
         {
             this.ActualizarDatos = new System.Windows.Forms.Button();
             this.Mostrar = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ComboCE = new System.Windows.Forms.ComboBox();
@@ -53,6 +52,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.FechaPick = new System.Windows.Forms.DateTimePicker();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,21 +68,13 @@
             // 
             // Mostrar
             // 
-            this.Mostrar.Location = new System.Drawing.Point(287, 46);
+            this.Mostrar.Location = new System.Drawing.Point(81, 42);
             this.Mostrar.Name = "Mostrar";
             this.Mostrar.Size = new System.Drawing.Size(110, 20);
             this.Mostrar.TabIndex = 8;
             this.Mostrar.Text = "SELECCIONAR";
             this.Mostrar.UseVisualStyleBackColor = true;
             this.Mostrar.Click += new System.EventHandler(this.Mostrar_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(82, 46);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(190, 20);
-            this.textBox1.TabIndex = 7;
             // 
             // label2
             // 
@@ -95,6 +87,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.ComboCE);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.ComboPais);
@@ -147,6 +140,8 @@
             // 
             // ComboPais
             // 
+            this.ComboPais.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.ComboPais.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.ComboPais.FormattingEnabled = true;
             this.ComboPais.Location = new System.Drawing.Point(79, 183);
             this.ComboPais.Name = "ComboPais";
@@ -294,6 +289,16 @@
             this.FechaPick.Size = new System.Drawing.Size(213, 20);
             this.FechaPick.TabIndex = 21;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(226, 179);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(110, 20);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "SELECCIONAR";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ModificarHotel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -301,7 +306,6 @@
             this.ClientSize = new System.Drawing.Size(677, 477);
             this.Controls.Add(this.ActualizarDatos);
             this.Controls.Add(this.Mostrar);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox1);
             this.Name = "ModificarHotel";
@@ -318,7 +322,6 @@
 
         private System.Windows.Forms.Button ActualizarDatos;
         private System.Windows.Forms.Button Mostrar;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label4;
@@ -341,6 +344,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox ComboCE;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button button1;
 
     }
 }

@@ -24,6 +24,15 @@ namespace FrbaHotel.ABM_de_Hotel
             groupBox1.Enabled = false;
             FechaPick.MaxDate = Program.hoy();
             
+            BD bd = new BD();
+            bd.obtenerConexion();
+            string query = "SELECT * FROM FUGAZZETA.Paises";
+            SqlCommand cmd = new SqlCommand(query, bd.getConexion());
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                ComboPais.Items.Add(new Pais(dr[0].ToString(), dr[1].ToString()));
+            }
         }
 
         private void Mostrar_Click(object sender, EventArgs e)
@@ -50,8 +59,8 @@ namespace FrbaHotel.ABM_de_Hotel
                 TxtCalle.Text = dr["Calle"].ToString();
                 TxtNumero.Text = dr["Nro_Calle"].ToString();
                 TxtCiudad.Text = dr["Ciudad"].ToString();
-                //ComboPais.Text = dr["Pais"].ToString();
-                //ComboCE.SelectedItem = dr["CantEstrellas"].ToString();
+                ComboPais.Text = dr["Pais"].ToString();
+                ComboCE.Text = dr["CantEstrella"].ToString();
                 string fecha = dr["Fec_creacion"].ToString();
                 if (fecha != "") { FechaPick.Value = convertirFecha(fecha); }
 
@@ -71,17 +80,22 @@ namespace FrbaHotel.ABM_de_Hotel
             if (confirma == DialogResult.Yes)
             {
                 int elId = Convert.ToInt32(TxtId.Text);
-                //int elPais = Convert.ToInt32(ComboPais.Text);
                 int nc = Convert.ToInt32(TxtNumero.Text);
-                //int cantE = Convert.ToInt32(ComboCE.Text);
+                Pais elPais = ComboPais.Items[ComboPais.SelectedIndex] as Pais;
+                //int cantE = ComboPais.Text as Int32;
                 Hotel hotelin = new Hotel(
                     elId, TxtNombre.Text, TxtMail.Text, TxtTelefono.Text, TxtCalle.Text,
-                    nc, TxtCiudad.Text, 0, 0, FechaPick.Value);
+                    nc, TxtCiudad.Text, elPais, 0, FechaPick.Value);
 
                 hotelin.actualizar();
                 MessageBox.Show("Actualización realizada con éxito");
                 this.Close();
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(ComboPais.Text);
         }
 
     }

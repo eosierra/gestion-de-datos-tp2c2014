@@ -79,6 +79,7 @@
     <Compile Include="ABM de Hotel\ModificarHotel.Designer.cs">
       <DependentUpon>ModificarHotel.cs</DependentUpon>
     </Compile>
+    <Compile Include="ABM de Hotel\Pais.cs" />
     <Compile Include="ABM de Regimen\Form1.cs">
       <SubType>Form</SubType>
     </Compile>

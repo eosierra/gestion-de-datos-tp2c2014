@@ -74,12 +74,12 @@ Pais int FOREIGN KEY REFERENCES FUGAZZETA.Paises,
 CantEstrella int,
 Fec_Creacion date,
 Recarga int,
-Habilitado bit
+Habilitado bit DEFAULT 1
 )
 CREATE TABLE FUGAZZETA.Roles(
 Id_Rol int identity(1,1) PRIMARY KEY,
 Nombre varchar(23) not null,
-Estado bit
+Estado bit DEFAULT 1
 )
 
 CREATE TABLE FUGAZZETA.TiposDoc(
@@ -99,7 +99,7 @@ Calle varchar(70),
 NroCalle numeric(6,0),
 Fecha_Nac date,
 CantFallos_Login int default 0,
-Habilitado bit
+Habilitado bit DEFAULT 1
 )
 CREATE TABLE FUGAZZETA.Clientes(
 Id_Cliente int identity(1,1) PRIMARY KEY,
@@ -138,7 +138,7 @@ CREATE TABLE FUGAZZETA.[Usuarios x Hoteles x Rol](
 Username nvarchar(30),
 Id_Hotel int,
 Id_Rol int,
-EstadoSesion bit,
+EstadoSesion bit DEFAULT 0,
 PRIMARY KEY (Username,Id_Hotel),
 FOREIGN KEY (Username) REFERENCES FUGAZZETA.Usuarios,
 FOREIGN KEY (Id_Hotel) REFERENCES FUGAZZETA.Hoteles,
@@ -159,7 +159,7 @@ CREATE TABLE FUGAZZETA.Regimenes(
 Id_Regimen int identity(1,1) PRIMARY KEY,
 Descripcion varchar(50),
 Precio numeric (7,2),
-Activo bit
+Activo bit DEFAULT 1
 )
 CREATE TABLE FUGAZZETA.EstadosReserva(
 Id_EstadoReserva INT IDENTITY(1,1) PRIMARY KEY,
@@ -246,7 +246,7 @@ Piso int,
 Frente char,
 Id_TipoHab int FOREIGN KEY REFERENCES FUGAZZETA.TiposHabitacion,
 Comodidades nvarchar (140),
-Habilitado bit,
+Habilitado bit DEFAULT 1,
 PRIMARY KEY (Id_Hotel, Num_Habitacion)
 )
 CREATE TABLE FUGAZZETA.HistorialHabitaciones(
