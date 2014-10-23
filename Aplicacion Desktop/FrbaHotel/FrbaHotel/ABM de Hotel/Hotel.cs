@@ -8,7 +8,7 @@ namespace FrbaHotel.ABM_de_Hotel
     class Hotel
     {
         #region Propiedades
-        public int id {get;set;}
+        public int id { get; set; }
         public string nombre { get; set; }
         public string mail;
         public string telefono;
@@ -55,17 +55,29 @@ namespace FrbaHotel.ABM_de_Hotel
             BD bd = new BD();
             bd.obtenerConexion();
             string comando =
-                "UPDATE FUGAZZETA.Hoteles SET Nombre = '" + nombre +
-                "', Mail = '" + mail +
-                "', Telefono = " + telefono +
-                ", Calle = '" + calle +
-                "', Nro_Calle = " + nroCalle +
-                ", Ciudad = '" + ciudad +
-                "', Pais = " + pais.id +
+                "UPDATE FUGAZZETA.Hoteles SET Nombre = " + ifNull(nombre) +
+                ", Mail = " + ifNull(mail) +
+                ", Telefono = " + ifNull(telefono) +
+                ", Calle = " + ifNull(calle) +
+                ", Nro_Calle = " + nroCalle +
+                ", Ciudad = " + ifNull(ciudad) +
+                ", Pais = " + pais.id +
                 ", CantEstrella = " + cantEstrellas +
                 ", Fec_Creacion = '" + fechaCreacion.ToString() +   
                 "' WHERE Id_Hotel = " + id;
             bd.ejecutar(comando);
+        }
+
+        internal string ifNull(string texto)
+        {
+            if (texto == "")
+            {
+                return "NULL";
+            }
+            else
+            {
+                return ("'" + texto + "'");
+            }
         }
     }
 }
