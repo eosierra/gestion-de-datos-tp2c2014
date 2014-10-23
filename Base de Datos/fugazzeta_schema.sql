@@ -46,11 +46,15 @@ DROP PROCEDURE FUGAZZETA.LoginCorrecto
 IF OBJECT_ID('FUGAZZETA.LoginIncorrecto', 'P') IS NOT NULL
 DROP PROCEDURE FUGAZZETA.LoginIncorrecto
 
+IF OBJECT_ID('FUGAZZETA.MigrarClientes') IS NOT NULL
+DROP PROCEDURE FUGAZZETA.MigrarClientes
+
 IF OBJECT_ID('FUGAZZETA.[UsuariosHabilitados]') IS NOT NULL
 DROP VIEW FUGAZZETA.[UsuariosHabilitados]
 
 IF OBJECT_ID('FUGAZZETA.[TodosLosClientes]') IS NOT NULL
 DROP VIEW FUGAZZETA.[TodosLosClientes]
+
 
 ---------------------------/*Creacion de Tablas*/-------------------------------------------
 --------------------------------------------------------------------------------------------
@@ -262,8 +266,6 @@ FOREIGN KEY (Id_Hotel,Num_Habitacion) REFERENCES FUGAZZETA.Habitaciones
 
 go
 
-
-
 --------------------------/* Poblado de Datos*/---------------------------------------------
 --------------------------------------------------------------------------------------------
 INSERT INTO FUGAZZETA.Roles values('Administrador General',1)
@@ -353,6 +355,43 @@ WHERE
 Consumible_Codigo IS NOT NULL
 go
 
+CREATE PROCEDURE FUGAZZETA.MigrarClientes AS
+BEGIN
+	SELECT DISTINCT
+	Cliente_Pasaporte_Nro,
+	Cliente_Apellido,
+	Cliente_Nombre,
+	Cliente_Fecha_Nac,
+	Cliente_Mail,
+	Cliente_Dom_Calle,
+	Cliente_Nro_Calle,
+	Cliente_Piso,
+	Cliente_Depto INTO #TmpClientes FROM gd_esquema.Maestra
+
+	INSERT INTO FUGAZZETA.Clientes
+	(Nro_Doc,Apellido,Nombre,Fecha_Nac,Mail,Dom_Calle,Nro_Calle,Piso,Depto)
+	SELECT * FROM #TmpClientes
+	WHERE Cliente_Pasaporte_Nro NOT IN (
+	SELECT Cliente_Pasaporte_Nro
+	FROM #TmpClientes
+	group by Cliente_Pasaporte_Nro
+	having COUNT(*)>1)
+
+	INSERT INTO FUGAZZETA.ClientesDuplicados
+	(Nro_Doc,Apellido,Nombre,Fecha_Nac,Mail,Dom_Calle,Nro_Calle,Piso,Depto)
+	SELECT * FROM #TmpClientes
+	WHERE Cliente_Pasaporte_Nro IN (
+	SELECT Cliente_Pasaporte_Nro
+	FROM #TmpClientes
+	group by Cliente_Pasaporte_Nro
+	having COUNT(*)>1)
+
+	UPDATE FUGAZZETA.Clientes SET Nacionalidad = 1
+	UPDATE FUGAZZETA.ClientesDuplicados SET Nacionalidad = 1
+END 
+go
+EXEC FUGAZZETA.MigrarClientes
+
 ----------------------------------------/*VISTAS*/------------------------------------------
 --------------------------------------------------------------------------------------------
 
@@ -398,32 +437,6 @@ GO
 
 
 --- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.
-
-INSERT INTO FUGAZZETA.Clientes
-(Nro_Doc,Apellido,Nombre,Fecha_Nac,Mail,Dom_Calle,Nro_Calle,Piso,Depto,Nacionalidad)
-
-SELECT DISTINCT
-Cliente_Pasaporte_Nro,
-Cliente_Apellido,
-Cliente_Nombre,
-Cliente_Fecha_Nac,
-Cliente_Mail,
-Cliente_Dom_Calle,
-Cliente_Nro_Calle,
-Cliente_Piso,
-Cliente_Depto,
-Cliente_Nacionalidad
-FROM gd_esquema.Maestra
-go
-
-
-SELECT * FROM FUGAZZETA.Clientes MAIN
-INNER JOIN (SELECT
-Nro_Doc, COUNT(*) cuenta
-FROM FUGAZZETA.Clientes
-group by Nro_Doc
-having COUNT(*)>1) AS T2
-ON MAIN.Nro_Doc = T2.Nro_Doc
 
 ----------------------------------------/*PROCEDIMIENTO-NO SE SI ESTA BIEN*/----------------
 --------------------------------------------------------------------------------------------
