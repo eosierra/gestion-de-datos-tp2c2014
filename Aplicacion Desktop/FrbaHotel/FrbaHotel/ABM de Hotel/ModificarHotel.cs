@@ -26,7 +26,7 @@ namespace FrbaHotel.ABM_de_Hotel
             
             BD bd = new BD();
             bd.obtenerConexion();
-            string query = "SELECT * FROM FUGAZZETA.Paises";
+            string query = "SELECT * FROM FUGAZZETA.Paises ORDER BY Nombre";
             SqlCommand cmd = new SqlCommand(query, bd.getConexion());
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
