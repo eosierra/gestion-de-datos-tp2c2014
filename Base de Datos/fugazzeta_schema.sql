@@ -408,3 +408,38 @@ group by Nro_Doc
 having COUNT(*)>1) AS T2
 ON MAIN.Nro_Doc = T2.Nro_Doc
 
+----------------------------------------/*PROCEDIMIENTO-NO SE SI ESTA BIEN*/----------------
+--------------------------------------------------------------------------------------------
+
+CREATE FUNCTION FUGAZZETA.calcular_total_factura
+(
+	@NroFactura int
+)
+RETURNS int
+AS
+BEGIN
+	DECLARE @Total numeric(18,2)
+	SET @Total = (SELECT SUM(Monto) FROM FUGAZZETA.Items_Hospedaje WHERE NroFactura = @NroFactura) 
+	RETURN @Total
+END
+GO
+
+-- cargar totales de facturas (solo hospedaje)
+
+-- cargar promedios
+
+DECLARE mi_cursor CURSOR FOR
+	SELECT NroFactura FROM FUGAZZETA.Facturas
+	DECLARE @id int
+OPEN mi_cursor
+FETCH FROM mi_cursor INTO @id
+WHILE  @@FETCH_STATUS = 0
+BEGIN	
+	UPDATE FUGAZZETA.Facturas SET Total = FUGAZZETA.calcular_total_factura(@id) WHERE NroFactura = @id
+
+	FETCH FROM mi_cursor INTO @id
+END
+CLOSE mi_cursor
+DEALLOCATE mi_cursor
+GO
+
