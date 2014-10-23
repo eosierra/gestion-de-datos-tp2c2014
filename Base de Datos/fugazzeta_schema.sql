@@ -125,6 +125,7 @@ ADD PRIMARY KEY (Id_Cliente),
 FOREIGN KEY (Id_TipoDoc) REFERENCES FUGAZZETA.TiposDoc,
 FOREIGN KEY (Nacionalidad) REFERENCES FUGAZZETA.Paises,
 DEFAULT 1 FOR Habilitado
+DBCC CHECKIDENT ('FUGAZZETA.ClientesDuplicados',RESEED,700001)
 
 CREATE TABLE FUGAZZETA.MovimientosHotel(
 Id_Hotel int FOREIGN KEY REFERENCES FUGAZZETA.Hoteles,
@@ -392,7 +393,7 @@ BEGIN
 END 
 go
 EXEC FUGAZZETA.MigrarClientes
-
+go
 ----------------------------------------/*VISTAS*/------------------------------------------
 --------------------------------------------------------------------------------------------
 
