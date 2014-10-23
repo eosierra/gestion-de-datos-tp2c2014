@@ -11,7 +11,7 @@ namespace FrbaHotel
         public ITraeBusqueda dondeVuelve;
         public BD bd = new BD();
         public string todos;
-        public string actual;
+        public string actual = "";
 
         public void crearBuscador(ITraeBusqueda owner, string campos, string categoria)
         {
@@ -25,17 +25,26 @@ namespace FrbaHotel
             bd.cerrar();
         }
 
-        public void filtroTexto(TextBox txt, string campo, DataGridView grid)
+        public void filtroTexto(string texto, string campoTabla, DataGridView grid)
         {
-            if (txt.Text != "")
+            if (texto != "")
             {
-                string conCondicion = " WHERE " + campo + " like '%" + txt.Text + "%'";
+                string conCondicion = "";
+                if (!actual.Contains("WHERE"))
+                {
+                    conCondicion = " WHERE ";
+                }
+                else
+                {
+                    conCondicion = " AND ";
+                }
+                conCondicion = conCondicion + campoTabla + " like '%" + texto + "%'";
                 actual = todos + conCondicion;
                 cargarGrilla(grid, actual);
             }
-            else 
+            else
             {
-                cargarGrilla(grid, todos);
+                cargarGrilla(grid, actual);
                 actual = todos;
             }
         }
@@ -69,17 +78,24 @@ namespace FrbaHotel
 
         public void addFiltroTextBox(TextBox txt, string campo, DataGridView grid)
         {
-            if (txt.Text != "")
+            filtroTexto(txt.Text, campo, grid);
+        }
+
+        public void addFiltroComboBox(ComboBox cb, string campo, DataGridView grid)
+        {
+            filtroTexto(cb.Text, campo, grid);
+        }
+
+        public void addFiltroNumero(int numero, string campoTabla, DataGridView grid)
+        {
+            if (numero.ToString() != "")
             {
+                string rango = "";
                 string conCondicion;
                 if (!actual.Contains("WHERE"))
-                {
-                    conCondicion = "WHERE " + campo + " like '%" + txt.Text + "%'";
-                }
-                else
-                {
-                    conCondicion = "AND " + campo + " like '%" + txt.Text + "%'";
-                }
+                { conCondicion = "WHERE "; }
+                else { rango = "AND "; }
+                conCondicion = rango + campoTabla + " = " + numero.ToString();
                 actual = todos + conCondicion;
                 cargarGrilla(grid, actual);
             }

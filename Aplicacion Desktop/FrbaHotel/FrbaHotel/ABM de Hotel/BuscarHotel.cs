@@ -9,12 +9,12 @@ using System.Windows.Forms;
 
 namespace FrbaHotel.ABM_de_Hotel
 {
-    public partial class BuscarHotel : Buscador
+    public partial class BuscarHotel : Buscador, ITraeBusqueda
     {
         public BuscarHotel(ITraeBusqueda owner)
         {
             InitializeComponent();
-            crearBuscador(owner, "Id_Hotel,Nombre,Calle,Nro_Calle,Ciudad", "Hoteles");
+            crearBuscador(owner, "*", "Hoteles");
             setearGrid(GridHoteles);
         }
 
@@ -29,16 +29,41 @@ namespace FrbaHotel.ABM_de_Hotel
             this.Close();
         }
 
-        private void TxtCiudad_TextChanged(object sender, EventArgs e)
-        {
-            filtroTexto(TxtCiudad, "Ciudad", GridHoteles);
-        }
-
         private void Seleccionar_Click(object sender, EventArgs e)
         {
-            string id = celdaElegida(GridHoteles,0);
-            string desc = celdaElegida(GridHoteles,1);
-            dondeVuelve.agregar(id,desc);
+            string id = celdaElegida(GridHoteles, 0);
+            string desc = celdaElegida(GridHoteles, 1);
+            dondeVuelve.agregar(id, desc);
         }
+
+        #region filtros
+        private void TxtCiudad_TextChanged(object sender, EventArgs e)
+        {
+            addFiltroTextBox(TxtCiudad, "Ciudad", GridHoteles);
+        }
+
+        private void TxtNombre_TextChanged(object sender, EventArgs e)
+        {
+            addFiltroTextBox(TxtNombre, "Nombre", GridHoteles);
+        }
+
+        private void ComboCE_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            addFiltroComboBox(ComboCE, "CantEstrella", GridHoteles);
+        }
+        
+        private void ElegirPais_Click(object sender, EventArgs e)
+        {
+            new BuscarPais(this).ShowDialog();
+        }
+
+        public void agregar(string id, string descripcion)
+        {
+            Pais paisElegido = new Pais(id, descripcion);
+            TxtPais.Text = paisElegido.nombre;
+            addFiltroNumero(paisElegido.id, "Pais", GridHoteles);
+        }
+
+        #endregion
     }
 }

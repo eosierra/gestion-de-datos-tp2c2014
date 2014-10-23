@@ -52,13 +52,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.FechaPick = new System.Windows.Forms.DateTimePicker();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ActualizarDatos
             // 
-            this.ActualizarDatos.Location = new System.Drawing.Point(220, 390);
+            this.ActualizarDatos.Location = new System.Drawing.Point(223, 288);
             this.ActualizarDatos.Name = "ActualizarDatos";
             this.ActualizarDatos.Size = new System.Drawing.Size(208, 40);
             this.ActualizarDatos.TabIndex = 9;
@@ -68,7 +67,7 @@
             // 
             // Mostrar
             // 
-            this.Mostrar.Location = new System.Drawing.Point(81, 42);
+            this.Mostrar.Location = new System.Drawing.Point(84, 12);
             this.Mostrar.Name = "Mostrar";
             this.Mostrar.Size = new System.Drawing.Size(110, 20);
             this.Mostrar.TabIndex = 8;
@@ -79,7 +78,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(29, 49);
+            this.label2.Location = new System.Drawing.Point(32, 19);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 6;
@@ -87,7 +86,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.ComboCE);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.ComboPais);
@@ -108,9 +106,9 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.FechaPick);
-            this.groupBox1.Location = new System.Drawing.Point(16, 72);
+            this.groupBox1.Location = new System.Drawing.Point(19, 42);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(644, 294);
+            this.groupBox1.Size = new System.Drawing.Size(644, 240);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos del hotel";
@@ -161,7 +159,7 @@
             // 
             this.TxtCiudad.Location = new System.Drawing.Point(79, 157);
             this.TxtCiudad.Name = "TxtCiudad";
-            this.TxtCiudad.Size = new System.Drawing.Size(114, 20);
+            this.TxtCiudad.Size = new System.Drawing.Size(141, 20);
             this.TxtCiudad.TabIndex = 36;
             // 
             // label10
@@ -175,7 +173,7 @@
             // 
             // TxtNumero
             // 
-            this.TxtNumero.Location = new System.Drawing.Point(226, 133);
+            this.TxtNumero.Location = new System.Drawing.Point(251, 133);
             this.TxtNumero.Name = "TxtNumero";
             this.TxtNumero.Size = new System.Drawing.Size(55, 20);
             this.TxtNumero.TabIndex = 34;
@@ -183,7 +181,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(201, 135);
+            this.label9.Location = new System.Drawing.Point(226, 135);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(19, 13);
             this.label9.TabIndex = 33;
@@ -193,7 +191,7 @@
             // 
             this.TxtCalle.Location = new System.Drawing.Point(79, 132);
             this.TxtCalle.Name = "TxtCalle";
-            this.TxtCalle.Size = new System.Drawing.Size(114, 20);
+            this.TxtCalle.Size = new System.Drawing.Size(141, 20);
             this.TxtCalle.TabIndex = 32;
             // 
             // label8
@@ -209,7 +207,7 @@
             // 
             this.TxtTelefono.Location = new System.Drawing.Point(79, 107);
             this.TxtTelefono.Name = "TxtTelefono";
-            this.TxtTelefono.Size = new System.Drawing.Size(114, 20);
+            this.TxtTelefono.Size = new System.Drawing.Size(141, 20);
             this.TxtTelefono.TabIndex = 30;
             // 
             // label6
@@ -241,7 +239,7 @@
             // 
             this.TxtMail.Location = new System.Drawing.Point(79, 81);
             this.TxtMail.Name = "TxtMail";
-            this.TxtMail.Size = new System.Drawing.Size(114, 20);
+            this.TxtMail.Size = new System.Drawing.Size(141, 20);
             this.TxtMail.TabIndex = 26;
             // 
             // label3
@@ -289,21 +287,11 @@
             this.FechaPick.Size = new System.Drawing.Size(213, 20);
             this.FechaPick.TabIndex = 21;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(226, 179);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 20);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "SELECCIONAR";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // ModificarHotel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(677, 477);
+            this.ClientSize = new System.Drawing.Size(677, 366);
             this.Controls.Add(this.ActualizarDatos);
             this.Controls.Add(this.Mostrar);
             this.Controls.Add(this.label2);
@@ -344,7 +332,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox ComboCE;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button1;
 
     }
 }

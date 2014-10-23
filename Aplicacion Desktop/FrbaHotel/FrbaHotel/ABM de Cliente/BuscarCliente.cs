@@ -31,12 +31,12 @@ namespace FrbaHotel.ABM_de_Cliente
 
         private void TxtNumero_TextChanged(object sender, EventArgs e)
         {
-            filtroTexto(TxtNumero,"Nro_Doc",GridClientes);
+            addFiltroTextBox(TxtNumero,"Nro_Doc",GridClientes);
         }
 
         private void TxtMail_TextChanged(object sender, EventArgs e)
         {
-            filtroTexto(TxtMail, "Mail", GridClientes);
+            addFiltroTextBox(TxtMail, "Mail", GridClientes);
         }
 
     }

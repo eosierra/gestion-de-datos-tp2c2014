@@ -72,6 +72,12 @@
     <Compile Include="ABM de Hotel\BuscarHotel.Designer.cs">
       <DependentUpon>BuscarHotel.cs</DependentUpon>
     </Compile>
+    <Compile Include="ABM de Hotel\BuscarPais.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM de Hotel\BuscarPais.Designer.cs">
+      <DependentUpon>BuscarPais.cs</DependentUpon>
+    </Compile>
     <Compile Include="ABM de Hotel\Hotel.cs" />
     <Compile Include="ABM de Hotel\ModificarHotel.cs">
       <SubType>Form</SubType>
@@ -174,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ABM de Hotel\BuscarHotel.resx">
       <DependentUpon>BuscarHotel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM de Hotel\BuscarPais.resx">
+      <DependentUpon>BuscarPais.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ABM de Hotel\ModificarHotel.resx">
       <DependentUpon>ModificarHotel.cs</DependentUpon>
