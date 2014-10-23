@@ -70,8 +70,7 @@ namespace FrbaHotel
             try
             {
                 string comando = "SELECT " + campo + "FROM FUGAZZETA." + tablaOrigen;
-                SqlCommand enunciado = new SqlCommand(comando, Conexion);
-                SqlDataReader respuesta = enunciado.ExecuteReader();
+                SqlDataReader respuesta = lee(comando);
 
                 while (respuesta.Read())
                 {
@@ -89,8 +88,7 @@ namespace FrbaHotel
             try
             {
                 string comando = "SELECT " + campo + " FROM FUGAZZETA." + tablaOrigen;
-                SqlCommand enunciado = new SqlCommand(comando, Conexion);
-                SqlDataReader respuesta = enunciado.ExecuteReader();
+                SqlDataReader respuesta = lee(comando);
 
                 while (respuesta.Read())
                 {
@@ -108,6 +106,13 @@ namespace FrbaHotel
         internal SqlConnection getConexion()
         {
             return Conexion;
+        }
+
+        public SqlDataReader lee(string query)
+        {
+            obtenerConexion();
+            SqlCommand cmd = new SqlCommand(query, getConexion());
+            return cmd.ExecuteReader();
         }
     }
 }

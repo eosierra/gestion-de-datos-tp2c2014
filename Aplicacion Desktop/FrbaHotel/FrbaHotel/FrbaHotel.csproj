@@ -93,6 +93,7 @@
       <DependentUpon>AltaRol.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM de Rol\Funcionalidad.cs" />
+    <Compile Include="Agregable.cs" />
     <Compile Include="Buscador.cs">
       <SubType>Form</SubType>
     </Compile>

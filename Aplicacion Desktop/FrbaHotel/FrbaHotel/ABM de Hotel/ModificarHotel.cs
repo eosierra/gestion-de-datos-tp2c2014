@@ -25,10 +25,8 @@ namespace FrbaHotel.ABM_de_Hotel
             FechaPick.MaxDate = Program.hoy();
             
             BD bd = new BD();
-            bd.obtenerConexion();
             string query = "SELECT * FROM FUGAZZETA.Paises ORDER BY Nombre";
-            SqlCommand cmd = new SqlCommand(query, bd.getConexion());
-            SqlDataReader dr = cmd.ExecuteReader();
+            SqlDataReader dr = bd.lee(query);
             while (dr.Read())
             {
                 ComboPais.Items.Add(new Pais(dr[0].ToString(), dr[1].ToString()));
@@ -47,8 +45,7 @@ namespace FrbaHotel.ABM_de_Hotel
             bd.obtenerConexion();
             int elId = Convert.ToInt32(id);
             string query = "SELECT * FROM FUGAZZETA.Hoteles WHERE Id_Hotel = " + elId;
-            SqlCommand cmd = new SqlCommand(query, bd.getConexion());
-            SqlDataReader dr = cmd.ExecuteReader();
+            SqlDataReader dr = bd.lee(query);
 
             while (dr.Read())
             {
@@ -59,7 +56,16 @@ namespace FrbaHotel.ABM_de_Hotel
                 TxtCalle.Text = dr["Calle"].ToString();
                 TxtNumero.Text = dr["Nro_Calle"].ToString();
                 TxtCiudad.Text = dr["Ciudad"].ToString();
-                ComboPais.Text = dr["Pais"].ToString();
+                string elItem = "";
+                for (int i = 0; i < ComboPais.Items.Count; i++)
+                {
+                    
+                    if ((ComboPais.Items[i] as Pais).id.ToString() == dr["Pais"].ToString())
+                    {
+                        elItem = ComboPais.Items[i].ToString();
+                    }
+                }
+                ComboPais.Text = elItem;
                 ComboCE.Text = dr["CantEstrella"].ToString();
                 string fecha = dr["Fec_creacion"].ToString();
                 if (fecha != "") { FechaPick.Value = convertirFecha(fecha); }
@@ -79,24 +85,32 @@ namespace FrbaHotel.ABM_de_Hotel
 
             if (confirma == DialogResult.Yes)
             {
-                int elId = Convert.ToInt32(TxtId.Text);
-                int nc = Convert.ToInt32(TxtNumero.Text);
-                Pais elPais = ComboPais.Items[ComboPais.SelectedIndex] as Pais;
-                //int cantE = ComboPais.Text as Int32;
-                Hotel hotelin = new Hotel(
-                    elId, TxtNombre.Text, TxtMail.Text, TxtTelefono.Text, TxtCalle.Text,
-                    nc, TxtCiudad.Text, elPais, 0, FechaPick.Value);
-
-                hotelin.actualizar();
-                MessageBox.Show("Actualización realizada con éxito");
-                this.Close();
+                actualizarHotel();
             }
         }
+ 
+
+        private void actualizarHotel()
+        {
+            int elId = Convert.ToInt32(TxtId.Text);
+            int nc = Convert.ToInt32(TxtNumero.Text);
+            Pais elPais = ComboPais.Items[ComboPais.SelectedIndex] as Pais;
+            //int cantE = ComboPais.Text as Int32;
+            Hotel hotelin = new Hotel(
+                elId, TxtNombre.Text, TxtMail.Text, TxtTelefono.Text, TxtCalle.Text,
+                nc, TxtCiudad.Text, elPais, 0, FechaPick.Value);
+
+            hotelin.actualizar();
+            MessageBox.Show("Actualización realizada con éxito");
+            this.Close();
+        }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
             MessageBox.Show(ComboPais.Text);
         }
+
 
     }
 }

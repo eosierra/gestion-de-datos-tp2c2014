@@ -5,25 +5,13 @@ using System.Text;
 
 namespace FrbaHotel.ABM_de_Rol
 {
-    class Funcionalidad
+    class Funcionalidad: Agregable
     {
-        public int id;
-        public string descripcion;
-
-        public Funcionalidad(string elId, string laDesc)
+        
+        public Funcionalidad(string id2, string descripcion)
         {
-            id = Convert.ToInt32(elId);
-            descripcion = laDesc;
+            asigna(id2, descripcion);
         }
 
-        public override string ToString()
-        {
-            return descripcion;
-        }
-
-        public int getId()
-        {
-            return id;
-        }
     }
 }

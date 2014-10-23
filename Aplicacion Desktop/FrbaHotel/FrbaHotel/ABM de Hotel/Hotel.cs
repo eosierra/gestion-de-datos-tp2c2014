@@ -5,11 +5,9 @@ using System.Text;
 
 namespace FrbaHotel.ABM_de_Hotel
 {
-    class Hotel
+    class Hotel: Agregable
     {
         #region Propiedades
-        public int id { get; set; }
-        public string nombre { get; set; }
         public string mail;
         public string telefono;
         public string calle;
@@ -25,8 +23,7 @@ namespace FrbaHotel.ABM_de_Hotel
             int unId, string unName, string unMail, string unTel, string unaCalle,
             int nCalle, string unaCiudad, Pais unPais, int cE, DateTime fecCre)
         {
-            id = unId;
-            nombre = unName;
+            asigna(unId.ToString(), unName);
             mail = unMail;
             telefono = unTel;
             calle = unaCalle;
@@ -40,15 +37,10 @@ namespace FrbaHotel.ABM_de_Hotel
 
         public Hotel(string unId, string unName)
         {
-            id = Convert.ToInt32(unId);
-            nombre = unName;
+            asigna(unId, unName);
         }
         #endregion
 
-        public override string ToString()
-        {
-            return nombre;
-        }
 
         internal void actualizar()
         {
@@ -59,11 +51,11 @@ namespace FrbaHotel.ABM_de_Hotel
                 ", Mail = " + ifNull(mail) +
                 ", Telefono = " + ifNull(telefono) +
                 ", Calle = " + ifNull(calle) +
-                ", Nro_Calle = " + nroCalle +
+                ", Nro_Calle = " + ifNull(nroCalle) +
                 ", Ciudad = " + ifNull(ciudad) +
                 ", Pais = " + pais.id +
                 ", CantEstrella = " + cantEstrellas +
-                ", Fec_Creacion = '" + fechaCreacion.ToString() +   
+                ", Fec_Creacion = '" + fechaCreacion.ToString() +
                 "' WHERE Id_Hotel = " + id;
             bd.ejecutar(comando);
         }
@@ -78,6 +70,20 @@ namespace FrbaHotel.ABM_de_Hotel
             {
                 return ("'" + texto + "'");
             }
+        }
+
+        internal string ifNull(int numero)
+        {
+            string str = numero.ToString();
+            if (str == "")
+            {
+                return "NULL";
+            }
+            else
+            {
+                return str;
+            }
+
         }
     }
 }
