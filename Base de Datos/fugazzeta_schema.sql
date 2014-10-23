@@ -116,14 +116,15 @@ Piso numeric (3,0),
 Depto varchar(4),
 Localidad varchar(50),
 Nacionalidad int FOREIGN KEY REFERENCES FUGAZZETA.Paises,
-Habilitado bit
+Habilitado bit default 1
 )
 
 SELECT * INTO FUGAZZETA.ClientesDuplicados FROM FUGAZZETA.Clientes
 ALTER TABLE FUGAZZETA.ClientesDuplicados
 ADD PRIMARY KEY (Id_Cliente),
 FOREIGN KEY (Id_TipoDoc) REFERENCES FUGAZZETA.TiposDoc,
-FOREIGN KEY (Nacionalidad) REFERENCES FUGAZZETA.Paises
+FOREIGN KEY (Nacionalidad) REFERENCES FUGAZZETA.Paises,
+DEFAULT 1 FOR Habilitado
 
 CREATE TABLE FUGAZZETA.MovimientosHotel(
 Id_Hotel int FOREIGN KEY REFERENCES FUGAZZETA.Hoteles,
