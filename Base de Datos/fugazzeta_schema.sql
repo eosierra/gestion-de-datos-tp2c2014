@@ -8,10 +8,11 @@ END
 
 --------------------Borrando Tablas------------------------
 -----------------------------------------------------------
+
 DROP TABLE FUGAZZETA.AbonoFacturas
 DROP TABLE FUGAZZETA.Acompañantes
 DROP TABLE FUGAZZETA.Bancos
-DROP TABLE FUGAZZETA.[Usuarios x Hoteles]
+DROP TABLE FUGAZZETA.[Usuarios x Hoteles x Rol]
 DROP TABLE FUGAZZETA.[Usuarios x Roles]
 DROP TABLE FUGAZZETA.TiposPago
 DROP TABLE FUGAZZETA.[Funcionalidades x Roles]
@@ -29,13 +30,15 @@ DROP TABLE FUGAZZETA.Roles
 DROP TABLE FUGAZZETA.Reservas
 DROP TABLE FUGAZZETA.EstadosReserva
 DROP TABLE FUGAZZETA.Clientes
+DROP TABLE FUGAZZETA.TiposDoc
 DROP TABLE FUGAZZETA.Regimenes
 DROP TABLE FUGAZZETA.Habitaciones
 DROP TABLE FUGAZZETA.TiposHabitacion
 DROP TABLE FUGAZZETA.Hoteles
+DROP TABLE FUGAZZETA.Paises
 GO
 
----------------------------/*Borrado de procedimientos,vistas*/------------------------------------
+--------------------/*Borrado de procedimientos,vistas*/------------------------------------
 --------------------------------------------------------------------------------------------
 IF OBJECT_ID('FUGAZZETA.LoginCorrecto', 'P') IS NOT NULL
 DROP PROCEDURE FUGAZZETA.LoginCorrecto
@@ -49,6 +52,10 @@ DROP VIEW FUGAZZETA.[UsuariosHabilitados]
 
 ---------------------------/*Creacion de Tablas*/-------------------------------------------
 --------------------------------------------------------------------------------------------
+CREATE TABLE FUGAZZETA.Paises(
+Id_Pais int identity(1,1) PRIMARY KEY,
+Nombre varchar(40))
+
 CREATE TABLE FUGAZZETA.Hoteles(
 Id_Hotel int identity(1,1) PRIMARY KEY,
 Nombre nvarchar(40),
@@ -57,7 +64,7 @@ Telefono numeric(20,0),
 Calle varchar(70),
 Nro_Calle numeric(6,0),
 Ciudad varchar(50),
-Pais varchar(50),
+Pais int FOREIGN KEY REFERENCES FUGAZZETA.Paises,
 CantEstrella int,
 Fec_Creacion date,
 Recarga int,
@@ -68,12 +75,17 @@ Id_Rol int identity(1,1) PRIMARY KEY,
 Nombre varchar(23) not null,
 Estado bit
 )
+
+CREATE TABLE FUGAZZETA.TiposDoc(
+Id_TipoDoc int IDENTITY(1,1) PRIMARY KEY,
+Descripcion varchar(30))
+
 CREATE TABLE FUGAZZETA.Usuarios(
 Username nvarchar(30) primary key,
 Contraseña nvarchar(32),
 Nombre varchar(50),
 Apellido varchar(50),
-Tipo_Doc varchar(5),
+Id_TipoDoc int FOREIGN KEY REFERENCES FUGAZZETA.TiposDoc,
 Nro_Doc numeric(11,0),
 Mail nvarchar (70),
 Telefono numeric (20,0),
@@ -87,7 +99,7 @@ CREATE TABLE FUGAZZETA.Clientes(
 Id_Cliente int identity(1,1) PRIMARY KEY,
 Nombre varchar (50),
 Apellido varchar (50),
-Tipo_Doc varchar(5),
+Id_TipoDoc int FOREIGN KEY REFERENCES FUGAZZETA.TiposDoc,
 Nro_Doc numeric (11,0),
 Fecha_Nac date,
 Mail nvarchar (70),
@@ -97,9 +109,19 @@ Nro_Calle numeric(6,0),
 Piso numeric (3,0),
 Depto varchar(4),
 Localidad varchar(50),
-Nacionalidad varchar(50),
+Nacionalidad int FOREIGN KEY REFERENCES FUGAZZETA.Paises,
 Habilitado bit
 )
+
+---------------------------------------------------------------------
+SELECT * INTO FUGAZZETA.ClientesDuplicados FROM FUGAZZETA.Clientes
+ALTER TABLE FUGAZZETA.ClientesDuplicados
+ADD PRIMARY KEY (Id_Cliente),
+FOREIGN KEY (Id_TipoDoc) REFERENCES FUGAZZETA.TiposDoc,
+FOREIGN KEY (Nacionalidad) REFERENCES FUGAZZETA.Paises
+-------------------------------------------------------------------------------------
+
+
 CREATE TABLE FUGAZZETA.MovimientosHotel(
 Id_Hotel int FOREIGN KEY REFERENCES FUGAZZETA.Hoteles,
 Fecha_Inicio date,
@@ -107,19 +129,14 @@ Fecha_Fin date,
 Motivo varchar(140)
 PRIMARY KEY (Id_Hotel,Fecha_Inicio)
 )
-CREATE TABLE FUGAZZETA.[Usuarios x Hoteles](
+CREATE TABLE FUGAZZETA.[Usuarios x Hoteles x Rol](
 Username nvarchar(30),
 Id_Hotel int,
+Id_Rol int,
 EstadoSesion bit,
 PRIMARY KEY (Username,Id_Hotel),
 FOREIGN KEY (Username) REFERENCES FUGAZZETA.Usuarios,
-FOREIGN KEY (Id_Hotel) REFERENCES FUGAZZETA.Hoteles
-)
-CREATE TABLE FUGAZZETA.[Usuarios x Roles](
-Username nvarchar(30),
-Id_Rol int,
-PRIMARY KEY (Username,Id_Rol),
-FOREIGN KEY (Username) REFERENCES FUGAZZETA.Usuarios,
+FOREIGN KEY (Id_Hotel) REFERENCES FUGAZZETA.Hoteles,
 FOREIGN KEY (Id_Rol) REFERENCES FUGAZZETA.Roles
 )
 CREATE TABLE FUGAZZETA.Funcionalidades(
@@ -224,7 +241,7 @@ Piso int,
 Frente char,
 Id_TipoHab int FOREIGN KEY REFERENCES FUGAZZETA.TiposHabitacion,
 Comodidades nvarchar (140),
-Baja bit,
+Habilitado bit,
 PRIMARY KEY (Id_Hotel, Num_Habitacion)
 )
 CREATE TABLE FUGAZZETA.HistorialHabitaciones(
@@ -254,7 +271,7 @@ INSERT INTO FUGAZZETA.Roles values('Administrador General',1)
 insert into FUGAZZETA.Roles values('Administrador',1)
 insert into FUGAZZETA.Roles values('Recepcionista',1)
 insert into FUGAZZETA.Roles values('Guest',1)
-
+GO
 
 INSERT INTO FUGAZZETA.Hoteles
 (Calle, Ciudad, Nro_Calle, CantEstrella, Recarga)
@@ -265,14 +282,10 @@ Hotel_Nro_Calle,
 Hotel_CantEstrella,
 Hotel_Recarga_Estrella 
 FROM gd_esquema.Maestra
-
-go
-
-UPDATE FUGAZZETA.Hoteles set Pais = 'Argentina'
+GO
 
 INSERT INTO FUGAZZETA.Usuarios
-(Username, Contraseña, CantFallos_Login, Habilitado) values ('admin','w23e',0,1)
-INSERT INTO FUGAZZETA.[Usuarios x Roles] values ('admin',1)
+(Username, Contraseña, Habilitado) values ('admin','w23e',1)
 go
 
 INSERT INTO FUGAZZETA.Regimenes
@@ -313,9 +326,21 @@ INSERT INTO	FUGAZZETA.EstadosReserva values('Cancelada por No-Show')
 INSERT INTO	FUGAZZETA.EstadosReserva values('Efectivizada')
 go
 
-INSERT INTO FUGAZZETA.[Usuarios x Hoteles] (Username,Id_Hotel)
-SELECT U.Username, H.Id_Hotel FROM FUGAZZETA.Usuarios U, FUGAZZETA.Hoteles H
-where U.Username = 'admin'
+INSERT INTO FUGAZZETA.TiposDoc values ('DNI')
+INSERT INTO FUGAZZETA.TiposDoc values ('LC')
+INSERT INTO FUGAZZETA.TiposDoc values ('LE')
+INSERT INTO FUGAZZETA.TiposDoc values ('Pasaporte')
+go
+
+INSERT INTO FUGAZZETA.Paises values ('Argentina')
+INSERT INTO FUGAZZETA.Paises values ('Uruguay')
+go
+
+INSERT INTO FUGAZZETA.[Usuarios x Hoteles x Rol]
+(Username,Id_Hotel)
+SELECT U.Username, H.Id_Hotel FROM FUGAZZETA.Usuarios U, FUGAZZETA.Hoteles H where U.Username = 'admin'
+UPDATE FUGAZZETA.[Usuarios x Hoteles x Rol]
+SET Id_Rol = 1
 GO
 
 INSERT INTO FUGAZZETA.Consumibles
@@ -385,25 +410,13 @@ Cliente_Piso,
 Cliente_Depto,
 Cliente_Nacionalidad
 FROM gd_esquema.Maestra
-
 go
 
 
-SELECT
-Cliente_Pasaporte_Nro,
-Cliente_Apellido,
-Cliente_Nombre,
-Cliente_Fecha_Nac,
-Cliente_Mail,
-Cliente_Dom_Calle,
-Cliente_Nro_Calle,
-Cliente_Piso,
-Cliente_Depto,
-Cliente_Nacionalidad
- FROM gd_esquema.Maestra MAIN
+SELECT * FROM FUGAZZETA.Clientes MAIN
 INNER JOIN (SELECT
 Nro_Doc, COUNT(*) cuenta
-FROM gd_esquema.Maestra
+FROM FUGAZZETA.Clientes
 group by Nro_Doc
 having COUNT(*)>1) AS T2
 ON MAIN.Nro_Doc = T2.Nro_Doc
