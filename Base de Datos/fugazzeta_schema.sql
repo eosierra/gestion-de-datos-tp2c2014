@@ -435,8 +435,13 @@ CREATE FUNCTION FUGAZZETA.calcular_total_factura
 RETURNS int
 AS
 BEGIN
-	DECLARE @Total numeric(18,2)
-	SET @Total = (SELECT SUM(Monto) FROM FUGAZZETA.Items_Hospedaje WHERE NroFactura = @NroFactura) 
+	DECLARE @TotalHospedaje numeric(18,2)
+	DECLARE @TotalConsumibles numeric(18,2)
+	DECLARE @TotalFactura numeric(18,2)
+	
+	SET @TotalHospedaje = (SELECT SUM(Monto) FROM FUGAZZETA.Items_Hospedaje WHERE NroFactura = @NroFactura) 
+	SET @TotalCOnsumibles = (SELECT SUM(Monto) FROM FUGAZZETA.Items_Cunsumible WHERE NroFactura = @NroFactura) 
+	SET @TotalFactura = @TotalHospedaje + @TotalConsumible
 	RETURN @Total
 END
 GO
