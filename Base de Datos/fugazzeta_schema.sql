@@ -112,6 +112,16 @@ Localidad varchar(50),
 Nacionalidad int FOREIGN KEY REFERENCES FUGAZZETA.Paises,
 Habilitado bit
 )
+
+---------------------------------------------------------------------
+SELECT * INTO FUGAZZETA.ClientesDuplicados FROM FUGAZZETA.Clientes
+ALTER TABLE FUGAZZETA.ClientesDuplicados
+ADD PRIMARY KEY (Id_Cliente),
+FOREIGN KEY (Id_TipoDoc) REFERENCES FUGAZZETA.TiposDoc,
+FOREIGN KEY (Nacionalidad) REFERENCES FUGAZZETA.Paises
+-------------------------------------------------------------------------------------
+
+
 CREATE TABLE FUGAZZETA.MovimientosHotel(
 Id_Hotel int FOREIGN KEY REFERENCES FUGAZZETA.Hoteles,
 Fecha_Inicio date,
@@ -316,14 +326,18 @@ INSERT INTO	FUGAZZETA.EstadosReserva values('Cancelada por No-Show')
 INSERT INTO	FUGAZZETA.EstadosReserva values('Efectivizada')
 go
 
-
 INSERT INTO FUGAZZETA.TiposDoc values ('DNI')
 INSERT INTO FUGAZZETA.TiposDoc values ('LC')
 INSERT INTO FUGAZZETA.TiposDoc values ('LE')
 INSERT INTO FUGAZZETA.TiposDoc values ('Pasaporte')
 go
 
-INSERT INTO FUGAZZETA.[Usuarios x Hoteles x Rol] (Username,Id_Hotel)
+INSERT INTO FUGAZZETA.Paises values ('Argentina')
+INSERT INTO FUGAZZETA.Paises values ('Uruguay')
+go
+
+INSERT INTO FUGAZZETA.[Usuarios x Hoteles x Rol]
+(Username,Id_Hotel)
 SELECT U.Username, H.Id_Hotel FROM FUGAZZETA.Usuarios U, FUGAZZETA.Hoteles H where U.Username = 'admin'
 UPDATE FUGAZZETA.[Usuarios x Hoteles x Rol]
 SET Id_Rol = 1
@@ -396,25 +410,13 @@ Cliente_Piso,
 Cliente_Depto,
 Cliente_Nacionalidad
 FROM gd_esquema.Maestra
-
 go
 
 
-SELECT
-Cliente_Pasaporte_Nro,
-Cliente_Apellido,
-Cliente_Nombre,
-Cliente_Fecha_Nac,
-Cliente_Mail,
-Cliente_Dom_Calle,
-Cliente_Nro_Calle,
-Cliente_Piso,
-Cliente_Depto,
-Cliente_Nacionalidad
- FROM gd_esquema.Maestra MAIN
+SELECT * FROM FUGAZZETA.Clientes MAIN
 INNER JOIN (SELECT
 Nro_Doc, COUNT(*) cuenta
-FROM gd_esquema.Maestra
+FROM FUGAZZETA.Clientes
 group by Nro_Doc
 having COUNT(*)>1) AS T2
 ON MAIN.Nro_Doc = T2.Nro_Doc
