@@ -13,7 +13,6 @@ DROP TABLE FUGAZZETA.AbonoFacturas
 DROP TABLE FUGAZZETA.Acompañantes
 DROP TABLE FUGAZZETA.Bancos
 DROP TABLE FUGAZZETA.[Usuarios x Hoteles x Rol]
-DROP TABLE FUGAZZETA.[Usuarios x Roles]
 DROP TABLE FUGAZZETA.TiposPago
 DROP TABLE FUGAZZETA.[Funcionalidades x Roles]
 DROP TABLE FUGAZZETA.Funcionalidades
@@ -113,14 +112,11 @@ Nacionalidad int FOREIGN KEY REFERENCES FUGAZZETA.Paises,
 Habilitado bit
 )
 
----------------------------------------------------------------------
 SELECT * INTO FUGAZZETA.ClientesDuplicados FROM FUGAZZETA.Clientes
 ALTER TABLE FUGAZZETA.ClientesDuplicados
 ADD PRIMARY KEY (Id_Cliente),
 FOREIGN KEY (Id_TipoDoc) REFERENCES FUGAZZETA.TiposDoc,
 FOREIGN KEY (Nacionalidad) REFERENCES FUGAZZETA.Paises
--------------------------------------------------------------------------------------
-
 
 CREATE TABLE FUGAZZETA.MovimientosHotel(
 Id_Hotel int FOREIGN KEY REFERENCES FUGAZZETA.Hoteles,
@@ -362,6 +358,11 @@ SELECT * FROM FUGAZZETA.Usuarios
 WHERE (Habilitado = 1)
 GO
 
+CREATE VIEW FUGAZZETA.[TodosLosClientes] AS
+SELECT * FROM FUGAZZETA.Clientes
+UNION
+SELECT * FROM FUGAZZETA.ClientesDuplicados
+GO
 
 
 ----------------------------/* PROCEDIMIENTOS Y FUNCIONES*/---------------------------------
