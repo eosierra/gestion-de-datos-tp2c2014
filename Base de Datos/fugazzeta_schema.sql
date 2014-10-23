@@ -446,9 +446,8 @@ BEGIN
 END
 GO
 
--- cargar totales de facturas (solo hospedaje)
+-- cargar totales de facturas 
 
--- cargar promedios
 
 DECLARE mi_cursor CURSOR FOR
 	SELECT NroFactura FROM FUGAZZETA.Facturas
