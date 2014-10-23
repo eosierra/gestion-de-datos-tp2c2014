@@ -275,7 +275,7 @@ FROM gd_esquema.Maestra
 GO
 
 INSERT INTO FUGAZZETA.Usuarios
-(Username, Contraseña, CantFallos_Login, Habilitado) values ('admin','w23e',0,1)
+(Username, Contraseña, Habilitado) values ('admin','w23e',1)
 go
 
 INSERT INTO FUGAZZETA.Regimenes
@@ -323,10 +323,10 @@ INSERT INTO FUGAZZETA.TiposDoc values ('LE')
 INSERT INTO FUGAZZETA.TiposDoc values ('Pasaporte')
 go
 
-INSERT INTO FUGAZZETA.[Usuarios x Hoteles x Rol] (Username,Id_Hotel, Id_Rol)
+INSERT INTO FUGAZZETA.[Usuarios x Hoteles x Rol] (Username,Id_Hotel)
 SELECT U.Username, H.Id_Hotel FROM FUGAZZETA.Usuarios U, FUGAZZETA.Hoteles H where U.Username = 'admin'
-SET	Id_Rol = 1 where U.Username = 'admin'
-
+UPDATE FUGAZZETA.[Usuarios x Hoteles x Rol]
+SET Id_Rol = 1
 GO
 
 INSERT INTO FUGAZZETA.Consumibles
