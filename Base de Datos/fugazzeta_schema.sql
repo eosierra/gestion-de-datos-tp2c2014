@@ -28,6 +28,7 @@ DROP TABLE FUGAZZETA.Facturas
 DROP TABLE FUGAZZETA.Roles
 DROP TABLE FUGAZZETA.Reservas
 DROP TABLE FUGAZZETA.EstadosReserva
+DROP TABLE FUGAZZETA.ClientesDuplicados
 DROP TABLE FUGAZZETA.Clientes
 DROP TABLE FUGAZZETA.TiposDoc
 DROP TABLE FUGAZZETA.Regimenes
@@ -48,6 +49,8 @@ DROP PROCEDURE FUGAZZETA.LoginIncorrecto
 IF OBJECT_ID('FUGAZZETA.[UsuariosHabilitados]') IS NOT NULL
 DROP VIEW FUGAZZETA.[UsuariosHabilitados]
 
+IF OBJECT_ID('FUGAZZETA.[TodosLosClientes]') IS NOT NULL
+DROP VIEW FUGAZZETA.[TodosLosClientes]
 
 ---------------------------/*Creacion de Tablas*/-------------------------------------------
 --------------------------------------------------------------------------------------------
@@ -440,7 +443,7 @@ GO
 
 -- cargar totales de facturas (solo hospedaje)
 
-
+-- cargar promedios
 
 DECLARE mi_cursor CURSOR FOR
 	SELECT NroFactura FROM FUGAZZETA.Facturas
