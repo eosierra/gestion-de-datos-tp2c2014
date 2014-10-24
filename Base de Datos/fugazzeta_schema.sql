@@ -401,6 +401,16 @@ END
 go
 EXEC FUGAZZETA.MigrarClientes
 go
+
+INSERT INTO FUGAZZETA.[Regimenes x Hotel]
+SELECT DISTINCT H.Id_Hotel, R.Id_Regimen FROM FUGAZZETA.Hoteles H, FUGAZZETA.Regimenes R,
+(SELECT DISTINCT Hotel_Calle,Hotel_Nro_Calle,Regimen_Descripcion FROM gd_esquema.Maestra) AS M
+WHERE
+H.Calle = M.Hotel_Calle AND
+M.Hotel_Nro_Calle = H.Nro_Calle AND
+M.Regimen_Descripcion = R.Descripcion
+GO
+
 ----------------------------------------/*VISTAS*/------------------------------------------
 --------------------------------------------------------------------------------------------
 
