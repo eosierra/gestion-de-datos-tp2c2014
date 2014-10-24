@@ -95,10 +95,10 @@ namespace FrbaHotel.ABM_de_Hotel
             int elId = Convert.ToInt32(TxtId.Text);
             int nc = Convert.ToInt32(TxtNumero.Text);
             Pais elPais = ComboPais.Items[ComboPais.SelectedIndex] as Pais;
-            //int cantE = ComboPais.Text as Int32;
+            int cantE = Convert.ToInt16(ComboCE.Text);
             Hotel hotelin = new Hotel(
                 elId, TxtNombre.Text, TxtMail.Text, TxtTelefono.Text, TxtCalle.Text,
-                nc, TxtCiudad.Text, elPais, 0, FechaPick.Value);
+                nc, TxtCiudad.Text, elPais, cantE, FechaPick.Value);
 
             hotelin.actualizar();
             MessageBox.Show("Actualización realizada con éxito");

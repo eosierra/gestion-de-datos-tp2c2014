@@ -115,6 +115,7 @@
             // 
             // ComboCE
             // 
+            this.ComboCE.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboCE.FormattingEnabled = true;
             this.ComboCE.Items.AddRange(new object[] {
             "1",
@@ -140,6 +141,7 @@
             // 
             this.ComboPais.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.ComboPais.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.ComboPais.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboPais.FormattingEnabled = true;
             this.ComboPais.Location = new System.Drawing.Point(79, 183);
             this.ComboPais.Name = "ComboPais";

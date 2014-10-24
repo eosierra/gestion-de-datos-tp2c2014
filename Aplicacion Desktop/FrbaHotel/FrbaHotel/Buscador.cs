@@ -25,30 +25,6 @@ namespace FrbaHotel
             bd.cerrar();
         }
 
-        public void filtroTexto(string texto, string campoTabla, DataGridView grid)
-        {
-            if (texto != "")
-            {
-                string conCondicion = "";
-                if (!actual.Contains("WHERE"))
-                {
-                    conCondicion = " WHERE ";
-                }
-                else
-                {
-                    conCondicion = " AND ";
-                }
-                conCondicion = conCondicion + campoTabla + " like '%" + texto + "%'";
-                actual = todos + conCondicion;
-                cargarGrilla(grid, actual);
-            }
-            else
-            {
-                cargarGrilla(grid, actual);
-                actual = todos;
-            }
-        }
-
         private void InitializeComponent()
         {
             this.SuspendLayout();
@@ -76,6 +52,29 @@ namespace FrbaHotel
             return grid.CurrentRow.Cells[columna].Value.ToString();
         }
 
+        public void filtroTexto(string texto, string campoTabla, DataGridView grid)
+        {
+            if (texto != "")
+            {
+                string conCondicion;
+                if (!actual.Contains("WHERE"))
+                {
+                    conCondicion = " WHERE " + campoTabla + " like '%" + texto + "%'";
+                }
+                else
+                {
+                    conCondicion = " AND " + campoTabla + " like '%" + texto + "%'";
+                }
+                actual = todos + conCondicion;
+                cargarGrilla(grid, actual);
+            }
+            else
+            {
+                cargarGrilla(grid, actual);
+                actual = todos;
+            }
+        }
+
         public void addFiltroTextBox(TextBox txt, string campo, DataGridView grid)
         {
             filtroTexto(txt.Text, campo, grid);
@@ -83,6 +82,7 @@ namespace FrbaHotel
 
         public void addFiltroComboBox(ComboBox cb, string campo, DataGridView grid)
         {
+            
             filtroTexto(cb.Text, campo, grid);
         }
 
@@ -90,12 +90,15 @@ namespace FrbaHotel
         {
             if (numero.ToString() != "")
             {
-                string rango = "";
                 string conCondicion;
                 if (!actual.Contains("WHERE"))
-                { conCondicion = "WHERE "; }
-                else { rango = "AND "; }
-                conCondicion = rango + campoTabla + " = " + numero.ToString();
+                {
+                    conCondicion = "WHERE " + campoTabla + " like " + numero;
+                }
+                else
+                {
+                    conCondicion = "AND " + campoTabla + " like " + numero; 
+                }
                 actual = todos + conCondicion;
                 cargarGrilla(grid, actual);
             }
