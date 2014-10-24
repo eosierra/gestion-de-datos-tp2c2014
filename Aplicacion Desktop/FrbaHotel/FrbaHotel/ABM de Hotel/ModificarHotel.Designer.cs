@@ -33,9 +33,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.LblDesde = new System.Windows.Forms.Label();
+            this.TxtDesde = new System.Windows.Forms.Label();
+            this.LblMotivo = new System.Windows.Forms.Label();
+            this.LblHasta = new System.Windows.Forms.Label();
             this.TxtMotivo = new System.Windows.Forms.Label();
             this.TxtHasta = new System.Windows.Forms.Label();
-            this.ChkHabilitado = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
             this.ListRegimenes = new System.Windows.Forms.ListBox();
             this.TxtRecarga = new System.Windows.Forms.TextBox();
@@ -60,10 +63,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.FechaPick = new System.Windows.Forms.DateTimePicker();
-            this.LblMotivo = new System.Windows.Forms.Label();
-            this.LblHasta = new System.Windows.Forms.Label();
-            this.LblDesde = new System.Windows.Forms.Label();
-            this.TxtDesde = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.LblHabilitado = new System.Windows.Forms.Label();
+            this.CambiarEstado = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -133,13 +135,15 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.CambiarEstado);
+            this.groupBox2.Controls.Add(this.LblHabilitado);
+            this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Controls.Add(this.LblDesde);
             this.groupBox2.Controls.Add(this.TxtDesde);
             this.groupBox2.Controls.Add(this.LblMotivo);
             this.groupBox2.Controls.Add(this.LblHasta);
             this.groupBox2.Controls.Add(this.TxtMotivo);
             this.groupBox2.Controls.Add(this.TxtHasta);
-            this.groupBox2.Controls.Add(this.ChkHabilitado);
             this.groupBox2.Location = new System.Drawing.Point(427, 112);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(210, 183);
@@ -147,34 +151,58 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Estado del hotel";
             // 
+            // LblDesde
+            // 
+            this.LblDesde.AutoSize = true;
+            this.LblDesde.Location = new System.Drawing.Point(18, 58);
+            this.LblDesde.Name = "LblDesde";
+            this.LblDesde.Size = new System.Drawing.Size(41, 13);
+            this.LblDesde.TabIndex = 7;
+            this.LblDesde.Text = "Desde:";
+            // 
+            // TxtDesde
+            // 
+            this.TxtDesde.AutoSize = true;
+            this.TxtDesde.Location = new System.Drawing.Point(67, 58);
+            this.TxtDesde.Name = "TxtDesde";
+            this.TxtDesde.Size = new System.Drawing.Size(55, 13);
+            this.TxtDesde.TabIndex = 6;
+            this.TxtDesde.Text = "................";
+            // 
+            // LblMotivo
+            // 
+            this.LblMotivo.AutoSize = true;
+            this.LblMotivo.Location = new System.Drawing.Point(19, 109);
+            this.LblMotivo.Name = "LblMotivo";
+            this.LblMotivo.Size = new System.Drawing.Size(42, 13);
+            this.LblMotivo.TabIndex = 5;
+            this.LblMotivo.Text = "Motivo:";
+            // 
+            // LblHasta
+            // 
+            this.LblHasta.AutoSize = true;
+            this.LblHasta.Location = new System.Drawing.Point(18, 82);
+            this.LblHasta.Name = "LblHasta";
+            this.LblHasta.Size = new System.Drawing.Size(38, 13);
+            this.LblHasta.TabIndex = 4;
+            this.LblHasta.Text = "Hasta:";
+            // 
             // TxtMotivo
             // 
-            this.TxtMotivo.AutoSize = true;
             this.TxtMotivo.Location = new System.Drawing.Point(68, 109);
             this.TxtMotivo.Name = "TxtMotivo";
-            this.TxtMotivo.Size = new System.Drawing.Size(42, 13);
+            this.TxtMotivo.Size = new System.Drawing.Size(136, 40);
             this.TxtMotivo.TabIndex = 3;
-            this.TxtMotivo.Text = "Motivo:";
+            this.TxtMotivo.Text = ".................";
             // 
             // TxtHasta
             // 
             this.TxtHasta.AutoSize = true;
             this.TxtHasta.Location = new System.Drawing.Point(67, 82);
             this.TxtHasta.Name = "TxtHasta";
-            this.TxtHasta.Size = new System.Drawing.Size(38, 13);
+            this.TxtHasta.Size = new System.Drawing.Size(70, 13);
             this.TxtHasta.TabIndex = 2;
-            this.TxtHasta.Text = "Hasta:";
-            // 
-            // ChkHabilitado
-            // 
-            this.ChkHabilitado.AutoSize = true;
-            this.ChkHabilitado.Location = new System.Drawing.Point(21, 28);
-            this.ChkHabilitado.Name = "ChkHabilitado";
-            this.ChkHabilitado.Size = new System.Drawing.Size(73, 17);
-            this.ChkHabilitado.TabIndex = 1;
-            this.ChkHabilitado.Text = "Habilitado";
-            this.ChkHabilitado.UseVisualStyleBackColor = true;
-            this.ChkHabilitado.CheckedChanged += new System.EventHandler(this.ChkHabilitado_CheckedChanged);
+            this.TxtHasta.Text = ".....................";
             // 
             // label13
             // 
@@ -385,47 +413,39 @@
             this.FechaPick.Size = new System.Drawing.Size(213, 20);
             this.FechaPick.TabIndex = 21;
             // 
-            // LblMotivo
+            // label14
             // 
-            this.LblMotivo.AutoSize = true;
-            this.LblMotivo.Location = new System.Drawing.Point(19, 109);
-            this.LblMotivo.Name = "LblMotivo";
-            this.LblMotivo.Size = new System.Drawing.Size(42, 13);
-            this.LblMotivo.TabIndex = 5;
-            this.LblMotivo.Text = "Motivo:";
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(19, 30);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(43, 13);
+            this.label14.TabIndex = 8;
+            this.label14.Text = "Estado:";
             // 
-            // LblHasta
+            // LblHabilitado
             // 
-            this.LblHasta.AutoSize = true;
-            this.LblHasta.Location = new System.Drawing.Point(18, 82);
-            this.LblHasta.Name = "LblHasta";
-            this.LblHasta.Size = new System.Drawing.Size(38, 13);
-            this.LblHasta.TabIndex = 4;
-            this.LblHasta.Text = "Hasta:";
+            this.LblHabilitado.AutoSize = true;
+            this.LblHabilitado.Location = new System.Drawing.Point(67, 30);
+            this.LblHabilitado.Name = "LblHabilitado";
+            this.LblHabilitado.Size = new System.Drawing.Size(37, 13);
+            this.LblHabilitado.TabIndex = 9;
+            this.LblHabilitado.Text = "..........";
             // 
-            // LblDesde
+            // CambiarEstado
             // 
-            this.LblDesde.AutoSize = true;
-            this.LblDesde.Location = new System.Drawing.Point(18, 58);
-            this.LblDesde.Name = "LblDesde";
-            this.LblDesde.Size = new System.Drawing.Size(41, 13);
-            this.LblDesde.TabIndex = 7;
-            this.LblDesde.Text = "Desde:";
-            // 
-            // TxtDesde
-            // 
-            this.TxtDesde.AutoSize = true;
-            this.TxtDesde.Location = new System.Drawing.Point(67, 58);
-            this.TxtDesde.Name = "TxtDesde";
-            this.TxtDesde.Size = new System.Drawing.Size(55, 13);
-            this.TxtDesde.TabIndex = 6;
-            this.TxtDesde.Text = "................";
+            this.CambiarEstado.Location = new System.Drawing.Point(12, 152);
+            this.CambiarEstado.Name = "CambiarEstado";
+            this.CambiarEstado.Size = new System.Drawing.Size(192, 25);
+            this.CambiarEstado.TabIndex = 10;
+            this.CambiarEstado.Text = "Cambiar Estado";
+            this.CambiarEstado.UseVisualStyleBackColor = true;
+            this.CambiarEstado.Click += new System.EventHandler(this.CambiarEstado_Click);
             // 
             // ModificarHotel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(677, 401);
+            this.ClientSize = new System.Drawing.Size(677, 400);
             this.Controls.Add(this.ActualizarDatos);
             this.Controls.Add(this.Mostrar);
             this.Controls.Add(this.label2);
@@ -475,11 +495,13 @@
         private System.Windows.Forms.ListBox ListRegimenes;
         private System.Windows.Forms.Label TxtMotivo;
         private System.Windows.Forms.Label TxtHasta;
-        private System.Windows.Forms.CheckBox ChkHabilitado;
         private System.Windows.Forms.Label LblMotivo;
         private System.Windows.Forms.Label LblHasta;
         private System.Windows.Forms.Label LblDesde;
         private System.Windows.Forms.Label TxtDesde;
+        private System.Windows.Forms.Label LblHabilitado;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button CambiarEstado;
 
     }
 }

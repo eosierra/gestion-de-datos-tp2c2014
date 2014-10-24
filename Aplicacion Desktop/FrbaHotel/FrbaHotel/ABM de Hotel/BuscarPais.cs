@@ -16,6 +16,7 @@ namespace FrbaHotel.ABM_de_Hotel
             InitializeComponent();
             crearBuscador(owner, "*", "Paises");
             setearGrid(GridPaises);
+            GridPaises.AllowUserToAddRows = true;
         }
 
         private void BuscarPais_Load(object sender, EventArgs e)

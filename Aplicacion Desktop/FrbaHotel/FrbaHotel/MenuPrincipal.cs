@@ -42,8 +42,7 @@ namespace FrbaHotel
             form.MinimizeBox = false;
             form.StartPosition = FormStartPosition.CenterScreen;
             form.Show();
-            HotelesSesion.Enabled = false;
-
+            
         }
 
         private void nuevoUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
@@ -93,11 +92,9 @@ namespace FrbaHotel
 
         private void completarHotelesSesion()
         {
-            HotelesSesion.Items.Clear();
             BD bd = new BD();
             bd.obtenerConexion();
             string tabla = "[Usuarios x Hoteles] U, FUGAZZETA.Hoteles H WHERE U.Id_Hotel = H.Id_Hotel AND U.Username like '" + usuarioActual + "'";
-            bd.rellenarDesde("H.Calle", tabla, HotelesSesion);
         }
 
     }

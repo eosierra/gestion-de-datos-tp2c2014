@@ -16,12 +16,13 @@ namespace FrbaHotel.ABM_de_Hotel
         public Pais pais;
         public int cantEstrellas;
         public DateTime fechaCreacion;
+        public bool habilitado;
         #endregion
 
         #region New Hotel
         public Hotel(
             int unId, string unName, string unMail, string unTel, string unaCalle,
-            int nCalle, string unaCiudad, Pais unPais, int cE, DateTime fecCre)
+            int nCalle, string unaCiudad, Pais unPais, int cE, DateTime fecCre,bool hab)
         {
             asigna(unId.ToString(), unName);
             mail = unMail;
@@ -32,6 +33,7 @@ namespace FrbaHotel.ABM_de_Hotel
             pais = unPais;
             cantEstrellas = cE;
             fechaCreacion = fecCre;
+            habilitado = hab;
         }
 
 
@@ -56,7 +58,8 @@ namespace FrbaHotel.ABM_de_Hotel
                 ", Pais = " + pais.id +
                 ", CantEstrella = " + cantEstrellas +
                 ", Fec_Creacion = '" + fechaCreacion.ToString() +
-                "' WHERE Id_Hotel = " + id;
+                "', Habilitado = " + Convert.ToSByte(habilitado) +
+                " WHERE Id_Hotel = " + id;
             bd.ejecutar(comando);
         }
 

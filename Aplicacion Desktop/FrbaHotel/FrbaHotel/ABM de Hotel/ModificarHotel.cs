@@ -13,6 +13,7 @@ namespace FrbaHotel.ABM_de_Hotel
     public partial class ModificarHotel : Form, ITraeBusqueda
     {
         //Hotel hotelin;
+        bool habilitado;
 
         public ModificarHotel()
         {
@@ -60,7 +61,7 @@ namespace FrbaHotel.ABM_de_Hotel
                 TxtCalle.Text = dr["Calle"].ToString();
                 TxtNumero.Text = dr["Nro_Calle"].ToString();
                 TxtCiudad.Text = dr["Ciudad"].ToString();
-                TxtRecarga.Text = dr["RecargaEstrella"].ToString();
+                TxtRecarga.Text = dr["Recarga"].ToString();
                 ComboCE.Text = dr["CantEstrella"].ToString();
 
                 string elItem = "";
@@ -77,7 +78,7 @@ namespace FrbaHotel.ABM_de_Hotel
                 string fecha = dr["Fec_creacion"].ToString();
                 if (fecha != "") { FechaPick.Value = convertirFecha(fecha); }
 
-                ChkHabilitado.Checked = Convert.ToBoolean(dr["Habilitado"].ToString());
+                habilitado = Convert.ToBoolean(dr["Habilitado"].ToString());
              }
             bd.cerrar();
             completarDatosDeEstado();
@@ -85,8 +86,9 @@ namespace FrbaHotel.ABM_de_Hotel
 
         private void completarDatosDeEstado()
         {
-            if (ChkHabilitado.Checked)
+            if (habilitado)
             {
+                LblHabilitado.Text = "Habilitado";
                 LblDesde.Visible = false;
                 TxtDesde.Visible = false;
                 LblHasta.Visible = false;
@@ -96,8 +98,10 @@ namespace FrbaHotel.ABM_de_Hotel
             }
             else
             {
+                LblHabilitado.Text = "Deshabilitado";
                 LblDesde.Visible = true;
                 LblHasta.Visible = true;
+                LblMotivo.Visible = true;
                 TxtDesde.Visible = true;
                 TxtHasta.Visible = true;
                 TxtMotivo.Visible = true;
@@ -107,8 +111,8 @@ namespace FrbaHotel.ABM_de_Hotel
                 SqlDataReader dr = bd.lee(query);
                 while (dr.Read())
                 {
-                    TxtDesde.Text = dr["Fecha_Inicio"].ToString();
-                    TxtHasta.Text = dr["Fecha_Fin"].ToString();
+                    TxtDesde.Text = (dr["Fecha_Inicio"].ToString()).Substring(0,10);
+                    TxtHasta.Text = (dr["Fecha_Fin"].ToString()).Substring(0,10);
                     TxtMotivo.Text = dr["Motivo"].ToString();
                 }
                 dr.Close();
@@ -130,7 +134,6 @@ namespace FrbaHotel.ABM_de_Hotel
             }
         }
  
-
         private void actualizarHotel()
         {
             int elId = Convert.ToInt32(TxtId.Text);
@@ -139,44 +142,45 @@ namespace FrbaHotel.ABM_de_Hotel
             int cantE = Convert.ToInt16(ComboCE.Text);
             Hotel hotelin = new Hotel(
                 elId, TxtNombre.Text, TxtMail.Text, TxtTelefono.Text, TxtCalle.Text,
-                nc, TxtCiudad.Text, elPais, cantE, FechaPick.Value);
+                nc, TxtCiudad.Text, elPais, cantE, FechaPick.Value, habilitado);
 
             hotelin.actualizar();
             MessageBox.Show("Actualización realizada con éxito");
             this.Close();
         }
 
-        private void ChkHabilitado_CheckedChanged(object sender, EventArgs e)
+        private void CambiarEstado_Click(object sender, EventArgs e)
         {
-            if (!ChkHabilitado.Checked)
+            if (habilitado)
             {
                 DialogResult bajo = new BajaHotel(TxtId.Text).ShowDialog();
                 if (bajo == DialogResult.OK)
                 {
+                    habilitado = false;
                     completarDatosDeEstado();
                     groupBox2.Enabled = false;
-                } else
-                {
-                    ChkHabilitado.Checked = true;
                 }
             }
             else
             {
-                DialogResult confirma = MessageBox.Show("Está seguro de volver a habilitar el hotel? No podrá deshacer el cambio", "Habilitar hotel", MessageBoxButtons.YesNo);
+                DialogResult confirma = MessageBox.Show("Está seguro de volver a habilitar el hotel? No podrá deshacer el cambio.", "Habilitar hotel", MessageBoxButtons.YesNo);
                 if (confirma == DialogResult.Yes)
                 {
                     BD bd = new BD();
-                    string query = "UPDATE FUGAZZETA.MovimientosHotel SET Fecha_Fin = " + Program.hoy() + " WHERE Id_Hotel = " + TxtId.Text + " AND Fecha_Inicio = '" + TxtDesde.Text + "'";
+                    string query = "UPDATE FUGAZZETA.MovimientosHotel SET Fecha_Fin = '" + dateSolo(Program.hoy()) + "' WHERE Id_Hotel = " + TxtId.Text + " AND Fecha_Inicio = '" + TxtDesde.Text + "'";
                     bd.ejecutar(query);
+                    habilitado = true;
+                    completarDatosDeEstado();
                     groupBox2.Enabled = false;
-                }
-                else
-                {
-                    ChkHabilitado.Checked = false;
+                    MessageBox.Show("Se ha habilitado el hotel con éxito");
                 }
             }
         }
 
+        internal string dateSolo(DateTime fecha)
+        {
+            return (fecha.Day + "/" + fecha.Month + "/" + fecha.Year);
+        }
 
     }
 }

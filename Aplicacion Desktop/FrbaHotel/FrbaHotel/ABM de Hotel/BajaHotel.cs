@@ -27,13 +27,14 @@ namespace FrbaHotel.ABM_de_Hotel
                 BD bd = new BD();
                 try
                 {
-                    string query = "EXEC BajarHotel " + TxtId.Text + " " + Program.hoy() + " " + HastaPick.Value.ToString() + " " + TxtMotivo.Text;
+                    string query = "EXEC FUGAZZETA.BajarHotel " + TxtId.Text + " " + Program.hoy() + " " + HastaPick.Value.ToString() + " " + TxtMotivo.Text;
                     bd.ejecutar(query);
                 }
                 catch (SqlException ex)
                 {
                     MessageBox.Show("No se pudo dar de baja el hotel. " + ex.Message);
                 }
+                this.DialogResult = DialogResult.Abort;
             }
 
         }
