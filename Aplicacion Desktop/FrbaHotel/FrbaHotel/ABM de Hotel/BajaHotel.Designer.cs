@@ -30,7 +30,7 @@
         {
             this.TxtId = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.BajarHotel = new System.Windows.Forms.Button();
             this.HastaPick = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -57,15 +57,17 @@
             this.label1.TabIndex = 25;
             this.label1.Text = "ID:";
             // 
-            // button1
+            // BajarHotel
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button1.Location = new System.Drawing.Point(0, 231);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(284, 31);
-            this.button1.TabIndex = 27;
-            this.button1.Text = "DESHABILITAR";
-            this.button1.UseVisualStyleBackColor = true;
+            this.BajarHotel.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.BajarHotel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.BajarHotel.Location = new System.Drawing.Point(0, 231);
+            this.BajarHotel.Name = "BajarHotel";
+            this.BajarHotel.Size = new System.Drawing.Size(284, 31);
+            this.BajarHotel.TabIndex = 27;
+            this.BajarHotel.Text = "DESHABILITAR";
+            this.BajarHotel.UseVisualStyleBackColor = true;
+            this.BajarHotel.Click += new System.EventHandler(this.BajarHotel_Click);
             // 
             // HastaPick
             // 
@@ -95,6 +97,7 @@
             // TxtMotivo
             // 
             this.TxtMotivo.Location = new System.Drawing.Point(12, 132);
+            this.TxtMotivo.MaxLength = 140;
             this.TxtMotivo.Multiline = true;
             this.TxtMotivo.Name = "TxtMotivo";
             this.TxtMotivo.Size = new System.Drawing.Size(260, 88);
@@ -109,7 +112,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.HastaPick);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.BajarHotel);
             this.Controls.Add(this.TxtId);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -117,7 +120,6 @@
             this.MinimizeBox = false;
             this.Name = "BajaHotel";
             this.Text = "Baja Hotel";
-            this.Load += new System.EventHandler(this.BajaHotel_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -127,7 +129,7 @@
 
         private System.Windows.Forms.Label TxtId;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BajarHotel;
         private System.Windows.Forms.DateTimePicker HastaPick;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

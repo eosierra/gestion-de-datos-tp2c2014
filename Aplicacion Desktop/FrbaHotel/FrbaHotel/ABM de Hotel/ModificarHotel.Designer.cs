@@ -32,6 +32,14 @@
             this.Mostrar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.TxtMotivo = new System.Windows.Forms.Label();
+            this.TxtHasta = new System.Windows.Forms.Label();
+            this.ChkHabilitado = new System.Windows.Forms.CheckBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.ListRegimenes = new System.Windows.Forms.ListBox();
+            this.TxtRecarga = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.ComboCE = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.ComboPais = new System.Windows.Forms.ComboBox();
@@ -52,12 +60,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.FechaPick = new System.Windows.Forms.DateTimePicker();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.ListRegimenes = new System.Windows.Forms.ListBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.LblMotivo = new System.Windows.Forms.Label();
+            this.LblHasta = new System.Windows.Forms.Label();
+            this.LblDesde = new System.Windows.Forms.Label();
+            this.TxtDesde = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // ActualizarDatos
@@ -94,7 +102,7 @@
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.ListRegimenes);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.TxtRecarga);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.ComboCE);
             this.groupBox1.Controls.Add(this.label5);
@@ -118,10 +126,88 @@
             this.groupBox1.Controls.Add(this.FechaPick);
             this.groupBox1.Location = new System.Drawing.Point(19, 42);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(644, 281);
+            this.groupBox1.Size = new System.Drawing.Size(644, 301);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos del hotel";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.LblDesde);
+            this.groupBox2.Controls.Add(this.TxtDesde);
+            this.groupBox2.Controls.Add(this.LblMotivo);
+            this.groupBox2.Controls.Add(this.LblHasta);
+            this.groupBox2.Controls.Add(this.TxtMotivo);
+            this.groupBox2.Controls.Add(this.TxtHasta);
+            this.groupBox2.Controls.Add(this.ChkHabilitado);
+            this.groupBox2.Location = new System.Drawing.Point(427, 112);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(210, 183);
+            this.groupBox2.TabIndex = 45;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Estado del hotel";
+            // 
+            // TxtMotivo
+            // 
+            this.TxtMotivo.AutoSize = true;
+            this.TxtMotivo.Location = new System.Drawing.Point(68, 109);
+            this.TxtMotivo.Name = "TxtMotivo";
+            this.TxtMotivo.Size = new System.Drawing.Size(42, 13);
+            this.TxtMotivo.TabIndex = 3;
+            this.TxtMotivo.Text = "Motivo:";
+            // 
+            // TxtHasta
+            // 
+            this.TxtHasta.AutoSize = true;
+            this.TxtHasta.Location = new System.Drawing.Point(67, 82);
+            this.TxtHasta.Name = "TxtHasta";
+            this.TxtHasta.Size = new System.Drawing.Size(38, 13);
+            this.TxtHasta.TabIndex = 2;
+            this.TxtHasta.Text = "Hasta:";
+            // 
+            // ChkHabilitado
+            // 
+            this.ChkHabilitado.AutoSize = true;
+            this.ChkHabilitado.Location = new System.Drawing.Point(21, 28);
+            this.ChkHabilitado.Name = "ChkHabilitado";
+            this.ChkHabilitado.Size = new System.Drawing.Size(73, 17);
+            this.ChkHabilitado.TabIndex = 1;
+            this.ChkHabilitado.Text = "Habilitado";
+            this.ChkHabilitado.UseVisualStyleBackColor = true;
+            this.ChkHabilitado.CheckedChanged += new System.EventHandler(this.ChkHabilitado_CheckedChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(252, 130);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(120, 13);
+            this.label13.TabIndex = 44;
+            this.label13.Text = "Regímenes disponibles:";
+            // 
+            // ListRegimenes
+            // 
+            this.ListRegimenes.FormattingEnabled = true;
+            this.ListRegimenes.Location = new System.Drawing.Point(255, 146);
+            this.ListRegimenes.Name = "ListRegimenes";
+            this.ListRegimenes.Size = new System.Drawing.Size(114, 121);
+            this.ListRegimenes.TabIndex = 43;
+            // 
+            // TxtRecarga
+            // 
+            this.TxtRecarga.Location = new System.Drawing.Point(128, 215);
+            this.TxtRecarga.Name = "TxtRecarga";
+            this.TxtRecarga.Size = new System.Drawing.Size(65, 20);
+            this.TxtRecarga.TabIndex = 42;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(17, 216);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(105, 13);
+            this.label12.TabIndex = 41;
+            this.label12.Text = "Recarga por estrella:";
             // 
             // ComboCE
             // 
@@ -299,47 +385,41 @@
             this.FechaPick.Size = new System.Drawing.Size(213, 20);
             this.FechaPick.TabIndex = 21;
             // 
-            // textBox1
+            // LblMotivo
             // 
-            this.textBox1.Location = new System.Drawing.Point(128, 215);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(65, 20);
-            this.textBox1.TabIndex = 42;
+            this.LblMotivo.AutoSize = true;
+            this.LblMotivo.Location = new System.Drawing.Point(19, 109);
+            this.LblMotivo.Name = "LblMotivo";
+            this.LblMotivo.Size = new System.Drawing.Size(42, 13);
+            this.LblMotivo.TabIndex = 5;
+            this.LblMotivo.Text = "Motivo:";
             // 
-            // label12
+            // LblHasta
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(17, 216);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(105, 13);
-            this.label12.TabIndex = 41;
-            this.label12.Text = "Recarga por estrella:";
+            this.LblHasta.AutoSize = true;
+            this.LblHasta.Location = new System.Drawing.Point(18, 82);
+            this.LblHasta.Name = "LblHasta";
+            this.LblHasta.Size = new System.Drawing.Size(38, 13);
+            this.LblHasta.TabIndex = 4;
+            this.LblHasta.Text = "Hasta:";
             // 
-            // ListRegimenes
+            // LblDesde
             // 
-            this.ListRegimenes.FormattingEnabled = true;
-            this.ListRegimenes.Location = new System.Drawing.Point(255, 146);
-            this.ListRegimenes.Name = "ListRegimenes";
-            this.ListRegimenes.Size = new System.Drawing.Size(114, 121);
-            this.ListRegimenes.TabIndex = 43;
+            this.LblDesde.AutoSize = true;
+            this.LblDesde.Location = new System.Drawing.Point(18, 58);
+            this.LblDesde.Name = "LblDesde";
+            this.LblDesde.Size = new System.Drawing.Size(41, 13);
+            this.LblDesde.TabIndex = 7;
+            this.LblDesde.Text = "Desde:";
             // 
-            // label13
+            // TxtDesde
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(252, 130);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(120, 13);
-            this.label13.TabIndex = 44;
-            this.label13.Text = "Regímenes disponibles:";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Location = new System.Drawing.Point(427, 112);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(210, 155);
-            this.groupBox2.TabIndex = 45;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Estado del hotel";
+            this.TxtDesde.AutoSize = true;
+            this.TxtDesde.Location = new System.Drawing.Point(67, 58);
+            this.TxtDesde.Name = "TxtDesde";
+            this.TxtDesde.Size = new System.Drawing.Size(55, 13);
+            this.TxtDesde.TabIndex = 6;
+            this.TxtDesde.Text = "................";
             // 
             // ModificarHotel
             // 
@@ -355,6 +435,8 @@
             this.Load += new System.EventHandler(this.ModificarHotel_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -386,11 +468,18 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox ComboCE;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox TxtRecarga;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ListBox ListRegimenes;
+        private System.Windows.Forms.Label TxtMotivo;
+        private System.Windows.Forms.Label TxtHasta;
+        private System.Windows.Forms.CheckBox ChkHabilitado;
+        private System.Windows.Forms.Label LblMotivo;
+        private System.Windows.Forms.Label LblHasta;
+        private System.Windows.Forms.Label LblDesde;
+        private System.Windows.Forms.Label TxtDesde;
 
     }
 }

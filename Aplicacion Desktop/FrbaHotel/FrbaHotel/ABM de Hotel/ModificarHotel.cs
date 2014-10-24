@@ -39,6 +39,7 @@ namespace FrbaHotel.ABM_de_Hotel
             if (habilita == DialogResult.OK)
             {
                 groupBox1.Enabled = true;
+                groupBox2.Enabled = true;
             }
         }
 
@@ -59,6 +60,9 @@ namespace FrbaHotel.ABM_de_Hotel
                 TxtCalle.Text = dr["Calle"].ToString();
                 TxtNumero.Text = dr["Nro_Calle"].ToString();
                 TxtCiudad.Text = dr["Ciudad"].ToString();
+                TxtRecarga.Text = dr["RecargaEstrella"].ToString();
+                ComboCE.Text = dr["CantEstrella"].ToString();
+
                 string elItem = "";
                 for (int i = 0; i < ComboPais.Items.Count; i++)
                 {
@@ -69,12 +73,46 @@ namespace FrbaHotel.ABM_de_Hotel
                     }
                 }
                 ComboPais.Text = elItem;
-                ComboCE.Text = dr["CantEstrella"].ToString();
+                                
                 string fecha = dr["Fec_creacion"].ToString();
                 if (fecha != "") { FechaPick.Value = convertirFecha(fecha); }
 
-            }
+                ChkHabilitado.Checked = Convert.ToBoolean(dr["Habilitado"].ToString());
+             }
             bd.cerrar();
+            completarDatosDeEstado();
+        }
+
+        private void completarDatosDeEstado()
+        {
+            if (ChkHabilitado.Checked)
+            {
+                LblDesde.Visible = false;
+                TxtDesde.Visible = false;
+                LblHasta.Visible = false;
+                LblMotivo.Visible = false;
+                TxtHasta.Visible = false;
+                TxtMotivo.Visible = false;
+            }
+            else
+            {
+                LblDesde.Visible = true;
+                LblHasta.Visible = true;
+                TxtDesde.Visible = true;
+                TxtHasta.Visible = true;
+                TxtMotivo.Visible = true;
+                BD bd = new BD();
+                bd.obtenerConexion();
+                string query = "SELECT TOP 1 * FROM FUGAZZETA.MovimientosHotel WHERE Id_Hotel = " + TxtId.Text + "ORDER BY Fecha_Inicio DESC";
+                SqlDataReader dr = bd.lee(query);
+                while (dr.Read())
+                {
+                    TxtDesde.Text = dr["Fecha_Inicio"].ToString();
+                    TxtHasta.Text = dr["Fecha_Fin"].ToString();
+                    TxtMotivo.Text = dr["Motivo"].ToString();
+                }
+                dr.Close();
+            }
         }
 
         private DateTime convertirFecha(string fecha)
@@ -108,10 +146,35 @@ namespace FrbaHotel.ABM_de_Hotel
             this.Close();
         }
 
-
-        private void button1_Click(object sender, EventArgs e)
+        private void ChkHabilitado_CheckedChanged(object sender, EventArgs e)
         {
-            MessageBox.Show(ComboPais.Text);
+            if (!ChkHabilitado.Checked)
+            {
+                DialogResult bajo = new BajaHotel(TxtId.Text).ShowDialog();
+                if (bajo == DialogResult.OK)
+                {
+                    completarDatosDeEstado();
+                    groupBox2.Enabled = false;
+                } else
+                {
+                    ChkHabilitado.Checked = true;
+                }
+            }
+            else
+            {
+                DialogResult confirma = MessageBox.Show("Está seguro de volver a habilitar el hotel? No podrá deshacer el cambio", "Habilitar hotel", MessageBoxButtons.YesNo);
+                if (confirma == DialogResult.Yes)
+                {
+                    BD bd = new BD();
+                    string query = "UPDATE FUGAZZETA.MovimientosHotel SET Fecha_Fin = " + Program.hoy() + " WHERE Id_Hotel = " + TxtId.Text + " AND Fecha_Inicio = '" + TxtDesde.Text + "'";
+                    bd.ejecutar(query);
+                    groupBox2.Enabled = false;
+                }
+                else
+                {
+                    ChkHabilitado.Checked = false;
+                }
+            }
         }
 
 
