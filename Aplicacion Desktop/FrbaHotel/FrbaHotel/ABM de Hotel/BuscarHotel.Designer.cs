@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Buscar = new System.Windows.Forms.Button();
+            this.Limpiar = new System.Windows.Forms.Button();
             this.ElegirPais = new System.Windows.Forms.Button();
             this.ComboCE = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -47,6 +49,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.Buscar);
+            this.groupBox1.Controls.Add(this.Limpiar);
             this.groupBox1.Controls.Add(this.ElegirPais);
             this.groupBox1.Controls.Add(this.ComboCE);
             this.groupBox1.Controls.Add(this.label4);
@@ -63,6 +67,26 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de selección";
             // 
+            // Buscar
+            // 
+            this.Buscar.Location = new System.Drawing.Point(834, 18);
+            this.Buscar.Name = "Buscar";
+            this.Buscar.Size = new System.Drawing.Size(108, 34);
+            this.Buscar.TabIndex = 44;
+            this.Buscar.Text = "BUSCAR";
+            this.Buscar.UseVisualStyleBackColor = true;
+            this.Buscar.Click += new System.EventHandler(this.Buscar_Click);
+            // 
+            // Limpiar
+            // 
+            this.Limpiar.Location = new System.Drawing.Point(720, 18);
+            this.Limpiar.Name = "Limpiar";
+            this.Limpiar.Size = new System.Drawing.Size(108, 34);
+            this.Limpiar.TabIndex = 43;
+            this.Limpiar.Text = "LIMPIAR FILTROS";
+            this.Limpiar.UseVisualStyleBackColor = true;
+            this.Limpiar.Click += new System.EventHandler(this.Limpiar_Click);
+            // 
             // ElegirPais
             // 
             this.ElegirPais.Location = new System.Drawing.Point(610, 28);
@@ -75,6 +99,7 @@
             // 
             // ComboCE
             // 
+            this.ComboCE.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboCE.FormattingEnabled = true;
             this.ComboCE.Items.AddRange(new object[] {
             "1",
@@ -86,7 +111,6 @@
             this.ComboCE.Name = "ComboCE";
             this.ComboCE.Size = new System.Drawing.Size(106, 21);
             this.ComboCE.TabIndex = 41;
-            this.ComboCE.SelectedIndexChanged += new System.EventHandler(this.ComboCE_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -129,7 +153,6 @@
             this.TxtNombre.Name = "TxtNombre";
             this.TxtNombre.Size = new System.Drawing.Size(165, 20);
             this.TxtNombre.TabIndex = 6;
-            this.TxtNombre.TextChanged += new System.EventHandler(this.TxtNombre_TextChanged);
             // 
             // label1
             // 
@@ -146,7 +169,6 @@
             this.TxtCiudad.Name = "TxtCiudad";
             this.TxtCiudad.Size = new System.Drawing.Size(161, 20);
             this.TxtCiudad.TabIndex = 4;
-            this.TxtCiudad.TextChanged += new System.EventHandler(this.TxtCiudad_TextChanged);
             // 
             // Cancelar
             // 
@@ -220,5 +242,7 @@
         private System.Windows.Forms.TextBox TxtNombre;
         private System.Windows.Forms.ComboBox ComboCE;
         private System.Windows.Forms.Button ElegirPais;
+        private System.Windows.Forms.Button Buscar;
+        private System.Windows.Forms.Button Limpiar;
     }
 }

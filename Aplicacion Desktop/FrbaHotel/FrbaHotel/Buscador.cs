@@ -11,7 +11,7 @@ namespace FrbaHotel
         public ITraeBusqueda dondeVuelve;
         public BD bd = new BD();
         public string todos;
-        public string actual = "";
+        public string actual;
 
         public void crearBuscador(ITraeBusqueda owner, string campos, string categoria)
         {
@@ -59,19 +59,13 @@ namespace FrbaHotel
                 string conCondicion;
                 if (!actual.Contains("WHERE"))
                 {
-                    conCondicion = " WHERE " + campoTabla + " like '%" + texto + "%'";
+                    conCondicion = " WHERE ";
                 }
                 else
                 {
-                    conCondicion = " AND " + campoTabla + " like '%" + texto + "%'";
+                    conCondicion = " AND ";
                 }
-                actual = todos + conCondicion;
-                cargarGrilla(grid, actual);
-            }
-            else
-            {
-                cargarGrilla(grid, actual);
-                actual = todos;
+                actual = actual + conCondicion + campoTabla + " like '%" + texto + "%'";
             }
         }
 
@@ -86,26 +80,20 @@ namespace FrbaHotel
             filtroTexto(cb.Text, campo, grid);
         }
 
-        public void addFiltroNumero(int numero, string campoTabla, DataGridView grid)
+        public void addFiltroPorID(int idElegido, string campoTabla, DataGridView grid)
         {
-            if (numero.ToString() != "")
+            if (idElegido > 0)
             {
                 string conCondicion;
                 if (!actual.Contains("WHERE"))
                 {
-                    conCondicion = "WHERE " + campoTabla + " like " + numero;
+                    conCondicion = " WHERE ";
                 }
                 else
                 {
-                    conCondicion = "AND " + campoTabla + " like " + numero; 
+                    conCondicion = " AND "; 
                 }
-                actual = todos + conCondicion;
-                cargarGrilla(grid, actual);
-            }
-            else
-            {
-                cargarGrilla(grid, actual);
-                actual = todos;
+                actual = actual + conCondicion + campoTabla + " like '" + idElegido + "'";
             }
         }
     }

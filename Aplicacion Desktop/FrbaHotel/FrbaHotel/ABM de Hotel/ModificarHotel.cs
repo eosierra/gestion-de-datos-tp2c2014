@@ -35,8 +35,11 @@ namespace FrbaHotel.ABM_de_Hotel
 
         private void Mostrar_Click(object sender, EventArgs e)
         {
-            new ABM_de_Hotel.BuscarHotel(this).ShowDialog();
-            groupBox1.Enabled = true;
+            DialogResult habilita = new ABM_de_Hotel.BuscarHotel(this).ShowDialog();
+            if (habilita == DialogResult.OK)
+            {
+                groupBox1.Enabled = true;
+            }
         }
 
         public void agregar(string id, string descripcion)

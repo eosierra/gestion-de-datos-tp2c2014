@@ -52,12 +52,17 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.FechaPick = new System.Windows.Forms.DateTimePicker();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.ListRegimenes = new System.Windows.Forms.ListBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ActualizarDatos
             // 
-            this.ActualizarDatos.Location = new System.Drawing.Point(223, 288);
+            this.ActualizarDatos.Location = new System.Drawing.Point(226, 349);
             this.ActualizarDatos.Name = "ActualizarDatos";
             this.ActualizarDatos.Size = new System.Drawing.Size(208, 40);
             this.ActualizarDatos.TabIndex = 9;
@@ -86,6 +91,11 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.groupBox2);
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.ListRegimenes);
+            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.ComboCE);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.ComboPais);
@@ -108,7 +118,7 @@
             this.groupBox1.Controls.Add(this.FechaPick);
             this.groupBox1.Location = new System.Drawing.Point(19, 42);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(644, 240);
+            this.groupBox1.Size = new System.Drawing.Size(644, 281);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos del hotel";
@@ -123,7 +133,7 @@
             "3",
             "4",
             "5"});
-            this.ComboCE.Location = new System.Drawing.Point(113, 210);
+            this.ComboCE.Location = new System.Drawing.Point(113, 186);
             this.ComboCE.Name = "ComboCE";
             this.ComboCE.Size = new System.Drawing.Size(80, 21);
             this.ComboCE.TabIndex = 40;
@@ -131,7 +141,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 213);
+            this.label5.Location = new System.Drawing.Point(13, 189);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(94, 13);
             this.label5.TabIndex = 39;
@@ -143,7 +153,7 @@
             this.ComboPais.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.ComboPais.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboPais.FormattingEnabled = true;
-            this.ComboPais.Location = new System.Drawing.Point(79, 183);
+            this.ComboPais.Location = new System.Drawing.Point(53, 142);
             this.ComboPais.Name = "ComboPais";
             this.ComboPais.Size = new System.Drawing.Size(141, 21);
             this.ComboPais.TabIndex = 38;
@@ -151,7 +161,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(13, 186);
+            this.label11.Location = new System.Drawing.Point(13, 145);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(32, 13);
             this.label11.TabIndex = 37;
@@ -159,15 +169,15 @@
             // 
             // TxtCiudad
             // 
-            this.TxtCiudad.Location = new System.Drawing.Point(79, 157);
+            this.TxtCiudad.Location = new System.Drawing.Point(62, 111);
             this.TxtCiudad.Name = "TxtCiudad";
-            this.TxtCiudad.Size = new System.Drawing.Size(141, 20);
+            this.TxtCiudad.Size = new System.Drawing.Size(158, 20);
             this.TxtCiudad.TabIndex = 36;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(13, 158);
+            this.label10.Location = new System.Drawing.Point(13, 112);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(43, 13);
             this.label10.TabIndex = 35;
@@ -175,7 +185,7 @@
             // 
             // TxtNumero
             // 
-            this.TxtNumero.Location = new System.Drawing.Point(251, 133);
+            this.TxtNumero.Location = new System.Drawing.Point(251, 81);
             this.TxtNumero.Name = "TxtNumero";
             this.TxtNumero.Size = new System.Drawing.Size(55, 20);
             this.TxtNumero.TabIndex = 34;
@@ -183,7 +193,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(226, 135);
+            this.label9.Location = new System.Drawing.Point(226, 83);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(19, 13);
             this.label9.TabIndex = 33;
@@ -191,15 +201,15 @@
             // 
             // TxtCalle
             // 
-            this.TxtCalle.Location = new System.Drawing.Point(79, 132);
+            this.TxtCalle.Location = new System.Drawing.Point(62, 81);
             this.TxtCalle.Name = "TxtCalle";
-            this.TxtCalle.Size = new System.Drawing.Size(141, 20);
+            this.TxtCalle.Size = new System.Drawing.Size(158, 20);
             this.TxtCalle.TabIndex = 32;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(13, 133);
+            this.label8.Location = new System.Drawing.Point(12, 84);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(33, 13);
             this.label8.TabIndex = 31;
@@ -207,7 +217,7 @@
             // 
             // TxtTelefono
             // 
-            this.TxtTelefono.Location = new System.Drawing.Point(79, 107);
+            this.TxtTelefono.Location = new System.Drawing.Point(497, 54);
             this.TxtTelefono.Name = "TxtTelefono";
             this.TxtTelefono.Size = new System.Drawing.Size(141, 20);
             this.TxtTelefono.TabIndex = 30;
@@ -215,7 +225,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(13, 108);
+            this.label6.Location = new System.Drawing.Point(439, 57);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(52, 13);
             this.label6.TabIndex = 29;
@@ -239,7 +249,7 @@
             // 
             // TxtMail
             // 
-            this.TxtMail.Location = new System.Drawing.Point(79, 81);
+            this.TxtMail.Location = new System.Drawing.Point(274, 54);
             this.TxtMail.Name = "TxtMail";
             this.TxtMail.Size = new System.Drawing.Size(141, 20);
             this.TxtMail.TabIndex = 26;
@@ -247,7 +257,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 82);
+            this.label3.Location = new System.Drawing.Point(239, 57);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 13);
             this.label3.TabIndex = 25;
@@ -276,7 +286,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(316, 28);
+            this.label4.Location = new System.Drawing.Point(323, 83);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(99, 13);
             this.label4.TabIndex = 23;
@@ -284,16 +294,58 @@
             // 
             // FechaPick
             // 
-            this.FechaPick.Location = new System.Drawing.Point(418, 28);
+            this.FechaPick.Location = new System.Drawing.Point(425, 83);
             this.FechaPick.Name = "FechaPick";
             this.FechaPick.Size = new System.Drawing.Size(213, 20);
             this.FechaPick.TabIndex = 21;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(128, 215);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(65, 20);
+            this.textBox1.TabIndex = 42;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(17, 216);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(105, 13);
+            this.label12.TabIndex = 41;
+            this.label12.Text = "Recarga por estrella:";
+            // 
+            // ListRegimenes
+            // 
+            this.ListRegimenes.FormattingEnabled = true;
+            this.ListRegimenes.Location = new System.Drawing.Point(255, 146);
+            this.ListRegimenes.Name = "ListRegimenes";
+            this.ListRegimenes.Size = new System.Drawing.Size(114, 121);
+            this.ListRegimenes.TabIndex = 43;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(252, 130);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(120, 13);
+            this.label13.TabIndex = 44;
+            this.label13.Text = "Regímenes disponibles:";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Location = new System.Drawing.Point(427, 112);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(210, 155);
+            this.groupBox2.TabIndex = 45;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Estado del hotel";
             // 
             // ModificarHotel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(677, 366);
+            this.ClientSize = new System.Drawing.Size(677, 401);
             this.Controls.Add(this.ActualizarDatos);
             this.Controls.Add(this.Mostrar);
             this.Controls.Add(this.label2);
@@ -334,6 +386,11 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox ComboCE;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ListBox ListRegimenes;
 
     }
 }

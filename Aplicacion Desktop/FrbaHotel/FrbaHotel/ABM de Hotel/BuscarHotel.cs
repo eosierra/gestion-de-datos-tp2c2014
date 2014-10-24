@@ -11,6 +11,8 @@ namespace FrbaHotel.ABM_de_Hotel
 {
     public partial class BuscarHotel : Buscador, ITraeBusqueda
     {
+        int idPais = 0;
+
         public BuscarHotel(ITraeBusqueda owner)
         {
             InitializeComponent();
@@ -36,22 +38,6 @@ namespace FrbaHotel.ABM_de_Hotel
             dondeVuelve.agregar(id, desc);
         }
 
-        #region filtros
-        private void TxtCiudad_TextChanged(object sender, EventArgs e)
-        {
-            addFiltroTextBox(TxtCiudad, "Ciudad", GridHoteles);
-        }
-
-        private void TxtNombre_TextChanged(object sender, EventArgs e)
-        {
-            addFiltroTextBox(TxtNombre, "Nombre", GridHoteles);
-        }
-
-        private void ComboCE_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            addFiltroComboBox(ComboCE, "CantEstrella", GridHoteles);
-        }
-        
         private void ElegirPais_Click(object sender, EventArgs e)
         {
             new BuscarPais(this).ShowDialog();
@@ -60,10 +46,30 @@ namespace FrbaHotel.ABM_de_Hotel
         public void agregar(string id, string descripcion)
         {
             Pais paisElegido = new Pais(id, descripcion);
-            TxtPais.Text = paisElegido.nombre;
-            addFiltroNumero(paisElegido.id, "Pais", GridHoteles);
+            TxtPais.Text = paisElegido.id.ToString();
+            idPais = paisElegido.id;
         }
 
-        #endregion
+        private void Limpiar_Click(object sender, EventArgs e)
+        {
+            TxtNombre.Text = "";
+            ComboCE.SelectedIndex = -1;
+            TxtCiudad.Text = "";
+            TxtPais.Text = "";
+            idPais = 0;
+            cargarGrilla(GridHoteles, todos);
+
+        }
+
+        private void Buscar_Click(object sender, EventArgs e)
+        {
+            actual = todos;
+            filtroTexto(TxtNombre.Text, "Nombre", GridHoteles);
+            addFiltroComboBox(ComboCE, "CantEstrella", GridHoteles);
+            addFiltroTextBox(TxtCiudad, "Ciudad", GridHoteles);
+            addFiltroPorID(idPais, "Pais", GridHoteles);
+            cargarGrilla(GridHoteles, actual);
+        }
+
     }
 }
