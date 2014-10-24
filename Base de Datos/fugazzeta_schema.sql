@@ -163,8 +163,8 @@ Precio numeric (7,2),
 Activo bit DEFAULT 1
 )
 CREATE TABLE FUGAZZETA.[Regimenes x Hotel](
-Id_Hotel int,
-Id_Regimen int,
+Id_Hotel int FOREIGN KEY REFERENCES FUGAZZETA.Hoteles,
+Id_Regimen int FOREIGN KEY REFERENCES FUGAZZETA.Regimenes,
 PRIMARY KEY (Id_Hotel,Id_Regimen)
 )
 CREATE TABLE FUGAZZETA.EstadosReserva(
