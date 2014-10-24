@@ -59,6 +59,9 @@ DROP VIEW FUGAZZETA.[TodosLosClientes]
 IF OBJECT_ID('FUGAZZETA.ReservasNoCanceladas') IS NOT NULL
 DROP VIEW FUGAZZETA.ReservasNoCanceladas
 
+IF OBJECT_ID('FUGAZZETA.VerReservasHotel') IS NOT NULL
+DROP PROCEDURE FUGAZZETA.VerReservasHotel
+
 
 ---------------------------/*Creacion de Tablas*/-------------------------------------------
 --------------------------------------------------------------------------------------------
@@ -462,6 +465,14 @@ END
 END
 GO
 
+CREATE PROCEDURE FUGAZZETA.VerReservasHotel (@Hotel int,@Desde date, @Hasta date,@Motivo nvarchar(140)) AS
+BEGIN
+SELECT COUNT(*) FROM FUGAZZETA.ReservasNoCanceladas
+WHERE Id_Hotel = @Hotel AND 
+((Fecha_Inicio >= @Desde AND Fecha_Inicio <=@Hasta) OR
+ (Fecha_Egreso >= @Desde AND Fecha_Egreso <= @Hasta))
+end
+GO
 
 
 --- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.

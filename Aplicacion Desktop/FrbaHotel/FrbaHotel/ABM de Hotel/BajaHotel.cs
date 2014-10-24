@@ -25,18 +25,38 @@ namespace FrbaHotel.ABM_de_Hotel
             if (confirmaBaja == DialogResult.OK)
             {
                 BD bd = new BD();
+                bd.obtenerConexion();
+                string parametros = TxtId.Text + ", '" + dateSolo(Program.hoy()) + "', '" + dateSolo(HastaPick.Value) + "', '" + TxtMotivo.Text + "'"; 
                 try
                 {
-                    string query = "EXEC FUGAZZETA.BajarHotel " + TxtId.Text + " " + Program.hoy() + " " + HastaPick.Value.ToString() + " " + TxtMotivo.Text;
-                    bd.ejecutar(query);
+                    string query = "EXEC FUGAZZETA.VerReservasHotel " + parametros;
+                    SqlCommand dr = new SqlCommand(query,bd.getConexion());
+                    int cantidadReservas = (int)dr.ExecuteScalar();
+                    if (cantidadReservas > 0)
+                    {
+                        throw new Exception("Hay reservas en ese período para el hotel.");
+                    }
+                    else
+                    {
+                        string query2 = "INSERT INTO FUGAZZETA.MovimientosHotel values (" + parametros + ")";
+                        bd.ejecutar(query2);
+                    }
+
                 }
-                catch (SqlException ex)
+                catch (Exception ex)
                 {
+                    this.DialogResult = DialogResult.Abort;
                     MessageBox.Show("No se pudo dar de baja el hotel. " + ex.Message);
                 }
-                this.DialogResult = DialogResult.Abort;
+                
             }
 
+        }
+
+
+        public string dateSolo(DateTime fecha)
+        {
+            return (fecha.Day + "/" + fecha.Month + "/" + fecha.Year);
         }
 
     }

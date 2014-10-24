@@ -177,10 +177,9 @@ namespace FrbaHotel.ABM_de_Hotel
             }
         }
 
-        internal string dateSolo(DateTime fecha)
+        public string dateSolo(DateTime fecha)
         {
             return (fecha.Day + "/" + fecha.Month + "/" + fecha.Year);
         }
-
     }
 }
