@@ -56,6 +56,9 @@ DROP VIEW FUGAZZETA.[UsuariosHabilitados]
 IF OBJECT_ID('FUGAZZETA.[TodosLosClientes]') IS NOT NULL
 DROP VIEW FUGAZZETA.[TodosLosClientes]
 
+IF OBJECT_ID('FUGAZZETA.ReservasNoCanceladas') IS NOT NULL
+DROP VIEW FUGAZZETA.ReservasNoCanceladas
+
 
 ---------------------------/*Creacion de Tablas*/-------------------------------------------
 --------------------------------------------------------------------------------------------
@@ -172,7 +175,7 @@ Id_EstadoReserva INT IDENTITY(1,1) PRIMARY KEY,
 Descripcion varchar(50)
 )
 CREATE TABLE FUGAZZETA.Reservas(
-Id_Reserva int IDENTITY(1,1) PRIMARY KEY,
+Id_Reserva int PRIMARY KEY,
 Id_Cliente int FOREIGN KEY REFERENCES FUGAZZETA.Clientes,
 Id_Hotel int FOREIGN KEY REFERENCES FUGAZZETA.Hoteles,
 Fecha_Reserva date,
@@ -425,6 +428,12 @@ UNION
 SELECT * FROM FUGAZZETA.ClientesDuplicados
 GO
 
+CREATE VIEW FUGAZZETA.ReservasNoCanceladas AS
+SELECT * FROM FUGAZZETA.Reservas where
+Id_EstadoReserva != 3 AND
+Id_EstadoReserva != 4 AND
+Id_EstadoReserva != 5
+go
 
 ----------------------------/* PROCEDIMIENTOS Y FUNCIONES*/---------------------------------
 --------------------------------------------------------------------------------------------
