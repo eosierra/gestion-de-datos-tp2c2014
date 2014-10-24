@@ -31,6 +31,7 @@ DROP TABLE FUGAZZETA.EstadosReserva
 DROP TABLE FUGAZZETA.ClientesDuplicados
 DROP TABLE FUGAZZETA.Clientes
 DROP TABLE FUGAZZETA.TiposDoc
+DROP TABLE FUGAZZETA.[Regimenes x Hotel]
 DROP TABLE FUGAZZETA.Regimenes
 DROP TABLE FUGAZZETA.Habitaciones
 DROP TABLE FUGAZZETA.TiposHabitacion
@@ -160,6 +161,11 @@ Id_Regimen int identity(1,1) PRIMARY KEY,
 Descripcion varchar(50),
 Precio numeric (7,2),
 Activo bit DEFAULT 1
+)
+CREATE TABLE FUGAZZETA.[Regimenes x Hotel](
+Id_Hotel int,
+Id_Regimen int,
+PRIMARY KEY (Id_Hotel,Id_Regimen)
 )
 CREATE TABLE FUGAZZETA.EstadosReserva(
 Id_EstadoReserva INT IDENTITY(1,1) PRIMARY KEY,
@@ -297,7 +303,8 @@ SELECT DISTINCT
 Regimen_Precio,
 Regimen_Descripcion
 FROM gd_esquema.Maestra
-go
+UPDATE FUGAZZETA.Regimenes SET Activo = 1
+GO
 
 INSERT INTO FUGAZZETA.Funcionalidades values('ABM Rol')
 INSERT INTO FUGAZZETA.Funcionalidades values('ABM Usuario')
