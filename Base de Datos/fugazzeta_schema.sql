@@ -4,10 +4,10 @@ IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'FUGAZZETA')
 BEGIN
 	EXEC ('CREATE SCHEMA FUGAZZETA AUTHORIZATION gd')
 END
+GO
 
-
---------------------Borrando Tablas------------------------
------------------------------------------------------------
+-----------------------------------/*Borrando Tablas */-------------------------------------
+--------------------------------------------------------------------------------------------
 
 DROP TABLE FUGAZZETA.AbonoFacturas
 DROP TABLE FUGAZZETA.Acompañantes
@@ -131,7 +131,8 @@ Piso numeric (3,0),
 Depto varchar(4),
 Localidad varchar(50),
 Nacionalidad int FOREIGN KEY REFERENCES FUGAZZETA.Paises,
-Habilitado bit default 1
+Habilitado bit default 1,
+UNIQUE (Id_TipoDoc,Nro_Doc)
 )
 
 SELECT * INTO FUGAZZETA.ClientesDuplicados FROM FUGAZZETA.Clientes
@@ -140,7 +141,7 @@ ADD PRIMARY KEY (Id_Cliente),
 FOREIGN KEY (Id_TipoDoc) REFERENCES FUGAZZETA.TiposDoc,
 FOREIGN KEY (Nacionalidad) REFERENCES FUGAZZETA.Paises,
 DEFAULT 1 FOR Habilitado
-DBCC CHECKIDENT ('FUGAZZETA.ClientesDuplicados',RESEED,700001)
+DBCC CHECKIDENT ('FUGAZZETA.ClientesDuplicados',RESEED,1)
 
 CREATE TABLE FUGAZZETA.MovimientosHotel(
 Id_Hotel int FOREIGN KEY REFERENCES FUGAZZETA.Hoteles,
@@ -310,6 +311,12 @@ insert into FUGAZZETA.Roles values('Recepcionista',1)
 insert into FUGAZZETA.Roles values('Guest',1)
 GO
 
+INSERT INTO FUGAZZETA.Paises values ('Argentina')
+INSERT INTO FUGAZZETA.Paises values ('Uruguay')
+INSERT INTO FUGAZZETA.Paises values ('España')
+INSERT INTO FUGAZZETA.Paises values ('Brasil')
+go
+
 INSERT INTO FUGAZZETA.Hoteles
 (Calle, Ciudad, Nro_Calle, CantEstrella, Recarga)
 SELECT DISTINCT
@@ -370,12 +377,6 @@ INSERT INTO FUGAZZETA.TiposDoc values ('LE')
 INSERT INTO FUGAZZETA.TiposDoc values ('Pasaporte')
 go
 
-INSERT INTO FUGAZZETA.Paises values ('Argentina')
-INSERT INTO FUGAZZETA.Paises values ('Uruguay')
-INSERT INTO FUGAZZETA.Paises values ('España')
-INSERT INTO FUGAZZETA.Paises values ('Brasil')
-go
-
 INSERT INTO FUGAZZETA.[Usuarios x Hoteles x Rol]
 (Username,Id_Hotel)
 SELECT U.Username, H.Id_Hotel FROM FUGAZZETA.Usuarios U, FUGAZZETA.Hoteles H where U.Username = 'admin'
@@ -395,6 +396,8 @@ go
 
 CREATE PROCEDURE FUGAZZETA.MigrarClientes AS
 BEGIN
+DECLARE @NUEVOSEED int
+
 	SELECT DISTINCT
 	Cliente_Pasaporte_Nro,
 	Cliente_Apellido,
@@ -406,15 +409,6 @@ BEGIN
 	Cliente_Piso,
 	Cliente_Depto INTO #TmpClientes FROM gd_esquema.Maestra
 
-	INSERT INTO FUGAZZETA.Clientes
-	(Nro_Doc,Apellido,Nombre,Fecha_Nac,Mail,Dom_Calle,Nro_Calle,Piso,Depto)
-	SELECT * FROM #TmpClientes
-	WHERE Cliente_Pasaporte_Nro NOT IN (
-	SELECT Cliente_Pasaporte_Nro
-	FROM #TmpClientes
-	group by Cliente_Pasaporte_Nro
-	having COUNT(*)>1)
-
 	INSERT INTO FUGAZZETA.ClientesDuplicados
 	(Nro_Doc,Apellido,Nombre,Fecha_Nac,Mail,Dom_Calle,Nro_Calle,Piso,Depto)
 	SELECT * FROM #TmpClientes
@@ -424,11 +418,21 @@ BEGIN
 	group by Cliente_Pasaporte_Nro
 	having COUNT(*)>1)
 
+	SET @NUEVOSEED = @@ROWCOUNT + 1
+	DBCC CHECKIDENT ('FUGAZZETA.Clientes',RESEED,@NUEVOSEED)
+	
+	INSERT INTO FUGAZZETA.Clientes
+	(Nro_Doc,Apellido,Nombre,Fecha_Nac,Mail,Dom_Calle,Nro_Calle,Piso,Depto)
+	SELECT * FROM #TmpClientes
+	WHERE Cliente_Pasaporte_Nro NOT IN (
+	SELECT Cliente_Pasaporte_Nro
+	FROM #TmpClientes
+	group by Cliente_Pasaporte_Nro
+	having COUNT(*)>1)
+
 	UPDATE FUGAZZETA.Clientes SET Nacionalidad = 1
 	UPDATE FUGAZZETA.ClientesDuplicados SET Nacionalidad = 1
 END 
-go
-EXEC FUGAZZETA.MigrarClientes
 go
 
 INSERT INTO FUGAZZETA.[Regimenes x Hotel]
