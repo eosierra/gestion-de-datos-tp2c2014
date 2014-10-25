@@ -178,7 +178,7 @@ namespace FrbaHotel.ABM_de_Hotel
                 if (confirma == DialogResult.Yes)
                 {
                     BD bd = new BD();
-                    string query = "UPDATE FUGAZZETA.MovimientosHotel SET Fecha_Fin = '" + dateSolo(Program.hoy()) + "' WHERE Id_Hotel = " + TxtId.Text + " AND Fecha_Inicio = '" + TxtDesde.Text + "'";
+                    string query = "UPDATE FUGAZZETA.MovimientosHotel SET Fecha_Fin = '" + new DatePrograma(Program.hoy()).ToString() + "' WHERE Id_Hotel = " + TxtId.Text + " AND Fecha_Inicio = '" + TxtDesde.Text + "'";
                     bd.ejecutar(query);
                     habilitado = true;
                     completarDatosDeEstado();
@@ -186,11 +186,6 @@ namespace FrbaHotel.ABM_de_Hotel
                     MessageBox.Show("Se ha habilitado el hotel con éxito");
                 }
             }
-        }
-
-        public string dateSolo(DateTime fecha)
-        {
-            return (fecha.Day + "/" + fecha.Month + "/" + fecha.Year);
         }
     }
 }

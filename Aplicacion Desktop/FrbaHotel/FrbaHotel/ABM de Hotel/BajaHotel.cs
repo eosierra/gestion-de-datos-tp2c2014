@@ -26,7 +26,7 @@ namespace FrbaHotel.ABM_de_Hotel
             {
                 BD bd = new BD();
                 bd.obtenerConexion();
-                string parametros = TxtId.Text + ", '" + dateSolo(Program.hoy()) + "', '" + dateSolo(HastaPick.Value) + "'"; 
+                string parametros = TxtId.Text + ", '" + new DatePrograma(Program.hoy()).ToString() + "', '" + new DatePrograma(HastaPick.Value).ToString() + "'"; 
                 try
                 {
                     string query = "EXEC FUGAZZETA.OcupacionEnHotelEnPeriodo " + parametros;
@@ -51,12 +51,5 @@ namespace FrbaHotel.ABM_de_Hotel
             }
 
         }
-
-
-        public string dateSolo(DateTime fecha)
-        {
-            return (fecha.Day + "/" + fecha.Month + "/" + fecha.Year);
-        }
-
     }
 }
