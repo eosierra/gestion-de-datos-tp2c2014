@@ -61,8 +61,11 @@ DROP PROCEDURE FUGAZZETA.LoginIncorrecto
 IF OBJECT_ID('FUGAZZETA.MigrarClientes') IS NOT NULL
 DROP PROCEDURE FUGAZZETA.MigrarClientes
 
+IF OBJECT_ID('FUGAZZETA.VerReservasHotelEnPeriodo') IS NOT NULL
+DROP PROCEDURE FUGAZZETA.VerReservasHotelEnPeriodo
+
 IF OBJECT_ID('FUGAZZETA.VerReservasHotel') IS NOT NULL
-DROP PROCEDURE FUGAZZETA.VerReservasHotel
+DROP PROCEDURE FUGAZZETA.OcupacionEnHotelEnPeriodo
 
 IF OBJECT_ID('FUGAZZETA.CancelarReserva') IS NOT NULL
 DROP PROCEDURE FUGAZZETA.CancelarReserva
@@ -492,12 +495,13 @@ END
 END
 GO
 
-CREATE PROCEDURE FUGAZZETA.VerReservasHotel (@Hotel int,@Desde date, @Hasta date) AS
+CREATE PROCEDURE FUGAZZETA.OcupacionEnHotelEnPeriodo (@Hotel int,@Desde date, @Hasta date) AS
 BEGIN
-SELECT COUNT(*) FROM FUGAZZETA.ReservasNoCanceladas
+SELECT * FROM FUGAZZETA.ReservasNoCanceladas
 WHERE Id_Hotel = @Hotel AND 
 ((Fecha_Inicio >= @Desde AND Fecha_Inicio <=@Hasta) OR
- (Fecha_Egreso >= @Desde AND Fecha_Egreso <= @Hasta))
+ (Fecha_Egreso >= @Desde AND Fecha_Egreso <= @Hasta) OR
+ (Fecha_Fin_Reserva >= @Desde AND Fecha_Fin_Reserva <= @Hasta))
 end
 GO
 

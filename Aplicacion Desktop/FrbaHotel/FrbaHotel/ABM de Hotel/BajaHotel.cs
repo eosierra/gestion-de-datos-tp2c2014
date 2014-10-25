@@ -29,11 +29,9 @@ namespace FrbaHotel.ABM_de_Hotel
                 string parametros = TxtId.Text + ", '" + dateSolo(Program.hoy()) + "', '" + dateSolo(HastaPick.Value) + "'"; 
                 try
                 {
-                    string query = "EXEC FUGAZZETA.VerReservasHotel " + parametros;
-                    SqlCommand dr = new SqlCommand(query,bd.getConexion());
-                    int cantidadReservas = (int)dr.ExecuteScalar();
-                    MessageBox.Show(cantidadReservas.ToString());
-                    if (cantidadReservas > 0)
+                    string query = "EXEC FUGAZZETA.OcupacionEnHotelEnPeriodo " + parametros;
+                    SqlDataReader dr = bd.lee(query);
+                    if (dr.HasRows)
                     {
                         throw new Exception("Hay reservas en ese período para el hotel.");
                     }
