@@ -136,11 +136,11 @@
       <DependentUpon>BuscarUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="BD.cs" />
-    <Compile Include="Cancelar Reserva\FrmCancelarReserva.cs">
+    <Compile Include="Cancelar Reserva\CancelarReserva.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Cancelar Reserva\FrmCancelarReserva.Designer.cs">
-      <DependentUpon>FrmCancelarReserva.cs</DependentUpon>
+    <Compile Include="Cancelar Reserva\CancelarReserva.Designer.cs">
+      <DependentUpon>CancelarReserva.cs</DependentUpon>
     </Compile>
     <Compile Include="Generar Modificar Reserva\GenerarReserva.cs">
       <SubType>Form</SubType>
@@ -216,8 +216,8 @@
     <EmbeddedResource Include="Buscador.resx">
       <DependentUpon>Buscador.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Cancelar Reserva\FrmCancelarReserva.resx">
-      <DependentUpon>FrmCancelarReserva.cs</DependentUpon>
+    <EmbeddedResource Include="Cancelar Reserva\CancelarReserva.resx">
+      <DependentUpon>CancelarReserva.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Modificar Reserva\GenerarReserva.resx">
       <DependentUpon>GenerarReserva.cs</DependentUpon>

@@ -65,10 +65,11 @@
             // 
             // TxtPass
             // 
+            this.TxtPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtPass.Location = new System.Drawing.Point(90, 84);
             this.TxtPass.Name = "TxtPass";
             this.TxtPass.PasswordChar = '*';
-            this.TxtPass.Size = new System.Drawing.Size(149, 20);
+            this.TxtPass.Size = new System.Drawing.Size(149, 23);
             this.TxtPass.TabIndex = 3;
             // 
             // CmdIngresar

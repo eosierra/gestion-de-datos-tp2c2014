@@ -11,7 +11,7 @@ namespace FrbaHotel
 {
     public partial class MenuPrincipal : Form
     {
-        string usuarioActual;
+        public string usuarioActual;
 
         public MenuPrincipal()
         {
@@ -29,7 +29,6 @@ namespace FrbaHotel
             elLogin.ShowDialog();
             usuarioActual = elLogin.userActual;
             LabelSesion.Text = "Sesión iniciada como " + usuarioActual;
-            //completarHotelesSesion();
         }
 
         #region Abrir Menues
@@ -85,17 +84,14 @@ namespace FrbaHotel
             abrir(new ABM_de_Hotel.ModificarHotel());
         }
 
+        private void cancelarReservaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            abrir(new Cancelar_Reserva.CancelarReserva(this));
+        }
 
         #endregion
 
         ITraeBusqueda interfaz; //esto habrá que sacarlo después
-
-        private void completarHotelesSesion()
-        {
-            BD bd = new BD();
-            bd.obtenerConexion();
-            string tabla = "[Usuarios x Hoteles] U, FUGAZZETA.Hoteles H WHERE U.Id_Hotel = H.Id_Hotel AND U.Username like '" + usuarioActual + "'";
-        }
 
     }
 }

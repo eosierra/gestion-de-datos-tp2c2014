@@ -49,6 +49,7 @@
             this.realizarNuevaReservaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hotelesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modificarHotelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cancelarReservaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -196,7 +197,8 @@
             // reservasToolStripMenuItem
             // 
             this.reservasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.realizarNuevaReservaToolStripMenuItem});
+            this.realizarNuevaReservaToolStripMenuItem,
+            this.cancelarReservaToolStripMenuItem});
             this.reservasToolStripMenuItem.Name = "reservasToolStripMenuItem";
             this.reservasToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.reservasToolStripMenuItem.Text = "Reservas";
@@ -222,6 +224,13 @@
             this.modificarHotelToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.modificarHotelToolStripMenuItem.Text = "Modificar Hotel";
             this.modificarHotelToolStripMenuItem.Click += new System.EventHandler(this.modificarHotelToolStripMenuItem_Click);
+            // 
+            // cancelarReservaToolStripMenuItem
+            // 
+            this.cancelarReservaToolStripMenuItem.Name = "cancelarReservaToolStripMenuItem";
+            this.cancelarReservaToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.cancelarReservaToolStripMenuItem.Text = "Cancelar reserva";
+            this.cancelarReservaToolStripMenuItem.Click += new System.EventHandler(this.cancelarReservaToolStripMenuItem_Click);
             // 
             // MenuPrincipal
             // 
@@ -267,5 +276,6 @@
         private System.Windows.Forms.ToolStripMenuItem realizarNuevaReservaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hotelesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem modificarHotelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cancelarReservaToolStripMenuItem;
     }
 }
