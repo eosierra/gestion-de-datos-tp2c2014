@@ -33,6 +33,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.CambiarEstado = new System.Windows.Forms.Button();
+            this.LblHabilitado = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.LblDesde = new System.Windows.Forms.Label();
             this.TxtDesde = new System.Windows.Forms.Label();
             this.LblMotivo = new System.Windows.Forms.Label();
@@ -63,9 +66,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.FechaPick = new System.Windows.Forms.DateTimePicker();
-            this.label14 = new System.Windows.Forms.Label();
-            this.LblHabilitado = new System.Windows.Forms.Label();
-            this.CambiarEstado = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -151,6 +151,34 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Estado del hotel";
             // 
+            // CambiarEstado
+            // 
+            this.CambiarEstado.Location = new System.Drawing.Point(12, 152);
+            this.CambiarEstado.Name = "CambiarEstado";
+            this.CambiarEstado.Size = new System.Drawing.Size(192, 25);
+            this.CambiarEstado.TabIndex = 10;
+            this.CambiarEstado.Text = "Cambiar Estado";
+            this.CambiarEstado.UseVisualStyleBackColor = true;
+            this.CambiarEstado.Click += new System.EventHandler(this.CambiarEstado_Click);
+            // 
+            // LblHabilitado
+            // 
+            this.LblHabilitado.AutoSize = true;
+            this.LblHabilitado.Location = new System.Drawing.Point(67, 30);
+            this.LblHabilitado.Name = "LblHabilitado";
+            this.LblHabilitado.Size = new System.Drawing.Size(37, 13);
+            this.LblHabilitado.TabIndex = 9;
+            this.LblHabilitado.Text = "..........";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(19, 30);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(43, 13);
+            this.label14.TabIndex = 8;
+            this.label14.Text = "Estado:";
+            // 
             // LblDesde
             // 
             this.LblDesde.AutoSize = true;
@@ -219,6 +247,7 @@
             this.ListRegimenes.Location = new System.Drawing.Point(255, 146);
             this.ListRegimenes.Name = "ListRegimenes";
             this.ListRegimenes.Size = new System.Drawing.Size(114, 121);
+            this.ListRegimenes.Sorted = true;
             this.ListRegimenes.TabIndex = 43;
             // 
             // TxtRecarga
@@ -412,34 +441,6 @@
             this.FechaPick.Name = "FechaPick";
             this.FechaPick.Size = new System.Drawing.Size(213, 20);
             this.FechaPick.TabIndex = 21;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(19, 30);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(43, 13);
-            this.label14.TabIndex = 8;
-            this.label14.Text = "Estado:";
-            // 
-            // LblHabilitado
-            // 
-            this.LblHabilitado.AutoSize = true;
-            this.LblHabilitado.Location = new System.Drawing.Point(67, 30);
-            this.LblHabilitado.Name = "LblHabilitado";
-            this.LblHabilitado.Size = new System.Drawing.Size(37, 13);
-            this.LblHabilitado.TabIndex = 9;
-            this.LblHabilitado.Text = "..........";
-            // 
-            // CambiarEstado
-            // 
-            this.CambiarEstado.Location = new System.Drawing.Point(12, 152);
-            this.CambiarEstado.Name = "CambiarEstado";
-            this.CambiarEstado.Size = new System.Drawing.Size(192, 25);
-            this.CambiarEstado.TabIndex = 10;
-            this.CambiarEstado.Text = "Cambiar Estado";
-            this.CambiarEstado.UseVisualStyleBackColor = true;
-            this.CambiarEstado.Click += new System.EventHandler(this.CambiarEstado_Click);
             // 
             // ModificarHotel
             // 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using FrbaHotel.ABM_de_Regimen;
 
 namespace FrbaHotel.ABM_de_Hotel
 {
@@ -46,6 +47,7 @@ namespace FrbaHotel.ABM_de_Hotel
 
         public void agregar(string id, string descripcion)
         {
+            ListRegimenes.Items.Clear();
             BD bd = new BD();
             bd.obtenerConexion();
             int elId = Convert.ToInt32(id);
@@ -80,8 +82,17 @@ namespace FrbaHotel.ABM_de_Hotel
 
                 habilitado = Convert.ToBoolean(dr["Habilitado"].ToString());
              }
-            bd.cerrar();
+            dr.Close();
             completarDatosDeEstado();
+
+            query = "SELECT H.Id_Hotel,H.Id_Regimen, R.Descripcion FROM FUGAZZETA.[Regimenes x Hotel] H, FUGAZZETA.Regimenes R where H.Id_Regimen = R.Id_Regimen AND Id_Hotel = " + TxtId.Text;
+            dr = bd.lee(query);
+            while (dr.Read())
+            {
+                ListRegimenes.Items.Add(new Regimen(dr[1].ToString(), dr[2].ToString()));
+            }
+            bd.cerrar();
+
         }
 
         private void completarDatosDeEstado()

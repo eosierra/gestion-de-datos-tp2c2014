@@ -26,19 +26,20 @@ namespace FrbaHotel.ABM_de_Hotel
             {
                 BD bd = new BD();
                 bd.obtenerConexion();
-                string parametros = TxtId.Text + ", '" + dateSolo(Program.hoy()) + "', '" + dateSolo(HastaPick.Value) + "', '" + TxtMotivo.Text + "'"; 
+                string parametros = TxtId.Text + ", '" + dateSolo(Program.hoy()) + "', '" + dateSolo(HastaPick.Value) + "'"; 
                 try
                 {
                     string query = "EXEC FUGAZZETA.VerReservasHotel " + parametros;
                     SqlCommand dr = new SqlCommand(query,bd.getConexion());
                     int cantidadReservas = (int)dr.ExecuteScalar();
+                    MessageBox.Show(cantidadReservas.ToString());
                     if (cantidadReservas > 0)
                     {
                         throw new Exception("Hay reservas en ese período para el hotel.");
                     }
                     else
                     {
-                        string query2 = "INSERT INTO FUGAZZETA.MovimientosHotel values (" + parametros + ")";
+                        string query2 = "INSERT INTO FUGAZZETA.MovimientosHotel values (" + parametros +  ", '" + TxtMotivo.Text + "')";
                         bd.ejecutar(query2);
                     }
 

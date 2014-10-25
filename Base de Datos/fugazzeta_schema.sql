@@ -297,6 +297,7 @@ Hotel_Nro_Calle,
 Hotel_CantEstrella,
 Hotel_Recarga_Estrella 
 FROM gd_esquema.Maestra
+UPDATE FUGAZZETA.Hoteles SET Pais = 1
 GO
 
 INSERT INTO FUGAZZETA.Usuarios
@@ -465,7 +466,7 @@ END
 END
 GO
 
-CREATE PROCEDURE FUGAZZETA.VerReservasHotel (@Hotel int,@Desde date, @Hasta date,@Motivo nvarchar(140)) AS
+CREATE PROCEDURE FUGAZZETA.VerReservasHotel (@Hotel int,@Desde date, @Hasta date) AS
 BEGIN
 SELECT COUNT(*) FROM FUGAZZETA.ReservasNoCanceladas
 WHERE Id_Hotel = @Hotel AND 

@@ -98,6 +98,7 @@
     <Compile Include="ABM de Regimen\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ABM de Regimen\Regimen.cs" />
     <Compile Include="ABM de Rol\AltaRol.cs">
       <SubType>Form</SubType>
     </Compile>
