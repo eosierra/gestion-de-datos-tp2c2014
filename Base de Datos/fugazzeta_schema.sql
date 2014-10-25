@@ -280,6 +280,20 @@ FOREIGN KEY (Id_Hotel,Num_Habitacion) REFERENCES FUGAZZETA.Habitaciones
 
 go
 
+
+--------------------------/* Poblado de Datos*/---------------------------------------------
+--------------------------------------------------------------------------------------------
+
+CREATE TRIGGER FUGAZZETA.TR_MovimientosHotel_A_I ON FUGAZZETA.MovimientosHotel
+AFTER INSERT AS
+BEGIN
+	UPDATE FUGAZZETA.Hoteles
+	SET Habilitado = 0
+	WHERE EXISTS (SELECT Id_Hotel FROM INSERTED)
+END
+GO
+
+
 --------------------------/* Poblado de Datos*/---------------------------------------------
 --------------------------------------------------------------------------------------------
 INSERT INTO FUGAZZETA.Roles values('Administrador General',1)
