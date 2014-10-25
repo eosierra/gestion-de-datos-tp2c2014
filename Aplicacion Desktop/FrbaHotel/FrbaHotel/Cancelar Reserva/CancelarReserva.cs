@@ -31,7 +31,7 @@ namespace FrbaHotel.Cancelar_Reserva
                     bd.obtenerConexion();
                     validarReserva(bd);
                     validarContraseña(bd);
-                    cancelar();
+                    cancelar(bd);
                 }
                 catch (Exception ex)
                 {
@@ -42,9 +42,10 @@ namespace FrbaHotel.Cancelar_Reserva
 
         }
 
-        private void cancelar()
+        private void cancelar(BD bd)
         {
-
+            string query = "EXEC FUGAZZETA.CancelarReserva " + TxtCodigo.Text + ", '" + menu.usuarioActual + "', '" + Program.ahora().ToString() + "', '" + TxtMotivo.Text + "'";
+            bd.ejecutar(query);
             MessageBox.Show("La reserva se ha cancelado con éxito.");
             this.Close();
         }
@@ -63,6 +64,7 @@ namespace FrbaHotel.Cancelar_Reserva
                 {
                     if (dr[0].ToString() != TxtPass.Text)
                     {
+                        dr.Close();
                         throw new Exception("La contraseña es incorrecta.");
                     }
                 }
@@ -72,11 +74,12 @@ namespace FrbaHotel.Cancelar_Reserva
 
         private void validarReserva(BD bd)
         {
-            string query = "SELECT * FROM FUGAZZETA.Reservas WHERE Id_Reserva = " + TxtCodigo.Text;
+            string query = "SELECT * FROM FUGAZZETA.ReservasNoCanceladas WHERE Id_Reserva = " + TxtCodigo.Text;
             SqlDataReader dr = bd.lee(query);
             if (!dr.HasRows)
             {
-                throw new Exception("La reserva que intenta cancelar no existe.");
+                dr.Close();
+                throw new Exception("La reserva que intenta cancelar no existe o ya fue cancelada.");
             }
             dr.Close();
         }

@@ -67,6 +67,7 @@
             // TxtMotivo
             // 
             this.TxtMotivo.Location = new System.Drawing.Point(66, 69);
+            this.TxtMotivo.MaxLength = 140;
             this.TxtMotivo.Multiline = true;
             this.TxtMotivo.Name = "TxtMotivo";
             this.TxtMotivo.Size = new System.Drawing.Size(241, 83);
