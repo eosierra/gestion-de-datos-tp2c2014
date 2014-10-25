@@ -41,15 +41,7 @@ GO
 
 --------------------/*Borrado de procedimientos,vistas*/------------------------------------
 --------------------------------------------------------------------------------------------
-IF OBJECT_ID('FUGAZZETA.LoginCorrecto', 'P') IS NOT NULL
-DROP PROCEDURE FUGAZZETA.LoginCorrecto
-
-IF OBJECT_ID('FUGAZZETA.LoginIncorrecto', 'P') IS NOT NULL
-DROP PROCEDURE FUGAZZETA.LoginIncorrecto
-
-IF OBJECT_ID('FUGAZZETA.MigrarClientes') IS NOT NULL
-DROP PROCEDURE FUGAZZETA.MigrarClientes
-
+--Views
 IF OBJECT_ID('FUGAZZETA.[UsuariosHabilitados]') IS NOT NULL
 DROP VIEW FUGAZZETA.[UsuariosHabilitados]
 
@@ -59,9 +51,25 @@ DROP VIEW FUGAZZETA.[TodosLosClientes]
 IF OBJECT_ID('FUGAZZETA.ReservasNoCanceladas') IS NOT NULL
 DROP VIEW FUGAZZETA.ReservasNoCanceladas
 
+--Procedures
+IF OBJECT_ID('FUGAZZETA.LoginCorrecto', 'P') IS NOT NULL
+DROP PROCEDURE FUGAZZETA.LoginCorrecto
+
+IF OBJECT_ID('FUGAZZETA.LoginIncorrecto', 'P') IS NOT NULL
+DROP PROCEDURE FUGAZZETA.LoginIncorrecto
+
+IF OBJECT_ID('FUGAZZETA.MigrarClientes') IS NOT NULL
+DROP PROCEDURE FUGAZZETA.MigrarClientes
+
 IF OBJECT_ID('FUGAZZETA.VerReservasHotel') IS NOT NULL
 DROP PROCEDURE FUGAZZETA.VerReservasHotel
 
+IF OBJECT_ID('FUGAZZETA.CancelarReserva') IS NOT NULL
+DROP PROCEDURE FUGAZZETA.CancelarReserva
+
+--Triggers
+IF OBJECT_ID('FUGAZZETA.TR_MovimientosHotel_A_I') IS NOT NULL
+DROP TRIGGER FUGAZZETA.TR_MovimientosHotel_A_I
 
 ---------------------------/*Creacion de Tablas*/-------------------------------------------
 --------------------------------------------------------------------------------------------
@@ -281,7 +289,7 @@ FOREIGN KEY (Id_Hotel,Num_Habitacion) REFERENCES FUGAZZETA.Habitaciones
 go
 
 
---------------------------/* Poblado de Datos*/---------------------------------------------
+-------------------------------/* Triggers*/------------------------------------------------
 --------------------------------------------------------------------------------------------
 
 CREATE TRIGGER FUGAZZETA.TR_MovimientosHotel_A_I ON FUGAZZETA.MovimientosHotel
@@ -314,8 +322,8 @@ FROM gd_esquema.Maestra
 UPDATE FUGAZZETA.Hoteles SET Pais = 1
 GO
 
-INSERT INTO FUGAZZETA.Usuarios
-(Username, Contraseña, Habilitado) values ('admin','w23e',1)
+INSERT INTO FUGAZZETA.Usuarios (Username, Contraseña) values ('admin','w23e')
+INSERT INTO FUGAZZETA.Usuarios (Username) values ('guest')
 go
 
 INSERT INTO FUGAZZETA.Regimenes
@@ -324,7 +332,6 @@ SELECT DISTINCT
 Regimen_Precio,
 Regimen_Descripcion
 FROM gd_esquema.Maestra
-UPDATE FUGAZZETA.Regimenes SET Activo = 1
 GO
 
 INSERT INTO FUGAZZETA.Funcionalidades values('ABM Rol')
@@ -365,13 +372,14 @@ go
 
 INSERT INTO FUGAZZETA.Paises values ('Argentina')
 INSERT INTO FUGAZZETA.Paises values ('Uruguay')
+INSERT INTO FUGAZZETA.Paises values ('España')
+INSERT INTO FUGAZZETA.Paises values ('Brasil')
 go
 
 INSERT INTO FUGAZZETA.[Usuarios x Hoteles x Rol]
 (Username,Id_Hotel)
 SELECT U.Username, H.Id_Hotel FROM FUGAZZETA.Usuarios U, FUGAZZETA.Hoteles H where U.Username = 'admin'
-UPDATE FUGAZZETA.[Usuarios x Hoteles x Rol]
-SET Id_Rol = 1
+UPDATE FUGAZZETA.[Usuarios x Hoteles x Rol] SET Id_Rol = 1
 GO
 
 INSERT INTO FUGAZZETA.Consumibles
@@ -489,6 +497,18 @@ WHERE Id_Hotel = @Hotel AND
 end
 GO
 
+CREATE PROCEDURE FUGAZZETA.CancelarReserva (@ReservaID int, @USER nvarchar(30),@Fecha datetime, @Motivo nvarchar(140)) AS
+BEGIN
+DECLARE @ESTADO int
+	IF @USER = 'guest'
+		SET @ESTADO = 4
+	ELSE SET @ESTADO = 3
+	UPDATE FUGAZZETA.Reservas
+		SET Id_EstadoReserva = @ESTADO WHERE Id_Reserva = @ReservaID
+	INSERT INTO FUGAZZETA.MovimientosReserva
+	values (@ReservaID,'B',@USER,@Fecha,@Motivo)
+END
+GO
 
 --- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.
 
