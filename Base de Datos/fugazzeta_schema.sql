@@ -485,7 +485,14 @@ WHERE H.Calle = M.Hotel_Calle
 AND H.Nro_Calle = M.Hotel_Nro_Calle
 GO
 
---HISTORIALHABITACIONES
+INSERT INTO FUGAZZETA.HistorialHabitaciones
+SELECT DISTINCT
+H.Id_Hotel, M.Habitacion_Numero, CAST(M.Estadia_Fecha_Inicio AS DATE) AS DIA, M.Estadia_Cant_Noches
+FROM gd_esquema.Maestra M, FUGAZZETA.Hoteles H
+WHERE M.Hotel_Calle = H.Calle
+AND M.Hotel_Nro_Calle = H.Nro_Calle
+AND M.Estadia_Fecha_Inicio IS NOT NULL
+ORDER BY H.Id_Hotel,M.Habitacion_Numero, DIA
 
 --HABITACIONES X RESERVA
 
