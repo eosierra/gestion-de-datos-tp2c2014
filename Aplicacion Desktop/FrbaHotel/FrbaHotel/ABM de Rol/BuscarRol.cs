@@ -41,7 +41,7 @@ namespace FrbaHotel.ABM_de_Rol
             string id = celdaElegida(GridRoles,0);
             string name = celdaElegida(GridRoles,1);
             Rol rol = new Rol(id, name);
-            //dondeVuelve.agregarRol(rol);
+            dondeVuelve.agregar(id, name);
             this.Close();
         }
     }
