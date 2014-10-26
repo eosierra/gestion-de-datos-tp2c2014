@@ -51,6 +51,9 @@ DROP VIEW FUGAZZETA.[TodosLosClientes]
 IF OBJECT_ID('FUGAZZETA.ReservasNoCanceladas') IS NOT NULL
 DROP VIEW FUGAZZETA.ReservasNoCanceladas
 
+IF OBJECT_ID('FUGAZZETA.ReservasModificables') IS NOT NULL
+DROP VIEW FUGAZZETA.ReservasModificables
+
 --Procedures
 IF OBJECT_ID('FUGAZZETA.LoginCorrecto', 'P') IS NOT NULL
 DROP PROCEDURE FUGAZZETA.LoginCorrecto
@@ -219,7 +222,7 @@ CantPersonas int,
 CHECK (CantPersonas > 0)
 )
 CREATE TABLE FUGAZZETA.Facturas(
-NroFactura int PRIMARY KEY,
+NroFactura int IDENTITY(1,1) PRIMARY KEY,
 Id_Hotel INT FOREIGN KEY REFERENCES FUGAZZETA.Hoteles,
 Fecha date,
 Total numeric (10,2),
@@ -481,7 +484,8 @@ SELECT H.Id_Hotel,M.Habitacion_Numero,M.Habitacion_Piso,
 M.Habitacion_Frente,M.Habitacion_Tipo_Codigo
 FROM FUGAZZETA.Hoteles H, (SELECT DISTINCT Hotel_Calle,Hotel_Nro_Calle,Habitacion_Numero,Habitacion_Piso,
 Habitacion_Frente,Habitacion_Tipo_Codigo FROM gd_esquema.Maestra) as M
-WHERE H.Calle = M.Hotel_Calle
+WHERE
+	H.Calle = M.Hotel_Calle
 AND H.Nro_Calle = M.Hotel_Nro_Calle
 GO
 
@@ -489,13 +493,14 @@ INSERT INTO FUGAZZETA.HistorialHabitaciones
 SELECT DISTINCT
 H.Id_Hotel, M.Habitacion_Numero, CAST(M.Estadia_Fecha_Inicio AS DATE) AS DIA, M.Estadia_Cant_Noches
 FROM gd_esquema.Maestra M, FUGAZZETA.Hoteles H
-WHERE M.Hotel_Calle = H.Calle
+WHERE 
+	M.Hotel_Calle = H.Calle
 AND M.Hotel_Nro_Calle = H.Nro_Calle
 AND M.Estadia_Fecha_Inicio IS NOT NULL
 ORDER BY H.Id_Hotel,M.Habitacion_Numero, DIA
+GO
 
---HABITACIONES X RESERVA
-
+-- HABITACIONES X RESERVAS
 
 
 ----------------------------------------/*VISTAS*/------------------------------------------
@@ -517,6 +522,13 @@ SELECT * FROM FUGAZZETA.Reservas where
 Id_EstadoReserva != 3 AND
 Id_EstadoReserva != 4 AND
 Id_EstadoReserva != 5
+go
+
+CREATE VIEW FUGAZZETA.ReservasModificables AS
+SELECT * FROM FUGAZZETA.[ReservasNoCanceladas]
+where
+   Id_EstadoReserva = 1
+OR Id_EstadoReserva = 2 
 go
 
 ----------------------------/* PROCEDIMIENTOS Y FUNCIONES*/---------------------------------
@@ -593,8 +605,6 @@ END
 GO
 
 -- cargar totales de facturas 
-
-
 DECLARE mi_cursor CURSOR FOR
 	SELECT NroFactura FROM FUGAZZETA.Facturas
 	DECLARE @id int
@@ -608,5 +618,33 @@ BEGIN
 END
 CLOSE mi_cursor
 DEALLOCATE mi_cursor
+GO
+
+-- ESTOS INSERTS ANDARIAN PERO FALLAN POR FALTA DE FK (CUALQUIER COSA HABLAR CON EMI).
+
+--FACTURAS
+SET IDENTITY_INSERT FUGAZZETA.Facturas ON
+INSERT INTO FUGAZZETA.Facturas
+(NroFactura,Id_Hotel,Fecha,Total,Id_Cliente)
+SELECT DISTINCT
+M.Factura_Nro,H.Id_Hotel,cast(M.Factura_Fecha as DATE), M.Factura_Total, C.Id_Cliente
+FROM gd_esquema.Maestra M, FUGAZZETA.Hoteles H, FUGAZZETA.[TodosLosClientes] C
+where
+	M.Factura_Nro IS NOT NULL
+AND H.Calle = M.Hotel_Calle
+AND H.Nro_Calle = M.Hotel_Nro_Calle
+AND C.Nro_Doc = M.Cliente_Pasaporte_Nro
+AND C.Apellido = M.Cliente_Apellido
+ORDER BY M.Factura_Nro
+SET IDENTITY_INSERT FUGAZZETA.Facturas OFF
+GO
+
+--HABITACIONES X RESERVA
+INSERT INTO FUGAZZETA.[Habitaciones x Reservas]
+SELECT DISTINCT M.Reserva_Codigo,H.Id_Hotel,M.Habitacion_Numero FROM gd_esquema.Maestra M, FUGAZZETA.Hoteles H
+WHERE
+	H.Calle = M.Hotel_Calle
+AND H.Nro_Calle = M.Hotel_Nro_Calle
+ORDER BY M.Reserva_Codigo
 GO
 
