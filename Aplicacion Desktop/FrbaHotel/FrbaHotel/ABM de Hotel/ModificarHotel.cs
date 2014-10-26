@@ -118,7 +118,7 @@ namespace FrbaHotel.ABM_de_Hotel
                 TxtMotivo.Visible = true;
                 BD bd = new BD();
                 bd.obtenerConexion();
-                string query = "SELECT TOP 1 * FROM FUGAZZETA.MovimientosHotel WHERE Id_Hotel = " + TxtId.Text + "ORDER BY Fecha_Inicio DESC";
+                string query = "SELECT TOP 1 * FROM FUGAZZETA.HistorialBajasHotel WHERE Id_Hotel = " + TxtId.Text + "ORDER BY Fecha_Inicio DESC";
                 SqlDataReader dr = bd.lee(query);
                 while (dr.Read())
                 {
@@ -178,7 +178,7 @@ namespace FrbaHotel.ABM_de_Hotel
                 if (confirma == DialogResult.Yes)
                 {
                     BD bd = new BD();
-                    string query = "UPDATE FUGAZZETA.MovimientosHotel SET Fecha_Fin = '" + new DatePrograma(Program.hoy()).ToString() + "' WHERE Id_Hotel = " + TxtId.Text + " AND Fecha_Inicio = '" + TxtDesde.Text + "'";
+                    string query = "UPDATE FUGAZZETA.HistorialBajasHotel SET Fecha_Fin = '" + new DatePrograma(Program.hoy()).ToString() + "' WHERE Id_Hotel = " + TxtId.Text + " AND Fecha_Inicio = '" + TxtDesde.Text + "'";
                     bd.ejecutar(query);
                     habilitado = true;
                     completarDatosDeEstado();

@@ -37,7 +37,7 @@ namespace FrbaHotel.ABM_de_Hotel
                     }
                     else
                     {
-                        string query2 = "INSERT INTO FUGAZZETA.MovimientosHotel values (" + parametros +  ", '" + TxtMotivo.Text + "')";
+                        string query2 = "INSERT INTO FUGAZZETA.HistorialBajasHotel values (" + parametros +  ", '" + TxtMotivo.Text + "')";
                         bd.ejecutar(query2);
                     }
 
