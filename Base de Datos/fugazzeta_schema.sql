@@ -230,10 +230,9 @@ Id_Cliente int FOREIGN KEY REFERENCES FUGAZZETA.Clientes
 )
 CREATE TABLE FUGAZZETA.[Items_Hospedaje](
 NroFactura int FOREIGN KEY REFERENCES FUGAZZETA.Facturas,
-Ocupadas char /* también puede ser Bit */,
+Ocupadas Bit,
 CantNoches int,
 Monto numeric (7,2),
-PRIMARY KEY (NroFactura,Ocupadas),
 CHECK (CantNoches >= 0)
 )
 CREATE TABLE FUGAZZETA.Consumibles(
@@ -637,6 +636,39 @@ AND C.Nro_Doc = M.Cliente_Pasaporte_Nro
 AND C.Apellido = M.Cliente_Apellido
 ORDER BY M.Factura_Nro
 SET IDENTITY_INSERT FUGAZZETA.Facturas OFF
+GO
+
+--ITEMS_HOSPEDAJE
+CREATE PROCEDURE FUGAZZETA.Migrar_ItemsHospedaje AS
+BEGIN
+	BEGIN TRANSACTION
+	INSERT INTO FUGAZZETA.Items_Hospedaje (NroFactura,CantNoches,Monto)
+	SELECT Factura_Nro, Estadia_Cant_Noches, Item_Factura_Monto FROM gd_esquema.Maestra
+	where
+		Factura_Nro is not null
+	AND Consumible_Codigo is null
+	ORDER BY Factura_Nro
+	UPDATE FUGAZZETA.Items_Hospedaje SET Ocupadas = 1
+	COMMIT TRANSACTION
+	--Ninguna estadía tuvo noches de sobra. Por lo tanto, para todas ellas la cantidad de Noches NO ocupadas es 0
+	BEGIN TRANSACTION
+		INSERT INTO FUGAZZETA.Items_Hospedaje (NroFactura)
+		SELECT Factura_Nro FROM gd_esquema.Maestra
+		where
+			Factura_Nro is not null
+		AND Consumible_Codigo is null
+		ORDER BY Factura_Nro
+		UPDATE FUGAZZETA.Items_Hospedaje
+			SET Ocupadas = 0,
+				CantNoches = 0,
+				Monto = 0
+			WHERE Ocupadas IS NULL AND CantNoches IS NULL AND MONTO IS NULL
+	COMMIT TRANSACTION
+	-- Después del poblado no se permitirán valores nulos.
+	ALTER TABLE FUGAZZETA.Items_Hospedaje
+	ADD PRIMARY KEY (NroFactura,Ocupadas)
+END
+EXEC FUGAZZETA.Migrar_ItemsHospedaje
 GO
 
 --ITEMS_CONSUMIBLES
