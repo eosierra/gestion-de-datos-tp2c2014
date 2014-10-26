@@ -20,7 +20,7 @@ DROP TABLE FUGAZZETA.[Habitaciones x Reservas]
 DROP TABLE FUGAZZETA.HistorialHabitaciones
 DROP TABLE FUGAZZETA.Items_Consumible
 DROP TABLE FUGAZZETA.Items_Hospedaje
-DROP TABLE FUGAZZETA.MovimientosHotel
+DROP TABLE FUGAZZETA.HistorialBajasHotel
 DROP TABLE FUGAZZETA.MovimientosReserva
 DROP TABLE FUGAZZETA.Usuarios
 DROP TABLE FUGAZZETA.Consumibles
@@ -148,7 +148,7 @@ FOREIGN KEY (Nacionalidad) REFERENCES FUGAZZETA.Paises,
 DEFAULT 1 FOR Habilitado
 DBCC CHECKIDENT ('FUGAZZETA.ClientesDuplicados',RESEED,1)
 
-CREATE TABLE FUGAZZETA.MovimientosHotel(
+CREATE TABLE FUGAZZETA.HistorialBajasHotel(
 Id_Hotel int FOREIGN KEY REFERENCES FUGAZZETA.Hoteles,
 Fecha_Inicio date,
 Fecha_Fin date,
@@ -381,11 +381,10 @@ DECLARE @NUEVOSEED int
 	UPDATE FUGAZZETA.Clientes SET Nacionalidad = 1
 	UPDATE FUGAZZETA.ClientesDuplicados SET Nacionalidad = 1
 END 
-go
 EXEC FUGAZZETA.MigrarClientes
 GO
 
---MOVIMIENTOSHOTEL
+--HistorialBajasHotel
 
 INSERT INTO FUGAZZETA.[Usuarios x Hoteles x Rol]
 (Username,Id_Hotel)
@@ -437,7 +436,7 @@ go
 
 --MOVIMIENTOSRESERVA
 
---ACOMPAÑANTES
+--ACOMPAÑANTES: NO HAY INFORMACION DE PERSONAS QUE ACOMPAÑARON EN UNA ESTADIA.
 
 SET IDENTITY_INSERT FUGAZZETA.TiposHabitacion ON
 INSERT INTO FUGAZZETA.TiposHabitacion (Id_TipoHab,Descripcion,Porcentual)
@@ -476,7 +475,7 @@ INSERT INTO FUGAZZETA.Bancos values('Banco Frances')
 INSERT INTO FUGAZZETA.Bancos values('Banco Ciudad')
 go
 
---ABONOFACTURAS
+--ABONOFACTURAS: no hay informacion de pagos.
 
 INSERT INTO FUGAZZETA.Habitaciones (Id_Hotel,Num_Habitacion,Piso,Frente,Id_TipoHab)
 SELECT H.Id_Hotel,M.Habitacion_Numero,M.Habitacion_Piso,
@@ -585,16 +584,12 @@ GO
 ----------------------------------------/*PROCEDIMIENTO-NO SE SI ESTA BIEN*/----------------
 --------------------------------------------------------------------------------------------
 
-CREATE FUNCTION FUGAZZETA.calcular_total_factura
-(
-	@NroFactura int
-)
-RETURNS int
-AS
+CREATE FUNCTION FUGAZZETA.calcular_total_factura (@NroFactura int)
+RETURNS int AS
 BEGIN
-	DECLARE @TotalHospedaje numeric(18,2)
-	DECLARE @TotalConsumibles numeric(18,2)
-	DECLARE @TotalFactura numeric(18,2)
+	DECLARE @TotalHospedaje numeric(10,2)
+	DECLARE @TotalConsumibles numeric(10,2)
+	DECLARE @TotalFactura numeric(10,2)
 	
 	SET @TotalHospedaje = (SELECT SUM(Monto) FROM FUGAZZETA.Items_Hospedaje WHERE NroFactura = @NroFactura) 
 	SET @TotalCOnsumibles = (SELECT SUM(Monto) FROM FUGAZZETA.Items_Cunsumible WHERE NroFactura = @NroFactura) 
