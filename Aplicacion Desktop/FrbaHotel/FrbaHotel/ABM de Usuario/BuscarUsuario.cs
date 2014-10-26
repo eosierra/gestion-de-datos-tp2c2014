@@ -15,7 +15,7 @@ namespace FrbaHotel.ABM_de_Usuario
         public BuscarUsuario(ITraeBusqueda owner)
         {
             InitializeComponent();
-            crearBuscador(owner,"Username,Nombre,Apellido,Tipo_Doc,Nro_Doc,Mail,Telefono,Calle,NroCalle,Fecha_Nac","Usuarios");
+            crearBuscador(owner,"Username,Nombre,Apellido,Id_TipoDoc,Nro_Doc,Mail,Telefono,Calle,NroCalle,Fecha_Nac","Usuarios");
             setearGrid(GridUsuarios);
         }
 
