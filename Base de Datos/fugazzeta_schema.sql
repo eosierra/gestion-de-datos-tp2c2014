@@ -639,6 +639,21 @@ ORDER BY M.Factura_Nro
 SET IDENTITY_INSERT FUGAZZETA.Facturas OFF
 GO
 
+--ITEMS_CONSUMIBLES
+INSERT INTO FUGAZZETA.Items_Consumible
+SELECT
+Factura_Nro,
+Consumible_Codigo as Id_Consumible,
+SUM(Item_Factura_Cantidad) as [Cantidad],
+SUM(Item_Factura_Monto) AS [Monto total]
+FROM gd_esquema.Maestra
+WHERE
+	Factura_Nro IS NOT NULL
+AND Consumible_Codigo IS NOT NULL
+GROUP BY Factura_Nro, Consumible_Codigo
+ORDER BY Factura_Nro, Consumible_Codigo
+GO
+
 --HABITACIONES X RESERVA
 INSERT INTO FUGAZZETA.[Habitaciones x Reservas]
 SELECT DISTINCT M.Reserva_Codigo,H.Id_Hotel,M.Habitacion_Numero FROM gd_esquema.Maestra M, FUGAZZETA.Hoteles H
