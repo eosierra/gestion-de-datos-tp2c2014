@@ -73,6 +73,7 @@ DROP PROCEDURE FUGAZZETA.CancelarReserva
 --Triggers
 IF OBJECT_ID('FUGAZZETA.TR_MovimientosHotel_A_I') IS NOT NULL
 DROP TRIGGER FUGAZZETA.TR_MovimientosHotel_A_I
+GO
 
 ---------------------------/*Creacion de Tablas*/-------------------------------------------
 --------------------------------------------------------------------------------------------
@@ -188,7 +189,7 @@ Id_EstadoReserva INT IDENTITY(1,1) PRIMARY KEY,
 Descripcion varchar(50)
 )
 CREATE TABLE FUGAZZETA.Reservas(
-Id_Reserva int PRIMARY KEY,
+Id_Reserva int IDENTITY (1,1) PRIMARY KEY,
 Id_Cliente int FOREIGN KEY REFERENCES FUGAZZETA.Clientes,
 Id_Hotel int FOREIGN KEY REFERENCES FUGAZZETA.Hoteles,
 Fecha_Reserva date,
@@ -452,13 +453,14 @@ GO
 --ITEMS_HOSPEDAJE
 
 SET IDENTITY_INSERT FUGAZZETA.Consumibles ON
-INSERT INTO FUGAZZETA.Consumibles
+INSERT INTO FUGAZZETA.Consumibles (Id_Consumible,Descripcion,Precio)
 SELECT DISTINCT
 Consumible_Codigo,
 Consumible_Descripcion,
 Consumible_Precio
 FROM gd_esquema.Maestra
 WHERE Consumible_Codigo IS NOT NULL
+set identity_insert fugazzeta.consumibles off
 go
 
 --ITEMS_CONSUMIBLE
@@ -474,11 +476,19 @@ go
 
 --ABONOFACTURAS
 
---HABITACIONES
+INSERT INTO FUGAZZETA.Habitaciones (Id_Hotel,Num_Habitacion,Piso,Frente,Id_TipoHab)
+SELECT H.Id_Hotel,M.Habitacion_Numero,M.Habitacion_Piso,
+M.Habitacion_Frente,M.Habitacion_Tipo_Codigo
+FROM FUGAZZETA.Hoteles H, (SELECT DISTINCT Hotel_Calle,Hotel_Nro_Calle,Habitacion_Numero,Habitacion_Piso,
+Habitacion_Frente,Habitacion_Tipo_Codigo FROM gd_esquema.Maestra) as M
+WHERE H.Calle = M.Hotel_Calle
+AND H.Nro_Calle = M.Hotel_Nro_Calle
+GO
 
 --HISTORIALHABITACIONES
 
 --HABITACIONES X RESERVA
+
 
 
 ----------------------------------------/*VISTAS*/------------------------------------------
