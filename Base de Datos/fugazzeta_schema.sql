@@ -79,7 +79,6 @@ DROP TRIGGER FUGAZZETA.TR_MovimientosHotel_A_I
 CREATE TABLE FUGAZZETA.Paises(
 Id_Pais int identity(1,1) PRIMARY KEY,
 Nombre varchar(40))
-
 CREATE TABLE FUGAZZETA.Hoteles(
 Id_Hotel int identity(1,1) PRIMARY KEY,
 Nombre nvarchar(40),
@@ -99,7 +98,6 @@ Id_Rol int identity(1,1) PRIMARY KEY,
 Nombre varchar(23) not null,
 Estado bit DEFAULT 1
 )
-
 CREATE TABLE FUGAZZETA.TiposDoc(
 Id_TipoDoc int IDENTITY(1,1) PRIMARY KEY,
 Descripcion varchar(30))
@@ -235,7 +233,7 @@ PRIMARY KEY (NroFactura,Ocupadas),
 CHECK (CantNoches >= 0)
 )
 CREATE TABLE FUGAZZETA.Consumibles(
-Id_Consumible INT PRIMARY KEY,
+Id_Consumible INT IDENTITY (1,1) PRIMARY KEY,
 Descripcion nvarchar(50),
 Precio numeric (7,2)
 )
@@ -308,12 +306,6 @@ GO
 
 --------------------------/* Poblado de Datos*/---------------------------------------------
 --------------------------------------------------------------------------------------------
-INSERT INTO FUGAZZETA.Roles values('Administrador General',1)
-insert into FUGAZZETA.Roles values('Administrador',1)
-insert into FUGAZZETA.Roles values('Recepcionista',1)
-insert into FUGAZZETA.Roles values('Guest',1)
-GO
-
 INSERT INTO FUGAZZETA.Paises values ('Argentina')
 INSERT INTO FUGAZZETA.Paises values ('Uruguay')
 INSERT INTO FUGAZZETA.Paises values ('España')
@@ -332,47 +324,11 @@ FROM gd_esquema.Maestra
 UPDATE FUGAZZETA.Hoteles SET Pais = 1
 GO
 
-INSERT INTO FUGAZZETA.Usuarios (Username, Contraseña) values ('admin','w23e')
-INSERT INTO FUGAZZETA.Usuarios (Username) values ('guest')
-go
-
-INSERT INTO FUGAZZETA.Regimenes
-(Precio,Descripcion)
-SELECT DISTINCT
-Regimen_Precio,
-Regimen_Descripcion
-FROM gd_esquema.Maestra
+INSERT INTO FUGAZZETA.Roles values('Administrador General',1)
+insert into FUGAZZETA.Roles values('Administrador',1)
+insert into FUGAZZETA.Roles values('Recepcionista',1)
+insert into FUGAZZETA.Roles values('Guest',1)
 GO
-
-INSERT INTO FUGAZZETA.Funcionalidades values('ABM Rol')
-INSERT INTO FUGAZZETA.Funcionalidades values('ABM Usuario')
-INSERT INTO FUGAZZETA.Funcionalidades values('ABM Cliente')
-INSERT INTO FUGAZZETA.Funcionalidades values('ABM Hotel')
-INSERT INTO FUGAZZETA.Funcionalidades values('ABM Habitacion')
-INSERT INTO FUGAZZETA.Funcionalidades values('ABM Regimen')
-INSERT INTO FUGAZZETA.Funcionalidades values('Generar/Modificar Reserva')
-INSERT INTO FUGAZZETA.Funcionalidades values('Cancelar Reserva')
-INSERT INTO FUGAZZETA.Funcionalidades values('Registrar Estadia')
-INSERT INTO FUGAZZETA.Funcionalidades values('Registrar Consumible')
-INSERT INTO FUGAZZETA.Funcionalidades values('Facturar')
-go
-
-INSERT INTO FUGAZZETA.Bancos values('Banco Frances')
-INSERT INTO FUGAZZETA.Bancos values('Banco Ciudad')
-go
-
-INSERT INTO FUGAZZETA.TiposPago values('Efectivo')
-INSERT INTO FUGAZZETA.TiposPago values('Tarjeta de Crédito')
-INSERT INTO FUGAZZETA.TiposPago values('Tarjeta de Débito')
-go
-
-INSERT INTO	FUGAZZETA.EstadosReserva values('Correcta')
-INSERT INTO	FUGAZZETA.EstadosReserva values('Modificada')
-INSERT INTO	FUGAZZETA.EstadosReserva values('Cancelada por Recepcion')
-INSERT INTO	FUGAZZETA.EstadosReserva values('Cancelada por Cliente')
-INSERT INTO	FUGAZZETA.EstadosReserva values('Cancelada por No-Show')
-INSERT INTO	FUGAZZETA.EstadosReserva values('Efectivizada')
-go
 
 INSERT INTO FUGAZZETA.TiposDoc values ('DNI')
 INSERT INTO FUGAZZETA.TiposDoc values ('LC')
@@ -380,27 +336,13 @@ INSERT INTO FUGAZZETA.TiposDoc values ('LE')
 INSERT INTO FUGAZZETA.TiposDoc values ('Pasaporte')
 go
 
-INSERT INTO FUGAZZETA.[Usuarios x Hoteles x Rol]
-(Username,Id_Hotel)
-SELECT U.Username, H.Id_Hotel FROM FUGAZZETA.Usuarios U, FUGAZZETA.Hoteles H where U.Username = 'admin'
-UPDATE FUGAZZETA.[Usuarios x Hoteles x Rol] SET Id_Rol = 1
-GO
-
-INSERT INTO FUGAZZETA.Consumibles
-(Id_Consumible,Descripcion, Precio)
-SELECT DISTINCT
-Consumible_Codigo,
-Consumible_Descripcion,
-Consumible_Precio
-FROM gd_esquema.Maestra
-WHERE 
-Consumible_Codigo IS NOT NULL
+INSERT INTO FUGAZZETA.Usuarios (Username, Contraseña) values ('admin','w23e')
+INSERT INTO FUGAZZETA.Usuarios (Username) values ('guest')
 go
 
 CREATE PROCEDURE FUGAZZETA.MigrarClientes AS
 BEGIN
 DECLARE @NUEVOSEED int
-
 	SELECT DISTINCT
 	Cliente_Pasaporte_Nro,
 	Cliente_Apellido,
@@ -437,6 +379,39 @@ DECLARE @NUEVOSEED int
 	UPDATE FUGAZZETA.ClientesDuplicados SET Nacionalidad = 1
 END 
 go
+EXEC FUGAZZETA.MigrarClientes
+GO
+
+--MOVIMIENTOSHOTEL
+
+INSERT INTO FUGAZZETA.[Usuarios x Hoteles x Rol]
+(Username,Id_Hotel)
+SELECT U.Username, H.Id_Hotel FROM FUGAZZETA.Usuarios U, FUGAZZETA.Hoteles H where U.Username = 'admin'
+UPDATE FUGAZZETA.[Usuarios x Hoteles x Rol] SET Id_Rol = 1
+GO
+
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Rol')
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Usuario')
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Cliente')
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Hotel')
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Habitacion')
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Regimen')
+INSERT INTO FUGAZZETA.Funcionalidades values('Generar/Modificar Reserva')
+INSERT INTO FUGAZZETA.Funcionalidades values('Cancelar Reserva')
+INSERT INTO FUGAZZETA.Funcionalidades values('Registrar Estadia')
+INSERT INTO FUGAZZETA.Funcionalidades values('Registrar Consumible')
+INSERT INTO FUGAZZETA.Funcionalidades values('Facturar')
+go
+
+--FUNCIONALIDADESxROL
+
+INSERT INTO FUGAZZETA.Regimenes
+(Precio,Descripcion)
+SELECT DISTINCT
+Regimen_Precio,
+Regimen_Descripcion
+FROM gd_esquema.Maestra
+GO
 
 INSERT INTO FUGAZZETA.[Regimenes x Hotel]
 SELECT DISTINCT H.Id_Hotel, R.Id_Regimen FROM FUGAZZETA.Hoteles H, FUGAZZETA.Regimenes R,
@@ -446,6 +421,65 @@ H.Calle = M.Hotel_Calle AND
 M.Hotel_Nro_Calle = H.Nro_Calle AND
 M.Regimen_Descripcion = R.Descripcion
 GO
+
+INSERT INTO	FUGAZZETA.EstadosReserva values('Correcta')
+INSERT INTO	FUGAZZETA.EstadosReserva values('Modificada')
+INSERT INTO	FUGAZZETA.EstadosReserva values('Cancelada por Recepcion')
+INSERT INTO	FUGAZZETA.EstadosReserva values('Cancelada por Cliente')
+INSERT INTO	FUGAZZETA.EstadosReserva values('Cancelada por No-Show')
+INSERT INTO	FUGAZZETA.EstadosReserva values('Efectivizada')
+go
+
+--RESERVA
+
+--MOVIMIENTOSRESERVA
+
+--ACOMPAÑANTES
+
+SET IDENTITY_INSERT FUGAZZETA.TiposHabitacion ON
+INSERT INTO FUGAZZETA.TiposHabitacion (Id_TipoHab,Descripcion,Porcentual)
+SELECT DISTINCT Habitacion_Tipo_Codigo,Habitacion_Tipo_Descripcion,Habitacion_Tipo_Porcentual FROM gd_esquema.Maestra
+SET IDENTITY_INSERT FUGAZZETA.TiposHabitacion OFF
+UPDATE FUGAZZETA.TiposHabitacion SET CantPersonas = 1 WHERE Id_TipoHab = 1001
+UPDATE FUGAZZETA.TiposHabitacion SET CantPersonas = 2 WHERE Id_TipoHab = 1002
+UPDATE FUGAZZETA.TiposHabitacion SET CantPersonas = 3 WHERE Id_TipoHab = 1003
+UPDATE FUGAZZETA.TiposHabitacion SET CantPersonas = 4 WHERE Id_TipoHab = 1004
+UPDATE FUGAZZETA.TiposHabitacion SET CantPersonas = 5 WHERE Id_TipoHab = 1005
+GO
+
+--FACTURAS
+
+--ITEMS_HOSPEDAJE
+
+SET IDENTITY_INSERT FUGAZZETA.Consumibles ON
+INSERT INTO FUGAZZETA.Consumibles
+SELECT DISTINCT
+Consumible_Codigo,
+Consumible_Descripcion,
+Consumible_Precio
+FROM gd_esquema.Maestra
+WHERE Consumible_Codigo IS NOT NULL
+go
+
+--ITEMS_CONSUMIBLE
+
+INSERT INTO FUGAZZETA.TiposPago values('Efectivo')
+INSERT INTO FUGAZZETA.TiposPago values('Tarjeta de Crédito')
+INSERT INTO FUGAZZETA.TiposPago values('Tarjeta de Débito')
+go
+
+INSERT INTO FUGAZZETA.Bancos values('Banco Frances')
+INSERT INTO FUGAZZETA.Bancos values('Banco Ciudad')
+go
+
+--ABONOFACTURAS
+
+--HABITACIONES
+
+--HISTORIALHABITACIONES
+
+--HABITACIONES X RESERVA
+
 
 ----------------------------------------/*VISTAS*/------------------------------------------
 --------------------------------------------------------------------------------------------
