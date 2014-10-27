@@ -74,14 +74,21 @@ namespace FrbaHotel.Cancelar_Reserva
 
         private void validarReserva(BD bd)
         {
-            string query = "SELECT * FROM FUGAZZETA.ReservasNoCanceladas WHERE Id_Reserva = " + TxtCodigo.Text;
-            SqlDataReader dr = bd.lee(query);
-            if (!dr.HasRows)
+            if (TxtCodigo.Text == "")
             {
-                dr.Close();
-                throw new Exception("La reserva que intenta cancelar no existe o ya fue cancelada.");
+                throw new Exception("No ingresó ningún código de reserva.");
             }
-            dr.Close();
+            else
+            {
+                string query = "SELECT * FROM FUGAZZETA.ReservasNoCanceladas WHERE Id_Reserva = " + TxtCodigo.Text;
+                SqlDataReader dr = bd.lee(query);
+                if (!dr.HasRows)
+                {
+                    dr.Close();
+                    throw new Exception("La reserva que intenta cancelar no existe o ya fue cancelada.");
+                }
+                dr.Close();
+            }
         }
 
         private void CancelarReserva_Load(object sender, EventArgs e)
