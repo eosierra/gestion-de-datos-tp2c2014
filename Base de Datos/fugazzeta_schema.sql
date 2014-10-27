@@ -296,7 +296,6 @@ go
 
 -------------------------------/* Triggers*/------------------------------------------------
 --------------------------------------------------------------------------------------------
-
 CREATE TRIGGER FUGAZZETA.TR_MovimientosHotel_A_I ON FUGAZZETA.MovimientosHotel
 AFTER INSERT AS
 BEGIN
@@ -384,12 +383,13 @@ END
 EXEC FUGAZZETA.MigrarClientes
 GO
 
---HistorialBajasHotel
+--HistorialBajasHotel: no hay informacion de bajas de hotel
 
 INSERT INTO FUGAZZETA.[Usuarios x Hoteles x Rol]
 (Username,Id_Hotel)
-SELECT U.Username, H.Id_Hotel FROM FUGAZZETA.Usuarios U, FUGAZZETA.Hoteles H where U.Username = 'admin'
-UPDATE FUGAZZETA.[Usuarios x Hoteles x Rol] SET Id_Rol = 1
+SELECT U.Username, H.Id_Hotel FROM FUGAZZETA.Usuarios U, FUGAZZETA.Hoteles H where U.Username = 'admin' OR U.Username = 'guest'
+UPDATE FUGAZZETA.[Usuarios x Hoteles x Rol] SET Id_Rol = 1 where Username = 'admin'
+UPDATE FUGAZZETA.[Usuarios x Hoteles x Rol] SET	Id_Rol = 4 where Username = 'guest'
 GO
 
 INSERT INTO FUGAZZETA.Funcionalidades values('ABM Rol')
@@ -615,6 +615,57 @@ DEALLOCATE mi_cursor
 GO
 
 -- ESTOS INSERTS ANDARIAN PERO FALLAN POR FALTA DE FK (CUALQUIER COSA HABLAR CON EMI).
+
+--RESERVAS
+SET IDENTITY_INSERT FUGAZZETA.Reservas ON
+INSERT INTO FUGAZZETA.Reservas
+(Id_Reserva,Id_Cliente, Id_Hotel,Fecha_Inicio,Fecha_Fin_Reserva,Id_Regimen)
+
+SELECT
+M.Reserva_Codigo, C.Id_Cliente, H.Id_Hotel, M.ReservaIngreso, M.FinReserva, REG.Id_Regimen
+FROM
+FUGAZZETA.[TodosLosClientes] C, FUGAZZETA.Hoteles H, FUGAZZETA.Regimenes REG,
+(SELECT DISTINCT
+Reserva_Codigo, Cliente_Pasaporte_Nro, Cliente_Apellido, Hotel_Calle, Hotel_Nro_Calle,
+cast(DATEADD(d,Reserva_Cant_Noches,Reserva_Fecha_Inicio) as DATE) as FinReserva,
+cast(Reserva_Fecha_Inicio as DATE) AS ReservaIngreso,
+cast(Estadia_Fecha_Inicio as DATE) AS Ingreso,
+cast(DATEADD(d,Estadia_Cant_Noches,Estadia_Fecha_Inicio) as DATE) as Egreso,
+Regimen_Descripcion
+FROM gd_esquema.Maestra) AS M
+WHERE
+	C.Nro_Doc = M.Cliente_Pasaporte_Nro
+AND C.Apellido = M.Cliente_Apellido
+AND H.Calle = M.Hotel_Calle 
+AND H.Nro_Calle = M.Hotel_Nro_Calle 
+AND REG.Descripcion = M.Regimen_Descripcion
+AND M.Ingreso IS NULL
+AND M.Egreso IS NULL
+order by M.Reserva_Codigo
+
+SET IDENTITY_INSERT FUGAZZETA.Reservas OFF
+
+MERGE INTO FUGAZZETA.Reservas RES
+USING
+(SELECT Reserva_Codigo,Egreso FROM
+(SELECT DISTINCT
+Reserva_Codigo,
+Cliente_Pasaporte_Nro, Cliente_Apellido,
+Hotel_Calle, Hotel_Nro_Calle,
+cast(Estadia_Fecha_Inicio as DATE) AS [Ingreso],
+cast(DATEADD(d,Estadia_Cant_Noches,Estadia_Fecha_Inicio) as DATE) as [Egreso],
+Regimen_Descripcion
+FROM gd_esquema.Maestra) AS M
+WHERE 
+	Ingreso IS NOT NULL
+AND Egreso IS NOT NULL) E
+ON RES.Id_Reserva = E.Reserva_Codigo
+WHEN MATCHED THEN UPDATE
+SET Fecha_Egreso = E.Egreso,
+	Id_EstadoReserva = 6;
+
+UPDATE FUGAZZETA.Reservas SET Id_EstadoReserva = 5 WHERE Id_EstadoReserva IS NULL
+GO
 
 --FACTURAS
 SET IDENTITY_INSERT FUGAZZETA.Facturas ON
