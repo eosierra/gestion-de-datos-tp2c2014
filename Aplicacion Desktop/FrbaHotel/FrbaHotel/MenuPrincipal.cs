@@ -93,7 +93,7 @@ namespace FrbaHotel
 
         private void checkInToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            abrir(new Registrar_Estadia.CheckIn());
+            abrir(new Registrar_Estadia.CheckIn(this));
         }
 
         #endregion

@@ -173,7 +173,7 @@
             // Cancelar
             // 
             this.Cancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Cancelar.Location = new System.Drawing.Point(362, 473);
+            this.Cancelar.Location = new System.Drawing.Point(470, 473);
             this.Cancelar.Name = "Cancelar";
             this.Cancelar.Size = new System.Drawing.Size(108, 34);
             this.Cancelar.TabIndex = 12;
@@ -184,7 +184,7 @@
             // Seleccionar
             // 
             this.Seleccionar.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.Seleccionar.Location = new System.Drawing.Point(248, 473);
+            this.Seleccionar.Location = new System.Drawing.Point(356, 473);
             this.Seleccionar.Name = "Seleccionar";
             this.Seleccionar.Size = new System.Drawing.Size(108, 34);
             this.Seleccionar.TabIndex = 11;

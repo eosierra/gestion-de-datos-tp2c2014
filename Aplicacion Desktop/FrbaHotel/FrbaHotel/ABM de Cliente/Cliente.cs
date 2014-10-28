@@ -13,5 +13,10 @@ namespace FrbaHotel.ABM_de_Cliente
             string nombreCompleto = apellido + ", " + nombre;
             asigna(unId, nombreCompleto);
         }
+
+        public Cliente(string unId, string nombreApellido)
+        {
+            asigna(unId, nombreApellido);
+        }
     }
 }

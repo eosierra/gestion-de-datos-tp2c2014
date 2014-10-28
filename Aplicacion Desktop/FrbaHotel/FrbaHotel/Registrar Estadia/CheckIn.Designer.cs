@@ -500,6 +500,7 @@
             this.RealizarIngreso.TabIndex = 13;
             this.RealizarIngreso.Text = "REALIZAR INGRESO AL HOTEL";
             this.RealizarIngreso.UseVisualStyleBackColor = true;
+            this.RealizarIngreso.Click += new System.EventHandler(this.RealizarIngreso_Click);
             // 
             // CheckIn
             // 

@@ -7,16 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using FrbaHotel.ABM_de_Cliente;
 
 namespace FrbaHotel.Registrar_Estadia
 {
     public partial class CheckIn : Form, ITraeBusqueda
     {
+        MenuPrincipal menu;
         string idCliente;
         string idHotel;
                 
-        public CheckIn()
+        public CheckIn(MenuPrincipal parent)
         {
+            menu = parent;
             InitializeComponent();
         }
 
@@ -143,7 +146,7 @@ namespace FrbaHotel.Registrar_Estadia
 
         public void agregar(string id, string descripcion)
         {
-            MessageBox.Show("EXITO");
+            ListPersonas.Items.Add(new Cliente(id, descripcion));
         }
 
         private void TxtCodigo_KeyPress(object sender, KeyPressEventArgs e)
@@ -152,6 +155,26 @@ namespace FrbaHotel.Registrar_Estadia
             {
                 VerDatos_Click(sender, e);
             }
+        }
+
+        private void RealizarIngreso_Click(object sender, EventArgs e)
+        {
+            DialogResult confirmar = MessageBox.Show("¿Son todos los datos correctos? La reserva no podrá modificarse tras el ingreso.", "Confirmar Check in", MessageBoxButtons.YesNo);
+            if (confirmar == DialogResult.Yes)
+            {
+                try
+                {
+                    BD bd = new BD();
+                    bd.obtenerConexion();
+                    bd.ejecutar("EXEC FUGAZZETA.RealizarIngreso " + TxtId.Text + ", '" + menu.usuarioActual + "', '" + Program.hoy() + "'");
+                }
+                catch (SqlException sql)
+                {
+                    confirmar = DialogResult.Cancel;
+                    MessageBox.Show("No se pudo realizar la operación. Error " + sql.Number + ": " + sql.Message);
+                }
+            }
+
         }
     }
 }
