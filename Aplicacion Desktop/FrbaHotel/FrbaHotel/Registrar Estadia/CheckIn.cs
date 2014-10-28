@@ -12,6 +12,9 @@ namespace FrbaHotel.Registrar_Estadia
 {
     public partial class CheckIn : Form
     {
+        string idCliente;
+        string idHotel;
+                
         public CheckIn()
         {
             InitializeComponent();
@@ -23,10 +26,8 @@ namespace FrbaHotel.Registrar_Estadia
             {
                 BD bd = new BD();
                 bd.obtenerConexion();
-                string idCliente = "";
-                string idHotel = "";
-                validarCompletarReserva(bd, idCliente,idHotel);
-                completarDatos(bd, idCliente, idHotel);
+                validarCompletarReserva(bd);
+                completarDatos(bd);
                 bd.cerrar();
             }
             catch (Exception ex)
@@ -35,7 +36,7 @@ namespace FrbaHotel.Registrar_Estadia
             }
         }
 
-        private void validarCompletarReserva(BD bd, string cliente, string hotel)
+        private void validarCompletarReserva(BD bd)
         {
             if (TxtCodigo.Text == "")
             {
@@ -58,8 +59,9 @@ namespace FrbaHotel.Registrar_Estadia
                                 throw new Exception("No se puede ingresar con ese código de reserva. Corresponde al día " + fechaKey + ".");
                             }
                             TxtId.Text = dr[0].ToString();
-                            cliente = dr[1].ToString();
-                            hotel = dr[2].ToString();
+                            idCliente = dr[1].ToString();
+                            idHotel = dr[2].ToString();
+                            TxtHotel.Text = dr[2].ToString();
                             TxtFecReserva.Text = dr[3].ToString().Substring(0, 10);
                             TxtFecInicio.Text = fechaKey;
                             TxtFecFin.Text = dr[6].ToString().Substring(0, 10);
@@ -75,34 +77,44 @@ namespace FrbaHotel.Registrar_Estadia
                 }
                 catch (SqlException sqlEx)
                 {
-                    throw new Exception("Error " + sqlEx.Number + "de SQL: " + sqlEx.Message);
+                    throw new Exception("Error " + sqlEx.Number  + " de SQL: " + sqlEx.Message);
                 }
 
             }
         }
 
-        private void completarDatos(BD bd, string idCliente, string idHotel)
+        private void completarDatos(BD bd)
         {
-            SqlDataReader reader;
-            string query = "SELECT Nombre FROM FUGAZZETA.Hoteles WHERE Id_Hotel = " + idHotel;
-            reader = bd.lee(query);
-            while (reader.Read())
+            try
             {
-                TxtHotel.Text = idHotel + " - " + reader[0].ToString();
+                SqlDataReader reader;
+                string query = "SELECT Nombre FROM FUGAZZETA.Hoteles WHERE Id_Hotel = " + idHotel;
+                reader = bd.lee(query);
+                while (reader.Read())
+                {
+                    TxtHotel.Text = idHotel + " - " + reader[0].ToString();
+                }
+                reader.Close();
+                query = "SELECT * FROM FUGAZZETA.Clientes WHERE Id_Cliente = " + idCliente;
+                reader = bd.lee(query);
+                while (reader.Read())
+                {
+                    TxtNombre.Text = reader[1].ToString() + " " + reader[2].ToString();
+                    TxtDoc.Text = reader[3].ToString() + " " + reader[4].ToString();
+                    TxtPais.Text = reader[13].ToString();
+                    TxtNac.Text = reader[5].ToString().Substring(0, 10);
+                    TxtMail.Text = reader[6].ToString();
+                    TxtTelefono.Text = reader[7].ToString();
+                    TxtDomicilio.Text = reader[8].ToString() + " " + reader[9].ToString() + " " + reader[10].ToString() + " " + reader[11].ToString();
+                    TxtCiudad.Text = reader[12].ToString();
+                }
+                reader.Close();
+                groupBox1.Enabled = true;
+                RealizarIngreso.Enabled = true;
             }
-            reader.Close();
-            query = "SELECT * FROM FUGAZZETA.Clientes WHERE Id_Cliente = " + idCliente;
-            reader = bd.lee(query);
-            while (reader.Read())
+            catch (SqlException sqlEx)
             {
-                TxtNombre.Text = reader[1].ToString() + " " + reader[2].ToString();
-                TxtDoc.Text = reader[3].ToString() + " " + reader[4].ToString();
-                TxtPais.Text = reader[13].ToString();
-                TxtNac.Text = reader[5].ToString().Substring(0, 10);
-                TxtMail.Text = reader[6].ToString();
-                TxtTelefono.Text = reader[7].ToString();
-                TxtDomicilio.Text = reader[8].ToString() + " " + reader[9].ToString() + " " + reader[10].ToString() + " " + reader[11].ToString();
-                TxtCiudad.Text = reader[12].ToString();
+                throw new Exception("Error " + sqlEx.Number + " de SQL: " + sqlEx.Message);
             }
         }
     }
