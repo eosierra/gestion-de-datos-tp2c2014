@@ -40,6 +40,8 @@ namespace FrbaHotel
             form.MaximizeBox = false;
             form.MinimizeBox = false;
             form.StartPosition = FormStartPosition.CenterScreen;
+            string textoActual = form.Text;
+            form.Text = "FRBA Hoteles - " + textoActual;
             form.Show();
             
         }
@@ -89,9 +91,16 @@ namespace FrbaHotel
             abrir(new Cancelar_Reserva.CancelarReserva(this));
         }
 
+        private void checkInToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            abrir(new Registrar_Estadia.CheckIn());
+        }
+
         #endregion
 
-        ITraeBusqueda interfaz; //esto habrá que sacarlo después
+        ITraeBusqueda interfaz;
+
+        //esto habrá que sacarlo después
 
     }
 }

@@ -50,3 +50,4 @@ C:\Users\Nati Argento\git\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\D
 C:\Users\Nati Argento\git\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Properties.Resources.resources
 C:\Users\Nati Argento\git\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Registrar_Consumible.Form1.resources
 C:\Users\Nati Argento\git\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.csproj.GenerateResource.Cache
+C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Registrar_Estadia.CheckIn.resources

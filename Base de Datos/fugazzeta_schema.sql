@@ -516,10 +516,15 @@ SELECT * FROM FUGAZZETA.ClientesDuplicados
 GO
 
 CREATE VIEW FUGAZZETA.ReservasNoCanceladas AS
-SELECT * FROM FUGAZZETA.Reservas where
-Id_EstadoReserva != 3 AND
-Id_EstadoReserva != 4 AND
-Id_EstadoReserva != 5
+SELECT 
+RS.Id_Reserva, RS.Id_Cliente, RS.Id_Hotel, RS.Fecha_Reserva, RS.Fecha_Inicio, RS.Fecha_Egreso,
+RS.Fecha_Fin_Reserva, RG.Descripcion as Regimen, RS.Id_EstadoReserva
+FROM FUGAZZETA.Reservas RS, FUGAZZETA.Regimenes RG
+where
+	RS.Id_Regimen = RG.Id_Regimen
+AND RS.Id_EstadoReserva != 3
+AND RS.Id_EstadoReserva != 4 
+AND RS.Id_EstadoReserva != 5
 go
 
 CREATE VIEW FUGAZZETA.ReservasModificables AS
