@@ -167,6 +167,8 @@ namespace FrbaHotel.Registrar_Estadia
                     BD bd = new BD();
                     bd.obtenerConexion();
                     bd.ejecutar("EXEC FUGAZZETA.RealizarIngreso " + TxtId.Text + ", '" + menu.usuarioActual + "', '" + Program.hoy() + "'");
+                    MessageBox.Show("Ingreso realizado con éxito.", "FRBA Hoteles");
+                    this.Close();
                 }
                 catch (SqlException sql)
                 {

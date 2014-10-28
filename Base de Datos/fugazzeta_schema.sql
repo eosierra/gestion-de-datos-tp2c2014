@@ -203,11 +203,12 @@ Id_Regimen int FOREIGN KEY REFERENCES FUGAZZETA.Regimenes,
 Id_EstadoReserva int FOREIGN KEY REFERENCES FUGAZZETA.EstadosReserva
 )
 CREATE TABLE FUGAZZETA.MovimientosReserva(
-Id_Reserva int FOREIGN KEY REFERENCES FUGAZZETA.Reservas,
-Proceso char,
+Id_Reserva int NOT NULL,
+Proceso char NOT NULL,
 Username nvarchar(30) FOREIGN KEY REFERENCES FUGAZZETA.Usuarios,
 FechaMovimiento datetime,
-Motivo nvarchar(140)
+Motivo nvarchar(140),
+FOREIGN KEY (Id_Reserva) REFERENCES FUGAZZETA.Reservas
 )
 CREATE TABLE FUGAZZETA.[Acompañantes](
 Id_Reserva int FOREIGN KEY REFERENCES FUGAZZETA.Reservas,
@@ -601,6 +602,24 @@ BEGIN
 END
 GO
 
+CREATE PROC FUGAZZETA.CancelarPorNoShow (@Ahora datetime, @Usuario nvarchar(30)) AS
+BEGIN
+	DECLARE mi_cursor CURSOR FOR
+		SELECT Id_Reserva FROM FUGAZZETA.[ReservasModificables] WHERE Fecha_Inicio < cast(@Ahora as date)
+		DECLARE @id int
+	OPEN mi_cursor
+	FETCH FROM mi_cursor INTO @id
+	WHILE  @@FETCH_STATUS = 0
+	BEGIN	
+		UPDATE FUGAZZETA.Reservas SET Id_EstadoReserva = 5 WHERE Id_Reserva = @id
+		INSERT INTO FUGAZZETA.MovimientosReserva VALUES (@id,'B',@Usuario,@Ahora,'No show')
+		FETCH FROM mi_cursor INTO @id
+	END
+	CLOSE mi_cursor
+	DEALLOCATE mi_cursor
+END
+GO
+
 --- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.
 
 ----------------------------------------/*PROCEDIMIENTO-NO SE SI ESTA BIEN*/----------------
@@ -685,8 +704,7 @@ ON RES.Id_Reserva = E.Reserva_Codigo
 WHEN MATCHED THEN UPDATE
 SET Fecha_Egreso = E.Egreso,
 	Id_EstadoReserva = 6;
-
-UPDATE FUGAZZETA.Reservas SET Id_EstadoReserva = 5 WHERE Id_EstadoReserva IS NULL
+UPDATE FUGAZZETA.Reservas SET Id_EstadoReserva = 1 WHERE Id_EstadoReserva IS NULL
 GO
 
 --FACTURAS
