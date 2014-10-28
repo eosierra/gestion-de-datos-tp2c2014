@@ -584,6 +584,23 @@ DECLARE @ESTADO int
 END
 GO
 
+CREATE PROCEDURE FUGAZZETA.RealizarIngreso (@IdReserva int, @Usuario nvarchar (40), @Fecha datetime) AS
+BEGIN
+	BEGIN TRY
+		BEGIN TRANSACTION
+		UPDATE FUGAZZETA.Reservas
+		SET Id_EstadoReserva = 6 WHERE Id_Reserva = @IdReserva
+		INSERT INTO FUGAZZETA.MovimientosReserva
+		VALUES (@IdReserva,'I',@Usuario,@Fecha,'Ingreso al hotel')
+		COMMIT TRANSACTION
+	END TRY
+	BEGIN CATCH
+		ROLLBACK
+		RAISERROR ('No se pudo realizar el ingreso.',10,1)
+	END CATCH
+END
+GO
+
 --- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.
 
 ----------------------------------------/*PROCEDIMIENTO-NO SE SI ESTA BIEN*/----------------
