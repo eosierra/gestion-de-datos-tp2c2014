@@ -153,6 +153,7 @@
             this.QuitarPersona.TabIndex = 75;
             this.QuitarPersona.Text = "QUITAR";
             this.QuitarPersona.UseVisualStyleBackColor = true;
+            this.QuitarPersona.Click += new System.EventHandler(this.QuitarPersona_Click);
             // 
             // AgregarPersona
             // 
@@ -162,6 +163,7 @@
             this.AgregarPersona.TabIndex = 74;
             this.AgregarPersona.Text = "AGREGAR";
             this.AgregarPersona.UseVisualStyleBackColor = true;
+            this.AgregarPersona.Click += new System.EventHandler(this.AgregarPersona_Click);
             // 
             // ListPersonas
             // 
@@ -486,6 +488,7 @@
             this.TxtCodigo.Name = "TxtCodigo";
             this.TxtCodigo.Size = new System.Drawing.Size(80, 20);
             this.TxtCodigo.TabIndex = 12;
+            this.TxtCodigo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCodigo_KeyPress);
             // 
             // RealizarIngreso
             // 

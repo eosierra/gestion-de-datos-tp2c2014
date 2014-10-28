@@ -60,6 +60,7 @@
     <Compile Include="ABM de Cliente\BuscarCliente.Designer.cs">
       <DependentUpon>BuscarCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="ABM de Cliente\Cliente.cs" />
     <Compile Include="ABM de Habitacion\AltaHabitacion.cs">
       <SubType>Form</SubType>
     </Compile>

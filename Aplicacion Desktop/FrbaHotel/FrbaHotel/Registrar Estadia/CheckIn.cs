@@ -10,7 +10,7 @@ using System.Data.SqlClient;
 
 namespace FrbaHotel.Registrar_Estadia
 {
-    public partial class CheckIn : Form
+    public partial class CheckIn : Form, ITraeBusqueda
     {
         string idCliente;
         string idHotel;
@@ -88,6 +88,7 @@ namespace FrbaHotel.Registrar_Estadia
             try
             {
                 SqlDataReader reader;
+                //Datos del Hotel
                 string query = "SELECT Nombre FROM FUGAZZETA.Hoteles WHERE Id_Hotel = " + idHotel;
                 reader = bd.lee(query);
                 while (reader.Read())
@@ -95,6 +96,18 @@ namespace FrbaHotel.Registrar_Estadia
                     TxtHotel.Text = idHotel + " - " + reader[0].ToString();
                 }
                 reader.Close();
+
+                //Datos de las habitaciones
+                query = "SELECT Num_Habitacion FROM FUGAZZETA.[Habitaciones x Reservas] WHERE Id_Reserva = " + TxtCodigo.Text;
+                reader = bd.lee(query);
+                while (reader.Read())
+                {
+                    ListHabitaciones.Items.Add (reader[0].ToString());
+                }
+                reader.Close();
+
+
+                //Datos del cliente
                 query = "SELECT * FROM FUGAZZETA.Clientes WHERE Id_Cliente = " + idCliente;
                 reader = bd.lee(query);
                 while (reader.Read())
@@ -115,6 +128,29 @@ namespace FrbaHotel.Registrar_Estadia
             catch (SqlException sqlEx)
             {
                 throw new Exception("Error " + sqlEx.Number + " de SQL: " + sqlEx.Message);
+            }
+        }
+
+        private void QuitarPersona_Click(object sender, EventArgs e)
+        {
+            ListPersonas.Items.Remove(ListPersonas.SelectedIndex);
+        }
+
+        private void AgregarPersona_Click(object sender, EventArgs e)
+        {
+            new ABM_de_Cliente.BuscarCliente(this).ShowDialog();
+        }
+
+        public void agregar(string id, string descripcion)
+        {
+            MessageBox.Show("EXITO");
+        }
+
+        private void TxtCodigo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                VerDatos_Click(sender, e);
             }
         }
     }
