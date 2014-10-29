@@ -6,11 +6,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace FrbaHotel.Generar_Modificar_Reserva
 {
     public partial class GenerarReserva : Form, ITraeBusqueda
     {
+        int nBuscador;
+
         public GenerarReserva()
         {
             InitializeComponent();
@@ -20,10 +23,8 @@ namespace FrbaHotel.Generar_Modificar_Reserva
 
         private void GenerarReserva_Load(object sender, EventArgs e)
         {
-            group1.Enabled = true;
-            group2.Enabled = false;
+            groupCliente.Enabled = true;
             group3.Enabled = false;
-            PasoAtras.Enabled = false;
         }
 
         #region Validar Reservas
@@ -42,17 +43,6 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         }
         #endregion
 
-        private void PasoAtras_Click(object sender, EventArgs e)
-        {
-            if (group2.Enabled)
-            {
-                group2.Enabled = false;
-                group1.Enabled = true;
-                PasoAtras.Enabled = false;
-            }
-            if (group3.Enabled) { group3.Enabled = false; group2.Enabled = true; }
-        }
-
         private void CancelarTodo_Click(object sender, EventArgs e)
         {
             /*
@@ -61,38 +51,14 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             this.Close();
         }
 
-        private void siguiente(GroupBox grupo)
-        {
-            if (grupo == group1)
-            {
-                group1.Enabled = false;
-                group2.Enabled = true;
-                PasoAtras.Enabled = true;
-            }
-            if (grupo == group2)
-            {
-                group1.Enabled = false;
-                group2.Enabled = false;
-                group3.Enabled = true;
-                PasoAtras.Enabled = true;
-            }
-        }
-
-        private void NuevoCliente_Click(object sender, EventArgs e)
-        {
-            /*
-             * AGREGA CLIENTE NUEVO
-             */
-            siguiente(group1);
-        }
-
         private void BuscarCliente_Click(object sender, EventArgs e)
         {
-            new ABM_de_Cliente.BuscarCliente(this).ShowDialog();
-            /*
-             * BUSCA AL CLIENTE
-             */
-            siguiente(group2);
+            nBuscador = 1;
+            DialogResult sigue = new ABM_de_Cliente.BuscarCliente(this).ShowDialog();
+            if (sigue == DialogResult.OK)
+            {
+                group3.Enabled = true;
+            }
         }
 
         private void Reservar_Click(object sender, EventArgs e)
@@ -114,7 +80,29 @@ namespace FrbaHotel.Generar_Modificar_Reserva
 
         void ITraeBusqueda.agregar(string id, string descripcion)
         {
-
+            BD db = new BD();
+            db.obtenerConexion();
+            SqlDataReader reader;
+            string query;
+            switch (nBuscador)
+            {
+                case 1:
+                    query = "SELECT * FROM FUGAZZETA.Clientes WHERE Id_Cliente = " + id;
+                    reader = db.lee(query);
+                    while (reader.Read())
+                    {
+                        TxtNombre.Text = reader[1].ToString() + " " + reader[2].ToString();
+                        TxtDoc.Text = reader[3].ToString() + " " + reader[4].ToString();
+                        TxtPais.Text = reader[13].ToString();
+                        TxtNac.Text = reader[5].ToString().Substring(0, 10);
+                        TxtMail.Text = reader[6].ToString();
+                        TxtTelefono.Text = reader[7].ToString();
+                        TxtDomicilio.Text = reader[8].ToString() + " " + reader[9].ToString() + " " + reader[10].ToString() + " " + reader[11].ToString();
+                        TxtCiudad.Text = reader[12].ToString();
+                    }
+                    reader.Close();
+                    break;
+            }
         }
 
         #endregion

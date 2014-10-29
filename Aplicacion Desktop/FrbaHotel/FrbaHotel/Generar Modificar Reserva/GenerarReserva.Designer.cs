@@ -44,14 +44,27 @@
             this.ElegirHotel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.Reservar = new System.Windows.Forms.Button();
-            this.group1 = new System.Windows.Forms.GroupBox();
-            this.BuscarCliente = new System.Windows.Forms.Button();
-            this.NuevoCliente = new System.Windows.Forms.Button();
-            this.group2 = new System.Windows.Forms.GroupBox();
-            this.PasoAtras = new System.Windows.Forms.Button();
             this.CancelarTodo = new System.Windows.Forms.Button();
+            this.groupCliente = new System.Windows.Forms.GroupBox();
+            this.TxtDomicilio = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.TxtCiudad = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.TxtPais = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.TxtTelefono = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.TxtMail = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.TxtNombre = new System.Windows.Forms.Label();
+            this.TxtNac = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.TxtDoc = new System.Windows.Forms.Label();
+            this.BuscarCliente = new System.Windows.Forms.Button();
             this.group3.SuspendLayout();
-            this.group1.SuspendLayout();
+            this.groupCliente.SuspendLayout();
             this.SuspendLayout();
             // 
             // group3
@@ -75,7 +88,7 @@
             this.group3.Size = new System.Drawing.Size(304, 291);
             this.group3.TabIndex = 0;
             this.group3.TabStop = false;
-            this.group3.Text = "Paso 3 - Datos de la estadía";
+            this.group3.Text = "Paso 2 - Datos de la estadía";
             // 
             // QuitarHab
             // 
@@ -109,7 +122,7 @@
             this.ListHabitaciones.FormattingEnabled = true;
             this.ListHabitaciones.Location = new System.Drawing.Point(9, 182);
             this.ListHabitaciones.Name = "ListHabitaciones";
-            this.ListHabitaciones.Size = new System.Drawing.Size(72, 95);
+            this.ListHabitaciones.Size = new System.Drawing.Size(86, 95);
             this.ListHabitaciones.TabIndex = 10;
             // 
             // label4
@@ -200,6 +213,7 @@
             // 
             // Reservar
             // 
+            this.Reservar.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Reservar.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.Reservar.FlatAppearance.BorderSize = 3;
             this.Reservar.Location = new System.Drawing.Point(0, 409);
@@ -210,58 +224,9 @@
             this.Reservar.UseVisualStyleBackColor = true;
             this.Reservar.Click += new System.EventHandler(this.Reservar_Click);
             // 
-            // group1
-            // 
-            this.group1.Controls.Add(this.BuscarCliente);
-            this.group1.Controls.Add(this.NuevoCliente);
-            this.group1.Location = new System.Drawing.Point(12, 12);
-            this.group1.Name = "group1";
-            this.group1.Size = new System.Drawing.Size(351, 60);
-            this.group1.TabIndex = 2;
-            this.group1.TabStop = false;
-            this.group1.Text = "Paso 1 - Cliente encargado";
-            // 
-            // BuscarCliente
-            // 
-            this.BuscarCliente.Location = new System.Drawing.Point(180, 27);
-            this.BuscarCliente.Name = "BuscarCliente";
-            this.BuscarCliente.Size = new System.Drawing.Size(150, 23);
-            this.BuscarCliente.TabIndex = 1;
-            this.BuscarCliente.Text = "Cliente ya registrado";
-            this.BuscarCliente.UseVisualStyleBackColor = true;
-            this.BuscarCliente.Click += new System.EventHandler(this.BuscarCliente_Click);
-            // 
-            // NuevoCliente
-            // 
-            this.NuevoCliente.Location = new System.Drawing.Point(18, 27);
-            this.NuevoCliente.Name = "NuevoCliente";
-            this.NuevoCliente.Size = new System.Drawing.Size(156, 23);
-            this.NuevoCliente.TabIndex = 0;
-            this.NuevoCliente.Text = "Cliente nuevo";
-            this.NuevoCliente.UseVisualStyleBackColor = true;
-            this.NuevoCliente.Click += new System.EventHandler(this.NuevoCliente_Click);
-            // 
-            // group2
-            // 
-            this.group2.Location = new System.Drawing.Point(12, 79);
-            this.group2.Name = "group2";
-            this.group2.Size = new System.Drawing.Size(350, 324);
-            this.group2.TabIndex = 3;
-            this.group2.TabStop = false;
-            this.group2.Text = "Paso 2 - Datos del cliente";
-            // 
-            // PasoAtras
-            // 
-            this.PasoAtras.Location = new System.Drawing.Point(405, 320);
-            this.PasoAtras.Name = "PasoAtras";
-            this.PasoAtras.Size = new System.Drawing.Size(84, 52);
-            this.PasoAtras.TabIndex = 5;
-            this.PasoAtras.Text = "Paso atrás";
-            this.PasoAtras.UseVisualStyleBackColor = true;
-            this.PasoAtras.Click += new System.EventHandler(this.PasoAtras_Click);
-            // 
             // CancelarTodo
             // 
+            this.CancelarTodo.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.CancelarTodo.Location = new System.Drawing.Point(560, 320);
             this.CancelarTodo.Name = "CancelarTodo";
             this.CancelarTodo.Size = new System.Drawing.Size(84, 52);
@@ -270,15 +235,209 @@
             this.CancelarTodo.UseVisualStyleBackColor = true;
             this.CancelarTodo.Click += new System.EventHandler(this.CancelarTodo_Click);
             // 
+            // groupCliente
+            // 
+            this.groupCliente.Controls.Add(this.TxtDomicilio);
+            this.groupCliente.Controls.Add(this.label29);
+            this.groupCliente.Controls.Add(this.TxtCiudad);
+            this.groupCliente.Controls.Add(this.label27);
+            this.groupCliente.Controls.Add(this.TxtPais);
+            this.groupCliente.Controls.Add(this.label25);
+            this.groupCliente.Controls.Add(this.TxtTelefono);
+            this.groupCliente.Controls.Add(this.label23);
+            this.groupCliente.Controls.Add(this.TxtMail);
+            this.groupCliente.Controls.Add(this.label21);
+            this.groupCliente.Controls.Add(this.label11);
+            this.groupCliente.Controls.Add(this.TxtNombre);
+            this.groupCliente.Controls.Add(this.TxtNac);
+            this.groupCliente.Controls.Add(this.label19);
+            this.groupCliente.Controls.Add(this.label17);
+            this.groupCliente.Controls.Add(this.TxtDoc);
+            this.groupCliente.Enabled = false;
+            this.groupCliente.Location = new System.Drawing.Point(12, 90);
+            this.groupCliente.Name = "groupCliente";
+            this.groupCliente.Size = new System.Drawing.Size(367, 293);
+            this.groupCliente.TabIndex = 56;
+            this.groupCliente.TabStop = false;
+            this.groupCliente.Text = "Paso 1 - Datos del cliente";
+            // 
+            // TxtDomicilio
+            // 
+            this.TxtDomicilio.AutoSize = true;
+            this.TxtDomicilio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtDomicilio.Location = new System.Drawing.Point(73, 190);
+            this.TxtDomicilio.Name = "TxtDomicilio";
+            this.TxtDomicilio.Size = new System.Drawing.Size(127, 15);
+            this.TxtDomicilio.TabIndex = 71;
+            this.TxtDomicilio.Text = "........................................";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.Location = new System.Drawing.Point(9, 190);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(62, 15);
+            this.label29.TabIndex = 70;
+            this.label29.Text = "Domicilio:";
+            // 
+            // TxtCiudad
+            // 
+            this.TxtCiudad.AutoSize = true;
+            this.TxtCiudad.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtCiudad.Location = new System.Drawing.Point(64, 215);
+            this.TxtCiudad.Name = "TxtCiudad";
+            this.TxtCiudad.Size = new System.Drawing.Size(61, 15);
+            this.TxtCiudad.TabIndex = 69;
+            this.TxtCiudad.Text = "..................";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(9, 215);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(49, 15);
+            this.label27.TabIndex = 68;
+            this.label27.Text = "Ciudad:";
+            // 
+            // TxtPais
+            // 
+            this.TxtPais.AutoSize = true;
+            this.TxtPais.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtPais.Location = new System.Drawing.Point(89, 91);
+            this.TxtPais.Name = "TxtPais";
+            this.TxtPais.Size = new System.Drawing.Size(82, 15);
+            this.TxtPais.TabIndex = 67;
+            this.TxtPais.Text = ".........................";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(9, 91);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(83, 15);
+            this.label25.TabIndex = 66;
+            this.label25.Text = "Nacionalidad:";
+            // 
+            // TxtTelefono
+            // 
+            this.TxtTelefono.AutoSize = true;
+            this.TxtTelefono.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtTelefono.Location = new System.Drawing.Point(73, 168);
+            this.TxtTelefono.Name = "TxtTelefono";
+            this.TxtTelefono.Size = new System.Drawing.Size(127, 15);
+            this.TxtTelefono.TabIndex = 65;
+            this.TxtTelefono.Text = "........................................";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Location = new System.Drawing.Point(9, 168);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(58, 15);
+            this.label23.TabIndex = 64;
+            this.label23.Text = "Teléfono:";
+            // 
+            // TxtMail
+            // 
+            this.TxtMail.AutoSize = true;
+            this.TxtMail.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtMail.Location = new System.Drawing.Point(49, 143);
+            this.TxtMail.Name = "TxtMail";
+            this.TxtMail.Size = new System.Drawing.Size(124, 15);
+            this.TxtMail.TabIndex = 63;
+            this.TxtMail.Text = ".......................................";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(9, 34);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(113, 15);
+            this.label21.TabIndex = 56;
+            this.label21.Text = "Nombre y apellido: ";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(9, 143);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(34, 15);
+            this.label11.TabIndex = 62;
+            this.label11.Text = "Mail:";
+            // 
+            // TxtNombre
+            // 
+            this.TxtNombre.AutoSize = true;
+            this.TxtNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtNombre.Location = new System.Drawing.Point(128, 34);
+            this.TxtNombre.Name = "TxtNombre";
+            this.TxtNombre.Size = new System.Drawing.Size(118, 15);
+            this.TxtNombre.TabIndex = 57;
+            this.TxtNombre.Text = ".....................................";
+            // 
+            // TxtNac
+            // 
+            this.TxtNac.AutoSize = true;
+            this.TxtNac.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtNac.Location = new System.Drawing.Point(140, 116);
+            this.TxtNac.Name = "TxtNac";
+            this.TxtNac.Size = new System.Drawing.Size(76, 15);
+            this.TxtNac.TabIndex = 61;
+            this.TxtNac.Text = ".......................";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(9, 67);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(143, 15);
+            this.label19.TabIndex = 58;
+            this.label19.Text = "Tipo y N° de Documento:";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(9, 116);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(125, 15);
+            this.label17.TabIndex = 60;
+            this.label17.Text = "Fecha de nacimiento:";
+            // 
+            // TxtDoc
+            // 
+            this.TxtDoc.AutoSize = true;
+            this.TxtDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtDoc.Location = new System.Drawing.Point(158, 67);
+            this.TxtDoc.Name = "TxtDoc";
+            this.TxtDoc.Size = new System.Drawing.Size(73, 15);
+            this.TxtDoc.TabIndex = 59;
+            this.TxtDoc.Text = "......................";
+            // 
+            // BuscarCliente
+            // 
+            this.BuscarCliente.Location = new System.Drawing.Point(16, 55);
+            this.BuscarCliente.Name = "BuscarCliente";
+            this.BuscarCliente.Size = new System.Drawing.Size(242, 29);
+            this.BuscarCliente.TabIndex = 57;
+            this.BuscarCliente.Text = "Buscar Cliente";
+            this.BuscarCliente.UseVisualStyleBackColor = true;
+            // 
             // GenerarReserva
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(701, 454);
+            this.Controls.Add(this.BuscarCliente);
+            this.Controls.Add(this.groupCliente);
             this.Controls.Add(this.CancelarTodo);
-            this.Controls.Add(this.PasoAtras);
-            this.Controls.Add(this.group2);
-            this.Controls.Add(this.group1);
             this.Controls.Add(this.group3);
             this.Controls.Add(this.Reservar);
             this.Name = "GenerarReserva";
@@ -286,7 +445,8 @@
             this.Load += new System.EventHandler(this.GenerarReserva_Load);
             this.group3.ResumeLayout(false);
             this.group3.PerformLayout();
-            this.group1.ResumeLayout(false);
+            this.groupCliente.ResumeLayout(false);
+            this.groupCliente.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -305,15 +465,28 @@
         private System.Windows.Forms.DateTimePicker HastaPick;
         private System.Windows.Forms.DateTimePicker DesdePick;
         private System.Windows.Forms.Button Reservar;
-        private System.Windows.Forms.GroupBox group1;
-        private System.Windows.Forms.Button BuscarCliente;
-        private System.Windows.Forms.Button NuevoCliente;
-        private System.Windows.Forms.GroupBox group2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ListBox ListHabitaciones;
         private System.Windows.Forms.Button QuitarHab;
         private System.Windows.Forms.Button AgregarHab;
-        private System.Windows.Forms.Button PasoAtras;
         private System.Windows.Forms.Button CancelarTodo;
+        private System.Windows.Forms.GroupBox groupCliente;
+        private System.Windows.Forms.Label TxtDomicilio;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label TxtCiudad;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label TxtPais;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label TxtTelefono;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label TxtMail;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label TxtNombre;
+        private System.Windows.Forms.Label TxtNac;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label TxtDoc;
+        private System.Windows.Forms.Button BuscarCliente;
     }
 }

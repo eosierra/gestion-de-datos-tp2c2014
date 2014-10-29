@@ -89,7 +89,7 @@
             this.AgregarCliente.Name = "AgregarCliente";
             this.AgregarCliente.Size = new System.Drawing.Size(108, 34);
             this.AgregarCliente.TabIndex = 10;
-            this.AgregarCliente.Text = "AGREGAR NUEVO";
+            this.AgregarCliente.Text = "CLIENTE NUEVO";
             this.AgregarCliente.UseVisualStyleBackColor = true;
             this.AgregarCliente.Click += new System.EventHandler(this.AgregarCliente_Click);
             // 
