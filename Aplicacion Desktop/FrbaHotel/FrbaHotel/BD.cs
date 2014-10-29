@@ -11,7 +11,7 @@ namespace FrbaHotel
     public class BD
     {    
         static SqlConnection Conexion = new SqlConnection();
-        SqlDataAdapter dataAdapter;
+        public SqlDataAdapter dataAdapter;
 
         public SqlConnection obtenerConexion()
             {

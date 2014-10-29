@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace FrbaHotel
 {
@@ -11,10 +13,14 @@ namespace FrbaHotel
         public ITraeBusqueda dondeVuelve;
         public BD bd = new BD();
         public string todos;
+        private string campos;
+        private string tabla;
         public string actual;
 
-        public void crearBuscador(ITraeBusqueda owner, string campos, string categoria)
+        public void crearBuscador(ITraeBusqueda owner, string camposDeBsq, string categoria)
         {
+            campos = camposDeBsq;
+            tabla = categoria;
             todos = "SELECT " + campos + " FROM FUGAZZETA." + categoria;
             dondeVuelve = owner;
         }
@@ -23,6 +29,22 @@ namespace FrbaHotel
         {
             grid.DataSource = bd.ejecutar(consulta);
             bd.cerrar();
+        }
+
+        public string top(int n, string consulta)
+        {
+            return "SELECT TOP " + n + " " + consulta.Substring(6);
+        }
+
+        public string cantidadResultados(string query)
+        {
+            SqlDataReader dr = bd.lee("SELECT COUNT(*) " + query.Substring(7 + campos.Length));
+            string cant="";
+            while (dr.Read())
+            {
+                cant = dr[0].ToString();
+            }
+            return cant;
         }
 
         private void InitializeComponent()

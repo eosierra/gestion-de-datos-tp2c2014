@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Threading;
 
 namespace FrbaHotel.ABM_de_Cliente
 {
@@ -17,24 +18,18 @@ namespace FrbaHotel.ABM_de_Cliente
             InitializeComponent();
             BD bd = new BD();
             bd.obtenerConexion();
-            bd.rellenarDesde("Descripcion", "TiposDoc", ComboDoc);
-            //crearBuscador(owner,"*","[TodosLosClientes]");
             dondeVuelve = owner;
-
-            SqlDataAdapter dAdap = new SqlDataAdapter("SELECT * FROM FUGAZZETA.Clientes", bd.getConexion());
-            DataSet ds = new DataSet();
-            dAdap.Fill(ds, "FUGAZZETA.Clientes");
-            GridClientes.DataSource = ds;
-            //GridClientes.DataMember = "*";
-            GridClientes.Refresh();
             setearGrid(GridClientes);
+            crearBuscador(dondeVuelve, "*", "[TodosLosClientes]");
+            bd.rellenarDesde("Descripcion", "TiposDoc", ComboDoc);
             bd.cerrar();
         }
 
         private void BuscarCliente_Load(object sender, EventArgs e)
         {
             bd.obtenerConexion();
-            //cargarGrilla(GridClientes, todos);
+            mostrarCantidadResultados(todos);
+            cargarGrilla(GridClientes, top(5000, todos));            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -60,12 +55,31 @@ namespace FrbaHotel.ABM_de_Cliente
             //addFiltroComboBox(ComboDoc, "Id_TipoDoc", GridClientes);
             addFiltroTextBox(TxtDoc, "Nro_Doc", GridClientes);
             addFiltroTextBox(TxtMail, "Mail", GridClientes);
-            cargarGrilla(GridClientes, actual);
+            mostrarCantidadResultados(actual);
+            cargarGrilla(GridClientes, top(5000,actual));
+        }
+
+        private void mostrarCantidadResultados(string consulta)
+        {
+            int cant = Int32.Parse(cantidadResultados(consulta));
+            if (cant > 5000)
+            {
+                LblResultados.Text = "Mostrando primeros 5000 resultados de " + cant + ".";
+            } else
+            {
+                LblResultados.Text = cant + " resultados.";
+            }
         }
 
         private void AgregarCliente_Click(object sender, EventArgs e)
         {
             new ABM_de_Cliente.AltaCliente().ShowDialog();
+        }
+
+        private void Seleccionar_Click(object sender, EventArgs e)
+        {
+            string apellidonombre = celdaElegida(GridClientes, 2) + ", " + celdaElegida(GridClientes, 1); 
+            dondeVuelve.agregar(celdaElegida(GridClientes, 0), apellidonombre);
         }
 
     }

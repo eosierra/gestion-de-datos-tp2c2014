@@ -45,6 +45,7 @@
             this.TxtNombre = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.TxtDoc = new System.Windows.Forms.TextBox();
+            this.LblResultados = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.GridClientes)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -53,17 +54,17 @@
             // 
             this.GridClientes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.GridClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GridClientes.Location = new System.Drawing.Point(12, 85);
+            this.GridClientes.Location = new System.Drawing.Point(12, 113);
             this.GridClientes.Name = "GridClientes";
             this.GridClientes.ReadOnly = true;
             this.GridClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.GridClientes.Size = new System.Drawing.Size(1065, 463);
+            this.GridClientes.Size = new System.Drawing.Size(1065, 449);
             this.GridClientes.TabIndex = 6;
             // 
             // Cancelar
             // 
             this.Cancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Cancelar.Location = new System.Drawing.Point(898, 554);
+            this.Cancelar.Location = new System.Drawing.Point(847, 568);
             this.Cancelar.Name = "Cancelar";
             this.Cancelar.Size = new System.Drawing.Size(108, 34);
             this.Cancelar.TabIndex = 9;
@@ -73,16 +74,18 @@
             // 
             // Seleccionar
             // 
-            this.Seleccionar.Location = new System.Drawing.Point(432, 554);
+            this.Seleccionar.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.Seleccionar.Location = new System.Drawing.Point(423, 568);
             this.Seleccionar.Name = "Seleccionar";
             this.Seleccionar.Size = new System.Drawing.Size(108, 34);
             this.Seleccionar.TabIndex = 8;
             this.Seleccionar.Text = "SELECCIONAR";
             this.Seleccionar.UseVisualStyleBackColor = true;
+            this.Seleccionar.Click += new System.EventHandler(this.Seleccionar_Click);
             // 
             // AgregarCliente
             // 
-            this.AgregarCliente.Location = new System.Drawing.Point(564, 554);
+            this.AgregarCliente.Location = new System.Drawing.Point(555, 568);
             this.AgregarCliente.Name = "AgregarCliente";
             this.AgregarCliente.Size = new System.Drawing.Size(108, 34);
             this.AgregarCliente.TabIndex = 10;
@@ -213,12 +216,22 @@
             this.TxtDoc.Size = new System.Drawing.Size(161, 20);
             this.TxtDoc.TabIndex = 4;
             // 
+            // LblResultados
+            // 
+            this.LblResultados.AutoSize = true;
+            this.LblResultados.Location = new System.Drawing.Point(12, 90);
+            this.LblResultados.Name = "LblResultados";
+            this.LblResultados.Size = new System.Drawing.Size(126, 13);
+            this.LblResultados.TabIndex = 15;
+            this.LblResultados.Text = "Mostrando ..... resultados";
+            // 
             // BuscarCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.Cancelar;
-            this.ClientSize = new System.Drawing.Size(1089, 596);
+            this.ClientSize = new System.Drawing.Size(1089, 605);
+            this.Controls.Add(this.LblResultados);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.AgregarCliente);
             this.Controls.Add(this.Cancelar);
@@ -234,6 +247,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -256,5 +270,6 @@
         private System.Windows.Forms.TextBox TxtMail;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox TxtApellido;
+        private System.Windows.Forms.Label LblResultados;
     }
 }
