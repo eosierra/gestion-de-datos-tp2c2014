@@ -70,7 +70,7 @@
             this.Cancelar.TabIndex = 9;
             this.Cancelar.Text = "CANCELAR";
             this.Cancelar.UseVisualStyleBackColor = true;
-            this.Cancelar.Click += new System.EventHandler(this.button2_Click);
+            this.Cancelar.Click += new System.EventHandler(this.Cancelar_Click);
             // 
             // Seleccionar
             // 
@@ -110,7 +110,7 @@
             this.groupBox2.Location = new System.Drawing.Point(12, 14);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(1065, 65);
-            this.groupBox2.TabIndex = 14;
+            this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Filtros de selección";
             // 
@@ -128,7 +128,7 @@
             this.TxtMail.Location = new System.Drawing.Point(658, 32);
             this.TxtMail.Name = "TxtMail";
             this.TxtMail.Size = new System.Drawing.Size(161, 20);
-            this.TxtMail.TabIndex = 47;
+            this.TxtMail.TabIndex = 5;
             // 
             // label1
             // 
@@ -144,14 +144,14 @@
             this.TxtApellido.Location = new System.Drawing.Point(182, 32);
             this.TxtApellido.Name = "TxtApellido";
             this.TxtApellido.Size = new System.Drawing.Size(165, 20);
-            this.TxtApellido.TabIndex = 45;
+            this.TxtApellido.TabIndex = 2;
             // 
             // Buscar
             // 
             this.Buscar.Location = new System.Drawing.Point(949, 18);
             this.Buscar.Name = "Buscar";
             this.Buscar.Size = new System.Drawing.Size(108, 34);
-            this.Buscar.TabIndex = 44;
+            this.Buscar.TabIndex = 6;
             this.Buscar.Text = "BUSCAR";
             this.Buscar.UseVisualStyleBackColor = true;
             this.Buscar.Click += new System.EventHandler(this.Buscar_Click);
@@ -173,7 +173,7 @@
             this.ComboDoc.Location = new System.Drawing.Point(357, 32);
             this.ComboDoc.Name = "ComboDoc";
             this.ComboDoc.Size = new System.Drawing.Size(106, 21);
-            this.ComboDoc.TabIndex = 41;
+            this.ComboDoc.TabIndex = 3;
             // 
             // label4
             // 
@@ -198,7 +198,7 @@
             this.TxtNombre.Location = new System.Drawing.Point(9, 32);
             this.TxtNombre.Name = "TxtNombre";
             this.TxtNombre.Size = new System.Drawing.Size(165, 20);
-            this.TxtNombre.TabIndex = 6;
+            this.TxtNombre.TabIndex = 1;
             // 
             // label7
             // 

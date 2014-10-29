@@ -62,6 +62,7 @@
             this.TxtUser.Name = "TxtUser";
             this.TxtUser.Size = new System.Drawing.Size(149, 20);
             this.TxtUser.TabIndex = 2;
+            this.TxtUser.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Enter_KeyPress);
             // 
             // TxtPass
             // 
@@ -71,6 +72,7 @@
             this.TxtPass.PasswordChar = '*';
             this.TxtPass.Size = new System.Drawing.Size(149, 23);
             this.TxtPass.TabIndex = 3;
+            this.TxtPass.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Enter_KeyPress);
             // 
             // CmdIngresar
             // 

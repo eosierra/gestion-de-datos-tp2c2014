@@ -13,6 +13,8 @@ namespace FrbaHotel.ABM_de_Cliente
 {
     public partial class BuscarCliente : Buscador
     {
+        int n = 100;
+
         public BuscarCliente(ITraeBusqueda owner)
         {
             InitializeComponent();
@@ -29,10 +31,10 @@ namespace FrbaHotel.ABM_de_Cliente
         {
             bd.obtenerConexion();
             mostrarCantidadResultados(todos);
-            cargarGrilla(GridClientes, top(5000, todos));            
+            cargarGrilla(GridClientes, top(n, todos));            
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Cancelar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -56,18 +58,18 @@ namespace FrbaHotel.ABM_de_Cliente
             addFiltroTextBox(TxtDoc, "Nro_Doc", GridClientes);
             addFiltroTextBox(TxtMail, "Mail", GridClientes);
             mostrarCantidadResultados(actual);
-            cargarGrilla(GridClientes, top(5000,actual));
+            cargarGrilla(GridClientes, top(n,actual));
         }
 
         private void mostrarCantidadResultados(string consulta)
         {
             int cant = Int32.Parse(cantidadResultados(consulta));
-            if (cant > 5000)
+            if (cant > n)
             {
-                LblResultados.Text = "Mostrando primeros 5000 resultados de " + cant + ".";
+                LblResultados.Text = "Mostrando primeros " +  n + " de " + cant + " resultados.";
             } else
             {
-                LblResultados.Text = cant + " resultados.";
+                LblResultados.Text = "Se encontraron " + cant + " resultados.";
             }
         }
 

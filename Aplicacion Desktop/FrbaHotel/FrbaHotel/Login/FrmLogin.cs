@@ -75,5 +75,13 @@ namespace FrbaHotel.Login
             this.Close();
         }
 
+        private void Enter_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                CmdIngresar_Click(sender, e);
+            }
+        }
+
     }
 } 
