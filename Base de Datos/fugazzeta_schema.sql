@@ -9,35 +9,92 @@ GO
 -----------------------------------/*Borrando Tablas */-------------------------------------
 --------------------------------------------------------------------------------------------
 
+IF OBJECT_ID('FUGAZZETA.AbonoFacturas') IS NOT NULL
 DROP TABLE FUGAZZETA.AbonoFacturas
+
+IF OBJECT_ID('FUGAZZETA.Acompañantes') IS NOT NULL
 DROP TABLE FUGAZZETA.Acompañantes
+
+IF OBJECT_ID('FUGAZZETA.Bancos') IS NOT NULL
 DROP TABLE FUGAZZETA.Bancos
+
+IF OBJECT_ID('FUGAZZETA.[Usuarios x Hoteles x Rol]') IS NOT NULL
 DROP TABLE FUGAZZETA.[Usuarios x Hoteles x Rol]
+
+IF OBJECT_ID('FUGAZZETA.TiposPago') IS NOT NULL
 DROP TABLE FUGAZZETA.TiposPago
+
+IF OBJECT_ID('FUGAZZETA.[Funcionalidades x Roles]') IS NOT NULL
 DROP TABLE FUGAZZETA.[Funcionalidades x Roles]
+
+IF OBJECT_ID('FUGAZZETA.Funcionalidades') IS NOT NULL
 DROP TABLE FUGAZZETA.Funcionalidades
+
+IF OBJECT_ID('FUGAZZETA.[Habitaciones x Reservas]') IS NOT NULL
 DROP TABLE FUGAZZETA.[Habitaciones x Reservas]
+
+IF OBJECT_ID('FUGAZZETA.HistorialHabitaciones') IS NOT NULL
 DROP TABLE FUGAZZETA.HistorialHabitaciones
+
+IF OBJECT_ID('FUGAZZETA.Items_Consumible') IS NOT NULL
 DROP TABLE FUGAZZETA.Items_Consumible
+
+IF OBJECT_ID('FUGAZZETA.Items_Hospedaje') IS NOT NULL
 DROP TABLE FUGAZZETA.Items_Hospedaje
+
+IF OBJECT_ID('FUGAZZETA.HistorialBajasHotel') IS NOT NULL
 DROP TABLE FUGAZZETA.HistorialBajasHotel
+
+IF OBJECT_ID('FUGAZZETA.MovimientosReserva') IS NOT NULL
 DROP TABLE FUGAZZETA.MovimientosReserva
+
+IF OBJECT_ID('FUGAZZETA.Usuarios') IS NOT NULL
 DROP TABLE FUGAZZETA.Usuarios
+
+IF OBJECT_ID('FUGAZZETA.Consumibles') IS NOT NULL
 DROP TABLE FUGAZZETA.Consumibles
+
+IF OBJECT_ID('FUGAZZETA.Facturas') IS NOT NULL
 DROP TABLE FUGAZZETA.Facturas
+
+IF OBJECT_ID('FUGAZZETA.Roles') IS NOT NULL
 DROP TABLE FUGAZZETA.Roles
+
+IF OBJECT_ID('FUGAZZETA.Reservas') IS NOT NULL
 DROP TABLE FUGAZZETA.Reservas
+
+IF OBJECT_ID('FUGAZZETA.EstadosReserva') IS NOT NULL
 DROP TABLE FUGAZZETA.EstadosReserva
+
+IF OBJECT_ID('FUGAZZETA.ClientesDuplicados') IS NOT NULL
 DROP TABLE FUGAZZETA.ClientesDuplicados
+
+IF OBJECT_ID('FUGAZZETA.Clientes') IS NOT NULL
 DROP TABLE FUGAZZETA.Clientes
+
+IF OBJECT_ID('FUGAZZETA.TiposDoc') IS NOT NULL
 DROP TABLE FUGAZZETA.TiposDoc
+
+IF OBJECT_ID('FUGAZZETA.[Regimenes x Hotel]') IS NOT NULL
 DROP TABLE FUGAZZETA.[Regimenes x Hotel]
+
+IF OBJECT_ID('FUGAZZETA.Regimenes') IS NOT NULL
 DROP TABLE FUGAZZETA.Regimenes
+
+IF OBJECT_ID('FUGAZZETA.Habitaciones') IS NOT NULL
 DROP TABLE FUGAZZETA.Habitaciones
+
+IF OBJECT_ID('FUGAZZETA.TiposHabitacion') IS NOT NULL
 DROP TABLE FUGAZZETA.TiposHabitacion
+
+IF OBJECT_ID('FUGAZZETA.Hoteles') IS NOT NULL
 DROP TABLE FUGAZZETA.Hoteles
+
+IF OBJECT_ID('FUGAZZETA.Paises') IS NOT NULL
 DROP TABLE FUGAZZETA.Paises
+
 GO
+
 
 --------------------/*Borrado de procedimientos,vistas*/------------------------------------
 --------------------------------------------------------------------------------------------
