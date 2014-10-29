@@ -297,7 +297,7 @@ go
 
 -------------------------------/* Triggers*/------------------------------------------------
 --------------------------------------------------------------------------------------------
-CREATE TRIGGER FUGAZZETA.TR_MovimientosHotel_A_I ON FUGAZZETA.MovimientosHotel
+CREATE TRIGGER FUGAZZETA.TR_MovimientosHotel_A_I ON FUGAZZETA.HistorialBajasHotel
 AFTER INSERT AS
 BEGIN
 	UPDATE FUGAZZETA.Hoteles
