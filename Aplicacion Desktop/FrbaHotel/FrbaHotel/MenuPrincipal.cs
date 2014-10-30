@@ -78,7 +78,7 @@ namespace FrbaHotel
 
         private void realizarNuevaReservaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            abrir(new Generar_Modificar_Reserva.GenerarReserva());
+            abrir(new Generar_Modificar_Reserva.GenerarReserva(this));
         }
 
         private void modificarHotelToolStripMenuItem_Click(object sender, EventArgs e)

@@ -16,6 +16,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         int idClienteActual;
         int idHotelActual;
         MenuPrincipal menuP;
+        int idReservaGenerada;
 
         public GenerarReserva(MenuPrincipal menu)
         {
@@ -44,7 +45,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                     // Las fechas de reserva se revalidan automaticamente.
                     validarHabitaciones();
                     generarLaReserva();
-                    MessageBox.Show("La reserva se ha realizado con éxito. Su código de reserva es: ...... Conserve este código al momento de realizar el ingreso y el egreso del hotel.", "Nueva Reserva");
+                    MessageBox.Show("La reserva se ha realizado con éxito. Su código de reserva es: " + idReservaGenerada + ". Es muy importante que conserve este código al momento de realizar el ingreso y el egreso del hotel.", "Nueva Reserva");
                     this.Close();
                 }
                 catch (Exception ex)
@@ -60,7 +61,23 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         {
             BD bd = new BD();
             bd.obtenerConexion();
-            string query = "EXEC FUGAZZETA.GenerarReserva  
+            int idRegimen = (ComboRegimen.SelectedItem as ABM_de_Regimen.Regimen).id;
+            string usuario = menuP.usuarioActual;
+            string query = "EXEC FUGAZZETA.GenerarReserva " + idClienteActual + ", " + idHotelActual + ", '" + Program.ahora().ToString() + "', '" + new DatePrograma(DesdePick.Value).ToString() + "', '" + new DatePrograma(HastaPick.Value).ToString() + "', " + idRegimen + ", '" + usuario + "'";
+            SqlDataReader reader = bd.lee(query);
+            while (reader.Read())
+            {
+                idReservaGenerada = Int32.Parse(reader[0].ToString());
+            }
+            reader.Close();
+            
+            for (int i=0; i < ListHabitaciones.Items.Count - 1; i++)
+            {
+                string numHabitacion = (ListHabitaciones.Items[i] as ABM_de_Habitacion.Habitacion).ToString();
+                query = "INSERT INTO FUGAZZETA.[Habitaciones x Reservas] values (" + idReservaGenerada + ", " + idHotelActual + ", " + numHabitacion + ")";
+                bd.ejecutar(query);
+            }
+            bd.cerrar();
         }
 
         #region Validaciones
