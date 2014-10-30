@@ -29,18 +29,17 @@
         private void InitializeComponent()
         {
             this.group3 = new System.Windows.Forms.GroupBox();
-            this.ComboRegimen = new System.Windows.Forms.ComboBox();
-            this.QuitarHab = new System.Windows.Forms.Button();
-            this.AgregarHab = new System.Windows.Forms.Button();
-            this.ListHabitaciones = new System.Windows.Forms.ListBox();
+            this.ConfirmarDatosEstadia = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.HastaPick = new System.Windows.Forms.DateTimePicker();
             this.DesdePick = new System.Windows.Forms.DateTimePicker();
-            this.label2 = new System.Windows.Forms.Label();
             this.TxtHotel = new System.Windows.Forms.TextBox();
             this.ElegirHotel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.QuitarHab = new System.Windows.Forms.Button();
+            this.AgregarHab = new System.Windows.Forms.Button();
+            this.ListHabitaciones = new System.Windows.Forms.ListBox();
             this.Reservar = new System.Windows.Forms.Button();
             this.CancelarTodo = new System.Windows.Forms.Button();
             this.groupCliente = new System.Windows.Forms.GroupBox();
@@ -62,8 +61,9 @@
             this.TxtDoc = new System.Windows.Forms.Label();
             this.BuscarCliente = new System.Windows.Forms.Button();
             this.groupHab = new System.Windows.Forms.GroupBox();
-            this.ConfirmarDatosEstadia = new System.Windows.Forms.Button();
             this.PasoAtras = new System.Windows.Forms.Button();
+            this.ComboRegimen = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.group3.SuspendLayout();
             this.groupCliente.SuspendLayout();
             this.groupHab.SuspendLayout();
@@ -72,60 +72,29 @@
             // group3
             // 
             this.group3.Controls.Add(this.ConfirmarDatosEstadia);
-            this.group3.Controls.Add(this.ComboRegimen);
             this.group3.Controls.Add(this.label4);
             this.group3.Controls.Add(this.label3);
             this.group3.Controls.Add(this.HastaPick);
             this.group3.Controls.Add(this.DesdePick);
-            this.group3.Controls.Add(this.label2);
             this.group3.Controls.Add(this.TxtHotel);
             this.group3.Controls.Add(this.ElegirHotel);
             this.group3.Controls.Add(this.label1);
             this.group3.Location = new System.Drawing.Point(385, 12);
             this.group3.Name = "group3";
-            this.group3.Size = new System.Drawing.Size(304, 166);
+            this.group3.Size = new System.Drawing.Size(304, 141);
             this.group3.TabIndex = 0;
             this.group3.TabStop = false;
             this.group3.Text = "Paso 2 - Datos de la estadía";
             // 
-            // ComboRegimen
+            // ConfirmarDatosEstadia
             // 
-            this.ComboRegimen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboRegimen.FormattingEnabled = true;
-            this.ComboRegimen.Location = new System.Drawing.Point(65, 119);
-            this.ComboRegimen.Name = "ComboRegimen";
-            this.ComboRegimen.Size = new System.Drawing.Size(128, 21);
-            this.ComboRegimen.TabIndex = 14;
-            // 
-            // QuitarHab
-            // 
-            this.QuitarHab.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.QuitarHab.Location = new System.Drawing.Point(116, 49);
-            this.QuitarHab.Name = "QuitarHab";
-            this.QuitarHab.Size = new System.Drawing.Size(23, 24);
-            this.QuitarHab.TabIndex = 13;
-            this.QuitarHab.Text = "-";
-            this.QuitarHab.UseVisualStyleBackColor = true;
-            this.QuitarHab.Click += new System.EventHandler(this.QuitarHab_Click);
-            // 
-            // AgregarHab
-            // 
-            this.AgregarHab.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AgregarHab.Location = new System.Drawing.Point(116, 19);
-            this.AgregarHab.Name = "AgregarHab";
-            this.AgregarHab.Size = new System.Drawing.Size(23, 24);
-            this.AgregarHab.TabIndex = 12;
-            this.AgregarHab.Text = "+";
-            this.AgregarHab.UseVisualStyleBackColor = true;
-            this.AgregarHab.Click += new System.EventHandler(this.AgregarHab_Click);
-            // 
-            // ListHabitaciones
-            // 
-            this.ListHabitaciones.FormattingEnabled = true;
-            this.ListHabitaciones.Location = new System.Drawing.Point(24, 17);
-            this.ListHabitaciones.Name = "ListHabitaciones";
-            this.ListHabitaciones.Size = new System.Drawing.Size(86, 134);
-            this.ListHabitaciones.TabIndex = 10;
+            this.ConfirmarDatosEstadia.Location = new System.Drawing.Point(219, 111);
+            this.ConfirmarDatosEstadia.Name = "ConfirmarDatosEstadia";
+            this.ConfirmarDatosEstadia.Size = new System.Drawing.Size(75, 23);
+            this.ConfirmarDatosEstadia.TabIndex = 15;
+            this.ConfirmarDatosEstadia.Text = "CONFIRMA";
+            this.ConfirmarDatosEstadia.UseVisualStyleBackColor = true;
+            this.ConfirmarDatosEstadia.Click += new System.EventHandler(this.ConfirmarDatosEstadia_Click);
             // 
             // label4
             // 
@@ -161,15 +130,6 @@
             this.DesdePick.TabIndex = 6;
             this.DesdePick.ValueChanged += new System.EventHandler(this.revalidarReserva);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 122);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Regimen:";
-            // 
             // TxtHotel
             // 
             this.TxtHotel.Location = new System.Drawing.Point(59, 28);
@@ -196,6 +156,37 @@
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Hotel:";
+            // 
+            // QuitarHab
+            // 
+            this.QuitarHab.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.QuitarHab.Location = new System.Drawing.Point(111, 100);
+            this.QuitarHab.Name = "QuitarHab";
+            this.QuitarHab.Size = new System.Drawing.Size(23, 24);
+            this.QuitarHab.TabIndex = 13;
+            this.QuitarHab.Text = "-";
+            this.QuitarHab.UseVisualStyleBackColor = true;
+            this.QuitarHab.Click += new System.EventHandler(this.QuitarHab_Click);
+            // 
+            // AgregarHab
+            // 
+            this.AgregarHab.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AgregarHab.Location = new System.Drawing.Point(111, 70);
+            this.AgregarHab.Name = "AgregarHab";
+            this.AgregarHab.Size = new System.Drawing.Size(23, 24);
+            this.AgregarHab.TabIndex = 12;
+            this.AgregarHab.Text = "+";
+            this.AgregarHab.UseVisualStyleBackColor = true;
+            this.AgregarHab.Click += new System.EventHandler(this.AgregarHab_Click);
+            // 
+            // ListHabitaciones
+            // 
+            this.ListHabitaciones.FormattingEnabled = true;
+            this.ListHabitaciones.Location = new System.Drawing.Point(19, 68);
+            this.ListHabitaciones.Name = "ListHabitaciones";
+            this.ListHabitaciones.Size = new System.Drawing.Size(86, 134);
+            this.ListHabitaciones.Sorted = true;
+            this.ListHabitaciones.TabIndex = 10;
             // 
             // Reservar
             // 
@@ -419,37 +410,47 @@
             // 
             // groupHab
             // 
+            this.groupHab.Controls.Add(this.ComboRegimen);
+            this.groupHab.Controls.Add(this.label2);
             this.groupHab.Controls.Add(this.PasoAtras);
             this.groupHab.Controls.Add(this.ListHabitaciones);
             this.groupHab.Controls.Add(this.QuitarHab);
             this.groupHab.Controls.Add(this.AgregarHab);
             this.groupHab.Enabled = false;
-            this.groupHab.Location = new System.Drawing.Point(388, 184);
+            this.groupHab.Location = new System.Drawing.Point(388, 159);
             this.groupHab.Name = "groupHab";
-            this.groupHab.Size = new System.Drawing.Size(190, 198);
+            this.groupHab.Size = new System.Drawing.Size(210, 223);
             this.groupHab.TabIndex = 58;
             this.groupHab.TabStop = false;
             this.groupHab.Text = "Paso 3 - Habitaciones a reservar";
             // 
-            // ConfirmarDatosEstadia
-            // 
-            this.ConfirmarDatosEstadia.Location = new System.Drawing.Point(219, 137);
-            this.ConfirmarDatosEstadia.Name = "ConfirmarDatosEstadia";
-            this.ConfirmarDatosEstadia.Size = new System.Drawing.Size(75, 23);
-            this.ConfirmarDatosEstadia.TabIndex = 15;
-            this.ConfirmarDatosEstadia.Text = "CONFIRMA";
-            this.ConfirmarDatosEstadia.UseVisualStyleBackColor = true;
-            this.ConfirmarDatosEstadia.Click += new System.EventHandler(this.ConfirmarDatosEstadia_Click);
-            // 
             // PasoAtras
             // 
-            this.PasoAtras.Location = new System.Drawing.Point(116, 169);
+            this.PasoAtras.Location = new System.Drawing.Point(111, 184);
             this.PasoAtras.Name = "PasoAtras";
             this.PasoAtras.Size = new System.Drawing.Size(68, 23);
             this.PasoAtras.TabIndex = 16;
             this.PasoAtras.Text = "Paso atrás";
             this.PasoAtras.UseVisualStyleBackColor = true;
             this.PasoAtras.Click += new System.EventHandler(this.PasoAtras_Click);
+            // 
+            // ComboRegimen
+            // 
+            this.ComboRegimen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboRegimen.FormattingEnabled = true;
+            this.ComboRegimen.Location = new System.Drawing.Point(65, 22);
+            this.ComboRegimen.Name = "ComboRegimen";
+            this.ComboRegimen.Size = new System.Drawing.Size(128, 21);
+            this.ComboRegimen.TabIndex = 18;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 25);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(52, 13);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "Regimen:";
             // 
             // GenerarReserva
             // 
@@ -470,6 +471,7 @@
             this.groupCliente.ResumeLayout(false);
             this.groupCliente.PerformLayout();
             this.groupHab.ResumeLayout(false);
+            this.groupHab.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -478,7 +480,6 @@
 
         private System.Windows.Forms.GroupBox group3;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox TxtHotel;
         private System.Windows.Forms.Button ElegirHotel;
         private System.Windows.Forms.Label label4;
@@ -508,9 +509,10 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label TxtDoc;
         private System.Windows.Forms.Button BuscarCliente;
-        private System.Windows.Forms.ComboBox ComboRegimen;
         private System.Windows.Forms.GroupBox groupHab;
         private System.Windows.Forms.Button ConfirmarDatosEstadia;
         private System.Windows.Forms.Button PasoAtras;
+        private System.Windows.Forms.ComboBox ComboRegimen;
+        private System.Windows.Forms.Label label2;
     }
 }

@@ -114,6 +114,11 @@ DROP VIEW FUGAZZETA.ReservasModificables
 IF OBJECT_ID('FUGAZZETA.ProximasHabitacionesReservadas') IS NOT NULL
 DROP VIEW FUGAZZETA.ProximasHabitacionesReservadas
 
+--Functions
+
+IF OBJECT_ID('FUGAZZETA.CostoHabitacion') IS NOT NULL
+DROP FUNCTION FUGAZZETA.CostoHabitacion
+
 --Procedures
 IF OBJECT_ID('FUGAZZETA.LoginCorrecto', 'P') IS NOT NULL
 DROP PROCEDURE FUGAZZETA.LoginCorrecto
@@ -148,7 +153,6 @@ DROP PROCEDURE FUGAZZETA.HabitacionesLibresEnPeriodo
 --Triggers
 IF OBJECT_ID('FUGAZZETA.TR_MovimientosHotel_A_I') IS NOT NULL
 DROP TRIGGER FUGAZZETA.TR_MovimientosHotel_A_I
-GO
 
 IF OBJECT_ID('FUGAZZETA.TR_Reservas_A_I') IS NOT NULL
 DROP TRIGGER FUGAZZETA.TR_Reservas_A_I
@@ -643,15 +647,36 @@ OR Id_EstadoReserva = 2
 go
 
 CREATE VIEW FUGAZZETA.ProximasHabitacionesReservadas AS
-SELECT H.Id_Hotel,H.Num_Habitacion, R.Fecha_Inicio, R.Fecha_Fin_Reserva FROM FUGAZZETA.Habitaciones H, FUGAZZETA.ReservasNoCanceladas R, FUGAZZETA.[Habitaciones x Reservas] HR
+SELECT H.Id_Hotel,H.Num_Habitacion, R.Fecha_Inicio, R.Fecha_Fin_Reserva 
+FROM FUGAZZETA.Habitaciones H, FUGAZZETA.ReservasNoCanceladas R, FUGAZZETA.[Habitaciones x Reservas] HR
 WHERE
 	H.Id_Hotel = HR.Id_Hotel
 AND H.Num_Habitacion = HR.Num_Habitacion
 AND HR.Id_Reserva = R.Id_Reserva
 go
 
-----------------------------/* PROCEDIMIENTOS Y FUNCIONES*/---------------------------------
+------------------------------------/*FUNCIONES*/-------------------------------------------
 --------------------------------------------------------------------------------------------
+
+CREATE FUNCTION FUGAZZETA.CostoHabitacion (@Hotel int, @CantPersonas int, @IdRegimen int) RETURNS float
+AS BEGIN
+	DECLARE @Incremento float
+	declare @Estrellas int
+	Declare @PrecioRegimen float
+	SET @Estrellas = (SELECT CantEstrella FROM FUGAZZETA.Hoteles where Id_Hotel = @Hotel)
+--	SET @Incremento = (SELECT Recarga FROM FUGAZZETA.Hoteles where Id_Hotel = @Hotel)
+	SET @PrecioRegimen = ISNULL((SELECT Precio FROM FUGAZZETA.Regimenes where Id_Regimen = @IdRegimen),1)
+	RETURN 
+--	@Incremento *
+	@Estrellas *
+	@CantPersonas * @PrecioRegimen
+END
+GO
+
+
+----------------------------/* PROCEDIMIENTOS */--------------------------------------------
+--------------------------------------------------------------------------------------------
+
 CREATE PROCEDURE FUGAZZETA.LoginCorrecto(@USER nvarchar(30))
 AS BEGIN
 UPDATE FUGAZZETA.Usuarios
@@ -736,9 +761,15 @@ BEGIN
 END
 GO
 
-CREATE PROC FUGAZZETA.HabitacionesLibresEnPeriodo(@Hotel int, @Desde date, @Hasta date) AS
+CREATE PROC FUGAZZETA.HabitacionesLibresEnPeriodo(@Hotel int, @Desde date, @Hasta date, @Regimen int) AS
 begin
-	SELECT H.Num_Habitacion,H.Piso,H.Frente,T.Descripcion,H.Comodidades FROM FUGAZZETA.Habitaciones H, FUGAZZETA.TiposHabitacion T
+	SELECT
+	H.Num_Habitacion as [Número],
+	T.Descripcion,
+	H.Comodidades,
+	cast(T.CantPersonas as CHAR(1)) + ' personas' AS Capacidad,
+	'$ ' + cast((FUGAZZETA.CostoHabitacion(@Hotel,T.CantPersonas,@Regimen)) as varchar) as [Costo estimado]
+	FROM FUGAZZETA.Habitaciones H, FUGAZZETA.TiposHabitacion T
 	WHERE
 	H.Id_Hotel = @Hotel
 	AND	(H.Num_Habitacion) NOT IN 
@@ -750,6 +781,7 @@ begin
 		)
 	AND Habilitado = 1
 	AND H.Id_TipoHab = T.Id_TipoHab
+	ORDER BY Capacidad
 end
 GO
 
@@ -770,6 +802,5 @@ DECLARE @IdReserva int
 	SELECT Id_Reserva FROM FUGAZZETA.Reservas WHERE Id_Reserva = @IdReserva
 END
 GO
+
 --- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.
-
-

@@ -14,13 +14,15 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         int hotel;
         string desde;
         string hasta;
+        string idRegimen;
 
-        public BuscarHabitacionLibre(ITraeBusqueda owner, int hotelActual, string desdePick, string hastaPick)
+        public BuscarHabitacionLibre(ITraeBusqueda owner, int hotelActual, string desdePick, string hastaPick, string regimen)
         {
             InitializeComponent();
             hotel = hotelActual;
             desde = desdePick;
             hasta = hastaPick;
+            idRegimen = regimen;
             dondeVuelve = owner;
             setearGrid(GridHabitaciones);
         }
@@ -28,7 +30,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         private void BuscarHabitacionLibre_Load(object sender, EventArgs e)
         {
             bd.obtenerConexion();
-            string query = "EXEC FUGAZZETA.HabitacionesLibresEnPeriodo " + hotel + ", '" + desde + "', '" + hasta + "'"; 
+            string query = "EXEC FUGAZZETA.HabitacionesLibresEnPeriodo " + hotel + ", '" + desde + "', '" + hasta + "', " + idRegimen; 
             cargarGrilla(GridHabitaciones,query);
             if (GridHabitaciones.RowCount == 0)
             {

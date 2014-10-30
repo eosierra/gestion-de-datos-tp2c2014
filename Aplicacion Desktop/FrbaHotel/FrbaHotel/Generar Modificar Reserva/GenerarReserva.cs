@@ -41,8 +41,9 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 try
                 {
                     // El cliente se valida al momento de buscarse o darse de alta.
-                    // Los datos de estadia (Hotel, Fechas y Regimen) se validan en el "ConfirmaDatosEstadia"
+                    // Los datos de estadia (Hotel, Fechas) se validan en el "ConfirmaDatosEstadia"
                     // Las fechas de reserva se revalidan automaticamente.
+                    validarRegimen();
                     validarHabitaciones();
                     generarLaReserva();
                     MessageBox.Show("La reserva se ha realizado con éxito. Su código de reserva es: " + idReservaGenerada + ". Es muy importante que conserve este código al momento de realizar el ingreso y el egreso del hotel.", "Nueva Reserva");
@@ -98,12 +99,27 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         }
         #endregion
 
+        private void validarOtrasHabitaciones()
+        {
+            for (int i = 0; i < ListHabitaciones.Items.Count - 2; i++)
+            {
+                if (ListHabitaciones.Items[i].ToString() == ListHabitaciones.Items[i + 1].ToString())
+                {
+                    string eliminado = ListHabitaciones.Items[i].ToString();
+                    ListHabitaciones.Items.RemoveAt(i);
+                    MessageBox.Show("La habitación " + eliminado + " ya había sido elegida.");
+                }
+            }
+        }
+
+
         private void validarHabitaciones()
         {
             if (ListHabitaciones.Items.Count == 0)
             {
                 throw new Exception("No se seleccionó ninguna habitación para reservar.");
             }
+            validarOtrasHabitaciones();
         }
 
         private void validarRegimen()
@@ -134,7 +150,6 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         }
 
         #endregion
-
 
         void ITraeBusqueda.agregar(string id, string descripcion)
         {
@@ -224,7 +239,20 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         private void AgregarHab_Click(object sender, EventArgs e)
         {
             nBuscador = 3;
-            new BuscarHabitacionLibre(this,idHotelActual, new DatePrograma(DesdePick.Value).ToString(), new DatePrograma(HastaPick.Value).ToString()).ShowDialog();
+            string idRegimen;
+            if (ComboRegimen.SelectedIndex == -1)
+            {
+                idRegimen = "NULL";
+            }
+            else
+            {
+                idRegimen = (ComboRegimen.SelectedItem as ABM_de_Regimen.Regimen).id.ToString();
+            }
+            DialogResult agregado = new BuscarHabitacionLibre(this,idHotelActual, new DatePrograma(DesdePick.Value).ToString(), new DatePrograma(HastaPick.Value).ToString(),idRegimen).ShowDialog();
+            if (agregado == DialogResult.OK)
+            {
+                validarOtrasHabitaciones();
+            }
         }
 
         private void CancelarTodo_Click(object sender, EventArgs e)
@@ -237,7 +265,10 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             try
             {
                 valida("Hoteles", "Id_Hotel", idHotelActual, "Este hotel no está habilitado por la cadena.");
-                validarRegimen();
+                BD bd = new BD();
+                bd.obtenerConexion();
+                string query = "EXEC FUGAZZETA.CancelarPorNoShow '" + new DatePrograma(Program.hoy()).ToString() + "', '" + menuP.usuarioActual + "'";
+                bd.ejecutar(query);
                 group3.Enabled = false;
                 groupHab.Enabled = true;
                 ListHabitaciones.Items.Clear();
