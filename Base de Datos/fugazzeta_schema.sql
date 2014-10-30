@@ -149,6 +149,7 @@ GO
 CREATE TABLE FUGAZZETA.Paises(
 Id_Pais int identity(1,1) PRIMARY KEY,
 Nombre varchar(40))
+
 CREATE TABLE FUGAZZETA.Hoteles(
 Id_Hotel int identity(1,1) PRIMARY KEY,
 Nombre nvarchar(40),
@@ -168,6 +169,7 @@ Id_Rol int identity(1,1) PRIMARY KEY,
 Nombre varchar(23) not null,
 Estado bit DEFAULT 1
 )
+
 CREATE TABLE FUGAZZETA.TiposDoc(
 Id_TipoDoc int IDENTITY(1,1) PRIMARY KEY,
 Descripcion varchar(30))
@@ -381,6 +383,44 @@ INSERT INTO FUGAZZETA.Paises values ('España')
 INSERT INTO FUGAZZETA.Paises values ('Brasil')
 go
 
+--Funcionalidades
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Rol')
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Usuario')
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Cliente')
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Hotel')
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Habitacion')
+INSERT INTO FUGAZZETA.Funcionalidades values('ABM Regimen')
+INSERT INTO FUGAZZETA.Funcionalidades values('Generar/Modificar Reserva')
+INSERT INTO FUGAZZETA.Funcionalidades values('Cancelar Reserva')
+INSERT INTO FUGAZZETA.Funcionalidades values('Registrar Estadia')
+INSERT INTO FUGAZZETA.Funcionalidades values('Registrar Consumible')
+INSERT INTO FUGAZZETA.Funcionalidades values('Facturar')
+go
+
+--Roles
+INSERT INTO FUGAZZETA.Roles values('Administrador General',1)
+insert into FUGAZZETA.Roles values('Administrador',1)
+insert into FUGAZZETA.Roles values('Recepcionista',1)
+insert into FUGAZZETA.Roles values('Guest',1)
+GO
+
+--Funcionalidades x Roles
+--guest
+INSERT INTO FUGAZZETA.[Funcionalidades x Roles] values(7,4)
+INSERT INTO FUGAZZETA.[Funcionalidades x Roles] values(8,4)
+--admin
+INSERT INTO FUGAZZETA.[Funcionalidades x Roles] values(2,2)
+INSERT INTO FUGAZZETA.[Funcionalidades x Roles] values(3,2)
+INSERT INTO FUGAZZETA.[Funcionalidades x Roles] values(4,2)
+INSERT INTO FUGAZZETA.[Funcionalidades x Roles] values(5,2)
+INSERT INTO FUGAZZETA.[Funcionalidades x Roles] values(6,2)
+--recep
+INSERT INTO FUGAZZETA.[Funcionalidades x Roles] values(3,3)
+INSERT INTO FUGAZZETA.[Funcionalidades x Roles] values(7,3)
+INSERT INTO FUGAZZETA.[Funcionalidades x Roles] values(8,3)
+INSERT INTO FUGAZZETA.[Funcionalidades x Roles] values(9,3)
+GO
+
 INSERT INTO FUGAZZETA.Hoteles
 (Calle, Ciudad, Nro_Calle, CantEstrella, Recarga)
 SELECT DISTINCT
@@ -391,12 +431,6 @@ Hotel_CantEstrella,
 Hotel_Recarga_Estrella 
 FROM gd_esquema.Maestra
 UPDATE FUGAZZETA.Hoteles SET Pais = 1
-GO
-
-INSERT INTO FUGAZZETA.Roles values('Administrador General',1)
-insert into FUGAZZETA.Roles values('Administrador',1)
-insert into FUGAZZETA.Roles values('Recepcionista',1)
-insert into FUGAZZETA.Roles values('Guest',1)
 GO
 
 INSERT INTO FUGAZZETA.TiposDoc values ('DNI')
@@ -459,20 +493,7 @@ UPDATE FUGAZZETA.[Usuarios x Hoteles x Rol] SET Id_Rol = 1 where Username = 'adm
 UPDATE FUGAZZETA.[Usuarios x Hoteles x Rol] SET	Id_Rol = 4 where Username = 'guest'
 GO
 
-INSERT INTO FUGAZZETA.Funcionalidades values('ABM Rol')
-INSERT INTO FUGAZZETA.Funcionalidades values('ABM Usuario')
-INSERT INTO FUGAZZETA.Funcionalidades values('ABM Cliente')
-INSERT INTO FUGAZZETA.Funcionalidades values('ABM Hotel')
-INSERT INTO FUGAZZETA.Funcionalidades values('ABM Habitacion')
-INSERT INTO FUGAZZETA.Funcionalidades values('ABM Regimen')
-INSERT INTO FUGAZZETA.Funcionalidades values('Generar/Modificar Reserva')
-INSERT INTO FUGAZZETA.Funcionalidades values('Cancelar Reserva')
-INSERT INTO FUGAZZETA.Funcionalidades values('Registrar Estadia')
-INSERT INTO FUGAZZETA.Funcionalidades values('Registrar Consumible')
-INSERT INTO FUGAZZETA.Funcionalidades values('Facturar')
-go
 
---FUNCIONALIDADESxROL
 
 INSERT INTO FUGAZZETA.Regimenes
 (Precio,Descripcion)
