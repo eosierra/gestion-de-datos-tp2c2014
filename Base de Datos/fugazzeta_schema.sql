@@ -142,6 +142,9 @@ DROP PROCEDURE FUGAZZETA.RealizarIngreso
 IF OBJECT_ID('FUGAZZETA.CancelarPorNoShow') IS NOT NULL
 DROP PROCEDURE FUGAZZETA.CancelarPorNoShow
 
+IF OBJECT_ID('FUGAZZETA.HabitacionesLibresEnPeriodo') IS NOT NULL
+DROP PROCEDURE FUGAZZETA.HabitacionesLibresEnPeriodo
+
 --Triggers
 IF OBJECT_ID('FUGAZZETA.TR_MovimientosHotel_A_I') IS NOT NULL
 DROP TRIGGER FUGAZZETA.TR_MovimientosHotel_A_I
@@ -626,7 +629,7 @@ OR Id_EstadoReserva = 2
 go
 
 CREATE VIEW FUGAZZETA.ProximasHabitacionesReservadas AS
-SELECT H.Id_Hotel,H.Num_Habitacion, R.Fecha_Reserva, R.Fecha_Inicio, R.Fecha_Fin_Reserva FROM FUGAZZETA.Habitaciones H, FUGAZZETA.ReservasNoCanceladas R, FUGAZZETA.[Habitaciones x Reservas] HR
+SELECT H.Id_Hotel,H.Num_Habitacion, R.Fecha_Inicio, R.Fecha_Fin_Reserva FROM FUGAZZETA.Habitaciones H, FUGAZZETA.ReservasNoCanceladas R, FUGAZZETA.[Habitaciones x Reservas] HR
 WHERE
 	H.Id_Hotel = HR.Id_Hotel
 AND H.Num_Habitacion = HR.Num_Habitacion
@@ -664,9 +667,10 @@ CREATE PROCEDURE FUGAZZETA.OcupacionEnHotelEnPeriodo (@Hotel int,@Desde date, @H
 BEGIN
 SELECT * FROM FUGAZZETA.ReservasNoCanceladas
 WHERE Id_Hotel = @Hotel AND 
-((Fecha_Inicio >= @Desde AND Fecha_Inicio <=@Hasta) OR
- (Fecha_Egreso >= @Desde AND Fecha_Egreso <= @Hasta) OR
- (Fecha_Fin_Reserva >= @Desde AND Fecha_Fin_Reserva <= @Hasta))
+((Fecha_Inicio between @Desde and @Hasta) OR
+ (Fecha_Egreso between @Desde and @Hasta) OR
+ (Fecha_Fin_Reserva between @Desde and @Hasta)
+ )
 end
 GO
 
@@ -718,6 +722,21 @@ BEGIN
 END
 GO
 
+CREATE PROC FUGAZZETA.HabitacionesLibresEnPeriodo(@Hotel int, @Desde date, @Hasta date) AS
+begin
+	SELECT * FROM FUGAZZETA.Habitaciones H
+	WHERE
+	H.Id_Hotel = @Hotel
+	AND	(H.Num_Habitacion) NOT IN 
+		(SELECT Num_Habitacion FROM FUGAZZETA.ProximasHabitacionesReservadas
+			WHERE
+				Id_Hotel = H.Id_Hotel
+			AND (Fecha_Inicio between @Desde and @Hasta)
+			OR (Fecha_Fin_Reserva between @Desde and @Hasta)
+		)
+	AND Habilitado = 1
+end
+GO
 --- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.
 
 

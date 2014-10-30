@@ -13,6 +13,8 @@ namespace FrbaHotel.Generar_Modificar_Reserva
     public partial class GenerarReserva : Form, ITraeBusqueda
     {
         int nBuscador;
+        int idClienteActual;
+        int idHotelActual;
 
         public GenerarReserva()
         {
@@ -91,6 +93,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                     reader = db.lee(query);
                     while (reader.Read())
                     {
+                        idClienteActual = Int32.Parse(id);
                         TxtNombre.Text = reader[1].ToString() + " " + reader[2].ToString();
                         TxtDoc.Text = reader[3].ToString() + " " + reader[4].ToString();
                         TxtPais.Text = reader[13].ToString();
@@ -104,6 +107,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                     break;
                 case 2:
                     ComboRegimen.Items.Clear();
+                    idHotelActual = Int32.Parse(id);
                     TxtHotel.Text = descripcion;
                     query = "SELECT R.Id_Regimen, R.Descripcion FROM FUGAZZETA.Regimenes R, FUGAZZETA.[Regimenes x Hotel] H WHERE H.Id_Regimen = R.Id_Regimen and H.Id_Hotel = " + id;
                     reader = db.lee(query);
@@ -124,6 +128,11 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         {
             nBuscador = 2;
             new ABM_de_Hotel.BuscarHotel(this).ShowDialog();
+        }
+
+        private void QuitarHab_Click(object sender, EventArgs e)
+        {
+            ListHabitaciones.Items.RemoveAt(ListHabitaciones.SelectedIndex);
         }
     }
 }

@@ -96,6 +96,7 @@
             this.QuitarHab.TabIndex = 13;
             this.QuitarHab.Text = "Quitar";
             this.QuitarHab.UseVisualStyleBackColor = true;
+            this.QuitarHab.Click += new System.EventHandler(this.QuitarHab_Click);
             // 
             // AgregarHab
             // 
