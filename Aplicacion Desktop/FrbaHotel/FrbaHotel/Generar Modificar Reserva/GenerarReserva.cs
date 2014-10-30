@@ -117,8 +117,9 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                     }
                     reader.Close();
                     break;
-             
-
+                case 3:
+                    ListHabitaciones.Items.Add(new ABM_de_Habitacion.Habitacion(id, descripcion));
+                    break;
             }
         }
 
@@ -133,6 +134,12 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         private void QuitarHab_Click(object sender, EventArgs e)
         {
             ListHabitaciones.Items.RemoveAt(ListHabitaciones.SelectedIndex);
+        }
+
+        private void AgregarHab_Click(object sender, EventArgs e)
+        {
+            nBuscador = 3;
+            new BuscarHabitacionLibre(this,idHotelActual, new DatePrograma(DesdePick.Value).ToString(), new DatePrograma(HastaPick.Value).ToString()).ShowDialog();
         }
     }
 }

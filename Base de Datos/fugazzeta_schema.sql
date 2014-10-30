@@ -724,7 +724,7 @@ GO
 
 CREATE PROC FUGAZZETA.HabitacionesLibresEnPeriodo(@Hotel int, @Desde date, @Hasta date) AS
 begin
-	SELECT * FROM FUGAZZETA.Habitaciones H
+	SELECT H.Num_Habitacion,H.Piso,H.Frente,T.Descripcion,H.Comodidades FROM FUGAZZETA.Habitaciones H, FUGAZZETA.TiposHabitacion T
 	WHERE
 	H.Id_Hotel = @Hotel
 	AND	(H.Num_Habitacion) NOT IN 
@@ -735,6 +735,7 @@ begin
 			OR (Fecha_Fin_Reserva between @Desde and @Hasta)
 		)
 	AND Habilitado = 1
+	AND H.Id_TipoHab = T.Id_TipoHab
 end
 GO
 --- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.

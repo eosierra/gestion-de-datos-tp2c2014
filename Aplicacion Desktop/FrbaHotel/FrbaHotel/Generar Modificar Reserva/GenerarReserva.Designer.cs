@@ -106,6 +106,7 @@
             this.AgregarHab.TabIndex = 12;
             this.AgregarHab.Text = "Agregar";
             this.AgregarHab.UseVisualStyleBackColor = true;
+            this.AgregarHab.Click += new System.EventHandler(this.AgregarHab_Click);
             // 
             // label5
             // 

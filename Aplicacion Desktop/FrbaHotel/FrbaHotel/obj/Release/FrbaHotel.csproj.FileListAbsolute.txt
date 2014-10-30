@@ -25,3 +25,4 @@ C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Deskt
 C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Release\FrbaHotel.ABM_de_Hotel.BajaHotel.resources
 C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Release\FrbaHotel.Cancelar_Reserva.CancelarReserva.resources
 C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Release\FrbaHotel.Registrar_Estadia.CheckIn.resources
+C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Release\FrbaHotel.Generar_Modificar_Reserva.BuscarHabitacionLibre.resources
