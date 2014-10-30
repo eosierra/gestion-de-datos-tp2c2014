@@ -102,9 +102,28 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                     }
                     reader.Close();
                     break;
+                case 2:
+                    ComboRegimen.Items.Clear();
+                    TxtHotel.Text = descripcion;
+                    query = "SELECT R.Id_Regimen, R.Descripcion FROM FUGAZZETA.Regimenes R, FUGAZZETA.[Regimenes x Hotel] H WHERE H.Id_Regimen = R.Id_Regimen and H.Id_Hotel = " + id;
+                    reader = db.lee(query);
+                    while (reader.Read())
+                    {
+                        ComboRegimen.Items.Add(new ABM_de_Regimen.Regimen(reader[0].ToString(),reader[1].ToString()));
+                    }
+                    reader.Close();
+                    break;
+             
+
             }
         }
 
         #endregion
+
+        private void ElegirHotel_Click(object sender, EventArgs e)
+        {
+            nBuscador = 2;
+            new ABM_de_Hotel.BuscarHotel(this).ShowDialog();
+        }
     }
 }

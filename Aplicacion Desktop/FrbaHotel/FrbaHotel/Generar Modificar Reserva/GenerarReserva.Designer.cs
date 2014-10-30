@@ -37,8 +37,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.HastaPick = new System.Windows.Forms.DateTimePicker();
             this.DesdePick = new System.Windows.Forms.DateTimePicker();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.ElegirRegimen = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.TxtHotel = new System.Windows.Forms.TextBox();
             this.ElegirHotel = new System.Windows.Forms.Button();
@@ -63,12 +61,14 @@
             this.label17 = new System.Windows.Forms.Label();
             this.TxtDoc = new System.Windows.Forms.Label();
             this.BuscarCliente = new System.Windows.Forms.Button();
+            this.ComboRegimen = new System.Windows.Forms.ComboBox();
             this.group3.SuspendLayout();
             this.groupCliente.SuspendLayout();
             this.SuspendLayout();
             // 
             // group3
             // 
+            this.group3.Controls.Add(this.ComboRegimen);
             this.group3.Controls.Add(this.QuitarHab);
             this.group3.Controls.Add(this.AgregarHab);
             this.group3.Controls.Add(this.label5);
@@ -77,8 +77,6 @@
             this.group3.Controls.Add(this.label3);
             this.group3.Controls.Add(this.HastaPick);
             this.group3.Controls.Add(this.DesdePick);
-            this.group3.Controls.Add(this.textBox1);
-            this.group3.Controls.Add(this.ElegirRegimen);
             this.group3.Controls.Add(this.label2);
             this.group3.Controls.Add(this.TxtHotel);
             this.group3.Controls.Add(this.ElegirHotel);
@@ -159,23 +157,6 @@
             this.DesdePick.TabIndex = 6;
             this.DesdePick.ValueChanged += new System.EventHandler(this.revalidarReserva);
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(59, 119);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(134, 20);
-            this.textBox1.TabIndex = 5;
-            // 
-            // ElegirRegimen
-            // 
-            this.ElegirRegimen.Location = new System.Drawing.Point(199, 116);
-            this.ElegirRegimen.Name = "ElegirRegimen";
-            this.ElegirRegimen.Size = new System.Drawing.Size(73, 24);
-            this.ElegirRegimen.TabIndex = 4;
-            this.ElegirRegimen.Text = "Seleccionar";
-            this.ElegirRegimen.UseVisualStyleBackColor = true;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -201,6 +182,7 @@
             this.ElegirHotel.TabIndex = 1;
             this.ElegirHotel.Text = "Seleccionar";
             this.ElegirHotel.UseVisualStyleBackColor = true;
+            this.ElegirHotel.Click += new System.EventHandler(this.ElegirHotel_Click);
             // 
             // label1
             // 
@@ -254,7 +236,7 @@
             this.groupCliente.Controls.Add(this.label17);
             this.groupCliente.Controls.Add(this.TxtDoc);
             this.groupCliente.Enabled = false;
-            this.groupCliente.Location = new System.Drawing.Point(12, 90);
+            this.groupCliente.Location = new System.Drawing.Point(8, 47);
             this.groupCliente.Name = "groupCliente";
             this.groupCliente.Size = new System.Drawing.Size(367, 293);
             this.groupCliente.TabIndex = 56;
@@ -423,12 +405,22 @@
             // 
             // BuscarCliente
             // 
-            this.BuscarCliente.Location = new System.Drawing.Point(16, 55);
+            this.BuscarCliente.Location = new System.Drawing.Point(75, 12);
             this.BuscarCliente.Name = "BuscarCliente";
             this.BuscarCliente.Size = new System.Drawing.Size(242, 29);
             this.BuscarCliente.TabIndex = 57;
             this.BuscarCliente.Text = "Buscar Cliente";
             this.BuscarCliente.UseVisualStyleBackColor = true;
+            this.BuscarCliente.Click += new System.EventHandler(this.BuscarCliente_Click);
+            // 
+            // ComboRegimen
+            // 
+            this.ComboRegimen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboRegimen.FormattingEnabled = true;
+            this.ComboRegimen.Location = new System.Drawing.Point(65, 119);
+            this.ComboRegimen.Name = "ComboRegimen";
+            this.ComboRegimen.Size = new System.Drawing.Size(128, 21);
+            this.ComboRegimen.TabIndex = 14;
             // 
             // GenerarReserva
             // 
@@ -455,8 +447,6 @@
 
         private System.Windows.Forms.GroupBox group3;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button ElegirRegimen;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox TxtHotel;
         private System.Windows.Forms.Button ElegirHotel;
@@ -488,5 +478,6 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label TxtDoc;
         private System.Windows.Forms.Button BuscarCliente;
+        private System.Windows.Forms.ComboBox ComboRegimen;
     }
 }

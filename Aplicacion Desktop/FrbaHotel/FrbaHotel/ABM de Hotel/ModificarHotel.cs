@@ -118,7 +118,7 @@ namespace FrbaHotel.ABM_de_Hotel
                 TxtMotivo.Visible = true;
                 BD bd = new BD();
                 bd.obtenerConexion();
-                string query = "SELECT TOP 1 * FROM FUGAZZETA.HistorialBajasHotel WHERE Id_Hotel = " + TxtId.Text + "ORDER BY Fecha_Inicio DESC";
+                string query = "SELECT TOP 1 * FROM FUGAZZETA.HistorialBajasHotel WHERE Id_Hotel = " + TxtId.Text + " ORDER BY Fecha_Inicio DESC";
                 SqlDataReader dr = bd.lee(query);
                 while (dr.Read())
                 {
