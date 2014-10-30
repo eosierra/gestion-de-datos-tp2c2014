@@ -26,7 +26,9 @@ namespace FrbaHotel.ABM_de_Rol
 
         private void TxtFunc_TextChanged(object sender, EventArgs e)
         {
+            actual = todos;
             addFiltroTextBox(TxtFunc, "Descripcion", GridFunciones);
+            cargarGrilla(GridFunciones, actual);
         }
 
         private void Seleccionar_Click(object sender, EventArgs e)
