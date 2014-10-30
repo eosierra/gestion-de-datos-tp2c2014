@@ -15,9 +15,11 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         int nBuscador;
         int idClienteActual;
         int idHotelActual;
+        MenuPrincipal menuP;
 
-        public GenerarReserva()
+        public GenerarReserva(MenuPrincipal menu)
         {
+            menuP = menu;
             InitializeComponent();
             DesdePick.MinDate = Program.hoy();
             HastaPick.MinDate = Program.hoy();
@@ -41,6 +43,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                     // Los datos de estadia (Hotel, Fechas y Regimen) se validan en el "ConfirmaDatosEstadia"
                     // Las fechas de reserva se revalidan automaticamente.
                     validarHabitaciones();
+                    generarLaReserva();
                     MessageBox.Show("La reserva se ha realizado con éxito. Su código de reserva es: ...... Conserve este código al momento de realizar el ingreso y el egreso del hotel.", "Nueva Reserva");
                     this.Close();
                 }
@@ -52,6 +55,14 @@ namespace FrbaHotel.Generar_Modificar_Reserva
 
 
         }
+
+        private void generarLaReserva()
+        {
+            BD bd = new BD();
+            bd.obtenerConexion();
+            string query = "EXEC FUGAZZETA.GenerarReserva  
+        }
+
         #region Validaciones
         
         #region Validar Reservas
@@ -102,6 +113,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             {
                 throw new Exception(mensajeException);
             }
+            bd.cerrar();
         }
 
         #endregion
@@ -159,6 +171,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                     ListHabitaciones.Items.Add(new ABM_de_Habitacion.Habitacion(id, descripcion));
                     break;
             }
+            db.cerrar();
         }
 
         #region Botones

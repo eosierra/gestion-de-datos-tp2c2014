@@ -150,6 +150,11 @@ IF OBJECT_ID('FUGAZZETA.TR_MovimientosHotel_A_I') IS NOT NULL
 DROP TRIGGER FUGAZZETA.TR_MovimientosHotel_A_I
 GO
 
+IF OBJECT_ID('FUGAZZETA.TR_Reservas_A_I') IS NOT NULL
+DROP TRIGGER FUGAZZETA.TR_Reservas_A_I
+GO
+
+
 ---------------------------/*Creacion de Tablas*/-------------------------------------------
 --------------------------------------------------------------------------------------------
 CREATE TABLE FUGAZZETA.Paises(
@@ -380,6 +385,15 @@ BEGIN
 END
 GO
 
+CREATE TRIGGER FUGAZZETA.TR_Reservas_A_I ON FUGAZZETA.Reservas
+AFTER INSERT AS
+BEGIN
+	declare @RESERVA int
+	SET @RESERVA = (SELECT Id_Reserva FROM INSERTED)
+	INSERT INTO FUGAZZETA.MovimientosReserva (Id_Reserva,Proceso,Motivo)
+	VALUES (@RESERVA,'A','Alta')
+END
+GO
 
 --------------------------/* Poblado de Datos*/---------------------------------------------
 --------------------------------------------------------------------------------------------
@@ -737,6 +751,24 @@ begin
 	AND Habilitado = 1
 	AND H.Id_TipoHab = T.Id_TipoHab
 end
+GO
+
+CREATE PROC FUGAZZETA.GenerarReserva 
+@Cliente int, @Hotel int,@Ahora datetime, @Inicio date, @Fin date, @Regimen int, @UsuarioActual nvarchar(30)
+AS
+BEGIN
+DECLARE @IdReserva int
+	BEGIN TRANSACTION
+		INSERT INTO FUGAZZETA.Reservas
+		(Id_Cliente,Id_Hotel, Fecha_Reserva, Fecha_Inicio,Fecha_Fin_Reserva,Id_Regimen,Id_EstadoReserva)
+		VALUES (@Cliente,@Hotel,CAST(@Ahora as DATE),@Inicio,@Fin,@Regimen,1)
+		SET @IdReserva = (SELECT TOP 1 Id_Reserva FROM FUGAZZETA.MovimientosReserva order by 1 desc)
+		UPDATE FUGAZZETA.MovimientosReserva
+		SET Username = @UsuarioActual, FechaMovimiento = @Ahora
+		WHERE Id_Reserva = @IdReserva	
+	COMMIT TRANSACTION
+	SELECT Id_Reserva FROM FUGAZZETA.Reservas WHERE Id_Reserva = @IdReserva
+END
 GO
 --- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.
 
