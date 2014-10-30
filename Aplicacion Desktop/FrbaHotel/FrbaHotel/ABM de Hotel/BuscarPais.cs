@@ -27,7 +27,9 @@ namespace FrbaHotel.ABM_de_Hotel
 
         private void TxtNombre_TextChanged(object sender, EventArgs e)
         {
+            actual = todos;
             addFiltroTextBox(TxtNombre, "Nombre", GridPaises);
+            cargarGrilla(GridPaises, actual);
         }
 
         private void Seleccionar_Click(object sender, EventArgs e)
