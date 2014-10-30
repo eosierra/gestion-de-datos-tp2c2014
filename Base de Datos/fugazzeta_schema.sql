@@ -111,6 +111,9 @@ DROP VIEW FUGAZZETA.ReservasNoCanceladas
 IF OBJECT_ID('FUGAZZETA.ReservasModificables') IS NOT NULL
 DROP VIEW FUGAZZETA.ReservasModificables
 
+IF OBJECT_ID('FUGAZZETA.ProximasHabitacionesReservadas') IS NOT NULL
+DROP VIEW FUGAZZETA.ProximasHabitacionesReservadas
+
 --Procedures
 IF OBJECT_ID('FUGAZZETA.LoginCorrecto', 'P') IS NOT NULL
 DROP PROCEDURE FUGAZZETA.LoginCorrecto
@@ -620,6 +623,14 @@ SELECT * FROM FUGAZZETA.[ReservasNoCanceladas]
 where
    Id_EstadoReserva = 1
 OR Id_EstadoReserva = 2 
+go
+
+CREATE VIEW FUGAZZETA.ProximasHabitacionesReservadas AS
+SELECT H.Id_Hotel,H.Num_Habitacion, R.Fecha_Reserva, R.Fecha_Inicio, R.Fecha_Fin_Reserva FROM FUGAZZETA.Habitaciones H, FUGAZZETA.ReservasNoCanceladas R, FUGAZZETA.[Habitaciones x Reservas] HR
+WHERE
+	H.Id_Hotel = HR.Id_Hotel
+AND H.Num_Habitacion = HR.Num_Habitacion
+AND HR.Id_Reserva = R.Id_Reserva
 go
 
 ----------------------------/* PROCEDIMIENTOS Y FUNCIONES*/---------------------------------
