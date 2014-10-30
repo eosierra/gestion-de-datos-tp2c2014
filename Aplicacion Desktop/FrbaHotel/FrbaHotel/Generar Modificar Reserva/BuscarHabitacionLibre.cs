@@ -30,6 +30,10 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             bd.obtenerConexion();
             string query = "EXEC FUGAZZETA.HabitacionesLibresEnPeriodo " + hotel + ", '" + desde + "', '" + hasta + "'"; 
             cargarGrilla(GridHabitaciones,query);
+            if (GridHabitaciones.RowCount == 0)
+            {
+                LabelAll.Visible = true;
+            }
         }
 
         private void Cancelar_Click(object sender, EventArgs e)

@@ -31,6 +31,7 @@
             this.GridHabitaciones = new System.Windows.Forms.DataGridView();
             this.Cancelar = new System.Windows.Forms.Button();
             this.Seleccionar = new System.Windows.Forms.Button();
+            this.LabelAll = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.GridHabitaciones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,11 +70,26 @@
             this.Seleccionar.UseVisualStyleBackColor = true;
             this.Seleccionar.Click += new System.EventHandler(this.Seleccionar_Click);
             // 
+            // LabelAll
+            // 
+            this.LabelAll.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.LabelAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelAll.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.LabelAll.Location = new System.Drawing.Point(55, 42);
+            this.LabelAll.Name = "LabelAll";
+            this.LabelAll.Size = new System.Drawing.Size(481, 83);
+            this.LabelAll.TabIndex = 19;
+            this.LabelAll.Text = "NO HAY HABITACIONES DISPONIBLES EN ESTE HOTEL PARA EL PERIODO SELECCIONADO. ELIJA" +
+                " OTRA FECHA PARA VER MÁS HABITACIONES.";
+            this.LabelAll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LabelAll.Visible = false;
+            // 
             // BuscarHabitacionLibre
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(589, 521);
+            this.Controls.Add(this.LabelAll);
             this.Controls.Add(this.Cancelar);
             this.Controls.Add(this.Seleccionar);
             this.Controls.Add(this.GridHabitaciones);
@@ -90,5 +106,6 @@
         private System.Windows.Forms.DataGridView GridHabitaciones;
         private System.Windows.Forms.Button Cancelar;
         private System.Windows.Forms.Button Seleccionar;
+        private System.Windows.Forms.Label LabelAll;
     }
 }
