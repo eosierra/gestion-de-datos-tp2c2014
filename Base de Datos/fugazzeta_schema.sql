@@ -508,9 +508,9 @@ DECLARE @NUEVOSEED int
 	UPDATE FUGAZZETA.Clientes SET Nacionalidad = 1
 	UPDATE FUGAZZETA.ClientesDuplicados SET Nacionalidad = 1
 END 
-EXEC FUGAZZETA.MigrarClientes
-GO
 
+GO
+EXEC FUGAZZETA.MigrarClientes
 --HistorialBajasHotel: no hay informacion de bajas de hotel
 
 INSERT INTO FUGAZZETA.[Usuarios x Hoteles x Rol]
