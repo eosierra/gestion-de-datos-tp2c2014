@@ -114,6 +114,9 @@ DROP VIEW FUGAZZETA.ReservasModificables
 IF OBJECT_ID('FUGAZZETA.ProximasHabitacionesReservadas') IS NOT NULL
 DROP VIEW FUGAZZETA.ProximasHabitacionesReservadas
 
+IF OBJECT_ID('FUGAZZETA.ClientesDuplicados') IS NOT NULL
+DROP VIEW FUGAZZETA.ClientesDuplicados
+
 --Functions
 
 IF OBJECT_ID('FUGAZZETA.CostoHabitacion') IS NOT NULL
@@ -584,6 +587,26 @@ GO
 
 ----------------------------------------/*VISTAS*/------------------------------------------
 --------------------------------------------------------------------------------------------
+
+CREATE VIEW FUGAZZETA.ClientesDuplicados AS
+SELECT * FROM FUGAZZETA.Clientes
+	WHERE Mail IN (
+	SELECT Mail
+	FROM FUGAZZETA.Clientes
+	group by Mail
+	having COUNT(*)>1)
+UNION
+SELECT C.Id_Cliente,C.Nombre,C.Apellido,C.Id_TipoDoc, C.Nro_Doc,C.Fecha_Nac,C.Mail,C.Telefono,C.Dom_Calle,
+C.Nro_Calle,C.Piso,C.Depto,C.Localidad,C.Nacionalidad,C.Habilitado
+FROM FUGAZZETA.Clientes C, 
+(SELECT Id_TipoDoc,Nro_Doc
+	FROM FUGAZZETA.Clientes
+	group by Id_TipoDoc,Nro_Doc
+	having COUNT(*)>1) AS DUP
+WHERE
+ISNULL(C.Id_TipoDoc,-1) = ISNULL(DUP.Id_TipoDoc,-1)
+AND	C.Nro_Doc = DUP.Nro_Doc
+GO
 
 CREATE VIEW FUGAZZETA.[UsuariosHabilitados] AS
 SELECT * FROM FUGAZZETA.Usuarios
