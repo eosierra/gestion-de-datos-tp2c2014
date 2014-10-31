@@ -43,6 +43,7 @@ namespace FrbaHotel.ABM_de_Usuario
             Direc.Text = "";
             Telefono.Text = "";
             TxtMail.Text = "";
+            comboBox2.Items.Clear();
             ListaRoles.Items.Clear();
             Apellido.Text = "";
             NroDirec.Text = "";
@@ -89,7 +90,7 @@ namespace FrbaHotel.ABM_de_Usuario
 
             BD bd = new BD();
             bd.obtenerConexion();
-            string valores = "'" + TxtUser.Text + "'" + TxtPass1.Text + "'" + Nombre.Text + "'" + Apellido.Text + "'" + NroDoc.Text;
+            string valores = "'" + TxtUser.Text + "',' " + TxtPass1.Text + "',' " + Nombre.Text + "',' " + Apellido.Text + "', " + comboBox2.Text + "', '" + NroDoc.Text + "',' " + TxtMail.Text + "', '" + Telefono.Text + "',' " + Telefono.Text + "',' " + Direc.Text + "',' " + NroDirec.Text + "',' " + (new DatePrograma(Calendario.Value)).ToString() + "',0,1"; //NO ANDA CUANDO SE PRUEBA, LAS COMILLAS ME PUDIRIERON U.U
             bd.insertar("Usuarios", valores);
 
 
@@ -194,6 +195,11 @@ namespace FrbaHotel.ABM_de_Usuario
             {
                 ListaRoles.Items.Add(new Rol(id, descripcion));
             }
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
     }
