@@ -20,7 +20,7 @@ namespace FrbaHotel.ABM_de_Usuario
         public AltaUsuario()
         {
             InitializeComponent();
-            InitializeComponent();
+           
         }
         #region Botones
         private void CmdQuitar_Click(object sender, EventArgs e)

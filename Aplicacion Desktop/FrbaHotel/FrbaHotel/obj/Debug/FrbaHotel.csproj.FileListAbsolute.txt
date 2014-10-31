@@ -80,3 +80,5 @@ C:\Users\Propietario\Documents\GitHub\gestionDd\Aplicacion Desktop\FrbaHotel\Frb
 C:\Users\Propietario\Documents\GitHub\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Registrar_Consumible.Form1.resources
 C:\Users\Propietario\Documents\GitHub\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Registrar_Estadia.CheckIn.resources
 C:\Users\Propietario\Documents\GitHub\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.csproj.GenerateResource.Cache
+C:\Users\Nati Argento\git\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Generar_Modificar_Reserva.BuscarHabitacionLibre.resources
+C:\Users\Nati Argento\git\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Registrar_Estadia.CheckIn.resources
