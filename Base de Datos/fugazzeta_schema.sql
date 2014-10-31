@@ -223,16 +223,7 @@ Depto varchar(4),
 Localidad varchar(50),
 Nacionalidad int FOREIGN KEY REFERENCES FUGAZZETA.Paises,
 Habilitado bit default 1,
-UNIQUE (Id_TipoDoc,Nro_Doc)
 )
-
-SELECT * INTO FUGAZZETA.ClientesDuplicados FROM FUGAZZETA.Clientes
-ALTER TABLE FUGAZZETA.ClientesDuplicados
-ADD PRIMARY KEY (Id_Cliente),
-FOREIGN KEY (Id_TipoDoc) REFERENCES FUGAZZETA.TiposDoc,
-FOREIGN KEY (Nacionalidad) REFERENCES FUGAZZETA.Paises,
-DEFAULT 1 FOR Habilitado
-DBCC CHECKIDENT ('FUGAZZETA.ClientesDuplicados',RESEED,1)
 
 CREATE TABLE FUGAZZETA.HistorialBajasHotel(
 Id_Hotel int FOREIGN KEY REFERENCES FUGAZZETA.Hoteles,
@@ -470,10 +461,9 @@ INSERT INTO FUGAZZETA.Usuarios (Username, Contraseña) values ('admin','w23e')
 INSERT INTO FUGAZZETA.Usuarios (Username) values ('guest')
 go
 
-CREATE PROCEDURE FUGAZZETA.MigrarClientes AS
-BEGIN
-DECLARE @NUEVOSEED int
-	SELECT DISTINCT
+INSERT INTO FUGAZZETA.Clientes
+	(Nro_Doc,Apellido,Nombre,Fecha_Nac,Mail,Dom_Calle,Nro_Calle,Piso,Depto)
+	SELECT DISTINCT 
 	Cliente_Pasaporte_Nro,
 	Cliente_Apellido,
 	Cliente_Nombre,
@@ -482,35 +472,11 @@ DECLARE @NUEVOSEED int
 	Cliente_Dom_Calle,
 	Cliente_Nro_Calle,
 	Cliente_Piso,
-	Cliente_Depto INTO #TmpClientes FROM gd_esquema.Maestra
-
-	INSERT INTO FUGAZZETA.ClientesDuplicados
-	(Nro_Doc,Apellido,Nombre,Fecha_Nac,Mail,Dom_Calle,Nro_Calle,Piso,Depto)
-	SELECT * FROM #TmpClientes
-	WHERE Cliente_Pasaporte_Nro IN (
-	SELECT Cliente_Pasaporte_Nro
-	FROM #TmpClientes
-	group by Cliente_Pasaporte_Nro
-	having COUNT(*)>1)
-
-	SET @NUEVOSEED = @@ROWCOUNT + 1
-	DBCC CHECKIDENT ('FUGAZZETA.Clientes',RESEED,@NUEVOSEED)
-	
-	INSERT INTO FUGAZZETA.Clientes
-	(Nro_Doc,Apellido,Nombre,Fecha_Nac,Mail,Dom_Calle,Nro_Calle,Piso,Depto)
-	SELECT * FROM #TmpClientes
-	WHERE Cliente_Pasaporte_Nro NOT IN (
-	SELECT Cliente_Pasaporte_Nro
-	FROM #TmpClientes
-	group by Cliente_Pasaporte_Nro
-	having COUNT(*)>1)
-
+	Cliente_Depto
+	FROM gd_esquema.Maestra
 	UPDATE FUGAZZETA.Clientes SET Nacionalidad = 1
-	UPDATE FUGAZZETA.ClientesDuplicados SET Nacionalidad = 1
-END 
-
 GO
-EXEC FUGAZZETA.MigrarClientes
+
 --HistorialBajasHotel: no hay informacion de bajas de hotel
 
 INSERT INTO FUGAZZETA.[Usuarios x Hoteles x Rol]
@@ -622,12 +588,6 @@ GO
 CREATE VIEW FUGAZZETA.[UsuariosHabilitados] AS
 SELECT * FROM FUGAZZETA.Usuarios
 WHERE (Habilitado = 1)
-GO
-
-CREATE VIEW FUGAZZETA.[TodosLosClientes] AS
-SELECT * FROM FUGAZZETA.Clientes
-UNION
-SELECT * FROM FUGAZZETA.ClientesDuplicados
 GO
 
 CREATE VIEW FUGAZZETA.ReservasNoCanceladas AS
