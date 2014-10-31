@@ -66,6 +66,11 @@ namespace FrbaHotel
             abrir(new ABM_de_Rol.AltaRol());
         }
 
+        private void modificarRolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            abrir(new ABM_de_Rol.BuscarRol(null));
+        }
+
         private void modificarUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
         {
             abrir(new ABM_de_Usuario.BuscarUsuario(interfaz));
@@ -99,6 +104,8 @@ namespace FrbaHotel
         #endregion
 
         ITraeBusqueda interfaz;
+
+
 
         //esto habrá que sacarlo después
 
