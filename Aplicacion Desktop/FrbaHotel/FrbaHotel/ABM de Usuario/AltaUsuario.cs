@@ -56,7 +56,7 @@ namespace FrbaHotel.ABM_de_Usuario
             try
             {
 
-                validarDatosIngresados();
+                
                 agregarUsuario();
                 MessageBox.Show("Usuario agregado con exito");
                 this.Close();
@@ -89,7 +89,7 @@ namespace FrbaHotel.ABM_de_Usuario
 
             BD bd = new BD();
             bd.obtenerConexion();
-            string valores = "'" + TxtUser.Text + "', " + TxtPass1.Text + "', " + Nombre.Text + "', " + Apellido.Text + "', " + NroDoc.Text;
+            string valores = "'" + TxtUser.Text + "'" + TxtPass1.Text + "'" + Nombre.Text + "'" + Apellido.Text + "'" + NroDoc.Text;
             bd.insertar("Usuarios", valores);
 
 
@@ -135,6 +135,8 @@ namespace FrbaHotel.ABM_de_Usuario
 
             }
         }
+        
+        
 
         #endregion
 

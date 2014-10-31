@@ -336,6 +336,7 @@
             this.Guardar.TabIndex = 8;
             this.Guardar.Text = "Guardar";
             this.Guardar.UseVisualStyleBackColor = true;
+            this.Guardar.Click += new System.EventHandler(this.Guardar_Click);
             // 
             // groupBox2
             // 
