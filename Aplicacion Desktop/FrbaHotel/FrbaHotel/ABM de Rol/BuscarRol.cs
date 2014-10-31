@@ -28,7 +28,10 @@ namespace FrbaHotel.ABM_de_Rol
 
         private void TxtRol_TextChanged(object sender, EventArgs e)
         {
+            actual = todos;
             addFiltroTextBox(TxtRol, "Nombre", GridRoles);
+            cargarGrilla(GridRoles, actual);
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
