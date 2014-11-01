@@ -375,27 +375,6 @@ FOREIGN KEY (Id_Hotel,Num_Habitacion) REFERENCES FUGAZZETA.Habitaciones
 go
 
 
--------------------------------/* Triggers*/------------------------------------------------
---------------------------------------------------------------------------------------------
-CREATE TRIGGER FUGAZZETA.TR_MovimientosHotel_A_I ON FUGAZZETA.HistorialBajasHotel
-AFTER INSERT AS
-BEGIN
-	UPDATE FUGAZZETA.Hoteles
-	SET Habilitado = 0
-	WHERE Id_Hotel IN (SELECT Id_Hotel FROM INSERTED)
-END
-GO
-
-CREATE TRIGGER FUGAZZETA.TR_Reservas_A_I ON FUGAZZETA.Reservas
-AFTER INSERT AS
-BEGIN
-	declare @RESERVA int
-	SET @RESERVA = (SELECT Id_Reserva FROM INSERTED)
-	INSERT INTO FUGAZZETA.MovimientosReserva (Id_Reserva,Proceso,Motivo)
-	VALUES (@RESERVA,'A','Alta')
-END
-GO
-
 --------------------------/* Poblado de Datos*/---------------------------------------------
 --------------------------------------------------------------------------------------------
 INSERT INTO FUGAZZETA.Paises values ('Argentina')
@@ -645,6 +624,34 @@ ORDER BY H.Id_Hotel,M.Habitacion_Numero, DIA
 GO
 
 -- HABITACIONES X RESERVAS
+
+
+-------------------------------/* Triggers*/------------------------------------------------
+--------------------------------------------------------------------------------------------
+CREATE TRIGGER FUGAZZETA.TR_MovimientosHotel_A_I ON FUGAZZETA.HistorialBajasHotel
+AFTER INSERT AS
+BEGIN
+	UPDATE FUGAZZETA.Hoteles
+	SET Habilitado = 0
+	WHERE Id_Hotel IN (SELECT Id_Hotel FROM INSERTED)
+END
+GO
+
+CREATE TRIGGER FUGAZZETA.TR_Reservas_A_I ON FUGAZZETA.Reservas
+AFTER INSERT AS
+BEGIN
+	DECLARE mi_cursor CURSOR FOR (SELECT Id_Reserva FROM INSERTED)
+	DECLARE @RESERVA int	
+	OPEN mi_cursor FETCH FROM mi_cursor INTO @Reserva
+	WHILE @@FETCH_STATUS = 0	
+		BEGIN
+		INSERT INTO FUGAZZETA.MovimientosReserva (Id_Reserva,Proceso,Motivo) VALUES (@RESERVA,'A','Alta')
+		FETCH FROM mi_cursor INTO @Reserva
+		END
+	CLOSE mi_cursor
+	DEALLOCATE mi_cursor
+END
+GO
 
 
 ----------------------------------------/*VISTAS*/------------------------------------------
