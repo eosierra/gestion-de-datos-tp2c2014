@@ -1,4 +1,3 @@
--------------------
 ---DEFECTUOSOS-----
 -------------------
 
@@ -36,8 +35,9 @@ DEALLOCATE mi_cursor
 GO
 
 -- ESTOS INSERTS ANDARIAN PERO FALLAN POR FALTA DE FK (CUALQUIER COSA HABLAR CON EMI).
+DROP TRIGGER FUGAZZETA.TR_RESERVAS_A_I
 
---RESERVAS
+--RESERVAS SIN EFECTUAR
 SET IDENTITY_INSERT FUGAZZETA.Reservas ON
 INSERT INTO FUGAZZETA.Reservas
 (Id_Reserva,Id_Cliente, Id_Hotel,Fecha_Inicio,Fecha_Fin_Reserva,Id_Regimen)
@@ -45,7 +45,7 @@ INSERT INTO FUGAZZETA.Reservas
 SELECT
 M.Reserva_Codigo, C.Id_Cliente, H.Id_Hotel, M.ReservaIngreso, M.FinReserva, REG.Id_Regimen
 FROM
-FUGAZZETA.[TodosLosClientes] C, FUGAZZETA.Hoteles H, FUGAZZETA.Regimenes REG,
+FUGAZZETA.Clientes C, FUGAZZETA.Hoteles H, FUGAZZETA.Regimenes REG,
 (SELECT DISTINCT
 Reserva_Codigo, Cliente_Pasaporte_Nro, Cliente_Apellido, Hotel_Calle, Hotel_Nro_Calle,
 cast(DATEADD(d,Reserva_Cant_Noches,Reserva_Fecha_Inicio) as DATE) as FinReserva,
@@ -93,7 +93,7 @@ INSERT INTO FUGAZZETA.Facturas
 (NroFactura,Id_Hotel,Fecha,Total,Id_Cliente)
 SELECT DISTINCT
 M.Factura_Nro,H.Id_Hotel,cast(M.Factura_Fecha as DATE), M.Factura_Total, C.Id_Cliente
-FROM gd_esquema.Maestra M, FUGAZZETA.Hoteles H, FUGAZZETA.[TodosLosClientes] C
+FROM gd_esquema.Maestra M, FUGAZZETA.Hoteles H, FUGAZZETA.Clientes C
 where
 	M.Factura_Nro IS NOT NULL
 AND H.Calle = M.Hotel_Calle

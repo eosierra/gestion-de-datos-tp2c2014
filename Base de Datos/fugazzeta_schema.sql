@@ -310,7 +310,7 @@ Total numeric (10,2),
 Id_Cliente int FOREIGN KEY REFERENCES FUGAZZETA.Clientes
 )
 CREATE TABLE FUGAZZETA.[Items_Hospedaje](
-NroFactura int FOREIGN KEY REFERENCES FUGAZZETA.Facturas,
+NroFactura int FOREIGN KEY REFERENCES FUGAZZETA.Facturas NOT NULL,
 Ocupadas Bit,
 CantNoches int,
 Monto numeric (7,2),
@@ -533,9 +533,59 @@ UPDATE FUGAZZETA.TiposHabitacion SET CantPersonas = 4 WHERE Id_TipoHab = 1004
 UPDATE FUGAZZETA.TiposHabitacion SET CantPersonas = 5 WHERE Id_TipoHab = 1005
 GO
 
---FACTURAS
+SET IDENTITY_INSERT FUGAZZETA.Facturas ON
+INSERT INTO FUGAZZETA.Facturas
+(NroFactura,Id_Hotel,Fecha,Total,Id_Cliente)
+SELECT DISTINCT
+M.Factura_Nro,H.Id_Hotel,cast(M.Factura_Fecha as DATE), M.Factura_Total, C.Id_Cliente
+FROM gd_esquema.Maestra M, FUGAZZETA.Hoteles H, FUGAZZETA.Clientes C
+where
+	M.Factura_Nro IS NOT NULL
+AND H.Calle = M.Hotel_Calle
+AND H.Nro_Calle = M.Hotel_Nro_Calle
+AND C.Nro_Doc = M.Cliente_Pasaporte_Nro
+AND C.Apellido = M.Cliente_Apellido
+ORDER BY M.Factura_Nro
+SET IDENTITY_INSERT FUGAZZETA.Facturas OFF
+GO
 
---ITEMS_HOSPEDAJE
+CREATE PROCEDURE FUGAZZETA.Migrar_ItemsHospedaje AS
+BEGIN
+	BEGIN TRANSACTION
+	INSERT INTO FUGAZZETA.Items_Hospedaje (NroFactura,CantNoches,Monto)
+	SELECT Factura_Nro, Estadia_Cant_Noches, Item_Factura_Monto FROM gd_esquema.Maestra
+	where
+		Factura_Nro is not null
+	AND Consumible_Codigo is null
+	ORDER BY Factura_Nro
+	UPDATE FUGAZZETA.Items_Hospedaje SET Ocupadas = 1
+	COMMIT TRANSACTION
+	--Ninguna estadía tuvo noches de sobra. Por lo tanto, para todas ellas la cantidad de Noches NO ocupadas es 0
+	BEGIN TRANSACTION
+		INSERT INTO FUGAZZETA.Items_Hospedaje (NroFactura)
+		SELECT Factura_Nro FROM gd_esquema.Maestra
+		where
+			Factura_Nro is not null
+		AND Consumible_Codigo is null
+		ORDER BY Factura_Nro
+		UPDATE FUGAZZETA.Items_Hospedaje
+			SET Ocupadas = 0,
+				CantNoches = 0,
+				Monto = 0
+			WHERE Ocupadas IS NULL AND CantNoches IS NULL AND MONTO IS NULL
+	COMMIT TRANSACTION
+	-- Después del poblado no se permitirán valores nulos.	
+END
+GO
+EXEC FUGAZZETA.Migrar_ItemsHospedaje
+GO
+ALTER TABLE FUGAZZETA.Items_Hospedaje
+ALTER COLUMN Ocupadas Bit not null
+go
+ALTER TABLE FUGAZZETA.Items_Hospedaje
+ADD PRIMARY KEY (NroFactura,Ocupadas)
+GO
+
 
 SET IDENTITY_INSERT FUGAZZETA.Consumibles ON
 INSERT INTO FUGAZZETA.Consumibles (Id_Consumible,Descripcion,Precio)
@@ -548,7 +598,19 @@ WHERE Consumible_Codigo IS NOT NULL
 set identity_insert fugazzeta.consumibles off
 go
 
---ITEMS_CONSUMIBLE
+INSERT INTO FUGAZZETA.Items_Consumible
+SELECT
+Factura_Nro,
+Consumible_Codigo as Id_Consumible,
+SUM(Item_Factura_Cantidad) as [Cantidad],
+SUM(Item_Factura_Monto) AS [Monto total]
+FROM gd_esquema.Maestra
+WHERE
+	Factura_Nro IS NOT NULL
+AND Consumible_Codigo IS NOT NULL
+GROUP BY Factura_Nro, Consumible_Codigo
+ORDER BY Factura_Nro, Consumible_Codigo
+GO
 
 INSERT INTO FUGAZZETA.TiposPago values('Efectivo')
 INSERT INTO FUGAZZETA.TiposPago values('Tarjeta de Crédito')
