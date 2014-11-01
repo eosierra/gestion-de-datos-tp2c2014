@@ -374,6 +374,37 @@ FOREIGN KEY (Id_Hotel,Num_Habitacion) REFERENCES FUGAZZETA.Habitaciones
 
 go
 
+-------------------------------/* Triggers*/------------------------------------------------
+--------------------------------------------------------------------------------------------
+CREATE TRIGGER FUGAZZETA.TR_MovimientosHotel_A_I ON FUGAZZETA.HistorialBajasHotel
+AFTER INSERT AS
+BEGIN
+	UPDATE FUGAZZETA.Hoteles
+	SET Habilitado = 0
+	WHERE Id_Hotel IN (SELECT Id_Hotel FROM INSERTED)
+END
+GO
+
+CREATE TRIGGER FUGAZZETA.TR_Reservas_A_I ON FUGAZZETA.Reservas
+AFTER INSERT AS
+BEGIN
+	DECLARE mi_cursor CURSOR FOR (SELECT Id_Reserva FROM INSERTED)
+	DECLARE @RESERVA int	
+	OPEN mi_cursor FETCH FROM mi_cursor INTO @Reserva
+	WHILE @@FETCH_STATUS = 0	
+		BEGIN
+		INSERT INTO FUGAZZETA.MovimientosReserva (Id_Reserva,Proceso,Motivo) VALUES (@RESERVA,'A','Alta')
+		FETCH FROM mi_cursor INTO @Reserva
+		END
+	CLOSE mi_cursor
+	DEALLOCATE mi_cursor
+END
+GO
+
+CREATE TRIGGER FUGAZZETA.TR_Reservas_A_U ON FUGAZZETA.Reservas
+AFTER UPDATE AS
+BEGIN
+	DECLARE mi_cursor FOR (SELECT Id_Reserva, 
 
 --------------------------/* Poblado de Datos*/---------------------------------------------
 --------------------------------------------------------------------------------------------
@@ -623,35 +654,14 @@ AND M.Estadia_Fecha_Inicio IS NOT NULL
 ORDER BY H.Id_Hotel,M.Habitacion_Numero, DIA
 GO
 
--- HABITACIONES X RESERVAS
-
-
--------------------------------/* Triggers*/------------------------------------------------
---------------------------------------------------------------------------------------------
-CREATE TRIGGER FUGAZZETA.TR_MovimientosHotel_A_I ON FUGAZZETA.HistorialBajasHotel
-AFTER INSERT AS
-BEGIN
-	UPDATE FUGAZZETA.Hoteles
-	SET Habilitado = 0
-	WHERE Id_Hotel IN (SELECT Id_Hotel FROM INSERTED)
-END
+INSERT INTO FUGAZZETA.[Habitaciones x Reservas]
+SELECT DISTINCT M.Reserva_Codigo,H.Id_Hotel,M.Habitacion_Numero FROM gd_esquema.Maestra M, FUGAZZETA.Hoteles H
+WHERE
+	H.Calle = M.Hotel_Calle
+AND H.Nro_Calle = M.Hotel_Nro_Calle
 GO
 
-CREATE TRIGGER FUGAZZETA.TR_Reservas_A_I ON FUGAZZETA.Reservas
-AFTER INSERT AS
-BEGIN
-	DECLARE mi_cursor CURSOR FOR (SELECT Id_Reserva FROM INSERTED)
-	DECLARE @RESERVA int	
-	OPEN mi_cursor FETCH FROM mi_cursor INTO @Reserva
-	WHILE @@FETCH_STATUS = 0	
-		BEGIN
-		INSERT INTO FUGAZZETA.MovimientosReserva (Id_Reserva,Proceso,Motivo) VALUES (@RESERVA,'A','Alta')
-		FETCH FROM mi_cursor INTO @Reserva
-		END
-	CLOSE mi_cursor
-	DEALLOCATE mi_cursor
-END
-GO
+
 
 
 ----------------------------------------/*VISTAS*/------------------------------------------
