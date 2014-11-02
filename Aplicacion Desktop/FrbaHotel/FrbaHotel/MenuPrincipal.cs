@@ -101,10 +101,14 @@ namespace FrbaHotel
             abrir(new Registrar_Estadia.CheckIn(this));
         }
 
+        private void checkOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            abrir(new Registrar_Estadia.CheckOut(this));
+        }
+
         #endregion
 
         ITraeBusqueda interfaz;
-
 
 
         //esto habrá que sacarlo después

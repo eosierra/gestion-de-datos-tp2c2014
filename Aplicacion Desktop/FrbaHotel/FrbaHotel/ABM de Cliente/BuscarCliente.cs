@@ -22,7 +22,7 @@ namespace FrbaHotel.ABM_de_Cliente
             bd.obtenerConexion();
             dondeVuelve = owner;
             setearGrid(GridClientes);
-            crearBuscador(dondeVuelve, "*", "[TodosLosClientes]");
+            crearBuscador(dondeVuelve, "*", "Clientes");
             bd.rellenarDesde("Descripcion", "TiposDoc", ComboDoc);
             bd.cerrar();
         }
