@@ -67,6 +67,11 @@ namespace FrbaHotel
             grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             grid.ReadOnly = true;
             grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            grid.EditMode = DataGridViewEditMode.EditProgrammatically;
+            grid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            grid.RowTemplate.ReadOnly = true;
+            grid.RowHeadersVisible = false;
+            grid.RowTemplate.Resizable = DataGridViewTriState.False;
         }
 
         public string celdaElegida(DataGridView grid, int columna)

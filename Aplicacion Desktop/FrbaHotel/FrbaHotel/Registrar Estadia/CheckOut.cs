@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace FrbaHotel.Registrar_Estadia
 {
@@ -19,7 +20,7 @@ namespace FrbaHotel.Registrar_Estadia
         {
             parent = mp;
             InitializeComponent();
-            crearBuscador(this, "*", "Consumibles");
+            crearBuscador(this, "Id_Consumible as ID, Descripcion, Precio", "Consumibles");
             setearGrid(GridConsumibles);
             carrito = new TableCarrito();
         }
@@ -32,7 +33,25 @@ namespace FrbaHotel.Registrar_Estadia
 
         private void VerCO_Click(object sender, EventArgs e)
         {
-            TabSalida.Enabled = true;
+            if (TxtReserva.Text == "")
+            {
+                MessageBox.Show("No se ingresó ninguna reserva.");
+            }
+            else
+            {
+                idReserva = Int32.Parse(TxtReserva.Text);
+                BD bd = new BD();
+                bd.obtenerConexion();
+                try
+                {
+                    bd.ejecutar("EXEC FUGAZZETA.ValidarEstadia " + idReserva);
+                    TabSalida.Enabled = true;
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Error: " + ex.Errors.ToString());
+                }
+            }
         }
 
 
@@ -57,17 +76,31 @@ namespace FrbaHotel.Registrar_Estadia
             LblPrecio.Text = "$ " + precio + ".-";
         }
 
-        private void GridConsumibles_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            agregar(celdaElegida(GridConsumibles, 0), celdaElegida(GridConsumibles, 1));
-        }
-
         private void AgregarCarrito_Click(object sender, EventArgs e)
         {
             carrito.add((TxtConsumible.Tag as Consumible),Convert.ToInt32(Cantidad.Value));
             Cantidad.Value = 1;
             LblPrecio.Text = "$";
             TxtConsumible.Text = "";
+            TxtConsumible.Tag = null;
+            AgregarCarrito.Enabled = false;
+        }
+
+        private void mostrarConsumible()
+        {
+            agregar(celdaElegida(GridConsumibles, 0), celdaElegida(GridConsumibles, 1));
+            retPrecio((TxtConsumible.Tag as Consumible).precio * Convert.ToInt32(Cantidad.Value));
+            AgregarCarrito.Enabled = true;
+        }
+
+        private void GridConsumibles_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            mostrarConsumible();
+        }
+
+        private void GridConsumibles_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            mostrarConsumible();
         }
 
     }

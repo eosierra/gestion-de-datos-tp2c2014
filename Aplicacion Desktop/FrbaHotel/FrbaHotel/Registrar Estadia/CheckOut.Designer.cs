@@ -37,7 +37,7 @@
             this.Cantidad = new System.Windows.Forms.NumericUpDown();
             this.GridCarrito = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.TxtReserva = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.VerCO = new System.Windows.Forms.Button();
             this.TabSalida.SuspendLayout();
@@ -55,7 +55,7 @@
             this.TabSalida.Location = new System.Drawing.Point(12, 45);
             this.TabSalida.Name = "TabSalida";
             this.TabSalida.SelectedIndex = 0;
-            this.TabSalida.Size = new System.Drawing.Size(1005, 487);
+            this.TabSalida.Size = new System.Drawing.Size(1093, 487);
             this.TabSalida.TabIndex = 0;
             // 
             // TabConsumibles
@@ -70,14 +70,14 @@
             this.TabConsumibles.Location = new System.Drawing.Point(4, 22);
             this.TabConsumibles.Name = "TabConsumibles";
             this.TabConsumibles.Padding = new System.Windows.Forms.Padding(3);
-            this.TabConsumibles.Size = new System.Drawing.Size(997, 461);
+            this.TabConsumibles.Size = new System.Drawing.Size(1085, 461);
             this.TabConsumibles.TabIndex = 0;
             this.TabConsumibles.Text = "Registrar Consumibles";
             // 
             // LblPrecio
             // 
             this.LblPrecio.AutoSize = true;
-            this.LblPrecio.Location = new System.Drawing.Point(615, 102);
+            this.LblPrecio.Location = new System.Drawing.Point(422, 101);
             this.LblPrecio.Name = "LblPrecio";
             this.LblPrecio.Size = new System.Drawing.Size(46, 13);
             this.LblPrecio.TabIndex = 7;
@@ -90,13 +90,15 @@
             this.GridConsumibles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GridConsumibles.Location = new System.Drawing.Point(6, 18);
             this.GridConsumibles.Name = "GridConsumibles";
-            this.GridConsumibles.Size = new System.Drawing.Size(407, 377);
+            this.GridConsumibles.Size = new System.Drawing.Size(214, 191);
             this.GridConsumibles.TabIndex = 6;
+            this.GridConsumibles.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridConsumibles_CellContentClick);
+            this.GridConsumibles.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.GridConsumibles_RowHeaderMouseClick);
             this.GridConsumibles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridConsumibles_CellContentClick);
             // 
             // TxtConsumible
             // 
-            this.TxtConsumible.Location = new System.Drawing.Point(419, 96);
+            this.TxtConsumible.Location = new System.Drawing.Point(226, 95);
             this.TxtConsumible.Name = "TxtConsumible";
             this.TxtConsumible.ReadOnly = true;
             this.TxtConsumible.Size = new System.Drawing.Size(129, 20);
@@ -104,7 +106,8 @@
             // 
             // AgregarCarrito
             // 
-            this.AgregarCarrito.Location = new System.Drawing.Point(419, 122);
+            this.AgregarCarrito.Enabled = false;
+            this.AgregarCarrito.Location = new System.Drawing.Point(226, 121);
             this.AgregarCarrito.Name = "AgregarCarrito";
             this.AgregarCarrito.Size = new System.Drawing.Size(253, 23);
             this.AgregarCarrito.TabIndex = 4;
@@ -114,7 +117,7 @@
             // 
             // Cantidad
             // 
-            this.Cantidad.Location = new System.Drawing.Point(554, 97);
+            this.Cantidad.Location = new System.Drawing.Point(361, 96);
             this.Cantidad.Minimum = new decimal(new int[] {
             1,
             0,
@@ -139,10 +142,10 @@
             this.GridCarrito.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.GridCarrito.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GridCarrito.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
-            this.GridCarrito.Location = new System.Drawing.Point(678, 18);
+            this.GridCarrito.Location = new System.Drawing.Point(485, 18);
             this.GridCarrito.Name = "GridCarrito";
             this.GridCarrito.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.GridCarrito.Size = new System.Drawing.Size(313, 377);
+            this.GridCarrito.Size = new System.Drawing.Size(282, 191);
             this.GridCarrito.TabIndex = 0;
             // 
             // tabPage2
@@ -155,12 +158,12 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Ver factura";
             // 
-            // textBox1
+            // TxtReserva
             // 
-            this.textBox1.Location = new System.Drawing.Point(111, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 1;
+            this.TxtReserva.Location = new System.Drawing.Point(111, 19);
+            this.TxtReserva.Name = "TxtReserva";
+            this.TxtReserva.Size = new System.Drawing.Size(100, 20);
+            this.TxtReserva.TabIndex = 1;
             // 
             // label1
             // 
@@ -188,7 +191,7 @@
             this.ClientSize = new System.Drawing.Size(1117, 544);
             this.Controls.Add(this.VerCO);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.TxtReserva);
             this.Controls.Add(this.TabSalida);
             this.Name = "CheckOut";
             this.Text = "CheckOut";
@@ -209,7 +212,7 @@
         private System.Windows.Forms.TabControl TabSalida;
         private System.Windows.Forms.TabPage TabConsumibles;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox TxtReserva;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button VerCO;
         private System.Windows.Forms.DataGridView GridCarrito;

@@ -42,6 +42,13 @@ namespace FrbaHotel.Registrar_Estadia
 
             public void add(Consumible consumible, int cant)
             {
+
+                if (tabla.Rows.)
+                {
+                    tabla.Select("Consumible like '" + consumible.nombre + "'").SetValue(cant,1);
+                }
+                else
+                {
                 DataRow fila = tabla.NewRow();
                 fila.SetField(0, consumible.nombre);
                 fila.SetField(1, cant);
@@ -50,7 +57,9 @@ namespace FrbaHotel.Registrar_Estadia
 
                 tabla.Rows.Add(fila);
                 consumibles.Add(consumible);
+                }
             }
+
             public void agregarColumna(string name)
             {
                 tabla.Columns.Add(name);
