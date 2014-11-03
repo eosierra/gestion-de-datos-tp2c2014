@@ -121,6 +121,7 @@
             this.GridCarrito.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
             this.GridCarrito.Location = new System.Drawing.Point(6, 229);
             this.GridCarrito.Name = "GridCarrito";
+            this.GridCarrito.ReadOnly = true;
             this.GridCarrito.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.GridCarrito.Size = new System.Drawing.Size(431, 281);
             this.GridCarrito.TabIndex = 0;
@@ -130,6 +131,7 @@
             // 
             this.ColumnaEliminar.HeaderText = "Eliminar";
             this.ColumnaEliminar.Name = "ColumnaEliminar";
+            this.ColumnaEliminar.ReadOnly = true;
             this.ColumnaEliminar.Text = "Quitar";
             this.ColumnaEliminar.UseColumnTextForButtonValue = true;
             this.ColumnaEliminar.Width = 49;

@@ -107,8 +107,10 @@ namespace FrbaHotel.Registrar_Estadia
 
         private void GridCarrito_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 0)
-                GridCarrito.Rows.RemoveAt(e.RowIndex);
+            if (e.ColumnIndex == 0 & e.RowIndex >= 0)
+            {
+                carrito.remove(e.RowIndex);
+            }
         }
 
     }
