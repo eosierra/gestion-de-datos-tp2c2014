@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 using System.Data;
+using System.Windows.Forms;
 
 namespace FrbaHotel.Registrar_Estadia
 {
@@ -42,28 +43,44 @@ namespace FrbaHotel.Registrar_Estadia
 
             public void add(Consumible consumible, int cant)
             {
-                /*DataRow[] row = tabla.Select("Consumible like '" + consumible.nombre + "'");
-                DataRow row2 = tabla.f
-                if (row.Count() == 0)
-                { 
-                    row[1].SetField(1, row.First().Field(1) + cant);
+                if (consumibles.Exists(c => c.id == consumible.id))
+                {
+                    DataRow[] founds = tabla.Select("Consumible = '" + consumible.nombre + "'");
+                    for (int i = 0; i < founds.LongLength; i++)
+                    {
+                        int nuevaCant = Int32.Parse(founds[i][1].ToString()) + cant;
+                        double nuevoPrecio = consumible.precio * nuevaCant;
+                        founds[i].SetField(1,nuevaCant);
+                        founds[i].SetField(2, nuevoPrecio);
+                    }
                 }
                 else
-                {*/
-                DataRow fila = tabla.NewRow();
-                fila.SetField(0, consumible.nombre);
-                fila.SetField(1, cant);
-                double pr = consumible.precio * cant;
-                fila.SetField(2, pr);
+                {
+                    DataRow fila = tabla.NewRow();
+                    fila.SetField(0, consumible.nombre);
+                    fila.SetField(1, cant);
+                    double pr = consumible.precio * cant;
+                    fila.SetField(2, pr);
 
-                tabla.Rows.Add(fila);
-                consumibles.Add(consumible);
-                //}
+                    tabla.Rows.Add(fila);
+                    consumibles.Add(consumible);
+                }
             }
 
             public void agregarColumna(string name)
             {
                 tabla.Columns.Add(name);
+            }
+
+            public double total()
+            {
+                double tot = 0;
+                for (int i = 0; i < tabla.Rows.Count - 1; i++)
+                {
+                    double precio = Convert.ToDouble(tabla.Rows[i][2].ToString());
+                    tot = tot + precio;
+                }
+                return tot;
             }
 
         }

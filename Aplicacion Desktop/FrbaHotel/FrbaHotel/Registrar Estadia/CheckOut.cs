@@ -45,7 +45,8 @@ namespace FrbaHotel.Registrar_Estadia
                 try
                 {
                     bd.ejecutar("EXEC FUGAZZETA.ValidarEstadia " + idReserva);
-                    TabSalida.Enabled = true;
+                    GroupConsumibles.Enabled = true;
+                    GroupHabitacion.Enabled = true;
                 }
                 catch (SqlException ex)
                 {
@@ -84,13 +85,14 @@ namespace FrbaHotel.Registrar_Estadia
             TxtConsumible.Text = "";
             TxtConsumible.Tag = null;
             AgregarCarrito.Enabled = false;
+
         }
 
         private void mostrarConsumible()
         {
             agregar(celdaElegida(GridConsumibles, 0), celdaElegida(GridConsumibles, 1));
             retPrecio((TxtConsumible.Tag as Consumible).precio * Convert.ToInt32(Cantidad.Value));
-            AgregarCarrito.Enabled = true;
+            AgregarCarrito.Enabled = true;    
         }
 
         private void GridConsumibles_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -101,6 +103,12 @@ namespace FrbaHotel.Registrar_Estadia
         private void GridConsumibles_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             mostrarConsumible();
+        }
+
+        private void GridCarrito_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+                GridCarrito.Rows.RemoveAt(e.RowIndex);
         }
 
     }
