@@ -918,4 +918,24 @@ DECLARE @IdReserva int
 END
 GO
 
+CREATE PROCEDURE FUGAZZETA.VerHabitacionesDeEstadia (@Reserva int, @Egreso date) AS 
+BEGIN
+	SELECT
+	H.Id_Hotel as [Hotel],
+	H.Num_Habitacion as [Habitacion],
+	TH.Descripcion as [Tipo],
+	FUGAZZETA.CostoHabitacion(H.Id_Hotel,TH.CantPersonas,R.Id_Regimen) as [Costo por día],
+	DATEDIFF (D,R.Fecha_Inicio,@Egreso) AS [Cantidad de Dias],
+	FUGAZZETA.CostoHabitacion(H.Id_Hotel,TH.CantPersonas,R.Id_Regimen) * DATEDIFF(d,R.Fecha_Inicio,@Egreso) as [Subtotal]
+	FROM FUGAZZETA.[Habitaciones x Reservas] HR, FUGAZZETA.Habitaciones H,
+	FUGAZZETA.TiposHabitacion TH, FUGAZZETA.Reservas R
+	WHERE 
+		HR.Id_Reserva = @Reserva
+	AND HR.Id_Hotel = H.Id_Hotel
+	AND HR.Num_Habitacion = H.Num_Habitacion
+	AND HR.Id_Reserva = R.Id_Reserva
+	AND TH.Id_TipoHab = H.Id_TipoHab
+END
+GO
+
 --- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.

@@ -22,6 +22,8 @@ namespace FrbaHotel.Registrar_Estadia
             InitializeComponent();
             crearBuscador(this, "Id_Consumible as ID, Descripcion, Precio", "Consumibles");
             setearGrid(GridConsumibles);
+            setearGrid(GridHabitacion);
+           // GridHabitacion.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
             carrito = new TableCarrito();
         }
 
@@ -47,6 +49,7 @@ namespace FrbaHotel.Registrar_Estadia
                     bd.ejecutar("EXEC FUGAZZETA.ValidarEstadia " + idReserva);
                     GroupConsumibles.Enabled = true;
                     GroupHabitacion.Enabled = true;
+                    cargarHabitaciones();
                 }
                 catch (SqlException ex)
                 {
@@ -111,6 +114,15 @@ namespace FrbaHotel.Registrar_Estadia
             {
                 carrito.remove(e.RowIndex);
             }
+        }
+
+        private void cargarHabitaciones()
+        {
+            BD bd2 = new BD();
+            bd2.obtenerConexion();
+            string query = "EXEC FUGAZZETA.VerHabitacionesDeEstadia " + idReserva + ", '" + new DatePrograma(Program.hoy()).ToString() + "'";
+            GridHabitacion.DataSource = bd2.ejecutar(query);
+            bd2.cerrar();
         }
 
     }

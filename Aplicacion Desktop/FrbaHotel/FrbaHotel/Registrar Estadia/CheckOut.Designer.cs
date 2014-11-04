@@ -39,6 +39,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.VerCO = new System.Windows.Forms.Button();
             this.GroupConsumibles = new System.Windows.Forms.GroupBox();
+            this.LabelAllinc = new System.Windows.Forms.Label();
             this.GroupHabitacion = new System.Windows.Forms.GroupBox();
             this.GridHabitacion = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.GridConsumibles)).BeginInit();
@@ -123,7 +124,7 @@
             this.GridCarrito.Name = "GridCarrito";
             this.GridCarrito.ReadOnly = true;
             this.GridCarrito.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.GridCarrito.Size = new System.Drawing.Size(431, 281);
+            this.GridCarrito.Size = new System.Drawing.Size(317, 281);
             this.GridCarrito.TabIndex = 0;
             this.GridCarrito.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridCarrito_CellContentClick);
             // 
@@ -164,6 +165,7 @@
             // 
             // GroupConsumibles
             // 
+            this.GroupConsumibles.Controls.Add(this.LabelAllinc);
             this.GroupConsumibles.Controls.Add(this.LblPrecio);
             this.GroupConsumibles.Controls.Add(this.GridConsumibles);
             this.GroupConsumibles.Controls.Add(this.TxtConsumible);
@@ -173,28 +175,39 @@
             this.GroupConsumibles.Enabled = false;
             this.GroupConsumibles.Location = new System.Drawing.Point(16, 46);
             this.GroupConsumibles.Name = "GroupConsumibles";
-            this.GroupConsumibles.Size = new System.Drawing.Size(538, 532);
+            this.GroupConsumibles.Size = new System.Drawing.Size(418, 532);
             this.GroupConsumibles.TabIndex = 4;
             this.GroupConsumibles.TabStop = false;
-            this.GroupConsumibles.Text = "Registrar consumibles";
+            this.GroupConsumibles.Text = "Registro de consumibles";
+            // 
+            // LabelAllinc
+            // 
+            this.LabelAllinc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.LabelAllinc.Location = new System.Drawing.Point(247, 164);
+            this.LabelAllinc.Name = "LabelAllinc";
+            this.LabelAllinc.Size = new System.Drawing.Size(151, 62);
+            this.LabelAllinc.TabIndex = 8;
+            this.LabelAllinc.Text = "Atención: el régimen es All Inclusive, por lo tanto todas las consumiciones de la" +
+                " estadía son GRATIS.";
             // 
             // GroupHabitacion
             // 
             this.GroupHabitacion.Controls.Add(this.GridHabitacion);
             this.GroupHabitacion.Enabled = false;
-            this.GroupHabitacion.Location = new System.Drawing.Point(587, 46);
+            this.GroupHabitacion.Location = new System.Drawing.Point(478, 46);
             this.GroupHabitacion.Name = "GroupHabitacion";
-            this.GroupHabitacion.Size = new System.Drawing.Size(472, 231);
+            this.GroupHabitacion.Size = new System.Drawing.Size(508, 213);
             this.GroupHabitacion.TabIndex = 5;
             this.GroupHabitacion.TabStop = false;
-            this.GroupHabitacion.Text = "Datos de habitaciones";
+            this.GroupHabitacion.Text = "Información de la estadía";
             // 
             // GridHabitacion
             // 
+            this.GridHabitacion.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.GridHabitacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GridHabitacion.Location = new System.Drawing.Point(32, 36);
+            this.GridHabitacion.Location = new System.Drawing.Point(6, 36);
             this.GridHabitacion.Name = "GridHabitacion";
-            this.GridHabitacion.Size = new System.Drawing.Size(434, 150);
+            this.GridHabitacion.Size = new System.Drawing.Size(460, 150);
             this.GridHabitacion.TabIndex = 0;
             // 
             // CheckOut
@@ -237,5 +250,6 @@
         private System.Windows.Forms.DataGridViewButtonColumn ColumnaEliminar;
         private System.Windows.Forms.GroupBox GroupHabitacion;
         private System.Windows.Forms.DataGridView GridHabitacion;
+        private System.Windows.Forms.Label LabelAllinc;
     }
 }

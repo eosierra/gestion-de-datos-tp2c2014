@@ -70,7 +70,6 @@ namespace FrbaHotel.Registrar_Estadia
             public void remove(int index)
             {
                 string nom = tabla.Rows[index][0].ToString();
-                MessageBox.Show(nom);
                 consumibles.RemoveAll(c => c.ToString() == nom);
                 tabla.Rows.RemoveAt(index);
             }
