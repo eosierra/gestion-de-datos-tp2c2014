@@ -57,3 +57,4 @@ BEGIN
 	CLOSE mi_cursor
 	DEALLOCATE mi_cursor
 */
+

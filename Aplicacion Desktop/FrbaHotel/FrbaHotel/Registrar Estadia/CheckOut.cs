@@ -14,6 +14,7 @@ namespace FrbaHotel.Registrar_Estadia
     {
         MenuPrincipal parent;
         int idReserva;
+        int idRegimen;
         TableCarrito carrito;
 
         public CheckOut(MenuPrincipal mp)
@@ -46,14 +47,21 @@ namespace FrbaHotel.Registrar_Estadia
                 bd.obtenerConexion();
                 try
                 {
-                    bd.ejecutar("EXEC FUGAZZETA.ValidarEstadia " + idReserva);
+                   SqlDataReader dr = bd.lee("EXEC FUGAZZETA.ValidarEstadia " + idReserva);
+                    while (dr.Read())
+                    {
+                        idRegimen = Int32.Parse(dr[1].ToString());
+                    }
+                    dr.Close();
                     GroupConsumibles.Enabled = true;
                     GroupHabitacion.Enabled = true;
                     cargarHabitaciones();
                 }
                 catch (SqlException ex)
                 {
-                    MessageBox.Show("Error: " + ex.Errors.ToString());
+                   // dr.Close();
+                    foreach (SqlError sqlError in ex.Errors)
+                        MessageBox.Show("Error: " + sqlError.Message);
                 }
             }
         }
