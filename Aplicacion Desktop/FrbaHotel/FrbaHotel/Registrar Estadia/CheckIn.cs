@@ -65,7 +65,7 @@ namespace FrbaHotel.Registrar_Estadia
                             idCliente = dr[1].ToString();
                             idHotel = dr[2].ToString();
                             TxtHotel.Text = dr[2].ToString();
-                            TxtFecReserva.Text = dr[3].ToString().Substring(0, 10);
+                            TxtFecReserva.Text = ifNull(dr[3].ToString()).Substring(0, 10);
                             TxtFecInicio.Text = fechaKey;
                             TxtFecFin.Text = dr[6].ToString().Substring(0, 10);
                             TxtRegimen.Text = dr[7].ToString();
@@ -84,6 +84,12 @@ namespace FrbaHotel.Registrar_Estadia
                 }
 
             }
+        }
+
+        private string ifNull(string p)
+        {
+            if (p == "") return ".................";
+            else return p;
         }
 
         private void completarDatos(BD bd)

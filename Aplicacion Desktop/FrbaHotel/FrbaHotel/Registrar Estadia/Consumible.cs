@@ -41,7 +41,7 @@ namespace FrbaHotel.Registrar_Estadia
                 consumibles = new List<Consumible>();
             }
 
-            public void add(Consumible consumible, int cant)
+            public void add(Consumible consumible, int cant, int regimen)
             {
                 if (consumibles.Exists(c => c.id == consumible.id))
                 {
@@ -49,7 +49,7 @@ namespace FrbaHotel.Registrar_Estadia
                     for (int i = 0; i < founds.LongLength; i++)
                     {
                         int nuevaCant = Int32.Parse(founds[i][1].ToString()) + cant;
-                        double nuevoPrecio = consumible.precio * nuevaCant;
+                        double nuevoPrecio = precioP(consumible, nuevaCant, regimen);
                         founds[i].SetField(1,nuevaCant);
                         founds[i].SetField(2, nuevoPrecio);
                     }
@@ -59,9 +59,8 @@ namespace FrbaHotel.Registrar_Estadia
                     DataRow fila = tabla.NewRow();
                     fila.SetField(0, consumible.nombre);
                     fila.SetField(1, cant);
-                    double pr = consumible.precio * cant;
+                    double pr = precioP(consumible,cant,regimen);
                     fila.SetField(2, pr);
-
                     tabla.Rows.Add(fila);
                     consumibles.Add(consumible);
                 }
@@ -89,6 +88,12 @@ namespace FrbaHotel.Registrar_Estadia
                 }
                 return tot;
             }
+
+        public double precioP(Consumible con, int cant, int regimen)
+        {
+            if (regimen == 2) return 0;
+            else return con.precio * cant;
+        }
 
         }
 }

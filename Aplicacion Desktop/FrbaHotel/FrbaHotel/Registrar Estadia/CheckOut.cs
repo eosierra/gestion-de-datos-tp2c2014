@@ -24,7 +24,6 @@ namespace FrbaHotel.Registrar_Estadia
             crearBuscador(this, "Id_Consumible as ID, Descripcion, Precio", "Consumibles");
             setearGrid(GridConsumibles);
             setearGrid(GridHabitacion);
-           // GridHabitacion.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
             carrito = new TableCarrito();
         }
 
@@ -36,7 +35,10 @@ namespace FrbaHotel.Registrar_Estadia
 
         private void VerCO_Click(object sender, EventArgs e)
         {
-            if (TxtReserva.Text == "")
+            GroupConsumibles.Enabled = false;
+            GroupHabitacion.Enabled = false;
+            LabelAllinc.Visible = false;
+                if (TxtReserva.Text == "")
             {
                 MessageBox.Show("No se ingresó ninguna reserva.");
             }
@@ -55,6 +57,7 @@ namespace FrbaHotel.Registrar_Estadia
                     dr.Close();
                     GroupConsumibles.Enabled = true;
                     GroupHabitacion.Enabled = true;
+                    if (idRegimen == 2) LabelAllinc.Visible = true;
                     cargarHabitaciones();
                 }
                 catch (SqlException ex)
@@ -85,12 +88,13 @@ namespace FrbaHotel.Registrar_Estadia
 
         private void retPrecio(double precio)
         {
-            LblPrecio.Text = "$ " + precio + ".-";
+            if (idRegimen == 2) LblPrecio.Text = "$ 0.-";
+            else LblPrecio.Text = "$ " + precio + ".-";
         }
 
         private void AgregarCarrito_Click(object sender, EventArgs e)
         {
-            carrito.add((TxtConsumible.Tag as Consumible),Convert.ToInt32(Cantidad.Value));
+            carrito.add((TxtConsumible.Tag as Consumible),Convert.ToInt32(Cantidad.Value),idRegimen);
             Cantidad.Value = 1;
             LblPrecio.Text = "$";
             TxtConsumible.Text = "";
@@ -103,9 +107,10 @@ namespace FrbaHotel.Registrar_Estadia
         {
             agregar(celdaElegida(GridConsumibles, 0), celdaElegida(GridConsumibles, 1));
             retPrecio((TxtConsumible.Tag as Consumible).precio * Convert.ToInt32(Cantidad.Value));
-            AgregarCarrito.Enabled = true;    
+            AgregarCarrito.Enabled = true;
         }
 
+        #region GridConsumibles
         private void GridConsumibles_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             mostrarConsumible();
@@ -123,6 +128,7 @@ namespace FrbaHotel.Registrar_Estadia
                 carrito.remove(e.RowIndex);
             }
         }
+        #endregion
 
         private void cargarHabitaciones()
         {

@@ -189,6 +189,7 @@
             this.LabelAllinc.TabIndex = 8;
             this.LabelAllinc.Text = "Atención: el régimen es All Inclusive, por lo tanto todas las consumiciones de la" +
                 " estadía son GRATIS.";
+            this.LabelAllinc.Visible = false;
             // 
             // GroupHabitacion
             // 

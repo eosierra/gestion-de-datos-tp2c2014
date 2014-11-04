@@ -942,8 +942,8 @@ CREATE PROC FUGAZZETA.ValidarEstadia (@id int) AS
 BEGIN
 	IF @id NOT IN(SELECT Id_Reserva FROM FUGAZZETA.Reservas WHERE Id_EstadoReserva = 6 
 				AND Fecha_Egreso IS NULL)
-	RAISERROR('No se encontró la estadía.',10,1)
-	ELSE SELECT Id_Reserva,Id_Regimen FROM FUGAZZETA.Reservas
+	RAISERROR('No se encontró la estadía.',16,1)
+	ELSE SELECT Id_Reserva,Id_Regimen FROM FUGAZZETA.Reservas WHERE Id_Reserva = @id
 END
 GO
 
