@@ -932,7 +932,7 @@ BEGIN
 	H.Num_Habitacion as [Habitacion],
 	TH.Descripcion as [Tipo],
 	FUGAZZETA.CostoHabitacion(H.Id_Hotel,TH.CantPersonas,R.Id_Regimen) as [Costo por día],
-	FUGAZZETA.CostoHabitacion(H.Id_Hotel,TH.CantPersonas,R.Id_Regimen) * DATEDIFF(d,R.Fecha_Inicio,@Egreso) as [Subtotal]
+	FUGAZZETA.CostoHabitacion(H.Id_Hotel,TH.CantPersonas,R.Id_Regimen) * DATEDIFF(d,R.Fecha_Inicio,R.Fecha_Fin_Reserva) as [Subtotal]
 	FROM FUGAZZETA.[Habitaciones x Reservas] HR, FUGAZZETA.Habitaciones H,
 	FUGAZZETA.TiposHabitacion TH, FUGAZZETA.Reservas R
 	WHERE 
@@ -955,7 +955,7 @@ BEGIN
 		SET @LIMITE = (SELECT Fecha_Fin_Reserva FROM FUGAZZETA.Reservas WHERE Id_Reserva = @id)
 		IF @fecha > @LIMITE
 		RAISERROR('No se puede realizar el Check out de esta reserva. Ya pasó la fecha límite de reserva.',16,1) 
-		ELSE (SELECT Id_Reserva,Id_Regimen,Fecha_Inicio FROM FUGAZZETA.Reservas WHERE Id_Reserva = @id)
+		ELSE (SELECT Id_Reserva,Id_Regimen,Fecha_Inicio,Fecha_Fin_Reserva FROM FUGAZZETA.Reservas WHERE Id_Reserva = @id)
 	END
 END
 GO

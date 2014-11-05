@@ -15,7 +15,8 @@ namespace FrbaHotel.Registrar_Estadia
         MenuPrincipal parent;
         int idReserva;
         int idRegimen;
-        int cantDias;
+        int cantDiasEstadia;
+        int cantDiasReserva;
         TableCarrito carrito;
 
         public CheckOut(MenuPrincipal mp)
@@ -36,8 +37,8 @@ namespace FrbaHotel.Registrar_Estadia
 
         private void VerCO_Click(object sender, EventArgs e)
         {
-            GroupConsumibles.Enabled = false;
-            GroupHabitacion.Enabled = false;
+            groupBox1.Enabled = true;
+            GroupTotal.Visible = true;
             LabelAllinc.Visible = false;
                 if (TxtReserva.Text == "")
             {
@@ -54,18 +55,25 @@ namespace FrbaHotel.Registrar_Estadia
                     while (dr.Read())
                     {
                         idRegimen = Int32.Parse(dr[1].ToString());
-                        cantDias = Convert.ToInt16((Program.hoy() - Convert.ToDateTime(dr[2].ToString())).TotalDays);
+                        cantDiasReserva = Convert.ToInt16((Convert.ToDateTime(dr[3].ToString()) - Convert.ToDateTime(dr[2].ToString())).TotalDays);
+                        cantDiasEstadia = Convert.ToInt16((Program.hoy() - Convert.ToDateTime(dr[2].ToString())).TotalDays);
                     }
                     dr.Close();
                     GroupConsumibles.Enabled = true;
                     GroupHabitacion.Enabled = true;
-                    TxtCantDias.Text = cantDias.ToString();
+                    TxtDiasReserva.Text = cantDiasReserva.ToString();
+                    TxtDiasEstadia.Text = cantDiasEstadia.ToString();
+                    TxtDiasNoEstadia.Text = (cantDiasReserva - cantDiasEstadia).ToString();
+                    TxtDiasReserva.Visible = true;
+                    TxtDiasEstadia.Visible = true;
+                    TxtDiasNoEstadia.Visible = true;
                     if (idRegimen == 2) LabelAllinc.Visible = true;
                     cargarHabitaciones();
+                    mostrarTotalHabitacion();
+                    mostrarTotalTotal();
                 }
                 catch (SqlException ex)
                 {
-                   // dr.Close();
                     foreach (SqlError sqlError in ex.Errors)
                         MessageBox.Show("Error: " + sqlError.Message);
                 }
@@ -102,8 +110,16 @@ namespace FrbaHotel.Registrar_Estadia
             LblPrecio.Text = "$";
             TxtConsumible.Text = "";
             TxtConsumible.Tag = null;
+            mostrarTotalConsumible();
+            mostrarTotalTotal();
             AgregarCarrito.Enabled = false;
+            Cantidad.Enabled = false;
 
+        }
+
+        private void mostrarTotalConsumible()
+        {
+            LblSubConsumibles.Text = carrito.total().ToString();
         }
 
         private void mostrarConsumible()
@@ -111,6 +127,7 @@ namespace FrbaHotel.Registrar_Estadia
             agregar(celdaElegida(GridConsumibles, 0), celdaElegida(GridConsumibles, 1));
             retPrecio((TxtConsumible.Tag as Consumible).precio * Convert.ToInt32(Cantidad.Value));
             AgregarCarrito.Enabled = true;
+            Cantidad.Enabled = true;
         }
 
         #region GridConsumibles
@@ -129,6 +146,8 @@ namespace FrbaHotel.Registrar_Estadia
             if (e.ColumnIndex == 0 & e.RowIndex >= 0)
             {
                 carrito.remove(e.RowIndex);
+                mostrarTotalConsumible();
+                mostrarTotalTotal();
             }
         }
         #endregion
@@ -140,6 +159,31 @@ namespace FrbaHotel.Registrar_Estadia
             string query = "EXEC FUGAZZETA.VerHabitacionesDeEstadia " + idReserva + ", '" + new DatePrograma(Program.hoy()).ToString() + "'";
             GridHabitacion.DataSource = bd2.ejecutar(query);
             bd2.cerrar();
+            
+        }
+
+        private void TxtReserva_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                VerCO_Click(sender, e);
+            }
+        }
+
+        private void mostrarTotalHabitacion()
+        {
+            double totalHabitacion = 0;
+            for (int i = 0; i < GridHabitacion.Rows.Count; i++)
+            {
+                double tot = Convert.ToDouble(GridHabitacion.Rows[i].Cells[4].Value.ToString());
+                totalHabitacion = tot + totalHabitacion;
+            }
+            LblSubEstadia.Text = totalHabitacion.ToString();
+        }
+
+        private void mostrarTotalTotal()
+        {
+            LblTotal.Text = (Int32.Parse(LblSubConsumibles.Text) + Int32.Parse(LblSubEstadia.Text)).ToString();
         }
 
     }
