@@ -778,6 +778,7 @@ WHERE
 	H.Id_Hotel = HR.Id_Hotel
 AND H.Num_Habitacion = HR.Num_Habitacion
 AND HR.Id_Reserva = R.Id_Reserva
+AND R.Fecha_Egreso IS NULL
 go
 
 ------------------------------------/*FUNCIONES*/-------------------------------------------
@@ -886,14 +887,14 @@ BEGIN
 END
 GO
 
-CREATE PROC FUGAZZETA.HabitacionesLibresEnPeriodo(@Hotel int, @Desde date, @Hasta date, @Regimen int) AS
+ALTER PROC FUGAZZETA.HabitacionesLibresEnPeriodo(@Hotel int, @Desde date, @Hasta date, @Regimen int) AS
 begin
 	SELECT
 	H.Num_Habitacion as [Número],
 	T.Descripcion,
 	H.Comodidades,
 	cast(T.CantPersonas as CHAR(1)) + ' personas' AS Capacidad,
-	'$ ' + cast((FUGAZZETA.CostoHabitacion(@Hotel,T.CantPersonas,@Regimen)) as varchar) as [Costo estimado]
+	'$ ' + cast((FUGAZZETA.CostoHabitacion(@Hotel,T.CantPersonas,@Regimen)) as varchar) as [Costo estimado por día]
 	FROM FUGAZZETA.Habitaciones H, FUGAZZETA.TiposHabitacion T
 	WHERE
 	H.Id_Hotel = @Hotel
