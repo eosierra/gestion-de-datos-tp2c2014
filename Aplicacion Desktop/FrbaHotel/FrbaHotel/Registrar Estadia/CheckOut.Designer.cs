@@ -116,9 +116,9 @@
             // AgregarCarrito
             // 
             this.AgregarCarrito.Enabled = false;
-            this.AgregarCarrito.Location = new System.Drawing.Point(6, 190);
+            this.AgregarCarrito.Location = new System.Drawing.Point(6, 192);
             this.AgregarCarrito.Name = "AgregarCarrito";
-            this.AgregarCarrito.Size = new System.Drawing.Size(209, 23);
+            this.AgregarCarrito.Size = new System.Drawing.Size(214, 23);
             this.AgregarCarrito.TabIndex = 4;
             this.AgregarCarrito.Text = "AGREGAR AL CARRITO >>";
             this.AgregarCarrito.UseVisualStyleBackColor = true;
@@ -350,9 +350,9 @@
             this.GroupAbono.Controls.Add(this.TxtNCuenta);
             this.GroupAbono.Enabled = false;
             this.GroupAbono.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.GroupAbono.Location = new System.Drawing.Point(15, 69);
+            this.GroupAbono.Location = new System.Drawing.Point(6, 69);
             this.GroupAbono.Name = "GroupAbono";
-            this.GroupAbono.Size = new System.Drawing.Size(232, 176);
+            this.GroupAbono.Size = new System.Drawing.Size(241, 176);
             this.GroupAbono.TabIndex = 7;
             this.GroupAbono.TabStop = false;
             // 
@@ -443,6 +443,7 @@
             this.TxtNCuenta.Name = "TxtNCuenta";
             this.TxtNCuenta.Size = new System.Drawing.Size(216, 20);
             this.TxtNCuenta.TabIndex = 5;
+            this.TxtNCuenta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtNCuenta_KeyPress);
             // 
             // OpOtro
             // 
@@ -476,6 +477,7 @@
             this.RealizarEgreso.TabIndex = 7;
             this.RealizarEgreso.Text = "FINALIZAR ESTADÍA";
             this.RealizarEgreso.UseVisualStyleBackColor = true;
+            this.RealizarEgreso.Click += new System.EventHandler(this.RealizarEgreso_Click);
             // 
             // GroupTotal
             // 

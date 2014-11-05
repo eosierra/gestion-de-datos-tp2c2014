@@ -18,6 +18,7 @@ namespace FrbaHotel.Registrar_Estadia
         int cantDiasEstadia;
         int cantDiasReserva;
         TableCarrito carrito;
+        char abono;
 
         public CheckOut(MenuPrincipal mp)
         {
@@ -58,6 +59,7 @@ namespace FrbaHotel.Registrar_Estadia
             {
                 MessageBox.Show("Error al completar: " + ex.Message);
             }
+            bd2.cerrar();
         }
 
         private void loadTarjetas()
@@ -79,6 +81,7 @@ namespace FrbaHotel.Registrar_Estadia
             {
                 MessageBox.Show("Error al completar: " + ex.Message);
             }
+            bd2.cerrar();
         }
 
         private void VerCO_Click(object sender, EventArgs e)
@@ -163,11 +166,6 @@ namespace FrbaHotel.Registrar_Estadia
 
         }
 
-        private void mostrarTotalConsumible()
-        {
-            LblSubConsumibles.Text = carrito.total().ToString();
-        }
-
         private void mostrarConsumible()
         {
             agregar(celdaElegida(GridConsumibles, 0), celdaElegida(GridConsumibles, 1));
@@ -216,6 +214,12 @@ namespace FrbaHotel.Registrar_Estadia
             }
         }
 
+        #region Mostrar Totales
+        private void mostrarTotalConsumible()
+        {
+            LblSubConsumibles.Text = carrito.total().ToString();
+        }
+        
         private void mostrarTotalHabitacion()
         {
             double totalHabitacion = 0;
@@ -232,10 +236,50 @@ namespace FrbaHotel.Registrar_Estadia
             LblTotal.Text = (Int32.Parse(LblSubConsumibles.Text) + Int32.Parse(LblSubEstadia.Text)).ToString();
         }
 
+        #endregion
+
         private void OpOtro_CheckedChanged(object sender, EventArgs e)
         {
-            if (OpOtro.Checked) GroupAbono.Enabled = true;
-            else GroupAbono.Enabled = false;
+            GroupAbono.Enabled = OpOtro.Checked;
+        }
+
+        private void validarAbono()
+        {
+            if (!OpEfectivo.Checked && !OpOtro.Checked) throw new Exception("No seleccionó ninguna forma de pago.");
+            else
+            {
+                if (OpOtro.Checked)
+                {
+                    if (CbTipoPago.SelectedIndex == -1) throw new Exception("Debe seleccionar algún tipo de pago.");
+                    if (CbBanco.SelectedIndex == -1) throw new Exception("Debe seleccionar algún banco.");
+                    if (!OpCA.Checked && !OpCC.Checked) throw new Exception("Debe seleccionar algún tipo de cuenta.");
+                    if (TxtNCuenta.TextLength == 0) throw new Exception ("El número de cuenta no es válido.");
+                }
+            }
+        }
+
+        private void TxtNCuenta_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void RealizarEgreso_Click(object sender, EventArgs e)
+        {
+            BD bd2 = new BD();
+            bd2.obtenerConexion();
+            try
+            {
+                validarAbono();
+                bd2.ejecutar("EXEC FUGAZZETA.RealizarEgreso " + idReserva + ", '" + Program.ahora().ToString() + "'");
+
+                MessageBox.Show("Egreso realizado con éxito.");
+            }
+            catch (Exception ex)
+            {
+                bd2.cerrar();
+                MessageBox.Show("Error: No se pudo realizar el egreso. " + ex.Message,this.Text,MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
+
         }
 
     }

@@ -165,6 +165,9 @@ DROP PROCEDURE FUGAZZETA.ValidarEstadia
 IF OBJECT_ID('FUGAZZETA.VerHabitacionesDeEstadia') IS NOT NULL
 DROP PROCEDURE FUGAZZETA.VerHabitacionesDeEstadia
 
+IF OBJECT_ID('FUGAZZETA.RealizarEgreso') IS NOT NULL
+DROP PROCEDURE FUGAZZETA.RealizarEgreso
+
 --Triggers
 IF OBJECT_ID('FUGAZZETA.TR_MovimientosHotel_A_I') IS NOT NULL
 DROP TRIGGER FUGAZZETA.TR_MovimientosHotel_A_I
@@ -960,5 +963,13 @@ BEGIN
 END
 GO
 
+CREATE PROC FUGAZZETA.RealizarEgreso (@Id int, @Ahora datetime, @Usuario nvarchar) AS
+BEGIN
+	UPDATE FUGAZZETA.Reservas
+	SET Id_EstadoReserva = 5, Fecha_Egreso = CAST(@Ahora as DATE)
+	WHERE Id_Reserva = @Id
+	INSERT INTO FUGAZZETA.MovimientosReserva
+	VALUES (@Id,'E',@Usuario,@Ahora,'Egreso del hotel')
+END
 
 --- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.
