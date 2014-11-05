@@ -158,6 +158,13 @@ DROP PROCEDURE FUGAZZETA.GenerarReserva
 
 IF OBJECT_ID('FUGAZZETA.Migrar_ItemsHospedaje') IS NOT NULL
 DROP PROCEDURE FUGAZZETA.Migrar_ItemsHospedaje
+
+IF OBJECT_ID('FUGAZZETA.ValidarEstadia') IS NOT NULL
+DROP PROCEDURE FUGAZZETA.ValidarEstadia
+
+IF OBJECT_ID('FUGAZZETA.VerHabitacionesDeEstadia') IS NOT NULL
+DROP PROCEDURE FUGAZZETA.VerHabitacionesDeEstadia
+
 --Triggers
 IF OBJECT_ID('FUGAZZETA.TR_MovimientosHotel_A_I') IS NOT NULL
 DROP TRIGGER FUGAZZETA.TR_MovimientosHotel_A_I
@@ -925,7 +932,6 @@ BEGIN
 	H.Num_Habitacion as [Habitacion],
 	TH.Descripcion as [Tipo],
 	FUGAZZETA.CostoHabitacion(H.Id_Hotel,TH.CantPersonas,R.Id_Regimen) as [Costo por día],
-	DATEDIFF (D,R.Fecha_Inicio,@Egreso) AS [Cantidad de Dias],
 	FUGAZZETA.CostoHabitacion(H.Id_Hotel,TH.CantPersonas,R.Id_Regimen) * DATEDIFF(d,R.Fecha_Inicio,@Egreso) as [Subtotal]
 	FROM FUGAZZETA.[Habitaciones x Reservas] HR, FUGAZZETA.Habitaciones H,
 	FUGAZZETA.TiposHabitacion TH, FUGAZZETA.Reservas R
@@ -938,13 +944,21 @@ BEGIN
 END
 GO
 
-CREATE PROC FUGAZZETA.ValidarEstadia (@id int) AS 
+CREATE PROC FUGAZZETA.ValidarEstadia (@id int, @Fecha date) AS 
 BEGIN
 	IF @id NOT IN(SELECT Id_Reserva FROM FUGAZZETA.Reservas WHERE Id_EstadoReserva = 6 
 				AND Fecha_Egreso IS NULL)
 	RAISERROR('No se encontró la estadía.',16,1)
-	ELSE SELECT Id_Reserva,Id_Regimen FROM FUGAZZETA.Reservas WHERE Id_Reserva = @id
+	ELSE
+	BEGIN
+		DECLARE @LIMITE date
+		SET @LIMITE = (SELECT Fecha_Fin_Reserva FROM FUGAZZETA.Reservas WHERE Id_Reserva = @id)
+		IF @fecha > @LIMITE
+		RAISERROR('No se puede realizar el Check out de esta reserva. Ya pasó la fecha límite de reserva.',16,1) 
+		ELSE (SELECT Id_Reserva,Id_Regimen,Fecha_Inicio FROM FUGAZZETA.Reservas WHERE Id_Reserva = @id)
+	END
 END
 GO
+
 
 --- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.

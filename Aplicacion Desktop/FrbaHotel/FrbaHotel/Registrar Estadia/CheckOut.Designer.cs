@@ -42,6 +42,8 @@
             this.LabelAllinc = new System.Windows.Forms.Label();
             this.GroupHabitacion = new System.Windows.Forms.GroupBox();
             this.GridHabitacion = new System.Windows.Forms.DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
+            this.TxtCantDias = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.GridConsumibles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Cantidad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridCarrito)).BeginInit();
@@ -193,6 +195,8 @@
             // 
             // GroupHabitacion
             // 
+            this.GroupHabitacion.Controls.Add(this.TxtCantDias);
+            this.GroupHabitacion.Controls.Add(this.label2);
             this.GroupHabitacion.Controls.Add(this.GridHabitacion);
             this.GroupHabitacion.Enabled = false;
             this.GroupHabitacion.Location = new System.Drawing.Point(478, 46);
@@ -206,10 +210,30 @@
             // 
             this.GridHabitacion.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.GridHabitacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GridHabitacion.Location = new System.Drawing.Point(6, 36);
+            this.GridHabitacion.Location = new System.Drawing.Point(6, 48);
             this.GridHabitacion.Name = "GridHabitacion";
-            this.GridHabitacion.Size = new System.Drawing.Size(460, 150);
+            this.GridHabitacion.Size = new System.Drawing.Size(460, 138);
             this.GridHabitacion.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(7, 30);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(95, 15);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Días de estadía:";
+            // 
+            // TxtCantDias
+            // 
+            this.TxtCantDias.AutoSize = true;
+            this.TxtCantDias.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtCantDias.Location = new System.Drawing.Point(108, 30);
+            this.TxtCantDias.Name = "TxtCantDias";
+            this.TxtCantDias.Size = new System.Drawing.Size(15, 15);
+            this.TxtCantDias.TabIndex = 2;
+            this.TxtCantDias.Text = "C";
             // 
             // CheckOut
             // 
@@ -230,6 +254,7 @@
             this.GroupConsumibles.ResumeLayout(false);
             this.GroupConsumibles.PerformLayout();
             this.GroupHabitacion.ResumeLayout(false);
+            this.GroupHabitacion.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GridHabitacion)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -252,5 +277,7 @@
         private System.Windows.Forms.GroupBox GroupHabitacion;
         private System.Windows.Forms.DataGridView GridHabitacion;
         private System.Windows.Forms.Label LabelAllinc;
+        private System.Windows.Forms.Label TxtCantDias;
+        private System.Windows.Forms.Label label2;
     }
 }

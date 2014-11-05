@@ -15,6 +15,7 @@ namespace FrbaHotel.Registrar_Estadia
         MenuPrincipal parent;
         int idReserva;
         int idRegimen;
+        int cantDias;
         TableCarrito carrito;
 
         public CheckOut(MenuPrincipal mp)
@@ -49,14 +50,16 @@ namespace FrbaHotel.Registrar_Estadia
                 bd.obtenerConexion();
                 try
                 {
-                   SqlDataReader dr = bd.lee("EXEC FUGAZZETA.ValidarEstadia " + idReserva);
+                   SqlDataReader dr = bd.lee("EXEC FUGAZZETA.ValidarEstadia " + idReserva + ", '" + new DatePrograma(Program.hoy()).ToString() + "'");
                     while (dr.Read())
                     {
                         idRegimen = Int32.Parse(dr[1].ToString());
+                        cantDias = Convert.ToInt16((Program.hoy() - Convert.ToDateTime(dr[2].ToString())).TotalDays);
                     }
                     dr.Close();
                     GroupConsumibles.Enabled = true;
                     GroupHabitacion.Enabled = true;
+                    TxtCantDias.Text = cantDias.ToString();
                     if (idRegimen == 2) LabelAllinc.Visible = true;
                     cargarHabitaciones();
                 }
