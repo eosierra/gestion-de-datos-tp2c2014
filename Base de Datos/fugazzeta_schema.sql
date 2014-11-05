@@ -972,5 +972,15 @@ BEGIN
 	INSERT INTO FUGAZZETA.MovimientosReserva
 	VALUES (@Id,'E',@Usuario,@Ahora,'Egreso del hotel')
 END
+GO
 
+CREATE PROC FUGAZZETA.GenerarFactura (@Hotel int, @Hoy date, @Total numeric, @Cliente int) AS
+BEGIN
+	INSERT INTO FUGAZZETA.Facturas VALUES (@Hotel, @Hoy, @Total,@Cliente)
+	
+	SELECT NroFactura FROM FUGAZZETA.Facturas
+	WHERE Id_Hotel = @Hotel and Fecha = @Hoy and Total = @Total and Id_Cliente = @Cliente
+END
+GO
+ 
 --- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.

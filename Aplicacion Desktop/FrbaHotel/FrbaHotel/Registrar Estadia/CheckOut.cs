@@ -270,9 +270,13 @@ namespace FrbaHotel.Registrar_Estadia
             try
             {
                 validarAbono();
+                int nroFactura = 0;
+                SqlDataReader dr = bd2.lee("EXEC FUGAZZETA.GenerarFactura");
+                while (dr.Read()) nroFactura = Int32.Parse(dr[0].ToString());
+                dr.Close();
                 bd2.ejecutar("EXEC FUGAZZETA.RealizarEgreso " + idReserva + ", '" + Program.ahora().ToString() + "'");
-
                 MessageBox.Show("Egreso realizado con éxito.");
+                string query = "INSERT INTO FUGAZZETA.Items_Hospedaje values (" + nroFactura + ", 1, " + cantDiasEstadia + ", " + LblSubEstadia.Text + ")";
             }
             catch (Exception ex)
             {
