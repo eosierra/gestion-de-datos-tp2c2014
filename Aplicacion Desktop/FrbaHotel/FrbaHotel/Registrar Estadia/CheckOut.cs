@@ -33,6 +33,52 @@ namespace FrbaHotel.Registrar_Estadia
         {
             cargarGrilla(GridConsumibles, todos);
             GridCarrito.DataSource = carrito.tabla;
+            BD bd2 = new BD();
+            bd2.obtenerConexion();
+            loadBancos();
+            loadTarjetas();
+        }
+
+        private void loadBancos()
+        {
+            BD bd2 = new BD();
+            bd2.obtenerConexion();
+            CbBanco.Items.Clear();
+            try
+            {
+                string comando = "SELECT * FROM FUGAZZETA.Bancos";
+                SqlDataReader respuesta = bd2.lee(comando);
+                while (respuesta.Read())
+                {
+                    CbBanco.Items.Add(new Banco(Int16.Parse(respuesta[0].ToString()),respuesta[1].ToString()));
+                }
+                respuesta.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al completar: " + ex.Message);
+            }
+        }
+
+        private void loadTarjetas()
+        {
+            BD bd2 = new BD();
+            bd2.obtenerConexion();
+            CbTipoPago.Items.Clear();
+            try
+            {
+                string comando = "SELECT * FROM FUGAZZETA.TiposPago WHERE Descripcion != 'Efectivo'";
+                SqlDataReader respuesta = bd2.lee(comando);
+                while (respuesta.Read())
+                {
+                    CbTipoPago.Items.Add(new TipoPago(respuesta[0].ToString(), respuesta[1].ToString()));
+                }
+                respuesta.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al completar: " + ex.Message);
+            }
         }
 
         private void VerCO_Click(object sender, EventArgs e)
@@ -184,6 +230,12 @@ namespace FrbaHotel.Registrar_Estadia
         private void mostrarTotalTotal()
         {
             LblTotal.Text = (Int32.Parse(LblSubConsumibles.Text) + Int32.Parse(LblSubEstadia.Text)).ToString();
+        }
+
+        private void OpOtro_CheckedChanged(object sender, EventArgs e)
+        {
+            if (OpOtro.Checked) GroupAbono.Enabled = true;
+            else GroupAbono.Enabled = false;
         }
 
     }
