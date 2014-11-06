@@ -106,6 +106,11 @@ namespace FrbaHotel
             abrir(new Registrar_Estadia.CheckOut(this));
         }
 
+        private void estadísticasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            abrir(new Listado_Estadistico.Estadistica());
+        }
+
         #endregion
 
         ITraeBusqueda interfaz;

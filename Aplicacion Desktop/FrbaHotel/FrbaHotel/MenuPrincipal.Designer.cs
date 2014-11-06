@@ -50,9 +50,10 @@
             this.realizarNuevaReservaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cancelarReservaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hotelesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modificarHotelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.estadísticasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,7 +80,8 @@
             this.helpToolStripMenuItem,
             this.rolesToolStripMenuItem,
             this.reservasToolStripMenuItem,
-            this.hotelesToolStripMenuItem});
+            this.hotelesToolStripMenuItem,
+            this.estadísticasToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1009, 24);
@@ -237,6 +239,13 @@
             this.checkInToolStripMenuItem.Text = "Check In";
             this.checkInToolStripMenuItem.Click += new System.EventHandler(this.checkInToolStripMenuItem_Click);
             // 
+            // checkOutToolStripMenuItem
+            // 
+            this.checkOutToolStripMenuItem.Name = "checkOutToolStripMenuItem";
+            this.checkOutToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.checkOutToolStripMenuItem.Text = "Check Out";
+            this.checkOutToolStripMenuItem.Click += new System.EventHandler(this.checkOutToolStripMenuItem_Click);
+            // 
             // hotelesToolStripMenuItem
             // 
             this.hotelesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -252,12 +261,12 @@
             this.modificarHotelToolStripMenuItem.Text = "Modificar Hotel";
             this.modificarHotelToolStripMenuItem.Click += new System.EventHandler(this.modificarHotelToolStripMenuItem_Click);
             // 
-            // checkOutToolStripMenuItem
+            // estadísticasToolStripMenuItem
             // 
-            this.checkOutToolStripMenuItem.Name = "checkOutToolStripMenuItem";
-            this.checkOutToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.checkOutToolStripMenuItem.Text = "Check Out";
-            this.checkOutToolStripMenuItem.Click += new System.EventHandler(this.checkOutToolStripMenuItem_Click);
+            this.estadísticasToolStripMenuItem.Name = "estadísticasToolStripMenuItem";
+            this.estadísticasToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+            this.estadísticasToolStripMenuItem.Text = "Estadísticas";
+            this.estadísticasToolStripMenuItem.Click += new System.EventHandler(this.estadísticasToolStripMenuItem_Click);
             // 
             // MenuPrincipal
             // 
@@ -307,5 +316,6 @@
         private System.Windows.Forms.ToolStripMenuItem checkInToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem modificarRolToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem checkOutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem estadísticasToolStripMenuItem;
     }
 }

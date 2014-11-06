@@ -163,11 +163,11 @@
       <DependentUpon>ModificarReserva.cs</DependentUpon>
     </Compile>
     <Compile Include="ITraeBusqueda.cs" />
-    <Compile Include="Listado Estadistico\Form1.cs">
+    <Compile Include="Listado Estadistico\Estadistica.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Listado Estadistico\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Listado Estadistico\Estadistica.Designer.cs">
+      <DependentUpon>Estadistica.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\FrmLogin.cs">
       <SubType>Form</SubType>
@@ -235,6 +235,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Modificar Reserva\ModificarReserva.resx">
       <DependentUpon>ModificarReserva.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listado Estadistico\Estadistica.resx">
+      <DependentUpon>Estadistica.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
