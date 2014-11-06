@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using FrbaHotel.ABM_de_Rol;
+using FrbaHotel.ABM_de_Hotel;
 using System.Data.SqlClient;
 
 namespace FrbaHotel.ABM_de_Usuario
@@ -199,8 +200,13 @@ namespace FrbaHotel.ABM_de_Usuario
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            
         }
 
+        private void CmdAddHotel_Click(object sender, EventArgs e)
+        {
+            new BuscarHotel(this).ShowDialog();
+        }
+        
     }
 }
