@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.GridResults = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.CbListado = new System.Windows.Forms.ComboBox();
             this.CbPeriodo = new System.Windows.Forms.ComboBox();
@@ -36,17 +36,25 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.CargandoText = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GridResults)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // GridResults
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(23, 127);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(564, 183);
-            this.dataGridView1.TabIndex = 0;
+            this.GridResults.AllowUserToAddRows = false;
+            this.GridResults.AllowUserToDeleteRows = false;
+            this.GridResults.AllowUserToResizeColumns = false;
+            this.GridResults.AllowUserToResizeRows = false;
+            this.GridResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.GridResults.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
+            this.GridResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.GridResults.Location = new System.Drawing.Point(12, 142);
+            this.GridResults.MultiSelect = false;
+            this.GridResults.Name = "GridResults";
+            this.GridResults.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.GridResults.Size = new System.Drawing.Size(603, 183);
+            this.GridResults.TabIndex = 0;
             // 
             // groupBox1
             // 
@@ -88,9 +96,9 @@
             // 
             // VerDatos
             // 
-            this.VerDatos.Location = new System.Drawing.Point(466, 37);
+            this.VerDatos.Location = new System.Drawing.Point(463, 28);
             this.VerDatos.Name = "VerDatos";
-            this.VerDatos.Size = new System.Drawing.Size(123, 39);
+            this.VerDatos.Size = new System.Drawing.Size(123, 48);
             this.VerDatos.TabIndex = 3;
             this.VerDatos.Text = "VER INFORME";
             this.VerDatos.UseVisualStyleBackColor = true;
@@ -117,7 +125,7 @@
             // CargandoText
             // 
             this.CargandoText.AutoSize = true;
-            this.CargandoText.Location = new System.Drawing.Point(23, 108);
+            this.CargandoText.Location = new System.Drawing.Point(12, 123);
             this.CargandoText.Name = "CargandoText";
             this.CargandoText.Size = new System.Drawing.Size(113, 13);
             this.CargandoText.TabIndex = 2;
@@ -131,10 +139,11 @@
             this.ClientSize = new System.Drawing.Size(630, 337);
             this.Controls.Add(this.CargandoText);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.GridResults);
+            this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Name = "Estadistica";
             this.Text = "Estadísticas";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GridResults)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -144,7 +153,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView GridResults;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox CbPeriodo;
         private System.Windows.Forms.ComboBox CbListado;
