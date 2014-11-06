@@ -16,8 +16,18 @@ namespace FrbaHotel.Listado_Estadistico
         public Estadistica()
         {
             InitializeComponent();
-            CbPeriodo.Items.Add(new Periodo(1, 3, 2013));
-            CbPeriodo.Items.Add(new Periodo(4, 6, 2013));
+            cargarPeriodos(2013,2016);
+        }
+
+        private void cargarPeriodos(int inicio, int fin)
+        {
+            for (int año = inicio; año <= fin; año++)
+            {
+                for (int mes = 1; mes < 13; mes += 3)
+                {
+                    CbPeriodo.Items.Add(new Periodo(mes, mes + 2, año));
+                }
+            }
         }
 
         private void VerDatos_Click(object sender, EventArgs e)
