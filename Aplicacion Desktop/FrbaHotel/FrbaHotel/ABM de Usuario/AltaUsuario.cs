@@ -108,7 +108,7 @@ namespace FrbaHotel.ABM_de_Usuario
         #region Botones
         private void AgregarRol_Click_1(object sender, EventArgs e)
         {
-            new BuscarRol(this).ShowDialog();
+            new BuscarRol(this,'S').ShowDialog();
         }
 
         private void QuitarRol_Click(object sender, EventArgs e)

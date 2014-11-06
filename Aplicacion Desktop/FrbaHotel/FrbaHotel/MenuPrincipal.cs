@@ -63,12 +63,12 @@ namespace FrbaHotel
 
         private void nuevoRolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            abrir(new ABM_de_Rol.AltaRol());
+            abrir(new ABM_de_Rol.AltaRol('A'));
         }
 
         private void modificarRolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            abrir(new ABM_de_Rol.BuscarRol(null));
+            abrir(new ABM_de_Rol.BuscarRol(null,'M'));
         }
 
         private void modificarUsuarioToolStripMenuItem_Click(object sender, EventArgs e)

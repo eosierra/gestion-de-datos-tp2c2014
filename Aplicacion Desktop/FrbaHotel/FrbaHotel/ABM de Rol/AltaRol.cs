@@ -9,11 +9,12 @@ using System.Windows.Forms;
 
 namespace FrbaHotel.ABM_de_Rol
 {
-    public partial class AltaRol : Form,ITraeBusqueda
+    public partial class AltaRol : Buscador,ITraeBusqueda
     {
-        public AltaRol()
+        public AltaRol(char fun)
         {
             InitializeComponent();
+            funcion = fun;
         }
 
         #region Botones
@@ -37,17 +38,24 @@ namespace FrbaHotel.ABM_de_Rol
 
         private void Guardar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                validaRol();
-                validaFunciones();
-                agregaRol();
-                MessageBox.Show("Rol agregado con éxito");
-                this.Close();
+            if (funcion=='A'){
+
+                try
+                {
+                    validaRol();
+                    validaFunciones();
+                    agregaRol();
+                    MessageBox.Show("Rol agregado con éxito");
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+            if (funcion=='M'){
+                this.Close();
+                //TODO Agregar comportamiento de Modificacion acá.... Falta cargarle los datos
             }
         }
         #endregion

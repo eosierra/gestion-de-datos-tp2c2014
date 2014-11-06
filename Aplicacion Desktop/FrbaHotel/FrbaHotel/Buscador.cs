@@ -10,6 +10,7 @@ namespace FrbaHotel
 {
     public class Buscador : Form
     {
+        public char funcion;
         public ITraeBusqueda dondeVuelve;
         public BD bd = new BD();
         public string todos;
