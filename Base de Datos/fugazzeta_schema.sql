@@ -799,6 +799,38 @@ AS BEGIN
 END
 GO
 
+CREATE FUNCTION FUGAZZETA.PuntosFactura(@Nf int) RETURNS INT AS
+BEGIN 
+DECLARE @PUNTOS INT
+SET @PUNTOS = 0
+DECLARE @PuntosQueOtorga int
+DECLARE mi_cursor CURSOR FOR (SELECT Monto FROM FUGAZZETA.Items_Consumible WHERE NroFactura = @Nf)
+DECLARE @Monto numeric(7,2)
+OPEN mi_cursor FETCH NEXT FROM mi_cursor INTO @Monto
+WHILE  @@FETCH_STATUS = 0
+	BEGIN	
+		SET @PuntosQueOtorga = @Monto / 5
+		SET @Puntos += @PuntosQueOtorga
+		FETCH NEXT FROM mi_cursor INTO @Monto
+	END
+CLOSE mi_cursor
+DEALLOCATE mi_cursor
+
+DECLARE mi_cursor2 CURSOR FOR (SELECT Monto FROM FUGAZZETA.Items_Hospedaje WHERE NroFactura = @Nf)
+DECLARE @Monto2 numeric(7,2)
+OPEN mi_cursor2 FETCH NEXT FROM mi_cursor2 INTO @Monto2
+WHILE  @@FETCH_STATUS = 0
+	BEGIN	
+		SET @PuntosQueOtorga = @Monto2 / 10
+		SET @Puntos += @PuntosQueOtorga
+		FETCH NEXT FROM mi_cursor2 INTO @Monto2
+	END
+CLOSE mi_cursor2
+DEALLOCATE mi_cursor2
+
+RETURN @Puntos
+END
+GO
 
 ----------------------------/* PROCEDIMIENTOS */--------------------------------------------
 --------------------------------------------------------------------------------------------
