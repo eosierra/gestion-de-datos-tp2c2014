@@ -137,7 +137,6 @@
             this.GrupoDatos.Controls.Add(this.label4);
             this.GrupoDatos.Controls.Add(this.Nombre);
             this.GrupoDatos.Controls.Add(this.label5);
-            this.GrupoDatos.Enabled = false;
             this.GrupoDatos.Location = new System.Drawing.Point(427, 12);
             this.GrupoDatos.Name = "GrupoDatos";
             this.GrupoDatos.Size = new System.Drawing.Size(373, 344);
@@ -162,6 +161,7 @@
             this.CmdAddHotel.TabIndex = 26;
             this.CmdAddHotel.Text = "Agregar";
             this.CmdAddHotel.UseVisualStyleBackColor = true;
+            this.CmdAddHotel.Click += new System.EventHandler(this.CmdAddHotel_Click);
             // 
             // ListHoteles
             // 

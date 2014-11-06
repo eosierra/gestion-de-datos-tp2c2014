@@ -34,5 +34,10 @@ namespace FrbaHotel.ABM_de_Usuario
         {
             this.Close();
         }
+
+        private void Seleccionar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
