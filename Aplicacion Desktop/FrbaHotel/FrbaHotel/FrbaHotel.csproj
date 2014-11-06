@@ -169,6 +169,7 @@
     <Compile Include="Listado Estadistico\Estadistica.Designer.cs">
       <DependentUpon>Estadistica.cs</DependentUpon>
     </Compile>
+    <Compile Include="Listado Estadistico\Periodo.cs" />
     <Compile Include="Login\FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
