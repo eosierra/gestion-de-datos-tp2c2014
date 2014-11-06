@@ -18,7 +18,6 @@ namespace FrbaHotel.Registrar_Estadia
         int cantDiasEstadia;
         int cantDiasReserva;
         TableCarrito carrito;
-        char abono;
 
         public CheckOut(MenuPrincipal mp)
         {
@@ -38,6 +37,10 @@ namespace FrbaHotel.Registrar_Estadia
             bd2.obtenerConexion();
             loadBancos();
             loadTarjetas();
+            SqlDataReader dr = bd2.lee("SELECT Id_TipoPago FROM FUGAZZETA.TiposPago WHERE Descripcion = 'Efectivo'");
+            while (dr.Read()) OpEfectivo.Tag = dr[0].ToString();
+            dr.Close();
+            bd2.cerrar();
         }
 
         private void loadBancos()
@@ -128,7 +131,6 @@ namespace FrbaHotel.Registrar_Estadia
                 }
             }
         }
-
 
         #region ITraeBusqueda Members
 
@@ -275,8 +277,20 @@ namespace FrbaHotel.Registrar_Estadia
                 while (dr.Read()) nroFactura = Int32.Parse(dr[0].ToString());
                 dr.Close();
                 bd2.ejecutar("EXEC FUGAZZETA.RealizarEgreso " + idReserva + ", '" + Program.ahora().ToString() + "'");
-                MessageBox.Show("Egreso realizado con éxito.");
+                
+                //Items Hospedaje
                 string query = "INSERT INTO FUGAZZETA.Items_Hospedaje values (" + nroFactura + ", 1, " + cantDiasEstadia + ", " + LblSubEstadia.Text + ")";
+                bd2.ejecutar(query);
+                query = "INSERT INTO FUGAZZETA.Items_Hospedaje values (" + nroFactura + ", 0, " + (cantDiasReserva - cantDiasEstadia).ToString() + ", 0)";
+                bd2.ejecutar(query);
+                
+                //Items Consumible
+
+
+                //Abono
+                registrarAbono(nroFactura);
+
+                MessageBox.Show("Egreso realizado con éxito.");
             }
             catch (Exception ex)
             {
@@ -286,5 +300,32 @@ namespace FrbaHotel.Registrar_Estadia
 
         }
 
+        private void registrarAbono(int nf)
+        {
+            string tipoPago;
+            string banco;
+            string tipoCuenta;
+            string nroCuenta;
+
+            if (OpEfectivo.Checked)
+            {
+                tipoPago = OpEfectivo.Tag.ToString();
+                banco = "NULL";
+                tipoCuenta = "NULL";
+                nroCuenta = "NULL";
+            }
+            else
+            {
+                tipoPago = (CbTipoPago.SelectedItem as TipoPago).id.ToString();
+                banco = (CbBanco.SelectedItem as Banco).id.ToString();
+                nroCuenta = TxtNCuenta.Text;
+                if (OpCA.Checked) tipoCuenta = OpCA.Tag.ToString();
+                else tipoCuenta = OpCC.Tag.ToString();
+            }
+            BD db = new BD();
+            db.obtenerConexion();
+            string query = "INSERT INTO FUGAZZETA.AbonoFacturas values (" + nf + ", " + tipoPago + ", " + banco + ", " + tipoCuenta + ", " + nroCuenta + ")";
+            db.ejecutar(query);
+        }
     }
 }
