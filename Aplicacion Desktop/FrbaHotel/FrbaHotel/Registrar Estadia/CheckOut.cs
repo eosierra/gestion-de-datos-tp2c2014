@@ -329,7 +329,7 @@ namespace FrbaHotel.Registrar_Estadia
             }
             BD db = new BD();
             db.obtenerConexion();
-            string query = "INSERT INTO FUGAZZETA.AbonoFacturas values (" + nf + ", " + tipoPago + ", " + banco + ", " + tipoCuenta + ", " + nroCuenta + ")";
+            string query = "INSERT INTO FUGAZZETA.AbonoFacturas values (" + nf + ", " + tipoPago + ", " + banco + ", '" + tipoCuenta + "', " + nroCuenta + ")";
             db.ejecutar(query);
         }
 
