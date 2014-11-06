@@ -89,7 +89,22 @@ namespace FrbaHotel.Registrar_Estadia
                 return tot;
             }
 
-        public double precioP(Consumible con, int cant, int regimen)
+            public int CantidadConsumibles()
+            {
+                return tabla.Rows.Count;
+            }
+
+            public int getID(string con)
+            {
+                return consumibles.Find(c => c.nombre == con).id;
+            }
+
+            public double getPrecio(string con)
+            {
+                return consumibles.Find(c => c.nombre == con).precio;
+            }
+
+            public double precioP(Consumible con, int cant, int regimen)
         {
             if (regimen == 2) return 0;
             else return con.precio * cant;

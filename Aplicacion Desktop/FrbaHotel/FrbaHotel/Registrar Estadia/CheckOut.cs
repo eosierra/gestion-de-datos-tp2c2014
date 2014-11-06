@@ -285,7 +285,7 @@ namespace FrbaHotel.Registrar_Estadia
                 bd2.ejecutar(query);
                 
                 //Items Consumible
-
+                registrarConsumibles(nroFactura);
 
                 //Abono
                 registrarAbono(nroFactura);
@@ -326,6 +326,21 @@ namespace FrbaHotel.Registrar_Estadia
             db.obtenerConexion();
             string query = "INSERT INTO FUGAZZETA.AbonoFacturas values (" + nf + ", " + tipoPago + ", " + banco + ", " + tipoCuenta + ", " + nroCuenta + ")";
             db.ejecutar(query);
+        }
+
+        private void registrarConsumibles(int nf)
+        {
+            BD db = new BD();
+            db.obtenerConexion();
+            for (int i = 0; i < carrito.CantidadConsumibles(); i++)
+            {
+                int idCon = carrito.getID(GridCarrito.Rows[i].Cells[1].Value.ToString());
+                int cantidad = Int16.Parse(GridCarrito.Rows[i].Cells[2].Value.ToString());
+                double monto = carrito.getPrecio(GridCarrito.Rows[i].Cells[1].Value.ToString());
+                string query = "INSERT INTO FUGAZZETA.Items_Consumible values (" + nf + ", " + idCon + ", " + cantidad + ", "+ monto + ")";
+                db.ejecutar(query);
+            }
+            db.cerrar();
         }
     }
 }
