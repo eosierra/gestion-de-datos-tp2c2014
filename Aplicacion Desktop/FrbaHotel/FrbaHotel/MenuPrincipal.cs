@@ -86,6 +86,11 @@ namespace FrbaHotel
             abrir(new Generar_Modificar_Reserva.GenerarReserva(this));
         }
 
+        private void editarReservaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            abrir(new Generar_Modificar_Reserva.ModificarReserva(this));
+        }
+
         private void modificarHotelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             abrir(new ABM_de_Hotel.ModificarHotel());
@@ -114,6 +119,7 @@ namespace FrbaHotel
         #endregion
 
         ITraeBusqueda interfaz;
+
 
 
         //esto habrá que sacarlo después
