@@ -26,7 +26,7 @@ namespace FrbaHotel.ABM_de_Hotel
             {
                 BD bd = new BD();
                 bd.obtenerConexion();
-                string parametros = TxtId.Text + ", '" + new DatePrograma(Program.hoy()).ToString() + "', '" + new DatePrograma(HastaPick.Value).ToString() + "'"; 
+                string parametros = TxtId.Text + ", '" + Program.hoy().ToShortDateString() + "', '" + HastaPick.Value.ToShortDateString() + "'"; 
                 try
                 {
                     string query = "EXEC FUGAZZETA.OcupacionEnHotelEnPeriodo " + parametros;

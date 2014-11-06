@@ -959,15 +959,15 @@ BEGIN
 		SET @LIMITE = (SELECT Fecha_Fin_Reserva FROM FUGAZZETA.Reservas WHERE Id_Reserva = @id)
 		IF @fecha > @LIMITE
 		RAISERROR('No se puede realizar el Check out de esta reserva. Ya pasó la fecha límite de reserva.',16,1) 
-		ELSE (SELECT Id_Reserva,Id_Regimen,Fecha_Inicio,Fecha_Fin_Reserva FROM FUGAZZETA.Reservas WHERE Id_Reserva = @id)
+		ELSE (SELECT Id_Reserva,Id_Regimen,Fecha_Inicio,Fecha_Fin_Reserva, Id_Hotel, Id_Cliente FROM FUGAZZETA.Reservas WHERE Id_Reserva = @id)
 	END
 END
 GO
 
-CREATE PROC FUGAZZETA.RealizarEgreso (@Id int, @Ahora datetime, @Usuario nvarchar) AS
+CREATE PROC FUGAZZETA.RealizarEgreso (@Id int, @Ahora datetime, @Usuario nvarchar(30)) AS
 BEGIN
 	UPDATE FUGAZZETA.Reservas
-	SET Id_EstadoReserva = 5, Fecha_Egreso = CAST(@Ahora as DATE)
+	SET Fecha_Egreso = CAST(@Ahora as DATE)
 	WHERE Id_Reserva = @Id
 	INSERT INTO FUGAZZETA.MovimientosReserva
 	VALUES (@Id,'E',@Usuario,@Ahora,'Egreso del hotel')

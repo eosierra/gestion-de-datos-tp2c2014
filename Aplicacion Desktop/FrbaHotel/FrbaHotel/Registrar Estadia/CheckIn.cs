@@ -56,7 +56,7 @@ namespace FrbaHotel.Registrar_Estadia
                         while (dr.Read())
                         {
                             string fechaKey = dr[4].ToString().Substring(0, 10);
-                            if (fechaKey != new DatePrograma(Program.hoy()).ToString())
+                            if (fechaKey != Program.hoy().ToShortDateString())
                             {
                                 dr.Close();
                                 throw new Exception("No se puede ingresar con ese código de reserva. Corresponde al día " + fechaKey + ".");

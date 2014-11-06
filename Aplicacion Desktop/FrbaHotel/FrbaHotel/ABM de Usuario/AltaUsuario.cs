@@ -90,7 +90,7 @@ namespace FrbaHotel.ABM_de_Usuario
 
             BD bd = new BD();
             bd.obtenerConexion();
-            string valores = "'" + TxtUser.Text + "',' " + TxtPass1.Text + "',' " + Nombre.Text + "',' " + Apellido.Text + "',' " + comboBox2.Text + "', '" + NroDoc.Text + "',' " + TxtMail.Text + "', '" + Telefono.Text + "',' " + Direc.Text + "',' " + NroDirec.Text + "',' " + (new DatePrograma(Calendario.Value)).ToString() +"','"+1 +"','"+0+ "'"; 
+            string valores = "'" + TxtUser.Text + "',' " + TxtPass1.Text + "',' " + Nombre.Text + "',' " + Apellido.Text + "',' " + comboBox2.Text + "', '" + NroDoc.Text + "',' " + TxtMail.Text + "', '" + Telefono.Text + "',' " + Direc.Text + "',' " + NroDirec.Text + "',' " + Calendario.Value.ToShortDateString() +"','"+1 +"','"+0+ "'"; 
             bd.insertar("Usuarios", valores);
 
 

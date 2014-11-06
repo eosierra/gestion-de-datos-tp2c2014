@@ -24,7 +24,7 @@ namespace FrbaHotel
         internal static DateTime ahora()
         {
             //Año, mes, dia, hora, minuto, segundo
-            return new DateTime(2014, 11, 16, 12, 00, 00);
+            return new DateTime(2014, 11, 19, 12, 00, 00);
         }
 
         internal static DateTime hoy()

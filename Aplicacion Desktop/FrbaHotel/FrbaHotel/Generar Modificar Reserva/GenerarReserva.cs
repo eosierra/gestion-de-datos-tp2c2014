@@ -64,7 +64,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             bd.obtenerConexion();
             int idRegimen = (ComboRegimen.SelectedItem as ABM_de_Regimen.Regimen).id;
             string usuario = menuP.usuarioActual;
-            string query = "EXEC FUGAZZETA.GenerarReserva " + idClienteActual + ", " + idHotelActual + ", '" + Program.ahora().ToString() + "', '" + new DatePrograma(DesdePick.Value).ToString() + "', '" + new DatePrograma(HastaPick.Value).ToString() + "', " + idRegimen + ", '" + usuario + "'";
+            string query = "EXEC FUGAZZETA.GenerarReserva " + idClienteActual + ", " + idHotelActual + ", '" + Program.ahora().ToString() + "', '" + DesdePick.Value.ToShortDateString() + "', '" + HastaPick.Value.ToShortDateString() + "', " + idRegimen + ", '" + usuario + "'";
             SqlDataReader reader = bd.lee(query);
             while (reader.Read())
             {
@@ -248,7 +248,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             {
                 idRegimen = (ComboRegimen.SelectedItem as ABM_de_Regimen.Regimen).id.ToString();
             }
-            DialogResult agregado = new BuscarHabitacionLibre(this,idHotelActual, new DatePrograma(DesdePick.Value).ToString(), new DatePrograma(HastaPick.Value).ToString(),idRegimen).ShowDialog();
+            DialogResult agregado = new BuscarHabitacionLibre(this,idHotelActual, DesdePick.Value.ToShortDateString(), HastaPick.Value.ToShortDateString(),idRegimen).ShowDialog();
             if (agregado == DialogResult.OK)
             {
                 validarOtrasHabitaciones();
@@ -267,7 +267,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 valida("Hoteles", "Id_Hotel", idHotelActual, "Este hotel no está habilitado por la cadena.");
                 BD bd = new BD();
                 bd.obtenerConexion();
-                string query = "EXEC FUGAZZETA.CancelarPorNoShow '" + new DatePrograma(Program.hoy()).ToString() + "', '" + menuP.usuarioActual + "'";
+                string query = "EXEC FUGAZZETA.CancelarPorNoShow '" + Program.hoy().ToShortDateString() + "', '" + menuP.usuarioActual + "'";
                 bd.ejecutar(query);
                 group3.Enabled = false;
                 groupHab.Enabled = true;
