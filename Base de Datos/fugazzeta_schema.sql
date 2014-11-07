@@ -1014,5 +1014,21 @@ BEGIN
 	WHERE Id_Hotel = @Hotel and Fecha = @Hoy and Total = @Total and Id_Cliente = @Cliente
 END
 GO
- 
+
+CREATE PROC FUGAZZETA.RealizarModificacion (@Reserva int, @Usuario nvarchar(30), @Ahora datetime, @Motivo nvarchar(140)) AS
+BEGIN
+	INSERT INTO FUGAZZETA.MovimientosReserva values (@Reserva,'M',@Usuario,@Ahora,@Motivo)
+	UPDATE FUGAZZETA.Reservas SET Id_EstadoReserva = 2 WHERE Id_Reserva = @Reserva
+END
+GO
+
+CREATE PROC FUGAZZETA.ActualizarReserva (@Reserva int, @Hotel int, @Inicio date, @Fin date, @Regimen int) AS
+BEGIN
+	UPDATE FUGAZZETA.Reservas
+	SET Id_Hotel = @Hotel,
+	Fecha_Inicio = @Inicio,
+	Fecha_Fin_Reserva = @Fin,
+	Id_Regimen = @Regimen WHERE Id_Reserva = @Reserva
+END
+go
 --- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.
