@@ -102,14 +102,14 @@ namespace FrbaHotel.ABM_de_Rol
                     CheckActivo.Checked = Convert.ToBoolean(dr["Estado"].ToString());
                 }
                 dr.Close();
-                
 
-                /*query = "SELECT H.Id_Hotel,H.Id_Regimen, R.Descripcion FROM FUGAZZETA.[Regimenes x Hotel] H, FUGAZZETA.Regimenes R where H.Id_Regimen = R.Id_Regimen AND Id_Hotel = " + TxtId.Text;
+
+                query = "SELECT FR.Id_Rol,FR.Id_Funcionalidad, F.Descripcion FROM FUGAZZETA.[Funcionalidades x Roles] FR, FUGAZZETA.Funcionalidades F where FR.Id_Funcionalidad = F.Id_Funcionalidad AND FR.Id_Rol = " + elId;
                 dr = bd.lee(query);
                 while (dr.Read())
                 {
-                    ListRegimenes.Items.Add(new Regimen(dr[1].ToString(), dr[2].ToString()));
-                }*/
+                    ListFunciones.Items.Add(new Funcionalidad(dr[1].ToString(), dr[2].ToString()));
+                }
                 bd.cerrar();
             }
         }
