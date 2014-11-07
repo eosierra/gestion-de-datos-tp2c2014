@@ -14,7 +14,7 @@ namespace FrbaHotel.ABM_de_Cliente
         public AltaCliente()
         {
             InitializeComponent();
-            CargarTipoDoc();
+            CargarTipoDocyNac();
         }
 
         private void CmdLimpiar_Click(object sender, EventArgs e)
@@ -38,11 +38,12 @@ namespace FrbaHotel.ABM_de_Cliente
             txt.Text = "";
         }
 
-        private void CargarTipoDoc()
+        private void CargarTipoDocyNac()
         {
             BD bd = new BD();
             bd.obtenerConexion();
             bd.rellenarDesde("Descripcion", "TiposDoc", TipoDoc);
+            bd.rellenarDesde("Nombre", "Paises", ComboNac);
         }
     }
 }
