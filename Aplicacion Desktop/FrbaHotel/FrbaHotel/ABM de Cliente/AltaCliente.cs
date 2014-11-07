@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace FrbaHotel.ABM_de_Cliente
 {
@@ -14,7 +15,7 @@ namespace FrbaHotel.ABM_de_Cliente
         public AltaCliente()
         {
             InitializeComponent();
-            CargarTipoDocyNac();
+            CargarTipoDocNacPaises();
         }
 
         private void CmdLimpiar_Click(object sender, EventArgs e)
@@ -33,11 +34,14 @@ namespace FrbaHotel.ABM_de_Cliente
             ComboPais.SelectedIndex = 0;
         }
 
-        private void CmdGuardar_Click(object sender, EventArgs e) {
+        private void CmdGuardar_Click(object sender, EventArgs e)
+        {
             BD bd = new BD();
             bd.obtenerConexion();
-          //  string valores = "'" + TxtNombre.Text + "','" + TxtApellido + "','" + TipoDoc.Text + "','" + TxtNroDoc.Text + "','" + FechaPick.Text + TxtMail.Text + "','" +TxtTelefono.Text+"','"+TxtCalle.Text+"','"+ textBox1.Text+"','"
-                bd.insertar("Clientes", valores);
+            validarNroDoc();
+
+            //  string valores = "'" + TxtNombre.Text + "','" + TxtApellido + "','" + TipoDoc.Text + "','" + TxtNroDoc.Text + "','" + FechaPick.Text + TxtMail.Text + "','" +TxtTelefono.Text+"','"+TxtCalle.Text+"','"+ textBox1.Text+"','"
+            //bd.insertar("Clientes", valores);
 
         }
 
@@ -46,14 +50,38 @@ namespace FrbaHotel.ABM_de_Cliente
             txt.Text = "";
         }
 
-        private void CargarTipoDocyNac()
+        private void CargarTipoDocNacPaises()
         {
             BD bd = new BD();
             bd.obtenerConexion();
             bd.rellenarDesde("Descripcion", "TiposDoc", TipoDoc);
             bd.rellenarDesde("Nombre", "Paises", ComboNac);
+            bd.rellenarDesde("Nombre", "Paises", ComboPais);
         }
 
-        
+        private void validarNroDoc()
+        {
+            if (TxtNroDoc.Text != "")
+            {
+                BD bd = new BD();
+                SqlConnection conexion = bd.obtenerConexion();
+                string comando = "SELECT Nro_Doc FROM FUGAZZETA.Clientes WHERE Nro_Doc='" + TxtNroDoc.Text + "'";
+                DataTableReader tabla = new DataTableReader(bd.ejecutar(comando));
+                if (tabla.HasRows)
+                {
+                    MessageBox.Show("El usuario ya esta registrado");
+                }
+                else{
+                    MessageBox.Show("Se debe ingresar un numero de documento");
+                }
+
+
+            }
+
+
+
+
+
+        }
     }
 }
