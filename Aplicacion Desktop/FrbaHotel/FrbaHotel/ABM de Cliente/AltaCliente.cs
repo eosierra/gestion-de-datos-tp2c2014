@@ -29,9 +29,9 @@ namespace FrbaHotel.ABM_de_Cliente
             limpiar(TxtTelefono);
             FechaPick.SelectionStart = Program.hoy();
             FechaPick.SelectionEnd = Program.hoy();
-            TipoDoc.SelectedIndex = 0;
-            ComboNac.SelectedIndex = 0;
-            ComboPais.SelectedIndex = 0;
+            TipoDoc.Text="";
+            ComboNac.Text="";
+            ComboPais.Text="";
         }
 
         private void CmdGuardar_Click(object sender, EventArgs e)
