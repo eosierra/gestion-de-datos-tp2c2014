@@ -29,23 +29,24 @@
         private void InitializeComponent()
         {
             this.GroupReserva = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.TxtReserva = new System.Windows.Forms.TextBox();
-            this.MostrarDatos = new System.Windows.Forms.Button();
-            this.ActualizarDatos = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
             this.GroupHabitaciones = new System.Windows.Forms.GroupBox();
             this.CbRegimen = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.ListHabitaciones = new System.Windows.Forms.ListBox();
             this.QuitarHab = new System.Windows.Forms.Button();
             this.AddHabitacion = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.HotelClick = new System.Windows.Forms.Button();
             this.Hasta = new System.Windows.Forms.DateTimePicker();
+            this.label10 = new System.Windows.Forms.Label();
             this.Desde = new System.Windows.Forms.DateTimePicker();
             this.TxtHotel = new System.Windows.Forms.TextBox();
-            this.HotelClick = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.TxtReserva = new System.Windows.Forms.TextBox();
+            this.MostrarDatos = new System.Windows.Forms.Button();
+            this.ActualizarDatos = new System.Windows.Forms.Button();
+            this.CancelarTodo = new System.Windows.Forms.Button();
             this.GroupReserva.SuspendLayout();
             this.GroupHabitaciones.SuspendLayout();
             this.SuspendLayout();
@@ -68,41 +69,14 @@
             this.GroupReserva.TabStop = false;
             this.GroupReserva.Text = "Datos de la reserva";
             // 
-            // label1
+            // label8
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 14);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(124, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "CÓDIGO DE RESERVA:";
-            // 
-            // TxtReserva
-            // 
-            this.TxtReserva.Location = new System.Drawing.Point(157, 11);
-            this.TxtReserva.Name = "TxtReserva";
-            this.TxtReserva.Size = new System.Drawing.Size(114, 20);
-            this.TxtReserva.TabIndex = 2;
-            this.TxtReserva.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtReserva_KeyPress);
-            // 
-            // MostrarDatos
-            // 
-            this.MostrarDatos.Location = new System.Drawing.Point(286, 11);
-            this.MostrarDatos.Name = "MostrarDatos";
-            this.MostrarDatos.Size = new System.Drawing.Size(110, 20);
-            this.MostrarDatos.TabIndex = 3;
-            this.MostrarDatos.Text = "MOSTRAR DATOS";
-            this.MostrarDatos.UseVisualStyleBackColor = true;
-            this.MostrarDatos.Click += new System.EventHandler(this.Mostrar_Click);
-            // 
-            // ActualizarDatos
-            // 
-            this.ActualizarDatos.Location = new System.Drawing.Point(190, 237);
-            this.ActualizarDatos.Name = "ActualizarDatos";
-            this.ActualizarDatos.Size = new System.Drawing.Size(208, 40);
-            this.ActualizarDatos.TabIndex = 4;
-            this.ActualizarDatos.Text = "ACTUALIZAR DATOS DE LA RESERVA";
-            this.ActualizarDatos.UseVisualStyleBackColor = true;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(20, 99);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(38, 13);
+            this.label8.TabIndex = 25;
+            this.label8.Text = "Hasta:";
             // 
             // GroupHabitaciones
             // 
@@ -165,15 +139,7 @@
             this.AddHabitacion.TabIndex = 12;
             this.AddHabitacion.Text = "+";
             this.AddHabitacion.UseVisualStyleBackColor = true;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(20, 99);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(38, 13);
-            this.label8.TabIndex = 25;
-            this.label8.Text = "Hasta:";
+            this.AddHabitacion.Click += new System.EventHandler(this.AddHabitacion_Click);
             // 
             // label9
             // 
@@ -184,12 +150,31 @@
             this.label9.TabIndex = 24;
             this.label9.Text = "Desde:";
             // 
+            // HotelClick
+            // 
+            this.HotelClick.Location = new System.Drawing.Point(213, 33);
+            this.HotelClick.Name = "HotelClick";
+            this.HotelClick.Size = new System.Drawing.Size(73, 24);
+            this.HotelClick.TabIndex = 20;
+            this.HotelClick.Text = "Seleccionar";
+            this.HotelClick.UseVisualStyleBackColor = true;
+            this.HotelClick.Click += new System.EventHandler(this.HotelClick_Click);
+            // 
             // Hasta
             // 
             this.Hasta.Location = new System.Drawing.Point(73, 93);
             this.Hasta.Name = "Hasta";
             this.Hasta.Size = new System.Drawing.Size(213, 20);
             this.Hasta.TabIndex = 23;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(20, 39);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(35, 13);
+            this.label10.TabIndex = 19;
+            this.label10.Text = "Hotel:";
             // 
             // Desde
             // 
@@ -206,29 +191,59 @@
             this.TxtHotel.Size = new System.Drawing.Size(134, 20);
             this.TxtHotel.TabIndex = 21;
             // 
-            // HotelClick
+            // label1
             // 
-            this.HotelClick.Location = new System.Drawing.Point(213, 33);
-            this.HotelClick.Name = "HotelClick";
-            this.HotelClick.Size = new System.Drawing.Size(73, 24);
-            this.HotelClick.TabIndex = 20;
-            this.HotelClick.Text = "Seleccionar";
-            this.HotelClick.UseVisualStyleBackColor = true;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(28, 14);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(124, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "CÓDIGO DE RESERVA:";
             // 
-            // label10
+            // TxtReserva
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(20, 39);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(35, 13);
-            this.label10.TabIndex = 19;
-            this.label10.Text = "Hotel:";
+            this.TxtReserva.Location = new System.Drawing.Point(157, 11);
+            this.TxtReserva.Name = "TxtReserva";
+            this.TxtReserva.Size = new System.Drawing.Size(114, 20);
+            this.TxtReserva.TabIndex = 2;
+            this.TxtReserva.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtReserva_KeyPress);
+            // 
+            // MostrarDatos
+            // 
+            this.MostrarDatos.Location = new System.Drawing.Point(286, 11);
+            this.MostrarDatos.Name = "MostrarDatos";
+            this.MostrarDatos.Size = new System.Drawing.Size(110, 20);
+            this.MostrarDatos.TabIndex = 3;
+            this.MostrarDatos.Text = "MOSTRAR DATOS";
+            this.MostrarDatos.UseVisualStyleBackColor = true;
+            this.MostrarDatos.Click += new System.EventHandler(this.Mostrar_Click);
+            // 
+            // ActualizarDatos
+            // 
+            this.ActualizarDatos.Location = new System.Drawing.Point(190, 237);
+            this.ActualizarDatos.Name = "ActualizarDatos";
+            this.ActualizarDatos.Size = new System.Drawing.Size(208, 40);
+            this.ActualizarDatos.TabIndex = 4;
+            this.ActualizarDatos.Text = "ACTUALIZAR DATOS DE LA RESERVA";
+            this.ActualizarDatos.UseVisualStyleBackColor = true;
+            // 
+            // CancelarTodo
+            // 
+            this.CancelarTodo.Location = new System.Drawing.Point(460, 237);
+            this.CancelarTodo.Name = "CancelarTodo";
+            this.CancelarTodo.Size = new System.Drawing.Size(107, 40);
+            this.CancelarTodo.TabIndex = 5;
+            this.CancelarTodo.Text = "CANCELAR MODIFICACION";
+            this.CancelarTodo.UseVisualStyleBackColor = true;
+            this.CancelarTodo.Click += new System.EventHandler(this.Cancelar_Click);
             // 
             // ModificarReserva
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(579, 289);
+            this.ControlBox = false;
+            this.Controls.Add(this.CancelarTodo);
             this.Controls.Add(this.ActualizarDatos);
             this.Controls.Add(this.MostrarDatos);
             this.Controls.Add(this.TxtReserva);
@@ -265,5 +280,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.DateTimePicker Desde;
         private System.Windows.Forms.TextBox TxtHotel;
+        private System.Windows.Forms.Button CancelarTodo;
     }
 }
