@@ -20,6 +20,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         string idRegimen;
         int nBuscador;
         DataTable habitacionesALiberar;
+        bool cambioReserva;
 
         public ModificarReserva(MenuPrincipal parent)
         {
@@ -33,6 +34,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             habitacionesALiberar.Columns.Add("Reserva");
             habitacionesALiberar.Columns.Add("Hotel");
             habitacionesALiberar.Columns.Add("Numero");
+            cambioReserva = false;
         }
 
         private void Mostrar_Click(object sender, EventArgs e)
@@ -174,21 +176,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
 
         private void Cancelar_Click(object sender, EventArgs e)
         {
-            DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", this.Text, MessageBoxButtons.OKCancel);
-            if (confirma == DialogResult.OK)
-            {
-                BD bd = new BD();
-                bd.obtenerConexion();
-                for (int i = 0; i < habitacionesALiberar.Rows.Count; i++)
-                {
-                    string reserva = habitacionesALiberar.Rows[i][0].ToString();
-                    string hotel = habitacionesALiberar.Rows[i][1].ToString();
-                    string habitacion = habitacionesALiberar.Rows[i][2].ToString();
-                    bd.ejecutar("INSERT INTO FUGAZZETA.[Habitaciones x Reservas] values(" + reserva + ", " + hotel + ", " + habitacion + ")");
-                }
-                bd.cerrar();
-                this.Close();
-            }
+            this.Close();
         }
 
         private void VerHabitaciones_Click(object sender, EventArgs e)
@@ -197,7 +185,88 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             Desde.Enabled = false;
             Hasta.Enabled = false;
             VerHabitaciones.Enabled = false;
+            ListHabitaciones.Items.Clear();
             GroupHabitaciones.Enabled = true;
+        }
+
+        private void ModificarReserva_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!cambioReserva)
+            {
+                DialogResult confirma = MessageBox.Show("Está seguro de cancelar la modificación?", this.Text, MessageBoxButtons.OKCancel);
+                if (confirma == DialogResult.OK)
+                {
+                    BD bd = new BD();
+                    bd.obtenerConexion();
+                    ListHabitaciones.Items.Clear();
+                    for (int i = 0; i < habitacionesALiberar.Rows.Count; i++)
+                    {
+                        string reserva = habitacionesALiberar.Rows[i][0].ToString();
+                        string hotel = habitacionesALiberar.Rows[i][1].ToString();
+                        string habitacion = habitacionesALiberar.Rows[i][2].ToString();
+                        bd.ejecutar("INSERT INTO FUGAZZETA.[Habitaciones x Reservas] values(" + reserva + ", " + hotel + ", " + habitacion + ")");
+                    }
+                    bd.cerrar();
+                    MessageBox.Show("Reserva cancelada.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void ActualizarDatos_Click(object sender, EventArgs e)
+        {
+            DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", this.Text, MessageBoxButtons.OKCancel);
+            if (confirma == DialogResult.OK)
+            {
+                try
+                {
+                    validarRegimen();
+                    validarHabitaciones();
+                    BD bd = new BD();
+                    bd.obtenerConexion();
+                    string query = "EXEC FUGAZZETA.RealizarModificacion " + idReserva + ", '" + menu.usuarioActual + "', '" + Program.ahora() + "', " + ifNull(Motivo.Text);
+                    bd.ejecutar(query);
+                    query = "EXEC FUGAZZETA.ActualizarReserva " + idReserva + ", " + idHotel + ", '" + Desde.Value.ToShortDateString() + "', '" + Hasta.Value.ToShortDateString() + "', " + (CbRegimen.SelectedItem as Regimen).id;
+                    bd.ejecutar(query);
+                    for (int i = 0; i < ListHabitaciones.Items.Count; i++)
+                    {
+                        query = "INSERT INTO FUGAZZETA.[Habitaciones x Reservas] values(" + idReserva + ", " + idHotel + ", " + ListHabitaciones.Items[i].ToString() + ")";
+                        bd.ejecutar(query);
+                    }
+                    cambioReserva = true;
+                    MessageBox.Show("Modificación realizada con éxito.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    confirma = DialogResult.Cancel;
+                    MessageBox.Show("Error: " + ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void validarHabitaciones()
+        {
+           if (ListHabitaciones.Items.Count == 0) throw new Exception ("No hay habitaciones para esta reserva.");
+        }
+
+        private string ifNull(string p)
+        {
+            if (p.Length == 0) return "NULL";
+            else return "'" + p + "'";
+        }
+
+        private void validarRegimen()
+        {
+            if (CbRegimen.SelectedIndex == -1) throw new Exception ("No seleccionó ningún régimen.");
+        }
+
+        private void revalidarFecha(object sender, EventArgs e)
+        {
+            if (!(Desde.Value < Hasta.Value))
+            {
+                DateTime nuevo = Desde.Value;
+                Hasta.MinDate = new DateTime(nuevo.Year, nuevo.Month, nuevo.Day + 1);
+            }
         }
     }
 }
