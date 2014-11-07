@@ -6,11 +6,19 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace FrbaHotel.ABM_de_Rol
 {
     public partial class AltaRol : Buscador,ITraeBusqueda
     {
+        public AltaRol(char fun,string id,string nom)
+        {
+            InitializeComponent();
+            funcion = fun;
+            agregar(id, nom);
+        }
+
         public AltaRol(char fun)
         {
             InitializeComponent();
@@ -60,23 +68,49 @@ namespace FrbaHotel.ABM_de_Rol
         }
         #endregion
 
-        void ITraeBusqueda.agregar(string id, string descripcion)
+        public void agregar(string id, string descripcion)
         {
-            bool sePuede = true;
-            bool sigue = true;
-            for (int i = 0; (i < ListFunciones.Items.Count - 1) && sigue; i++)
-            {
-                if (ListFunciones.Items[i].ToString() == descripcion)
+            if (funcion=='A'){
+                bool sePuede = true;
+                bool sigue = true;
+                for (int i = 0; (i < ListFunciones.Items.Count - 1) && sigue; i++)
                 {
-                    sigue = false;
-                    sePuede = false;
+                    if (ListFunciones.Items[i].ToString() == descripcion)
+                    {
+                        sigue = false;
+                        sePuede = false;
+                    }
+                }
+                if (!sePuede)
+                {
+                    MessageBox.Show("No se puede agregar. Ya agregó esa funcionalidad");
+                } else {
+                    ListFunciones.Items.Add(new Funcionalidad(id, descripcion));
                 }
             }
-            if (!sePuede)
-            {
-                MessageBox.Show("No se puede agregar. Ya agregó esa funcionalidad");
-            } else {
-                ListFunciones.Items.Add(new Funcionalidad(id, descripcion));
+            if (funcion=='M'){
+                ListFunciones.Items.Clear();
+                BD bd = new BD();
+                bd.obtenerConexion();
+                int elId = Convert.ToInt32(id);
+                string query = "SELECT * FROM FUGAZZETA.Roles WHERE Id_Rol = " + elId;
+                SqlDataReader dr = bd.lee(query);
+
+                while (dr.Read())
+                {
+                    TxtRol.Text = dr["Nombre"].ToString();
+                    CheckActivo.Checked = Convert.ToBoolean(dr["Estado"].ToString());
+                }
+                dr.Close();
+                
+
+                /*query = "SELECT H.Id_Hotel,H.Id_Regimen, R.Descripcion FROM FUGAZZETA.[Regimenes x Hotel] H, FUGAZZETA.Regimenes R where H.Id_Regimen = R.Id_Regimen AND Id_Hotel = " + TxtId.Text;
+                dr = bd.lee(query);
+                while (dr.Read())
+                {
+                    ListRegimenes.Items.Add(new Regimen(dr[1].ToString(), dr[2].ToString()));
+                }*/
+                bd.cerrar();
             }
         }
         

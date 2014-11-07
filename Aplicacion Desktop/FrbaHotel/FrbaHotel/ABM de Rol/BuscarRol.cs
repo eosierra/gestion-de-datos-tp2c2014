@@ -50,7 +50,9 @@ namespace FrbaHotel.ABM_de_Rol
                 this.Close();
             }
             if (funcion=='M'){
-                new AltaRol('M').ShowDialog();
+                string id = celdaElegida(GridRoles, 0);
+                string name = celdaElegida(GridRoles, 1);
+                new AltaRol('M',id,name).ShowDialog();
             }
         }
     }
