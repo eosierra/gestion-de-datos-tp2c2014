@@ -70,7 +70,7 @@ namespace FrbaHotel.ABM_de_Cliente
                 DataTableReader tabla = new DataTableReader(bd.ejecutar(comando));
                 if (tabla.HasRows)
                 {
-                    MessageBox.Show("El usuario ya esta registrado");
+                    MessageBox.Show("El usuario con el documuento " + TxtNroDoc.Text +" ya esta registrado");
                 }
 
 
@@ -87,7 +87,7 @@ private void validarMail()
                 DataTableReader tabla = new DataTableReader(bd.ejecutar(comando));
                 if (tabla.HasRows)
                 {
-                    MessageBox.Show("Ya existe un usuario con este mail");
+                    MessageBox.Show("Ya existe un usuario registrado con el mail " + TxtMail.Text);
                 }
                 
 
