@@ -40,8 +40,8 @@ namespace FrbaHotel.ABM_de_Cliente
             bd.obtenerConexion();
             validarNroDoc();
 
-            //  string valores = "'" + TxtNombre.Text + "','" + TxtApellido + "','" + TipoDoc.Text + "','" + TxtNroDoc.Text + "','" + FechaPick.Text + TxtMail.Text + "','" +TxtTelefono.Text+"','"+TxtCalle.Text+"','"+ textBox1.Text+"','"
-            //bd.insertar("Clientes", valores);
+            string valores = "'" + TxtNombre.Text + "','" + TxtApellido + "','" + TipoDoc.Text + "','" + TxtNroDoc.Text + "','" + FechaPick.Text +"','"+ TxtMail.Text + "','" + TxtTelefono.Text + "','" + TxtCalle.Text + "','" + TxtNroDirec.Text + "','" + TxtPiso.Text + "','" + TxtDpto.Text + "','" + TxtLocalidad.Text + "','" + ComboPais.Text + "','"+ 1+"','"+1+"'";
+            bd.insertar("Clientes", valores);
 
         }
 
@@ -71,9 +71,7 @@ namespace FrbaHotel.ABM_de_Cliente
                 {
                     MessageBox.Show("El usuario ya esta registrado");
                 }
-                else{
-                    MessageBox.Show("Se debe ingresar un numero de documento");
-                }
+                
 
 
             }
