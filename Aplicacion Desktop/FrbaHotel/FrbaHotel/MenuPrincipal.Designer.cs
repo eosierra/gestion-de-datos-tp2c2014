@@ -48,13 +48,14 @@
             this.modificarRolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reservasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.realizarNuevaReservaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editarReservaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cancelarReservaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hotelesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modificarHotelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.estadísticasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editarReservaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,7 +83,8 @@
             this.rolesToolStripMenuItem,
             this.reservasToolStripMenuItem,
             this.hotelesToolStripMenuItem,
-            this.estadísticasToolStripMenuItem});
+            this.estadísticasToolStripMenuItem,
+            this.clientesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1009, 24);
@@ -227,6 +229,13 @@
             this.realizarNuevaReservaToolStripMenuItem.Text = "Realizar nueva reserva";
             this.realizarNuevaReservaToolStripMenuItem.Click += new System.EventHandler(this.realizarNuevaReservaToolStripMenuItem_Click);
             // 
+            // editarReservaToolStripMenuItem
+            // 
+            this.editarReservaToolStripMenuItem.Name = "editarReservaToolStripMenuItem";
+            this.editarReservaToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.editarReservaToolStripMenuItem.Text = "Editar Reserva";
+            this.editarReservaToolStripMenuItem.Click += new System.EventHandler(this.editarReservaToolStripMenuItem_Click);
+            // 
             // cancelarReservaToolStripMenuItem
             // 
             this.cancelarReservaToolStripMenuItem.Name = "cancelarReservaToolStripMenuItem";
@@ -270,12 +279,12 @@
             this.estadísticasToolStripMenuItem.Text = "Estadísticas";
             this.estadísticasToolStripMenuItem.Click += new System.EventHandler(this.estadísticasToolStripMenuItem_Click);
             // 
-            // editarReservaToolStripMenuItem
+            // clientesToolStripMenuItem
             // 
-            this.editarReservaToolStripMenuItem.Name = "editarReservaToolStripMenuItem";
-            this.editarReservaToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.editarReservaToolStripMenuItem.Text = "Editar Reserva";
-            this.editarReservaToolStripMenuItem.Click += new System.EventHandler(this.editarReservaToolStripMenuItem_Click);
+            this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
+            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.clientesToolStripMenuItem.Text = "Clientes";
+            this.clientesToolStripMenuItem.Click += new System.EventHandler(this.altaClientesToolStripMenuItem_Click);
             // 
             // MenuPrincipal
             // 
@@ -327,5 +336,6 @@
         private System.Windows.Forms.ToolStripMenuItem checkOutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem estadísticasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editarReservaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
     }
 }

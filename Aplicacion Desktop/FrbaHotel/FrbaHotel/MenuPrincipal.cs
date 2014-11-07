@@ -116,9 +116,15 @@ namespace FrbaHotel
             abrir(new Listado_Estadistico.Estadistica());
         }
 
+        private void altaClientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            abrir(new ABM_de_Cliente.BuscarCliente(interfaz));
+        }
         #endregion
 
         ITraeBusqueda interfaz;
+
+        
 
 
 
