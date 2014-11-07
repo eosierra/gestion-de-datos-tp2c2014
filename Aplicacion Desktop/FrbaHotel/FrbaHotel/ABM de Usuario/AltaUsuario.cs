@@ -53,8 +53,6 @@ namespace FrbaHotel.ABM_de_Usuario
         {
             try
             {
-
-                
                 agregarUsuario();
                 MessageBox.Show("Usuario agregado con exito");
                 this.Close();
@@ -65,10 +63,7 @@ namespace FrbaHotel.ABM_de_Usuario
             }
         }
         #endregion
-
-
-
-
+        
         private void validarDatosIngresados()
         {
             if (Nombre.Text == "")
@@ -87,7 +82,8 @@ namespace FrbaHotel.ABM_de_Usuario
 
             BD bd = new BD();
             bd.obtenerConexion();
-            string valores = "'" + TxtUser.Text + "',' " + TxtPass1.Text + "',' " + Nombre.Text + "',' " + Apellido.Text + "',' " + comboBox2.Text + "', '" + NroDoc.Text + "',' " + TxtMail.Text + "', '" + Telefono.Text + "',' " + Direc.Text + "',' " + NroDirec.Text + "',' " + Calendario.Value.ToShortDateString() +"','"+1 +"','"+0+ "'"; 
+            TipoDoc tipoDni = comboBox2.Items[comboBox2.SelectedIndex] as TipoDoc;
+            string valores = "'" + TxtUser.Text + "',' " + TxtPass1.Text + "',' " + Nombre.Text + "',' " + Apellido.Text + "',' " + tipoDni.id + "', '" + NroDoc.Text + "',' " + TxtMail.Text + "', '" + Telefono.Text + "',' " + Direc.Text + "',' " + NroDirec.Text + "',' " + Calendario.Value.ToShortDateString() +"','"+1 +"','"+0+ "'"; 
             bd.insertar("Usuarios", valores);
 
 
@@ -98,6 +94,14 @@ namespace FrbaHotel.ABM_de_Usuario
         private void AltaUsuario_Load(object sender, EventArgs e)
         {
             Calendario.MaxDate = Program.hoy();
+           
+            BD bd = new BD();
+            string query = "SELECT * FROM FUGAZZETA.TiposDoc";
+            SqlDataReader dr = bd.lee(query);
+            while (dr.Read())
+            {
+                comboBox2.Items.Add(new TipoDoc(dr[0].ToString(), dr[1].ToString()));
+            }
 
         }
 
@@ -194,15 +198,13 @@ namespace FrbaHotel.ABM_de_Usuario
             }
         }
 
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-        }
 
         private void CmdAddHotel_Click(object sender, EventArgs e)
         {
             new BuscarHotel(this).ShowDialog();
         }
+
+
         
     }
 }
