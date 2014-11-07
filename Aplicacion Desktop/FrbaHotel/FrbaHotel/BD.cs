@@ -53,6 +53,12 @@ namespace FrbaHotel
             this.ejecutar(comando);
         }
 
+        public void eliminar(string tablaDestino, string condiciones)
+        {
+            string comando = "DELETE FROM FUGAZZETA." + tablaDestino + " WHERE " + condiciones;
+            this.ejecutar(comando);
+        }
+
         public void insertar(string tablaDestino, string valores)
         {
             string comando = "INSERT INTO FUGAZZETA." + tablaDestino + " values (" + valores + ")";
