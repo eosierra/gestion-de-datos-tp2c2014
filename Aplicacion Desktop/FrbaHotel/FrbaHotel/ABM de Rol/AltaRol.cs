@@ -17,12 +17,14 @@ namespace FrbaHotel.ABM_de_Rol
             InitializeComponent();
             funcion = fun;
             cargar(id, nom);
+            LimpiarTodo.Visible = false;
         }
 
         public AltaRol(char fun)
         {
             InitializeComponent();
             funcion = fun;
+            Id_Rol.Visible = false;
         }
 
         #region Botones
@@ -77,6 +79,16 @@ namespace FrbaHotel.ABM_de_Rol
             Rol rolin = new Rol(
                 Id_Rol.Text,TxtRol.Text,CheckActivo.Checked);
             rolin.actualizar();
+
+            BD bd = new BD();
+            bd.obtenerConexion();
+            bd.eliminar("[Funcionalidades x Roles]", "Id_Rol=" + Id_Rol.Text);
+            for (int i = 0; i < ListFunciones.Items.Count; i++)
+            {
+                Funcionalidad func = ListFunciones.Items[i] as Funcionalidad;
+                bd.insertar("[Funcionalidades x Roles]", func.id + ", " + Id_Rol.Text);
+            }
+
             MessageBox.Show("Actualización realizada con éxito");
             this.Close();
         }
