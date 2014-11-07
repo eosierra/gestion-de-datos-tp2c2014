@@ -36,7 +36,8 @@ namespace FrbaHotel.ABM_de_Cliente
         private void CmdGuardar_Click(object sender, EventArgs e) {
             BD bd = new BD();
             bd.obtenerConexion();
-            
+          //  string valores = "'" + TxtNombre.Text + "','" + TxtApellido + "','" + TipoDoc.Text + "','" + TxtNroDoc.Text + "','" + FechaPick.Text + TxtMail.Text + "','" +TxtTelefono.Text+"','"+TxtCalle.Text+"','"+ textBox1.Text+"','"
+                bd.insertar("Clientes", valores);
 
         }
 
@@ -52,5 +53,7 @@ namespace FrbaHotel.ABM_de_Cliente
             bd.rellenarDesde("Descripcion", "TiposDoc", TipoDoc);
             bd.rellenarDesde("Nombre", "Paises", ComboNac);
         }
+
+        
     }
 }
