@@ -38,6 +38,7 @@
             this.CmdAgregar = new System.Windows.Forms.Button();
             this.CmdQuitar = new System.Windows.Forms.Button();
             this.ListFunciones = new System.Windows.Forms.ListBox();
+            this.Id_Rol = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -133,11 +134,21 @@
             this.ListFunciones.Size = new System.Drawing.Size(139, 173);
             this.ListFunciones.TabIndex = 11;
             // 
+            // Id_Rol
+            // 
+            this.Id_Rol.AutoSize = true;
+            this.Id_Rol.Location = new System.Drawing.Point(21, 9);
+            this.Id_Rol.Name = "Id_Rol";
+            this.Id_Rol.Size = new System.Drawing.Size(38, 13);
+            this.Id_Rol.TabIndex = 12;
+            this.Id_Rol.Text = "Id_Rol";
+            // 
             // AltaRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(285, 371);
+            this.Controls.Add(this.Id_Rol);
             this.Controls.Add(this.ListFunciones);
             this.Controls.Add(this.CmdQuitar);
             this.Controls.Add(this.CmdAgregar);
@@ -167,5 +178,6 @@
         private System.Windows.Forms.Button CmdAgregar;
         private System.Windows.Forms.Button CmdQuitar;
         private System.Windows.Forms.ListBox ListFunciones;
+        private System.Windows.Forms.Label Id_Rol;
     }
 }

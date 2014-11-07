@@ -62,10 +62,25 @@ namespace FrbaHotel.ABM_de_Rol
                 }
             }
             if (funcion=='M'){
-                
+                DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", "Confirmar actualización de rol", MessageBoxButtons.YesNo);
+
+                if (confirma == DialogResult.Yes)
+                {
+                    actualizarRol();
+                }
                 //TODO Agregar comportamiento de Modificacion acá.... Falta cargarle los datos
             }
         }
+
+        private void actualizarRol()
+        {
+            Rol rolin = new Rol(
+                Id_Rol.Text,TxtRol.Text,CheckActivo.Checked);
+            rolin.actualizar();
+            MessageBox.Show("Actualización realizada con éxito");
+            this.Close();
+        }
+
         #endregion
         public void agregar(string id,string desc){
                 bool sePuede = true;
@@ -101,6 +116,7 @@ namespace FrbaHotel.ABM_de_Rol
 
                 while (dr.Read())
                 {
+                    Id_Rol.Text = dr["Id_Rol"].ToString();
                     TxtRol.Text = dr["Nombre"].ToString();
                     CheckActivo.Checked = Convert.ToBoolean(dr["Estado"].ToString());
                 }

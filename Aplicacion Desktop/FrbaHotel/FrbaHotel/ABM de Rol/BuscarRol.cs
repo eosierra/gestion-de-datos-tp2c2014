@@ -52,7 +52,11 @@ namespace FrbaHotel.ABM_de_Rol
             if (funcion=='M'){
                 string id = celdaElegida(GridRoles, 0);
                 string name = celdaElegida(GridRoles, 1);
-                new AltaRol('M',id,name).ShowDialog();
+                DialogResult modif = new AltaRol('M',id,name).ShowDialog();
+                if (modif == DialogResult.OK)
+                {
+                    Close();
+                }
             }
         }
     }
