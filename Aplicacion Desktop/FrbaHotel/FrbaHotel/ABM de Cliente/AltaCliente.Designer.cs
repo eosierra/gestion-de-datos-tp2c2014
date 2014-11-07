@@ -256,7 +256,9 @@
             this.CmdGuardar.Size = new System.Drawing.Size(128, 32);
             this.CmdGuardar.TabIndex = 17;
             this.CmdGuardar.Text = "GUARDAR";
-            this.CmdGuardar.UseVisualStyleBackColor = true;// 
+            this.CmdGuardar.UseVisualStyleBackColor = true;
+            this.CmdGuardar.Click += new System.EventHandler(this.CmdGuardar_Click);
+            // 
             // AltaCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

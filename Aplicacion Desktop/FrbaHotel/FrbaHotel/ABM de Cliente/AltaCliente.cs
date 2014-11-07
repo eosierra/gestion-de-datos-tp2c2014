@@ -33,6 +33,13 @@ namespace FrbaHotel.ABM_de_Cliente
             ComboPais.SelectedIndex = 0;
         }
 
+        private void CmdGuardar_Click(object sender, EventArgs e) {
+            BD bd = new BD();
+            bd.obtenerConexion();
+            
+
+        }
+
         private void limpiar(TextBox txt)
         {
             txt.Text = "";
