@@ -141,7 +141,7 @@ namespace FrbaHotel.ABM_de_Rol
             
             string idRol = laTabla.Rows[0][0].ToString();
 
-            for (int i = 0; i < ListFunciones.Items.Count-1; i++)
+            for (int i = 0; i < ListFunciones.Items.Count; i++)
             {
                 Funcionalidad func = ListFunciones.Items[i] as Funcionalidad;
                 bd.insertar("[Funcionalidades x Roles]", func.id + ", " + idRol);
