@@ -39,25 +39,38 @@ namespace FrbaHotel.ABM_de_Cliente
 
         private void CmdGuardar_Click(object sender, EventArgs e)
         {
-            BD bd = new BD();
-            bd.obtenerConexion();
-            try
+            DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", this.Text, MessageBoxButtons.YesNo);
+
+            if (confirma == DialogResult.Yes)
             {
-                validarDocumento(bd);
-                validarMail(bd);
-                int tipoDoc = (TipoDoc.SelectedItem as TipoDoc).id;
-                int idNac = (ComboNac.SelectedItem as Pais).id;
-                int idPais = (ComboPais.SelectedItem as Pais).id;
-                string query = "INSERT INTO FUGAZZETA.Clientes values (" + ifNull(TxtNombre) + ", " + ifNull(TxtApellido) + @", 
+                BD bd = new BD();
+                bd.obtenerConexion();
+                try
+                {
+                    ValidarTxt(TxtNombre, "Nombre");
+                    ValidarTxt(TxtApellido, "Apellido");
+                    ValidarTxt(TxtNroDoc, "Número de Documento");
+                    ValidarTxt(TxtTelefono, "Teléfono");
+                    ValidarTxt(TxtCalle, "Calle");
+                    ValidarTxt(TxtNroDirec, "Número Calle");
+                    validarDocumento(bd);
+                    validarMail(bd);
+                    string tipoDoc = setTipoDoc(TipoDoc);
+                    string idNac = setPais(ComboNac);
+                    string idPais = setPais(ComboPais);
+                    string query = "INSERT INTO FUGAZZETA.Clientes values (" + ifNull(TxtNombre) + ", " + ifNull(TxtApellido) + @", 
                 " + tipoDoc + ", " + ifNull(TxtNroDoc) + ", '" + FechaPick.Value.ToShortDateString() + "', " + ifNull(TxtMail) + @",
                 " + ifNull(TxtTelefono) + ", " + ifNull(TxtCalle) + ", " + ifNull(TxtNroDirec) + ", " + ifNull(TxtPiso) + @",
-                " + ifNull(TxtDpto) + ", " + ifNull(TxtLocalidad) + ", " + idNac + ", 1)";
-                MessageBox.Show(query);
-            }
-            catch (Exception ex)
-            {
-                bd.cerrar();
-                MessageBox.Show("Error: No se pudo ingresar el cliente. " + ex.Message);
+                " + ifNull(TxtDpto) + ", " + ifNull(TxtLocalidad) + ", " + idPais + ", " + idNac + ", 1)";
+                    bd.ejecutar(query);
+                    bd.cerrar();
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    bd.cerrar();
+                    MessageBox.Show("Error: No se pudo ingresar el cliente. " + ex.Message);
+                }
             }
         }
 
@@ -70,6 +83,18 @@ namespace FrbaHotel.ABM_de_Cliente
         {
             if (txt.Text == "") return "NULL";
             else return "'" + txt.Text + "'";
+        }
+
+        private string setPais(ComboBox cb)
+        {
+            if (cb.SelectedIndex == -1) return "NULL";
+            else return (cb.SelectedItem as Pais).id.ToString();
+        }
+
+        private string setTipoDoc(ComboBox cb)
+        {
+            if (cb.SelectedIndex == -1) return "NULL";
+            else return (cb.SelectedItem as TipoDoc).id.ToString();
         }
 
         private void CargarTipoDocNacPaises()
@@ -114,6 +139,11 @@ namespace FrbaHotel.ABM_de_Cliente
                 throw new Exception("Ya existe un usuario registrado con ese mail.");
             }
             tabla.Close();
+        }
+
+        private void ValidarTxt(TextBox txt, string campo)
+        {
+            if (txt.Text == "") throw new Exception("No completó el campo: " + campo + ".");
         }
 
         private void Numero_KeyPress(object sender, KeyPressEventArgs e)

@@ -351,7 +351,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "AltaCliente";
-            this.Text = "Nuevo cliente";
+            this.Text = "FRBA Hoteles - Nuevo cliente";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
