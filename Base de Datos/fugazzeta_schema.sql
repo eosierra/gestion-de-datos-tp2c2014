@@ -168,6 +168,12 @@ DROP PROCEDURE FUGAZZETA.VerHabitacionesDeEstadia
 IF OBJECT_ID('FUGAZZETA.RealizarEgreso') IS NOT NULL
 DROP PROCEDURE FUGAZZETA.RealizarEgreso
 
+IF OBJECT_ID('FUGAZZETA.RealizarModificacion') IS NOT NULL
+DROP PROCEDURE FUGAZZETA.RealizarModificacion
+
+IF OBJECT_ID('FUGAZZETA.ActualizarReserva') IS NOT NULL
+DROP PROCEDURE FUGAZZETA.ActualizarReserva
+
 --Triggers
 IF OBJECT_ID('FUGAZZETA.TR_MovimientosHotel_A_I') IS NOT NULL
 DROP TRIGGER FUGAZZETA.TR_MovimientosHotel_A_I
@@ -236,6 +242,7 @@ Nro_Calle numeric(6,0),
 Piso numeric (3,0),
 Depto varchar(4),
 Localidad varchar(50),
+PaisOrigen int FOREIGN KEY REFERENCES FUGAZZETA.Paises,
 Nacionalidad int FOREIGN KEY REFERENCES FUGAZZETA.Paises,
 Habilitado bit default 1,
 )

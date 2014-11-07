@@ -61,6 +61,7 @@
       <DependentUpon>BuscarCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM de Cliente\Cliente.cs" />
+    <Compile Include="ABM de Cliente\TiposDocumento.cs" />
     <Compile Include="ABM de Habitacion\AltaHabitacion.cs">
       <SubType>Form</SubType>
     </Compile>

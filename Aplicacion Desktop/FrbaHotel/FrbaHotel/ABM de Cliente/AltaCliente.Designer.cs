@@ -34,6 +34,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.TxtDpto = new System.Windows.Forms.TextBox();
+            this.TxtPiso = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.TxtNroDirec = new System.Windows.Forms.TextBox();
             this.TxtLocalidad = new System.Windows.Forms.TextBox();
@@ -44,7 +48,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.FechaPick = new System.Windows.Forms.MonthCalendar();
             this.TxtNombre = new System.Windows.Forms.TextBox();
             this.TxtApellido = new System.Windows.Forms.TextBox();
             this.TxtMail = new System.Windows.Forms.TextBox();
@@ -54,10 +57,7 @@
             this.TxtNroDoc = new System.Windows.Forms.TextBox();
             this.CmdLimpiar = new System.Windows.Forms.Button();
             this.CmdGuardar = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.TxtPiso = new System.Windows.Forms.TextBox();
-            this.TxtDpto = new System.Windows.Forms.TextBox();
+            this.FechaPick = new System.Windows.Forms.DateTimePicker();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,7 +73,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 52);
+            this.label2.Location = new System.Drawing.Point(24, 57);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 1;
@@ -82,7 +82,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(24, 74);
+            this.label3.Location = new System.Drawing.Point(24, 86);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(127, 13);
             this.label3.TabIndex = 2;
@@ -91,7 +91,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(25, 101);
+            this.label4.Location = new System.Drawing.Point(25, 114);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(29, 13);
             this.label4.TabIndex = 3;
@@ -100,7 +100,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(24, 125);
+            this.label5.Location = new System.Drawing.Point(24, 141);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(52, 13);
             this.label5.TabIndex = 4;
@@ -120,21 +120,53 @@
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Location = new System.Drawing.Point(349, 26);
+            this.groupBox1.Location = new System.Drawing.Point(349, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(295, 191);
+            this.groupBox1.Size = new System.Drawing.Size(295, 136);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Dirección";
+            // 
+            // TxtDpto
+            // 
+            this.TxtDpto.Location = new System.Drawing.Point(239, 48);
+            this.TxtDpto.Name = "TxtDpto";
+            this.TxtDpto.Size = new System.Drawing.Size(50, 20);
+            this.TxtDpto.TabIndex = 16;
+            // 
+            // TxtPiso
+            // 
+            this.TxtPiso.Location = new System.Drawing.Point(155, 48);
+            this.TxtPiso.Name = "TxtPiso";
+            this.TxtPiso.Size = new System.Drawing.Size(48, 20);
+            this.TxtPiso.TabIndex = 15;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(209, 51);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(33, 13);
+            this.label13.TabIndex = 14;
+            this.label13.Text = "Dpto:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(120, 51);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(30, 13);
+            this.label12.TabIndex = 13;
+            this.label12.Text = "Piso:";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(10, 51);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(27, 13);
+            this.label11.Size = new System.Drawing.Size(47, 13);
             this.label11.TabIndex = 12;
-            this.label11.Text = "Nro:";
+            this.label11.Text = "Número:";
             // 
             // TxtNroDirec
             // 
@@ -142,6 +174,7 @@
             this.TxtNroDirec.Name = "TxtNroDirec";
             this.TxtNroDirec.Size = new System.Drawing.Size(48, 20);
             this.TxtNroDirec.TabIndex = 11;
+            this.TxtNroDirec.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Numero_KeyPress);
             // 
             // TxtLocalidad
             // 
@@ -159,8 +192,9 @@
             // 
             // ComboPais
             // 
+            this.ComboPais.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboPais.FormattingEnabled = true;
-            this.ComboPais.Location = new System.Drawing.Point(66, 99);
+            this.ComboPais.Location = new System.Drawing.Point(66, 102);
             this.ComboPais.Name = "ComboPais";
             this.ComboPais.Size = new System.Drawing.Size(223, 21);
             this.ComboPais.TabIndex = 10;
@@ -168,7 +202,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(10, 102);
+            this.label8.Location = new System.Drawing.Point(10, 105);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(32, 13);
             this.label8.TabIndex = 2;
@@ -195,7 +229,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(25, 150);
+            this.label9.Location = new System.Drawing.Point(25, 167);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(72, 13);
             this.label9.TabIndex = 6;
@@ -204,17 +238,11 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(24, 180);
+            this.label10.Location = new System.Drawing.Point(24, 196);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(109, 13);
             this.label10.TabIndex = 7;
             this.label10.Text = "Fecha de nacimiento:";
-            // 
-            // FechaPick
-            // 
-            this.FechaPick.Location = new System.Drawing.Point(39, 202);
-            this.FechaPick.Name = "FechaPick";
-            this.FechaPick.TabIndex = 11;
             // 
             // TxtNombre
             // 
@@ -225,51 +253,55 @@
             // 
             // TxtApellido
             // 
-            this.TxtApellido.Location = new System.Drawing.Point(77, 49);
+            this.TxtApellido.Location = new System.Drawing.Point(77, 54);
             this.TxtApellido.Name = "TxtApellido";
             this.TxtApellido.Size = new System.Drawing.Size(245, 20);
             this.TxtApellido.TabIndex = 2;
             // 
             // TxtMail
             // 
-            this.TxtMail.Location = new System.Drawing.Point(77, 97);
+            this.TxtMail.Location = new System.Drawing.Point(77, 109);
             this.TxtMail.Name = "TxtMail";
             this.TxtMail.Size = new System.Drawing.Size(245, 20);
             this.TxtMail.TabIndex = 5;
             // 
             // TxtTelefono
             // 
-            this.TxtTelefono.Location = new System.Drawing.Point(77, 122);
+            this.TxtTelefono.Location = new System.Drawing.Point(77, 138);
             this.TxtTelefono.Name = "TxtTelefono";
             this.TxtTelefono.Size = new System.Drawing.Size(245, 20);
             this.TxtTelefono.TabIndex = 6;
+            this.TxtTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Numero_KeyPress);
             // 
             // ComboNac
             // 
+            this.ComboNac.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboNac.FormattingEnabled = true;
-            this.ComboNac.Location = new System.Drawing.Point(103, 147);
+            this.ComboNac.Location = new System.Drawing.Point(103, 164);
             this.ComboNac.Name = "ComboNac";
             this.ComboNac.Size = new System.Drawing.Size(219, 21);
             this.ComboNac.TabIndex = 7;
             // 
             // TipoDoc
             // 
+            this.TipoDoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TipoDoc.FormattingEnabled = true;
-            this.TipoDoc.Location = new System.Drawing.Point(158, 70);
+            this.TipoDoc.Location = new System.Drawing.Point(158, 82);
             this.TipoDoc.Name = "TipoDoc";
             this.TipoDoc.Size = new System.Drawing.Size(68, 21);
             this.TipoDoc.TabIndex = 3;
             // 
             // TxtNroDoc
             // 
-            this.TxtNroDoc.Location = new System.Drawing.Point(232, 71);
+            this.TxtNroDoc.Location = new System.Drawing.Point(232, 83);
             this.TxtNroDoc.Name = "TxtNroDoc";
             this.TxtNroDoc.Size = new System.Drawing.Size(90, 20);
             this.TxtNroDoc.TabIndex = 4;
+            this.TxtNroDoc.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Numero_KeyPress);
             // 
             // CmdLimpiar
             // 
-            this.CmdLimpiar.Location = new System.Drawing.Point(413, 260);
+            this.CmdLimpiar.Location = new System.Drawing.Point(510, 253);
             this.CmdLimpiar.Name = "CmdLimpiar";
             this.CmdLimpiar.Size = new System.Drawing.Size(128, 32);
             this.CmdLimpiar.TabIndex = 16;
@@ -279,52 +311,28 @@
             // 
             // CmdGuardar
             // 
-            this.CmdGuardar.Location = new System.Drawing.Point(413, 298);
+            this.CmdGuardar.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.CmdGuardar.Location = new System.Drawing.Point(0, 307);
             this.CmdGuardar.Name = "CmdGuardar";
-            this.CmdGuardar.Size = new System.Drawing.Size(128, 32);
+            this.CmdGuardar.Size = new System.Drawing.Size(656, 43);
             this.CmdGuardar.TabIndex = 17;
             this.CmdGuardar.Text = "GUARDAR";
             this.CmdGuardar.UseVisualStyleBackColor = true;
             this.CmdGuardar.Click += new System.EventHandler(this.CmdGuardar_Click);
             // 
-            // label12
+            // FechaPick
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(120, 51);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(30, 13);
-            this.label12.TabIndex = 13;
-            this.label12.Text = "Piso:";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(196, 51);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(33, 13);
-            this.label13.TabIndex = 14;
-            this.label13.Text = "Dpto:";
-            // 
-            // TxtPiso
-            // 
-            this.TxtPiso.Location = new System.Drawing.Point(144, 48);
-            this.TxtPiso.Name = "TxtPiso";
-            this.TxtPiso.Size = new System.Drawing.Size(48, 20);
-            this.TxtPiso.TabIndex = 15;
-            this.TxtPiso.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
-            // 
-            // TxtDpto
-            // 
-            this.TxtDpto.Location = new System.Drawing.Point(226, 48);
-            this.TxtDpto.Name = "TxtDpto";
-            this.TxtDpto.Size = new System.Drawing.Size(48, 20);
-            this.TxtDpto.TabIndex = 16;
+            this.FechaPick.Location = new System.Drawing.Point(139, 196);
+            this.FechaPick.Name = "FechaPick";
+            this.FechaPick.Size = new System.Drawing.Size(214, 20);
+            this.FechaPick.TabIndex = 18;
             // 
             // AltaCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(656, 397);
+            this.ClientSize = new System.Drawing.Size(656, 350);
+            this.Controls.Add(this.FechaPick);
             this.Controls.Add(this.CmdGuardar);
             this.Controls.Add(this.CmdLimpiar);
             this.Controls.Add(this.TxtNroDoc);
@@ -334,7 +342,6 @@
             this.Controls.Add(this.TxtMail);
             this.Controls.Add(this.TxtApellido);
             this.Controls.Add(this.TxtNombre);
-            this.Controls.Add(this.FechaPick);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.groupBox1);
@@ -368,7 +375,6 @@
         private System.Windows.Forms.ComboBox ComboPais;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.MonthCalendar FechaPick;
         private System.Windows.Forms.TextBox TxtNombre;
         private System.Windows.Forms.TextBox TxtApellido;
         private System.Windows.Forms.TextBox TxtMail;
@@ -384,5 +390,6 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox TxtDpto;
         private System.Windows.Forms.TextBox TxtPiso;
+        private System.Windows.Forms.DateTimePicker FechaPick;
     }
 }
