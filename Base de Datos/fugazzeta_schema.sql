@@ -119,6 +119,9 @@ DROP VIEW FUGAZZETA.ClientesDuplicados
 IF OBJECT_ID('FUGAZZETA.CostoHabitacion') IS NOT NULL
 DROP FUNCTION FUGAZZETA.CostoHabitacion
 
+IF OBJECT_ID('FUGAZZETA.PuntosFactura') IS NOT NULL
+DROP FUNCTION FUGAZZETA.PuntosFactura
+
 --Procedures
 IF OBJECT_ID('FUGAZZETA.LoginCorrecto', 'P') IS NOT NULL
 DROP PROCEDURE FUGAZZETA.LoginCorrecto
@@ -173,6 +176,9 @@ DROP PROCEDURE FUGAZZETA.RealizarModificacion
 
 IF OBJECT_ID('FUGAZZETA.ActualizarReserva') IS NOT NULL
 DROP PROCEDURE FUGAZZETA.ActualizarReserva
+
+IF OBJECT_ID('FUGAZZETA.GenerarFactura') IS NOT NULL
+DROP PROCEDURE FUGAZZETA.GenerarFactura
 
 --Triggers
 IF OBJECT_ID('FUGAZZETA.TR_MovimientosHotel_A_I') IS NOT NULL
@@ -743,7 +749,7 @@ SELECT * FROM FUGAZZETA.Clientes
 	having COUNT(*)>1)
 UNION
 SELECT C.Id_Cliente,C.Nombre,C.Apellido,C.Id_TipoDoc, C.Nro_Doc,C.Fecha_Nac,C.Mail,C.Telefono,C.Dom_Calle,
-C.Nro_Calle,C.Piso,C.Depto,C.Localidad,C.Nacionalidad,C.Habilitado
+C.Nro_Calle,C.Piso,C.Depto,C.Localidad,C.PaisOrigen,C.Nacionalidad,C.Habilitado
 FROM FUGAZZETA.Clientes C, 
 (SELECT Id_TipoDoc,Nro_Doc
 	FROM FUGAZZETA.Clientes
@@ -926,7 +932,7 @@ BEGIN
 END
 GO
 
-ALTER PROC FUGAZZETA.HabitacionesLibresEnPeriodo(@Hotel int, @Desde date, @Hasta date, @Regimen int) AS
+CREATE PROC FUGAZZETA.HabitacionesLibresEnPeriodo(@Hotel int, @Desde date, @Hasta date, @Regimen int) AS
 begin
 	SELECT
 	H.Num_Habitacion as [Número],
