@@ -39,6 +39,7 @@ namespace FrbaHotel.ABM_de_Cliente
             BD bd = new BD();
             bd.obtenerConexion();
             validarNroDoc();
+            validarMail();
 
             string valores = "'" + TxtNombre.Text + "','" + TxtApellido + "','" + TipoDoc.Text + "','" + TxtNroDoc.Text + "','" + FechaPick.Text +"','"+ TxtMail.Text + "','" + TxtTelefono.Text + "','" + TxtCalle.Text + "','" + TxtNroDirec.Text + "','" + TxtPiso.Text + "','" + TxtDpto.Text + "','" + TxtLocalidad.Text + "','" + ComboPais.Text + "','"+ 1+"','"+1+"'";
             bd.insertar("Clientes", valores);
@@ -70,6 +71,23 @@ namespace FrbaHotel.ABM_de_Cliente
                 if (tabla.HasRows)
                 {
                     MessageBox.Show("El usuario ya esta registrado");
+                }
+
+
+
+            }
+        }
+private void validarMail()
+        {
+            if (TxtMail.Text != "")
+            {
+                BD bd = new BD();
+                SqlConnection conexion = bd.obtenerConexion();
+                string comando = "SELECT Mail FROM FUGAZZETA.Clientes WHERE Mail='" + TxtMail.Text + "'";
+                DataTableReader tabla = new DataTableReader(bd.ejecutar(comando));
+                if (tabla.HasRows)
+                {
+                    MessageBox.Show("Ya existe un usuario con este mail");
                 }
                 
 
