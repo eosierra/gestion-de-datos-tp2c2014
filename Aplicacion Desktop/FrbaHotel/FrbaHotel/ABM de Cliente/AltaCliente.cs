@@ -83,5 +83,10 @@ namespace FrbaHotel.ABM_de_Cliente
 
 
         }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

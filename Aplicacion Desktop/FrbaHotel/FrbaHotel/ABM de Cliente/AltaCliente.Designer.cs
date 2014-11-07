@@ -35,7 +35,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.TxtNroDirec = new System.Windows.Forms.TextBox();
             this.TxtLocalidad = new System.Windows.Forms.TextBox();
             this.TxtCalle = new System.Windows.Forms.TextBox();
             this.ComboPais = new System.Windows.Forms.ComboBox();
@@ -56,8 +56,8 @@
             this.CmdGuardar = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.TxtPiso = new System.Windows.Forms.TextBox();
+            this.TxtDpto = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -108,12 +108,12 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox3);
-            this.groupBox1.Controls.Add(this.textBox2);
+            this.groupBox1.Controls.Add(this.TxtDpto);
+            this.groupBox1.Controls.Add(this.TxtPiso);
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.TxtNroDirec);
             this.groupBox1.Controls.Add(this.TxtLocalidad);
             this.groupBox1.Controls.Add(this.TxtCalle);
             this.groupBox1.Controls.Add(this.ComboPais);
@@ -136,12 +136,12 @@
             this.label11.TabIndex = 12;
             this.label11.Text = "Nro:";
             // 
-            // textBox1
+            // TxtNroDirec
             // 
-            this.textBox1.Location = new System.Drawing.Point(66, 48);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(48, 20);
-            this.textBox1.TabIndex = 11;
+            this.TxtNroDirec.Location = new System.Drawing.Point(66, 48);
+            this.TxtNroDirec.Name = "TxtNroDirec";
+            this.TxtNroDirec.Size = new System.Drawing.Size(48, 20);
+            this.TxtNroDirec.TabIndex = 11;
             // 
             // TxtLocalidad
             // 
@@ -305,19 +305,20 @@
             this.label13.TabIndex = 14;
             this.label13.Text = "Dpto:";
             // 
-            // textBox2
+            // TxtPiso
             // 
-            this.textBox2.Location = new System.Drawing.Point(144, 48);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(48, 20);
-            this.textBox2.TabIndex = 15;
+            this.TxtPiso.Location = new System.Drawing.Point(144, 48);
+            this.TxtPiso.Name = "TxtPiso";
+            this.TxtPiso.Size = new System.Drawing.Size(48, 20);
+            this.TxtPiso.TabIndex = 15;
+            this.TxtPiso.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
-            // textBox3
+            // TxtDpto
             // 
-            this.textBox3.Location = new System.Drawing.Point(226, 48);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(48, 20);
-            this.textBox3.TabIndex = 16;
+            this.TxtDpto.Location = new System.Drawing.Point(226, 48);
+            this.TxtDpto.Name = "TxtDpto";
+            this.TxtDpto.Size = new System.Drawing.Size(48, 20);
+            this.TxtDpto.TabIndex = 16;
             // 
             // AltaCliente
             // 
@@ -378,10 +379,10 @@
         private System.Windows.Forms.Button CmdLimpiar;
         private System.Windows.Forms.Button CmdGuardar;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox TxtNroDirec;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox TxtDpto;
+        private System.Windows.Forms.TextBox TxtPiso;
     }
 }
