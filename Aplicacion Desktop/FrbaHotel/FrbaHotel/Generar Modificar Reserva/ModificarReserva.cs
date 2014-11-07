@@ -190,5 +190,14 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 this.Close();
             }
         }
+
+        private void VerHabitaciones_Click(object sender, EventArgs e)
+        {
+            HotelClick.Enabled = false;
+            Desde.Enabled = false;
+            Hasta.Enabled = false;
+            VerHabitaciones.Enabled = false;
+            GroupHabitaciones.Enabled = true;
+        }
     }
 }

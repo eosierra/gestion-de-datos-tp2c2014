@@ -47,12 +47,14 @@
             this.MostrarDatos = new System.Windows.Forms.Button();
             this.ActualizarDatos = new System.Windows.Forms.Button();
             this.CancelarTodo = new System.Windows.Forms.Button();
+            this.VerHabitaciones = new System.Windows.Forms.Button();
             this.GroupReserva.SuspendLayout();
             this.GroupHabitaciones.SuspendLayout();
             this.SuspendLayout();
             // 
             // GroupReserva
             // 
+            this.GroupReserva.Controls.Add(this.VerHabitaciones);
             this.GroupReserva.Controls.Add(this.label8);
             this.GroupReserva.Controls.Add(this.GroupHabitaciones);
             this.GroupReserva.Controls.Add(this.label9);
@@ -64,7 +66,7 @@
             this.GroupReserva.Enabled = false;
             this.GroupReserva.Location = new System.Drawing.Point(15, 37);
             this.GroupReserva.Name = "GroupReserva";
-            this.GroupReserva.Size = new System.Drawing.Size(549, 194);
+            this.GroupReserva.Size = new System.Drawing.Size(522, 194);
             this.GroupReserva.TabIndex = 0;
             this.GroupReserva.TabStop = false;
             this.GroupReserva.Text = "Datos de la reserva";
@@ -85,7 +87,8 @@
             this.GroupHabitaciones.Controls.Add(this.ListHabitaciones);
             this.GroupHabitaciones.Controls.Add(this.QuitarHab);
             this.GroupHabitaciones.Controls.Add(this.AddHabitacion);
-            this.GroupHabitaciones.Location = new System.Drawing.Point(325, 19);
+            this.GroupHabitaciones.Enabled = false;
+            this.GroupHabitaciones.Location = new System.Drawing.Point(303, 19);
             this.GroupHabitaciones.Name = "GroupHabitaciones";
             this.GroupHabitaciones.Size = new System.Drawing.Size(210, 159);
             this.GroupHabitaciones.TabIndex = 60;
@@ -194,7 +197,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 14);
+            this.label1.Location = new System.Drawing.Point(9, 14);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(124, 13);
             this.label1.TabIndex = 1;
@@ -202,7 +205,7 @@
             // 
             // TxtReserva
             // 
-            this.TxtReserva.Location = new System.Drawing.Point(157, 11);
+            this.TxtReserva.Location = new System.Drawing.Point(138, 11);
             this.TxtReserva.Name = "TxtReserva";
             this.TxtReserva.Size = new System.Drawing.Size(114, 20);
             this.TxtReserva.TabIndex = 2;
@@ -210,7 +213,7 @@
             // 
             // MostrarDatos
             // 
-            this.MostrarDatos.Location = new System.Drawing.Point(286, 11);
+            this.MostrarDatos.Location = new System.Drawing.Point(269, 11);
             this.MostrarDatos.Name = "MostrarDatos";
             this.MostrarDatos.Size = new System.Drawing.Size(110, 20);
             this.MostrarDatos.TabIndex = 3;
@@ -220,7 +223,7 @@
             // 
             // ActualizarDatos
             // 
-            this.ActualizarDatos.Location = new System.Drawing.Point(190, 237);
+            this.ActualizarDatos.Location = new System.Drawing.Point(138, 237);
             this.ActualizarDatos.Name = "ActualizarDatos";
             this.ActualizarDatos.Size = new System.Drawing.Size(208, 40);
             this.ActualizarDatos.TabIndex = 4;
@@ -229,7 +232,7 @@
             // 
             // CancelarTodo
             // 
-            this.CancelarTodo.Location = new System.Drawing.Point(460, 237);
+            this.CancelarTodo.Location = new System.Drawing.Point(421, 237);
             this.CancelarTodo.Name = "CancelarTodo";
             this.CancelarTodo.Size = new System.Drawing.Size(107, 40);
             this.CancelarTodo.TabIndex = 5;
@@ -237,11 +240,21 @@
             this.CancelarTodo.UseVisualStyleBackColor = true;
             this.CancelarTodo.Click += new System.EventHandler(this.Cancelar_Click);
             // 
+            // VerHabitaciones
+            // 
+            this.VerHabitaciones.Location = new System.Drawing.Point(254, 129);
+            this.VerHabitaciones.Name = "VerHabitaciones";
+            this.VerHabitaciones.Size = new System.Drawing.Size(32, 24);
+            this.VerHabitaciones.TabIndex = 61;
+            this.VerHabitaciones.Text = ">>";
+            this.VerHabitaciones.UseVisualStyleBackColor = true;
+            this.VerHabitaciones.Click += new System.EventHandler(this.VerHabitaciones_Click);
+            // 
             // ModificarReserva
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(579, 289);
+            this.ClientSize = new System.Drawing.Size(543, 289);
             this.ControlBox = false;
             this.Controls.Add(this.CancelarTodo);
             this.Controls.Add(this.ActualizarDatos);
@@ -281,5 +294,6 @@
         private System.Windows.Forms.DateTimePicker Desde;
         private System.Windows.Forms.TextBox TxtHotel;
         private System.Windows.Forms.Button CancelarTodo;
+        private System.Windows.Forms.Button VerHabitaciones;
     }
 }
