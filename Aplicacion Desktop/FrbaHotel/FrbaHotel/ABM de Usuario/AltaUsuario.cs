@@ -29,11 +29,7 @@ namespace FrbaHotel.ABM_de_Usuario
             ListaRoles.Items.Remove(ListaRoles.SelectedItem);
         }
 
-        private void CmdAgregar_Click(object sender, EventArgs e)
-        {
-            new BuscarFuncionalidad(this).ShowDialog();
-
-        }
+        
         private void LimpiarTodo_Click(object sender, EventArgs e)
         {
             TxtUser.Text = "";

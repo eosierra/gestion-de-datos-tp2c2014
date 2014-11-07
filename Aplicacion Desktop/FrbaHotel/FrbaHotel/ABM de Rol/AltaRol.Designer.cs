@@ -80,6 +80,7 @@
             // 
             // Guardar
             // 
+            this.Guardar.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Guardar.Location = new System.Drawing.Point(26, 329);
             this.Guardar.Name = "Guardar";
             this.Guardar.Size = new System.Drawing.Size(109, 24);

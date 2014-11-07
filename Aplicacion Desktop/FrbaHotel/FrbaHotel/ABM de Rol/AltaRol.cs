@@ -16,7 +16,7 @@ namespace FrbaHotel.ABM_de_Rol
         {
             InitializeComponent();
             funcion = fun;
-            agregar(id, nom);
+            cargar(id, nom);
         }
 
         public AltaRol(char fun)
@@ -62,20 +62,17 @@ namespace FrbaHotel.ABM_de_Rol
                 }
             }
             if (funcion=='M'){
-                this.Close();
+                
                 //TODO Agregar comportamiento de Modificacion acá.... Falta cargarle los datos
             }
         }
         #endregion
-
-        public void agregar(string id, string descripcion)
-        {
-            if (funcion=='A'){
+        public void agregar(string id,string desc){
                 bool sePuede = true;
                 bool sigue = true;
-                for (int i = 0; (i < ListFunciones.Items.Count - 1) && sigue; i++)
+                for (int i = 0; (i < ListFunciones.Items.Count) && sigue; i++)
                 {
-                    if (ListFunciones.Items[i].ToString() == descripcion)
+                    if (ListFunciones.Items[i].ToString() == desc)
                     {
                         sigue = false;
                         sePuede = false;
@@ -84,10 +81,16 @@ namespace FrbaHotel.ABM_de_Rol
                 if (!sePuede)
                 {
                     MessageBox.Show("No se puede agregar. Ya agregó esa funcionalidad");
-                } else {
-                    ListFunciones.Items.Add(new Funcionalidad(id, descripcion));
                 }
-            }
+                else
+                {
+                    ListFunciones.Items.Add(new Funcionalidad(id, desc));
+                }
+        }
+
+        public void cargar(string id, string descripcion)
+        {
+            
             if (funcion=='M'){
                 ListFunciones.Items.Clear();
                 BD bd = new BD();

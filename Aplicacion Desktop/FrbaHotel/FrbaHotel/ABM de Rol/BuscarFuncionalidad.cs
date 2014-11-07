@@ -11,7 +11,7 @@ namespace FrbaHotel.ABM_de_Rol
 {
     public partial class BuscarFuncionalidad : Buscador
     {
-        public BuscarFuncionalidad(ITraeBusqueda formu)
+        public BuscarFuncionalidad(AltaRol formu)
         {
             InitializeComponent();
             crearBuscador(formu, "Id_Funcionalidad,Descripcion", "Funcionalidades");
