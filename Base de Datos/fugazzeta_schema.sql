@@ -60,6 +60,9 @@ DROP TABLE FUGAZZETA.Facturas
 IF OBJECT_ID('FUGAZZETA.Roles') IS NOT NULL
 DROP TABLE FUGAZZETA.Roles
 
+IF OBJECT_ID('tempdb.dbo.#Estadias') IS NOT NULL
+DROP TABLE #Estadias
+
 IF OBJECT_ID('FUGAZZETA.Reservas') IS NOT NULL
 DROP TABLE FUGAZZETA.Reservas
 
@@ -121,6 +124,9 @@ DROP FUNCTION FUGAZZETA.CostoHabitacion
 
 IF OBJECT_ID('FUGAZZETA.PuntosFactura') IS NOT NULL
 DROP FUNCTION FUGAZZETA.PuntosFactura
+
+If OBJECT_ID('FUGAZZETA.FechaEgreso') IS NOT NULL
+DROP FUNCTION FUGAZZETA.FechaEgreso
 
 --Procedures
 IF OBJECT_ID('FUGAZZETA.LoginCorrecto', 'P') IS NOT NULL
@@ -548,7 +554,55 @@ INSERT INTO	FUGAZZETA.EstadosReserva values('Cancelada por No-Show')
 INSERT INTO	FUGAZZETA.EstadosReserva values('Efectivizada')
 go
 
-CREATE PROCEDURE FUGAZZETA.MigrarReservas AS
+----------------CREACION DE TABLA TEMPORAL ESTADIAS-----------------------------
+SELECT distinct
+		Reserva_Codigo,
+		(select top 1 Id_Cliente from FUGAZZETA.Clientes where Cliente_Mail=Mail and Cliente_Pasaporte_Nro=Nro_Doc) Id_Cliente,
+		(select Id_Hotel from FUGAZZETA.Hoteles where Calle = Hotel_Calle AND Nro_Calle = Hotel_Nro_Calle) Id_Hotel,
+		cast(Reserva_Fecha_Inicio as DATE) Inicio_Reserva,
+		cast(DATEADD(d,Estadia_Cant_Noches,Estadia_Fecha_Inicio) as DATE) Egreso,
+		cast(DATEADD(d,Reserva_Cant_Noches,Reserva_Fecha_Inicio) as DATE) Fin_Reserva,
+		(select Id_Regimen from FUGAZZETA.Regimenes where Descripcion=Regimen_Descripcion) Id_Regimen,
+		6 Id_EstadoReserva
+	into #Estadias
+	From gd_esquema.Maestra
+	where Estadia_Fecha_Inicio is not null
+
+-----------------INSERTO RESERVAS EFECTIVIZADAS/ESTADIAS--------------------------------
+SET IDENTITY_INSERT FUGAZZETA.Reservas ON
+Insert into FUGAZZETA.Reservas
+(Id_Reserva,Id_Cliente,Id_Hotel,Fecha_Inicio,Fecha_Egreso,Fecha_Fin_Reserva,Id_Regimen,Id_EstadoReserva)
+	select * FROM #Estadias
+	SET IDENTITY_INSERT FUGAZZETA.Reservas OFF
+go	
+
+-----------------MODIFICO CAMPOS DISTINTOS DE LA TEMPORAL-----------------------------
+UPDATE #Estadias SET Egreso = null, Id_EstadoReserva = 1
+
+-----------------INSERTO RESERVAS NO EFECTIVIZADAS = ((TOTALES - ESTADIAS))--------------------------
+SET IDENTITY_INSERT FUGAZZETA.Reservas ON
+Insert into FUGAZZETA.Reservas
+(Id_Reserva,Id_Cliente,Id_Hotel,Fecha_Inicio,Fecha_Egreso,Fecha_Fin_Reserva,Id_Regimen,Id_EstadoReserva)
+	
+	(SELECT DISTINCT
+		Reserva_Codigo,
+		(select top 1 Id_Cliente from FUGAZZETA.Clientes where Cliente_Mail=Mail and Cliente_Pasaporte_Nro=Nro_Doc),
+		(select Id_Hotel from FUGAZZETA.Hoteles where Calle = Hotel_Calle AND Nro_Calle = Hotel_Nro_Calle),
+		cast(Reserva_Fecha_Inicio as DATE),
+		null,
+		cast(DATEADD(d,Reserva_Cant_Noches,Reserva_Fecha_Inicio) as DATE),
+		(select Id_Regimen from FUGAZZETA.Regimenes where Descripcion=Regimen_Descripcion),
+		1
+	From gd_esquema.Maestra MP
+	where (Estadia_Fecha_Inicio is null)
+	EXCEPT
+	select * FROM #Estadias)
+	
+	SET IDENTITY_INSERT FUGAZZETA.Reservas OFF
+go	
+-----------------------------------
+
+/*CREATE PROCEDURE FUGAZZETA.MigrarReservas AS
 BEGIN
 SELECT DISTINCT
 Reserva_Codigo, Cliente_Pasaporte_Nro, Cliente_Apellido, Hotel_Calle, Hotel_Nro_Calle,
@@ -609,7 +663,7 @@ DEALLOCATE mi_cursor
 END
 GO
 EXEC FUGAZZETA.MigrarReservas
-GO
+GO*/
 
 --ACOMPAÑANTES: NO HAY INFORMACION DE PERSONAS QUE ACOMPAÑARON EN UNA ESTADIA.
 
@@ -738,9 +792,6 @@ WHERE
 AND H.Nro_Calle = M.Hotel_Nro_Calle
 GO
 
-
-
-
 ----------------------------------------/*VISTAS*/------------------------------------------
 --------------------------------------------------------------------------------------------
 
@@ -797,6 +848,7 @@ AND H.Num_Habitacion = HR.Num_Habitacion
 AND HR.Id_Reserva = R.Id_Reserva
 AND R.Fecha_Egreso IS NULL
 go
+
 
 ------------------------------------/*FUNCIONES*/-------------------------------------------
 --------------------------------------------------------------------------------------------
