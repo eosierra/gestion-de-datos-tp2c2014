@@ -109,7 +109,6 @@
       <DependentUpon>AltaRol.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM de Rol\Funcionalidad.cs" />
-    <Compile Include="ABM de Usuario\TipoDoc.cs" />
     <Compile Include="ABM de Usuario\Form1.cs">
       <SubType>Form</SubType>
     </Compile>

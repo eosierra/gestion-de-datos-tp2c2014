@@ -20,21 +20,36 @@ namespace FrbaHotel.ABM_de_Usuario
         public AltaUsuario(char func, string un)
         {
             InitializeComponent();
+            cargarTiposDoc();
+            cargar(un);
             TxtUser.Enabled = false;
             Limpiar.Visible = false;
-            cargar(un);
+            
             funcion = func;
         }
 
         public AltaUsuario()
         {
             InitializeComponent();
+            cargarTiposDoc();
            
         }
         #region Botones
         private void CmdQuitar_Click(object sender, EventArgs e)
         {
             ListaRoles.Items.Remove(ListaRoles.SelectedItem);
+        }
+
+        private void cargarTiposDoc()
+        {
+            BD bd = new BD();
+            string query = "SELECT * FROM FUGAZZETA.TiposDoc";
+            SqlDataReader dr = bd.lee(query);
+            while (dr.Read())
+            {
+                comboBox2.Items.Add(new ABM_de_Cliente.TipoDoc(dr[0].ToString(), dr[1].ToString()));
+            }
+            bd.cerrar();
         }
 
         
@@ -111,14 +126,7 @@ namespace FrbaHotel.ABM_de_Usuario
         private void AltaUsuario_Load(object sender, EventArgs e)
         {
             Calendario.MaxDate = Program.hoy();
-
-            BD bd = new BD();
-            string query = "SELECT * FROM FUGAZZETA.TiposDoc";
-            SqlDataReader dr = bd.lee(query);
-            while (dr.Read())
-            {
-                comboBox2.Items.Add(new TipoDoc(dr[0].ToString(), dr[1].ToString()));
-            }
+                  
 
         }
 
@@ -140,7 +148,7 @@ namespace FrbaHotel.ABM_de_Usuario
 
             BD bd = new BD();
             bd.obtenerConexion();
-            TipoDoc tipoDni = comboBox2.Items[comboBox2.SelectedIndex] as TipoDoc;
+            ABM_de_Cliente.TipoDoc tipoDni = comboBox2.Items[comboBox2.SelectedIndex] as ABM_de_Cliente.TipoDoc;
             string valores = "'" + TxtUser.Text + "',' " + TxtPass1.Text + "',' " + Nombre.Text + "',' " + Apellido.Text + "',' " + tipoDni.id + "', '" + NroDoc.Text + "',' " + TxtMail.Text + "', '" + Telefono.Text + "',' " + Direc.Text + "',' " + NroDirec.Text + "',' " + Calendario.Value.ToShortDateString() +"','"+1 +"','"+0+ "'"; 
             bd.insertar("Usuarios", valores);
 
@@ -175,15 +183,17 @@ namespace FrbaHotel.ABM_de_Usuario
                 Direc.Text = dr["Calle"].ToString();
                 NroDirec.Text = dr["NroCalle"].ToString();
 
-                
+
+                string elItem = "";
                 for (int i = 0; i < comboBox2.Items.Count; i++)
                 {
 
-                    if ((comboBox2.Items[i] as TipoDoc).id.ToString() == dr["Td_TipoDoc"].ToString())
+                    if ((comboBox2.Items[i] as ABM_de_Cliente.TipoDoc).id.ToString() == dr["Id_TipoDoc"].ToString())
                     {
-                        comboBox2.Text = comboBox2.Items[i].ToString();
+                        elItem = comboBox2.Items[i].ToString();
                     }
                 }
+                comboBox2.Text = elItem;
                 
             }
             dr.Close();
