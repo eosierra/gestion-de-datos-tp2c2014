@@ -91,6 +91,12 @@ namespace FrbaHotel.ABM_de_Usuario
             string valores = "'" + TxtUser.Text + "',' " + TxtPass1.Text + "',' " + Nombre.Text + "',' " + Apellido.Text + "',' " + tipoDni.id + "', '" + NroDoc.Text + "',' " + TxtMail.Text + "', '" + Telefono.Text + "',' " + Direc.Text + "',' " + NroDirec.Text + "',' " + Calendario.Value.ToShortDateString() +"','"+1 +"','"+0+ "'"; 
             bd.insertar("Usuarios", valores);
 
+            for (int i = 0; i < ListaRoles.Items.Count; i++)
+            {
+                Rol rol = ListaRoles.Items[i] as Rol;
+                bd.insertar("[Usuarios x Hoteles x Rol]", "'" + TxtUser.Text + "'," + 1 + "," + rol.id + "," + 0);
+            }
+
 
 
         }
