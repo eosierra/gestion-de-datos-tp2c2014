@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace FrbaHotel
 {
@@ -20,12 +21,14 @@ namespace FrbaHotel
         {
             InitializeComponent();
             while (usuarioActual == null) abrirLogin();
-            #region Carga de menues
+            #region Carga y bloqueo de menues
             menues.Add(RolesMenu);
             menues.Add(UsuariosMenu);
             menues.Add(ClientesMenu);
             menues.Add(HotelesMenu);
             menues.Add(ReservasMenu);
+
+            bloquearMenues();
             #endregion
 
         }
@@ -134,6 +137,37 @@ namespace FrbaHotel
 
         #endregion
 
+        private void bloquearMenues()
+        {
+            foreach (ToolStripMenuItem m in menues)
+            {
+                m.Visible = true;
+                foreach (ToolStripDropDownItem item in m.DropDownItems)
+                    item.Visible = false;
+            }
+        }
 
+        private void desbloquearMenues()
+        {
+            BD bd = new BD();
+            bd.obtenerConexion();
+            SqlDataReader dr = bd.lee("EXEC FUGAZZETA.VerFuncionalidadesEnHotel '" + usuarioActual + "', " + hotelActual);
+            while (dr.Read())
+            {
+                foreach (ToolStripMenuItem m in menues)
+                {
+                    foreach (ToolStripDropDownItem item in m.DropDownItems)
+                        if (item.Tag.ToString() == dr[1].ToString()) item.Visible = true;
+                }
+            }
+            dr.Close();
+            foreach (ToolStripMenuItem m in menues)
+            {
+                int count = 0;
+                for (int i = 0; i < m.DropDownItems.Count; i++)
+                    if (m.DropDownItems[i].Visible) count++;
+                if (count == 0) m.Visible = false;
+            }              
+        }
     }
 }

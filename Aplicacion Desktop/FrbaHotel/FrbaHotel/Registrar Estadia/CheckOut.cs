@@ -19,6 +19,7 @@ namespace FrbaHotel.Registrar_Estadia
         int cantDiasReserva;
         int idHotel;
         int idCliente;
+        DateTime fechaInicio;
         TableCarrito carrito;
 
         public CheckOut(MenuPrincipal mp)
@@ -109,8 +110,9 @@ namespace FrbaHotel.Registrar_Estadia
                     while (dr.Read())
                     {
                         idRegimen = Int32.Parse(dr[1].ToString());
-                        cantDiasReserva = Convert.ToInt16((Convert.ToDateTime(dr[3].ToString()) - Convert.ToDateTime(dr[2].ToString())).TotalDays);
-                        cantDiasEstadia = Convert.ToInt16((Program.hoy() - Convert.ToDateTime(dr[2].ToString())).TotalDays);
+                        fechaInicio = Convert.ToDateTime(dr[2].ToString());
+                        cantDiasReserva = Convert.ToInt16((Convert.ToDateTime(dr[3].ToString()) - fechaInicio).TotalDays);
+                        cantDiasEstadia = Convert.ToInt16((Program.hoy() - fechaInicio).TotalDays);
                         idHotel = Int16.Parse(dr[4].ToString());
                         idCliente = Int32.Parse(dr[5].ToString());
                     }
@@ -287,6 +289,13 @@ namespace FrbaHotel.Registrar_Estadia
                 bd2.ejecutar(query);
                 query = "INSERT INTO FUGAZZETA.Items_Hospedaje values (" + nroFactura + ", 0, " + (cantDiasReserva - cantDiasEstadia).ToString() + ", 0)";
                 bd2.ejecutar(query);
+                
+                foreach (DataGridViewRow row in GridHabitacion.Rows)
+                {
+                    query = "INSERT INTO FUGAZZETA.HistorialHabitaciones values(" + row.Cells[0].Value.ToString() + ", " + row.Cells[1].Value.ToString() + ", '" + fechaInicio.ToShortDateString() + "', " + cantDiasEstadia + ")";
+                    bd2.ejecutar(query);
+                }
+
                 
                 //Items Consumible
                 registrarConsumibles(nroFactura);
