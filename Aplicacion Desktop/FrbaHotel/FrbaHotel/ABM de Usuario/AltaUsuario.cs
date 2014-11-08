@@ -98,6 +98,13 @@ namespace FrbaHotel.ABM_de_Usuario
                 "' WHERE Username = '" + TxtUser.Text + "'";
             bd.ejecutar(comando);
 
+            bd.eliminar("[Usuarios x Hoteles x Rol]", "Username='" + TxtUser.Text +"'");
+            for (int i = 0; i < ListaRoles.Items.Count; i++)
+            {
+                Rol rol = ListaRoles.Items[i] as Rol;
+                bd.insertar("[Usuarios x Hoteles x Rol]", "'"+TxtUser.Text + "',1," + rol.id + ",0");
+            }
+
             MessageBox.Show("Actualización realizada con éxito");
         }
 
