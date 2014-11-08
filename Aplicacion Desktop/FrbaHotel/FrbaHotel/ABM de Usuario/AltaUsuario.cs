@@ -94,6 +94,7 @@ namespace FrbaHotel.ABM_de_Usuario
                 "', Telefono = '" + Telefono.Text +
                 "', Calle = '" + Direc.Text +
                 "', NroCalle = '" + NroDirec.Text +
+                "', Fecha_Nac = '" + Calendario.Value.ToShortDateString() +
                 "' WHERE Username = '" + TxtUser.Text + "'";
             bd.ejecutar(comando);
 
