@@ -17,6 +17,11 @@ namespace FrbaHotel.ABM_de_Usuario
     public partial class AltaUsuario : Form, ITraeBusqueda
     {
 
+        public AltaUsuario(char func, string un)
+        {
+            InitializeComponent();
+            cargar(un);
+        }
 
         public AltaUsuario()
         {
@@ -90,6 +95,33 @@ namespace FrbaHotel.ABM_de_Usuario
 
         }
 
+        public void cargar(string username)
+        {
+            ListaRoles.Items.Clear();
+            BD bd = new BD();
+            bd.obtenerConexion();
+            string query = "SELECT * FROM FUGAZZETA.Usuarios WHERE Username = '" + username + "'";
+            SqlDataReader dr = bd.lee(query);
+
+            while (dr.Read())
+            {
+                TxtUser.Text = dr["Username"].ToString();
+                TxtPass1.Text = dr["Contraseña"].ToString();
+                TxtPass2.Text = dr["Contraseña"].ToString();
+                Nombre.Text = dr["Nombre"].ToString();
+                Apellido.Text = dr["Apellido"].ToString();
+                NroDoc.Text = dr["Nro_Doc"].ToString();
+                TxtMail.Text = dr["Mail"].ToString();
+                Telefono.Text = dr["Telefono"].ToString();
+                Direc.Text = dr["Calle"].ToString();
+                NroDirec.Text = dr["NroCalle"].ToString();
+            }
+            dr.Close();
+
+
+            bd.cerrar();
+
+        }
 
         private void AltaUsuario_Load(object sender, EventArgs e)
         {
