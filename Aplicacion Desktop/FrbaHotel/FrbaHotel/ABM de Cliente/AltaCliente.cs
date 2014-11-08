@@ -106,11 +106,21 @@ namespace FrbaHotel.ABM_de_Cliente
                 TxtPiso.Text = dr["Piso"].ToString();
                 TxtDpto.Text = dr["Depto"].ToString();
                 TxtLocalidad.Text = dr["Localidad"].ToString();
+                
+                string elItem = "";
+                for (int i = 0; i < ComboNac.Items.Count; i++)
+                {
 
-
+                    if ((ComboNac.Items[i] as Pais).id.ToString() == dr["Nacionalidad"].ToString())
+                    {
+                        elItem = ComboNac.Items[i].ToString();
+                    }
+                }
+                ComboNac.Text = elItem;
             }
             dr.Close();
 
+            
 
             /* query = "SELECT FR.Id_Rol,FR.Id_Funcionalidad, F.Descripcion FROM FUGAZZETA.[Funcionalidades x Roles] FR, FUGAZZETA.Funcionalidades F where FR.Id_Funcionalidad = F.Id_Funcionalidad AND FR.Id_Rol = " + elId;
              dr = bd.lee(query);
