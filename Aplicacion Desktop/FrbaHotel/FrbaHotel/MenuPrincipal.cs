@@ -37,6 +37,7 @@ namespace FrbaHotel
         {
             usuarioActual = null;
             Login.FrmLogin elLogin = new Login.FrmLogin();
+            elLogin.Text = elLogin.Text.ToUpper();
             elLogin.ShowDialog();
             usuarioActual = elLogin.userActual;
             LabelSesion.Text = "Sesión iniciada como " + usuarioActual;
@@ -53,6 +54,7 @@ namespace FrbaHotel
             form.StartPosition = FormStartPosition.CenterScreen;
             string textoActual = form.Text;
             form.Text = ("FRBA Hoteles - " + textoActual).ToUpper();
+            form.ShowIcon = false;
             form.Show();
             
         }
