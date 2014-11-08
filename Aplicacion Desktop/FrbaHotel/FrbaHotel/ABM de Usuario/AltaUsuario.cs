@@ -36,6 +36,7 @@ namespace FrbaHotel.ABM_de_Usuario
         {
             InitializeComponent();
             cargarTiposDoc();
+            Habilitado.Visible = false;
            
         }
         #region Botones
@@ -114,7 +115,8 @@ namespace FrbaHotel.ABM_de_Usuario
                 "', Calle = '" + Direc.Text +
                 "', NroCalle = '" + NroDirec.Text +
                 "', Fecha_Nac = '" + Calendario.Value.ToShortDateString() +
-                "' WHERE Username = '" + TxtUser.Text + "'";
+                "', Habilitado = " + Convert.ToSByte(Habilitado.Checked)+ 
+                " WHERE Username = '" + TxtUser.Text + "'";
             bd.ejecutar(comando);
 
             bd.eliminar("[Usuarios x Hoteles x Rol]", "Username='" + TxtUser.Text +"'");
@@ -187,7 +189,7 @@ namespace FrbaHotel.ABM_de_Usuario
                 Telefono.Text = dr["Telefono"].ToString();
                 Direc.Text = dr["Calle"].ToString();
                 NroDirec.Text = dr["NroCalle"].ToString();
-
+                Habilitado.Checked = Convert.ToBoolean(dr["Habilitado"].ToString());
 
                 string elItem = "";
                 for (int i = 0; i < comboBox2.Items.Count; i++)

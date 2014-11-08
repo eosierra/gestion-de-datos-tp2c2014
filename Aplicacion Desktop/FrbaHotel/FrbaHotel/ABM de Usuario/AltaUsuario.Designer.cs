@@ -66,6 +66,7 @@
             this.TxtPass2 = new System.Windows.Forms.TextBox();
             this.LblError1 = new System.Windows.Forms.Label();
             this.LblError2 = new System.Windows.Forms.Label();
+            this.Habilitado = new System.Windows.Forms.CheckBox();
             this.GrupoDatos.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -342,6 +343,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.Habilitado);
             this.groupBox2.Controls.Add(this.LinkValida);
             this.groupBox2.Controls.Add(this.CmdQuitarRol);
             this.groupBox2.Controls.Add(this.CmdAgregarRol);
@@ -438,6 +440,17 @@
             this.LblError2.TabIndex = 11;
             this.LblError2.Text = "..............";
             // 
+            // Habilitado
+            // 
+            this.Habilitado.AutoSize = true;
+            this.Habilitado.Location = new System.Drawing.Point(227, 164);
+            this.Habilitado.Name = "Habilitado";
+            this.Habilitado.Size = new System.Drawing.Size(112, 17);
+            this.Habilitado.TabIndex = 12;
+            this.Habilitado.Text = "Usuario Habilitado";
+            this.Habilitado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Habilitado.UseVisualStyleBackColor = true;
+            // 
             // AltaUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -505,5 +518,6 @@
         private System.Windows.Forms.Button CmdAddHotel;
         private System.Windows.Forms.ListBox ListHoteles;
         private System.Windows.Forms.Label LblError2;
+        private System.Windows.Forms.CheckBox Habilitado;
     }
 }
