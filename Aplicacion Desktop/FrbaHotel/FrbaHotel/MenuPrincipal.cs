@@ -9,17 +9,25 @@ using System.Windows.Forms;
 
 namespace FrbaHotel
 {
-    public partial class MenuPrincipal : Form
+    public partial class MenuPrincipal : Form, ITraeBusqueda
     {
         public string usuarioActual;
+        public int hotelActual;
+        public int rolActual;
+        List<ToolStripMenuItem> menues = new List<ToolStripMenuItem>();
 
         public MenuPrincipal()
         {
             InitializeComponent();
-            while (usuarioActual == null)
-            {
-                abrirLogin();
-            }
+            while (usuarioActual == null) abrirLogin();
+            #region Carga de menues
+            menues.Add(RolesMenu);
+            menues.Add(UsuariosMenu);
+            menues.Add(ClientesMenu);
+            menues.Add(HotelesMenu);
+            menues.Add(ReservasMenu);
+            #endregion
+
         }
 
         private void abrirLogin()
@@ -41,94 +49,91 @@ namespace FrbaHotel
             form.MinimizeBox = false;
             form.StartPosition = FormStartPosition.CenterScreen;
             string textoActual = form.Text;
-            form.Text = "FRBA Hoteles - " + textoActual;
+            form.Text = ("FRBA Hoteles - " + textoActual).ToUpper();
             form.Show();
             
         }
 
-        private void nuevoUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
+        private void nuevoUsuarioMenu_Click(object sender, EventArgs e)
         {
             abrir(new ABM_de_Usuario.AltaUsuario());
         }
 
-        private void iniciarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
+        private void cerrarSesiónMenu_Click(object sender, EventArgs e)
         {
             abrirLogin();
         }
 
-        private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            abrirLogin();
-        }
-
-        private void nuevoRolToolStripMenuItem_Click(object sender, EventArgs e)
+        private void nuevoRolMenu_Click(object sender, EventArgs e)
         {
             abrir(new ABM_de_Rol.AltaRol('A'));
         }
 
-        private void modificarRolToolStripMenuItem_Click(object sender, EventArgs e)
+        private void modificarRolMenu_Click(object sender, EventArgs e)
         {
             abrir(new ABM_de_Rol.BuscarRol(null,'M'));
         }
 
-        private void modificarUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
+        private void modificarUsuarioMenu_Click(object sender, EventArgs e)
         {
-            abrir(new ABM_de_Usuario.BuscarUsuario(interfaz));
+            abrir(new ABM_de_Usuario.BuscarUsuario(this));
         }
 
-        private void eliminarUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
+        private void eliminarUsuarioMenu_Click(object sender, EventArgs e)
         {
-            abrir(new ABM_de_Usuario.BuscarUsuario(interfaz));
+            abrir(new ABM_de_Usuario.BuscarUsuario(this));
         }
 
-        private void realizarNuevaReservaToolStripMenuItem_Click(object sender, EventArgs e)
+        private void realizarNuevaReservaMenu_Click(object sender, EventArgs e)
         {
             abrir(new Generar_Modificar_Reserva.GenerarReserva(this));
         }
 
-        private void editarReservaToolStripMenuItem_Click(object sender, EventArgs e)
+        private void editarReservaMenu_Click(object sender, EventArgs e)
         {
             abrir(new Generar_Modificar_Reserva.ModificarReserva(this));
         }
 
-        private void modificarHotelToolStripMenuItem_Click(object sender, EventArgs e)
+        private void modificarHotelMenu_Click(object sender, EventArgs e)
         {
             abrir(new ABM_de_Hotel.ModificarHotel());
         }
 
-        private void cancelarReservaToolStripMenuItem_Click(object sender, EventArgs e)
+        private void cancelarReservaMenu_Click(object sender, EventArgs e)
         {
             abrir(new Cancelar_Reserva.CancelarReserva(this));
         }
 
-        private void checkInToolStripMenuItem_Click(object sender, EventArgs e)
+        private void checkInMenu_Click(object sender, EventArgs e)
         {
             abrir(new Registrar_Estadia.CheckIn(this));
         }
 
-        private void checkOutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void checkOutMenu_Click(object sender, EventArgs e)
         {
             abrir(new Registrar_Estadia.CheckOut(this));
         }
 
-        private void estadísticasToolStripMenuItem_Click(object sender, EventArgs e)
+        private void estadísticasMenu_Click(object sender, EventArgs e)
         {
             abrir(new Listado_Estadistico.Estadistica());
         }
 
-        private void altaClientesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void EditarClienteMenu_Click(object sender, EventArgs e)
         {
-            abrir(new ABM_de_Cliente.BuscarCliente(interfaz));
+            abrir(new ABM_de_Cliente.BuscarCliente(this));
         }
+
         #endregion
 
-        ITraeBusqueda interfaz;
+        #region ITraeBusqueda
 
-        
+        public void agregar(string id, string descripcion)
+        {
+        }
 
+        #endregion
 
-
-        //esto habrá que sacarlo después
 
     }
 }
