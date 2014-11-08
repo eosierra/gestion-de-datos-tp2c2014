@@ -30,9 +30,8 @@ namespace FrbaHotel.Login
             {
                 if (tabla.HasRows)
                 {
-                    SHA256 sha = new SHA256();
                     tabla.Read();
-                    string pass = sha.encriptarContraseña(tabla[1].ToString());
+                    string pass = tabla[1].ToString();
                     if (TxtPass.Text == pass)
                     {
                         LblError.Text = "";
