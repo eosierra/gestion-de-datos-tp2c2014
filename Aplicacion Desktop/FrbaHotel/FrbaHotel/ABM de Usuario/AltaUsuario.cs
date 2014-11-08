@@ -10,11 +10,15 @@ using FrbaHotel.ABM_de_Rol;
 using FrbaHotel.ABM_de_Hotel;
 using System.Data.SqlClient;
 
+using System.Security.Cryptography;
+
+
+
 namespace FrbaHotel.ABM_de_Usuario
 {
 
 
-    public partial class AltaUsuario : Buscador, ITraeBusqueda
+    public partial class AltaUsuario : Buscador,ITraeBusqueda
     {
 
         public AltaUsuario(char func, string un)
@@ -148,8 +152,9 @@ namespace FrbaHotel.ABM_de_Usuario
 
             BD bd = new BD();
             bd.obtenerConexion();
+            SHA256 sha = new SHA256();
             ABM_de_Cliente.TipoDoc tipoDni = comboBox2.Items[comboBox2.SelectedIndex] as ABM_de_Cliente.TipoDoc;
-            string valores = "'" + TxtUser.Text + "',' " + TxtPass1.Text + "',' " + Nombre.Text + "',' " + Apellido.Text + "',' " + tipoDni.id + "', '" + NroDoc.Text + "',' " + TxtMail.Text + "', '" + Telefono.Text + "',' " + Direc.Text + "',' " + NroDirec.Text + "',' " + Calendario.Value.ToShortDateString() +"','"+1 +"','"+0+ "'"; 
+            string valores = "'" + TxtUser.Text + "',' " + sha.encriptarContraseña(TxtPass1.Text) + "',' " + Nombre.Text + "',' " + Apellido.Text + "',' " + tipoDni.id + "', '" + NroDoc.Text + "',' " + TxtMail.Text + "', '" + Telefono.Text + "',' " + Direc.Text + "',' " + NroDirec.Text + "',' " + Calendario.Value.ToShortDateString() + "','" + 1 + "','" + 0 + "'"; 
             bd.insertar("Usuarios", valores);
 
             for (int i = 0; i < ListaRoles.Items.Count; i++)
@@ -310,6 +315,8 @@ namespace FrbaHotel.ABM_de_Usuario
             new BuscarHotel(this).ShowDialog();
         }
 
+        
+            
 
         
     }

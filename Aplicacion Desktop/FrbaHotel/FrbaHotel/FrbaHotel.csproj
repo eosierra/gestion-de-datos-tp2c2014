@@ -151,6 +151,7 @@
     <Compile Include="Cancelar Reserva\CancelarReserva.Designer.cs">
       <DependentUpon>CancelarReserva.cs</DependentUpon>
     </Compile>
+    <Compile Include="sha256.cs" />
     <Compile Include="Generar Modificar Reserva\BuscarHabitacionLibre.cs">
       <SubType>Form</SubType>
     </Compile>
