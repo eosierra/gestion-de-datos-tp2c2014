@@ -123,7 +123,13 @@ namespace FrbaHotel.ABM_de_Usuario
                 NroDirec.Text = dr["NroCalle"].ToString();
             }
             dr.Close();
-
+            
+            query = "SELECT Username,R.Id_Rol,Nombre FROM FUGAZZETA.Roles R, FUGAZZETA.[Usuarios x Hoteles x Rol] UHR where R.Id_Rol = UHR.Id_Rol AND Username = '" + TxtUser.Text + "'";
+            dr = bd.lee(query);
+            while (dr.Read())
+            {
+                ListaRoles.Items.Add(new Rol(dr[1].ToString(), dr[2].ToString()));
+            }
 
             bd.cerrar();
 
