@@ -265,7 +265,7 @@ Username nvarchar(30),
 Id_Hotel int,
 Id_Rol int,
 EstadoSesion bit DEFAULT 0,
-PRIMARY KEY (Username,Id_Hotel),
+PRIMARY KEY (Username,Id_Hotel,Id_Rol),
 FOREIGN KEY (Username) REFERENCES FUGAZZETA.Usuarios,
 FOREIGN KEY (Id_Hotel) REFERENCES FUGAZZETA.Hoteles,
 FOREIGN KEY (Id_Rol) REFERENCES FUGAZZETA.Roles
