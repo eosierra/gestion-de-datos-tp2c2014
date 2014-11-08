@@ -11,13 +11,14 @@ using FrbaHotel.ABM_de_Hotel;
 
 namespace FrbaHotel.ABM_de_Cliente
 {
-    public partial class AltaCliente : Form
+    public partial class AltaCliente : Buscador
     {
         public AltaCliente(char fun,string id)
         {
             InitializeComponent();
             CargarTipoDocNacPaises();
             cargar(id);
+            funcion = 'M';
         }
         public AltaCliente()
         {
@@ -45,6 +46,16 @@ namespace FrbaHotel.ABM_de_Cliente
 
         private void CmdGuardar_Click(object sender, EventArgs e)
         {
+            if (funcion=='M'){
+                {
+                    DialogResult modif = MessageBox.Show("Son todos los datos correctos?", "Confirmar actualización de cliente", MessageBoxButtons.YesNo);
+                    if (modif == DialogResult.Yes)
+                    {
+                        actualizarCliente();
+                    }
+                }
+            }
+            else{
             DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", this.Text, MessageBoxButtons.YesNo);
 
             if (confirma == DialogResult.Yes)
@@ -80,6 +91,34 @@ namespace FrbaHotel.ABM_de_Cliente
                 }
             }
         }
+        }
+
+        private void actualizarCliente()
+        {
+            BD bd = new BD();
+            bd.obtenerConexion();
+            Pais elPais = ComboNac.Items[ComboNac.SelectedIndex] as Pais;
+            TipoDoc elTipoDoc = TipoDoc.Items[TipoDoc.SelectedIndex] as TipoDoc;
+            string comando =
+                "UPDATE FUGAZZETA.Clientes SET Nombre = '" + TxtNombre.Text +
+                "', Apellido = '" + TxtApellido.Text +
+                "', Nro_Doc = '" + TxtNroDoc.Text +
+                "', Fecha_Nac = '" + FechaPick.Value.ToShortDateString() +
+                "', Mail = '" + TxtMail.Text +
+                "', Telefono = '" + TxtTelefono.Text +
+                "', Dom_Calle = '" + TxtCalle.Text +
+                "', Nro_Calle = '" + TxtNroDirec.Text +
+                "', Piso = '" + TxtPiso.Text +
+                "', Depto = '" + TxtDpto.Text +
+                "', Localidad = '" + TxtLocalidad.Text +
+                "', Nacionalidad = '" + elPais.id +
+                "', Id_TipoDoc = '" + elTipoDoc.id +
+                "' WHERE Id_Cliente = '" + Id.Text + "'";
+            bd.ejecutar(comando);
+            
+            MessageBox.Show("Actualización realizada con éxito");
+            bd.cerrar();
+        }
 
         private void limpiar(TextBox txt)
         {
@@ -96,6 +135,7 @@ namespace FrbaHotel.ABM_de_Cliente
 
             while (dr.Read())
             {
+                Id.Text = dr["Id_Cliente"].ToString();
                 TxtNombre.Text = dr["Nombre"].ToString();
                 TxtApellido.Text = dr["Apellido"].ToString();
                 TxtNroDoc.Text = dr["Nro_Doc"].ToString();
@@ -106,7 +146,10 @@ namespace FrbaHotel.ABM_de_Cliente
                 TxtPiso.Text = dr["Piso"].ToString();
                 TxtDpto.Text = dr["Depto"].ToString();
                 TxtLocalidad.Text = dr["Localidad"].ToString();
-                
+
+                string fecha = dr["Fecha_Nac"].ToString();
+                FechaPick.Value = convertirFecha(fecha);
+                               
                 string elItem = "";
                 for (int i = 0; i < ComboNac.Items.Count; i++)
                 {
@@ -117,6 +160,17 @@ namespace FrbaHotel.ABM_de_Cliente
                     }
                 }
                 ComboNac.Text = elItem;
+
+                elItem = "";
+                for (int i = 0; i < TipoDoc.Items.Count; i++)
+                {
+
+                    if ((TipoDoc.Items[i] as TipoDoc).id.ToString() == dr["Id_TipoDoc"].ToString())
+                    {
+                        elItem = TipoDoc.Items[i].ToString();
+                    }
+                }
+                TipoDoc.Text = elItem;
             }
             dr.Close();
 
@@ -131,6 +185,10 @@ namespace FrbaHotel.ABM_de_Cliente
             bd.cerrar();
         }
 
+        private DateTime convertirFecha(string fecha)
+        {
+            return Convert.ToDateTime(fecha);
+        }
 
         private string ifNull(TextBox txt)
         {
@@ -208,6 +266,11 @@ namespace FrbaHotel.ABM_de_Cliente
         private void AltaCliente_Load(object sender, EventArgs e)
         {
             FechaPick.MaxDate = Program.hoy();
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+
         } 
     }
 }

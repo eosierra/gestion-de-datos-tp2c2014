@@ -58,13 +58,15 @@
             this.CmdLimpiar = new System.Windows.Forms.Button();
             this.CmdGuardar = new System.Windows.Forms.Button();
             this.FechaPick = new System.Windows.Forms.DateTimePicker();
+            this.label14 = new System.Windows.Forms.Label();
+            this.Id = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 29);
+            this.label1.Location = new System.Drawing.Point(24, 39);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 0;
@@ -73,7 +75,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 57);
+            this.label2.Location = new System.Drawing.Point(24, 67);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 1;
@@ -82,7 +84,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(24, 86);
+            this.label3.Location = new System.Drawing.Point(24, 96);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(127, 13);
             this.label3.TabIndex = 2;
@@ -91,7 +93,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(25, 114);
+            this.label4.Location = new System.Drawing.Point(25, 124);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(29, 13);
             this.label4.TabIndex = 3;
@@ -100,7 +102,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(24, 141);
+            this.label5.Location = new System.Drawing.Point(24, 151);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(52, 13);
             this.label5.TabIndex = 4;
@@ -229,7 +231,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(25, 167);
+            this.label9.Location = new System.Drawing.Point(25, 177);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(72, 13);
             this.label9.TabIndex = 6;
@@ -238,7 +240,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(24, 196);
+            this.label10.Location = new System.Drawing.Point(24, 206);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(109, 13);
             this.label10.TabIndex = 7;
@@ -246,28 +248,28 @@
             // 
             // TxtNombre
             // 
-            this.TxtNombre.Location = new System.Drawing.Point(77, 26);
+            this.TxtNombre.Location = new System.Drawing.Point(77, 36);
             this.TxtNombre.Name = "TxtNombre";
             this.TxtNombre.Size = new System.Drawing.Size(245, 20);
             this.TxtNombre.TabIndex = 1;
             // 
             // TxtApellido
             // 
-            this.TxtApellido.Location = new System.Drawing.Point(77, 54);
+            this.TxtApellido.Location = new System.Drawing.Point(77, 64);
             this.TxtApellido.Name = "TxtApellido";
             this.TxtApellido.Size = new System.Drawing.Size(245, 20);
             this.TxtApellido.TabIndex = 2;
             // 
             // TxtMail
             // 
-            this.TxtMail.Location = new System.Drawing.Point(77, 109);
+            this.TxtMail.Location = new System.Drawing.Point(77, 119);
             this.TxtMail.Name = "TxtMail";
             this.TxtMail.Size = new System.Drawing.Size(245, 20);
             this.TxtMail.TabIndex = 5;
             // 
             // TxtTelefono
             // 
-            this.TxtTelefono.Location = new System.Drawing.Point(77, 138);
+            this.TxtTelefono.Location = new System.Drawing.Point(77, 148);
             this.TxtTelefono.Name = "TxtTelefono";
             this.TxtTelefono.Size = new System.Drawing.Size(245, 20);
             this.TxtTelefono.TabIndex = 6;
@@ -277,7 +279,7 @@
             // 
             this.ComboNac.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboNac.FormattingEnabled = true;
-            this.ComboNac.Location = new System.Drawing.Point(103, 164);
+            this.ComboNac.Location = new System.Drawing.Point(103, 174);
             this.ComboNac.Name = "ComboNac";
             this.ComboNac.Size = new System.Drawing.Size(219, 21);
             this.ComboNac.TabIndex = 7;
@@ -286,14 +288,14 @@
             // 
             this.TipoDoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TipoDoc.FormattingEnabled = true;
-            this.TipoDoc.Location = new System.Drawing.Point(158, 82);
+            this.TipoDoc.Location = new System.Drawing.Point(158, 92);
             this.TipoDoc.Name = "TipoDoc";
             this.TipoDoc.Size = new System.Drawing.Size(68, 21);
             this.TipoDoc.TabIndex = 3;
             // 
             // TxtNroDoc
             // 
-            this.TxtNroDoc.Location = new System.Drawing.Point(232, 83);
+            this.TxtNroDoc.Location = new System.Drawing.Point(232, 93);
             this.TxtNroDoc.Name = "TxtNroDoc";
             this.TxtNroDoc.Size = new System.Drawing.Size(90, 20);
             this.TxtNroDoc.TabIndex = 4;
@@ -311,6 +313,7 @@
             // 
             // CmdGuardar
             // 
+            this.CmdGuardar.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.CmdGuardar.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.CmdGuardar.Location = new System.Drawing.Point(0, 307);
             this.CmdGuardar.Name = "CmdGuardar";
@@ -322,16 +325,40 @@
             // 
             // FechaPick
             // 
-            this.FechaPick.Location = new System.Drawing.Point(139, 196);
+            this.FechaPick.Location = new System.Drawing.Point(139, 206);
             this.FechaPick.Name = "FechaPick";
             this.FechaPick.Size = new System.Drawing.Size(214, 20);
             this.FechaPick.TabIndex = 18;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(25, 12);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(19, 13);
+            this.label14.TabIndex = 19;
+            this.label14.Text = "Id:";
+            this.label14.Click += new System.EventHandler(this.label14_Click);
+            // 
+            // Id
+            // 
+            this.Id.AutoSize = true;
+            this.Id.CausesValidation = false;
+            this.Id.Enabled = false;
+            this.Id.Location = new System.Drawing.Point(74, 12);
+            this.Id.Name = "Id";
+            this.Id.Size = new System.Drawing.Size(16, 13);
+            this.Id.TabIndex = 20;
+            this.Id.Text = "Id";
             // 
             // AltaCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(656, 350);
+            this.Controls.Add(this.TxtMail);
+            this.Controls.Add(this.Id);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.FechaPick);
             this.Controls.Add(this.CmdGuardar);
             this.Controls.Add(this.CmdLimpiar);
@@ -339,7 +366,6 @@
             this.Controls.Add(this.TipoDoc);
             this.Controls.Add(this.ComboNac);
             this.Controls.Add(this.TxtTelefono);
-            this.Controls.Add(this.TxtMail);
             this.Controls.Add(this.TxtApellido);
             this.Controls.Add(this.TxtNombre);
             this.Controls.Add(this.label10);
@@ -395,5 +421,7 @@
         private System.Windows.Forms.TextBox TxtDpto;
         private System.Windows.Forms.TextBox TxtPiso;
         private System.Windows.Forms.DateTimePicker FechaPick;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label Id;
     }
 }
