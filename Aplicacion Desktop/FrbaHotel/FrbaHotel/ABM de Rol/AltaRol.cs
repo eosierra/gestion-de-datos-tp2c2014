@@ -70,8 +70,7 @@ namespace FrbaHotel.ABM_de_Rol
                 {
                     actualizarRol();
                 }
-                //TODO Agregar comportamiento de Modificacion acá.... Falta cargarle los datos
-            }
+                }
         }
 
         private void actualizarRol()
