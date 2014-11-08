@@ -64,6 +64,7 @@ namespace FrbaHotel.ABM_de_Cliente
                 " + ifNull(TxtDpto) + ", " + ifNull(TxtLocalidad) + ", " + idPais + ", " + idNac + ", 1)";
                     bd.ejecutar(query);
                     bd.cerrar();
+                    this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
                 catch (Exception ex)
@@ -149,6 +150,11 @@ namespace FrbaHotel.ABM_de_Cliente
         private void Numero_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void AltaCliente_Load(object sender, EventArgs e)
+        {
+            FechaPick.MaxDate = Program.hoy();
         } 
     }
 }

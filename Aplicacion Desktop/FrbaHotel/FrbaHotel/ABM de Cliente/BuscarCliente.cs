@@ -75,7 +75,23 @@ namespace FrbaHotel.ABM_de_Cliente
 
         private void AgregarCliente_Click(object sender, EventArgs e)
         {
-            new ABM_de_Cliente.AltaCliente().ShowDialog();
+            DialogResult exito = new AltaCliente().ShowDialog();
+            if (exito == DialogResult.OK)
+            {
+                BD db = new BD();
+                SqlDataReader dr = db.lee("SELECT TOP 1 * FROM FUGAZZETA.Clientes ORDER BY Id_Cliente DESC");
+                string id = "";
+                string apellidonombre = "";
+                while (dr.Read())
+                {
+                    id = dr[0].ToString();
+                    apellidonombre = dr[2].ToString() + ", " + dr[1].ToString();
+                }
+                dr.Close();
+                dondeVuelve.agregar(id, apellidonombre);
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
         }
 
         private void Seleccionar_Click(object sender, EventArgs e)

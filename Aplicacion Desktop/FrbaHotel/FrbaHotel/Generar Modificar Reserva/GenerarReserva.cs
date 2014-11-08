@@ -211,10 +211,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         {
             nBuscador = 1;
             DialogResult sigue = new ABM_de_Cliente.BuscarCliente(this).ShowDialog();
-            if (sigue == DialogResult.OK)
-            {
-                group3.Enabled = true;
-            }
+            if (sigue == DialogResult.OK) group3.Enabled = true;
         }
 
         private void ElegirHotel_Click(object sender, EventArgs e)
@@ -257,7 +254,8 @@ namespace FrbaHotel.Generar_Modificar_Reserva
 
         private void CancelarTodo_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult seguro = MessageBox.Show("Seguro?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (seguro== DialogResult.Yes) this.Close();
         }
 
         private void ConfirmarDatosEstadia_Click(object sender, EventArgs e)

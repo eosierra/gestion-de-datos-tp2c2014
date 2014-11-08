@@ -241,6 +241,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "BuscarCliente";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Buscar Cliente";
             this.Load += new System.EventHandler(this.BuscarCliente_Load);
             ((System.ComponentModel.ISupportInitialize)(this.GridClientes)).EndInit();
