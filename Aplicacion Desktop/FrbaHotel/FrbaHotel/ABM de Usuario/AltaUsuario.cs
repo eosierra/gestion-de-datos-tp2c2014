@@ -14,13 +14,16 @@ namespace FrbaHotel.ABM_de_Usuario
 {
 
 
-    public partial class AltaUsuario : Form, ITraeBusqueda
+    public partial class AltaUsuario : Buscador, ITraeBusqueda
     {
 
         public AltaUsuario(char func, string un)
         {
             InitializeComponent();
+            TxtUser.Enabled = false;
+            Limpiar.Visible = false;
             cargar(un);
+            funcion = func;
         }
 
         public AltaUsuario()
@@ -56,6 +59,14 @@ namespace FrbaHotel.ABM_de_Usuario
 
         private void Guardar_Click(object sender, EventArgs e)
         {
+            if (funcion=='M'){
+                DialogResult modif = MessageBox.Show("Son todos los datos correctos?", "Confirmar actualización de usuario", MessageBoxButtons.YesNo);
+                if (modif == DialogResult.Yes)
+                {
+                    actualizarUsuario();
+                }
+            }
+            else
             try
             {
                 agregarUsuario();
@@ -67,8 +78,42 @@ namespace FrbaHotel.ABM_de_Usuario
                 MessageBox.Show(ex.Message);
             }
         }
-        #endregion
+
         
+        #endregion
+
+        private void actualizarUsuario()
+        {
+            BD bd = new BD();
+            bd.obtenerConexion();
+            string comando =
+                "UPDATE FUGAZZETA.Usuarios SET Nombre = '" + Nombre.Text +
+                "', Apellido = '" + Apellido.Text +
+                "', Nro_Doc = '" + NroDoc.Text +
+                "', Mail = '" + TxtMail.Text +
+                "', Telefono = '" + Telefono.Text +
+                "', Calle = '" + Direc.Text +
+                "', NroCalle = '" + NroDirec.Text +
+                "' WHERE Username = '" + TxtUser.Text + "'";
+            bd.ejecutar(comando);
+
+            MessageBox.Show("Actualización realizada con éxito");
+        }
+
+        private void AltaUsuario_Load(object sender, EventArgs e)
+        {
+            Calendario.MaxDate = Program.hoy();
+
+            BD bd = new BD();
+            string query = "SELECT * FROM FUGAZZETA.TiposDoc";
+            SqlDataReader dr = bd.lee(query);
+            while (dr.Read())
+            {
+                comboBox2.Items.Add(new TipoDoc(dr[0].ToString(), dr[1].ToString()));
+            }
+
+        }
+
         private void validarDatosIngresados()
         {
             if (Nombre.Text == "")
@@ -108,7 +153,7 @@ namespace FrbaHotel.ABM_de_Usuario
             bd.obtenerConexion();
             string query = "SELECT * FROM FUGAZZETA.Usuarios WHERE Username = '" + username + "'";
             SqlDataReader dr = bd.lee(query);
-
+            
             while (dr.Read())
             {
                 TxtUser.Text = dr["Username"].ToString();
@@ -121,6 +166,17 @@ namespace FrbaHotel.ABM_de_Usuario
                 Telefono.Text = dr["Telefono"].ToString();
                 Direc.Text = dr["Calle"].ToString();
                 NroDirec.Text = dr["NroCalle"].ToString();
+
+                
+                for (int i = 0; i < comboBox2.Items.Count; i++)
+                {
+
+                    if ((comboBox2.Items[i] as TipoDoc).id.ToString() == dr["Td_TipoDoc"].ToString())
+                    {
+                        comboBox2.Text = comboBox2.Items[i].ToString();
+                    }
+                }
+                
             }
             dr.Close();
             
@@ -135,19 +191,7 @@ namespace FrbaHotel.ABM_de_Usuario
 
         }
 
-        private void AltaUsuario_Load(object sender, EventArgs e)
-        {
-            Calendario.MaxDate = Program.hoy();
-           
-            BD bd = new BD();
-            string query = "SELECT * FROM FUGAZZETA.TiposDoc";
-            SqlDataReader dr = bd.lee(query);
-            while (dr.Read())
-            {
-                comboBox2.Items.Add(new TipoDoc(dr[0].ToString(), dr[1].ToString()));
-            }
-
-        }
+        
 
 
         #region Botones
