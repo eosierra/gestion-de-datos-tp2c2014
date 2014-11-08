@@ -14,9 +14,17 @@ namespace FrbaHotel.ABM_de_Usuario
 {
 
 
-    public partial class AltaUsuario : Form, ITraeBusqueda
+    public partial class AltaUsuario : Buscador, ITraeBusqueda
     {
 
+        public AltaUsuario(char func, string un)
+        {
+            InitializeComponent();
+            TxtUser.Enabled = false;
+            Limpiar.Visible = false;
+            cargar(un);
+            funcion = func;
+        }
 
         public AltaUsuario()
         {
@@ -51,6 +59,14 @@ namespace FrbaHotel.ABM_de_Usuario
 
         private void Guardar_Click(object sender, EventArgs e)
         {
+            if (funcion=='M'){
+                DialogResult modif = MessageBox.Show("Son todos los datos correctos?", "Confirmar actualización de usuario", MessageBoxButtons.YesNo);
+                if (modif == DialogResult.Yes)
+                {
+                    actualizarUsuario();
+                }
+            }
+            else
             try
             {
                 agregarUsuario();
@@ -62,8 +78,42 @@ namespace FrbaHotel.ABM_de_Usuario
                 MessageBox.Show(ex.Message);
             }
         }
-        #endregion
+
         
+        #endregion
+
+        private void actualizarUsuario()
+        {
+            BD bd = new BD();
+            bd.obtenerConexion();
+            string comando =
+                "UPDATE FUGAZZETA.Usuarios SET Nombre = '" + Nombre.Text +
+                "', Apellido = '" + Apellido.Text +
+                "', Nro_Doc = '" + NroDoc.Text +
+                "', Mail = '" + TxtMail.Text +
+                "', Telefono = '" + Telefono.Text +
+                "', Calle = '" + Direc.Text +
+                "', NroCalle = '" + NroDirec.Text +
+                "' WHERE Username = '" + TxtUser.Text + "'";
+            bd.ejecutar(comando);
+
+            MessageBox.Show("Actualización realizada con éxito");
+        }
+
+        private void AltaUsuario_Load(object sender, EventArgs e)
+        {
+            Calendario.MaxDate = Program.hoy();
+
+            BD bd = new BD();
+            string query = "SELECT * FROM FUGAZZETA.TiposDoc";
+            SqlDataReader dr = bd.lee(query);
+            while (dr.Read())
+            {
+                comboBox2.Items.Add(new TipoDoc(dr[0].ToString(), dr[1].ToString()));
+            }
+
+        }
+
         private void validarDatosIngresados()
         {
             if (Nombre.Text == "")
@@ -86,24 +136,62 @@ namespace FrbaHotel.ABM_de_Usuario
             string valores = "'" + TxtUser.Text + "',' " + TxtPass1.Text + "',' " + Nombre.Text + "',' " + Apellido.Text + "',' " + tipoDni.id + "', '" + NroDoc.Text + "',' " + TxtMail.Text + "', '" + Telefono.Text + "',' " + Direc.Text + "',' " + NroDirec.Text + "',' " + Calendario.Value.ToShortDateString() +"','"+1 +"','"+0+ "'"; 
             bd.insertar("Usuarios", valores);
 
-
-
-        }
-
-
-        private void AltaUsuario_Load(object sender, EventArgs e)
-        {
-            Calendario.MaxDate = Program.hoy();
-           
-            BD bd = new BD();
-            string query = "SELECT * FROM FUGAZZETA.TiposDoc";
-            SqlDataReader dr = bd.lee(query);
-            while (dr.Read())
+            for (int i = 0; i < ListaRoles.Items.Count; i++)
             {
-                comboBox2.Items.Add(new TipoDoc(dr[0].ToString(), dr[1].ToString()));
+                Rol rol = ListaRoles.Items[i] as Rol;
+                bd.insertar("[Usuarios x Hoteles x Rol]", "'" + TxtUser.Text + "'," + 1 + "," + rol.id + "," + 0);
             }
 
+
+
         }
+
+        public void cargar(string username)
+        {
+            ListaRoles.Items.Clear();
+            BD bd = new BD();
+            bd.obtenerConexion();
+            string query = "SELECT * FROM FUGAZZETA.Usuarios WHERE Username = '" + username + "'";
+            SqlDataReader dr = bd.lee(query);
+            
+            while (dr.Read())
+            {
+                TxtUser.Text = dr["Username"].ToString();
+                TxtPass1.Text = dr["Contraseña"].ToString();
+                TxtPass2.Text = dr["Contraseña"].ToString();
+                Nombre.Text = dr["Nombre"].ToString();
+                Apellido.Text = dr["Apellido"].ToString();
+                NroDoc.Text = dr["Nro_Doc"].ToString();
+                TxtMail.Text = dr["Mail"].ToString();
+                Telefono.Text = dr["Telefono"].ToString();
+                Direc.Text = dr["Calle"].ToString();
+                NroDirec.Text = dr["NroCalle"].ToString();
+
+                
+                for (int i = 0; i < comboBox2.Items.Count; i++)
+                {
+
+                    if ((comboBox2.Items[i] as TipoDoc).id.ToString() == dr["Td_TipoDoc"].ToString())
+                    {
+                        comboBox2.Text = comboBox2.Items[i].ToString();
+                    }
+                }
+                
+            }
+            dr.Close();
+            
+            query = "SELECT Username,R.Id_Rol,Nombre FROM FUGAZZETA.Roles R, FUGAZZETA.[Usuarios x Hoteles x Rol] UHR where R.Id_Rol = UHR.Id_Rol AND Username = '" + TxtUser.Text + "'";
+            dr = bd.lee(query);
+            while (dr.Read())
+            {
+                ListaRoles.Items.Add(new Rol(dr[1].ToString(), dr[2].ToString()));
+            }
+
+            bd.cerrar();
+
+        }
+
+        
 
 
         #region Botones

@@ -265,11 +265,12 @@ Username nvarchar(30),
 Id_Hotel int,
 Id_Rol int,
 EstadoSesion bit DEFAULT 0,
-PRIMARY KEY (Username,Id_Hotel),
+PRIMARY KEY (Username,Id_Hotel,Id_Rol),
 FOREIGN KEY (Username) REFERENCES FUGAZZETA.Usuarios,
 FOREIGN KEY (Id_Hotel) REFERENCES FUGAZZETA.Hoteles,
 FOREIGN KEY (Id_Rol) REFERENCES FUGAZZETA.Roles
 )
+
 CREATE TABLE FUGAZZETA.Funcionalidades(
 Id_Funcionalidad int IDENTITY(1,1) PRIMARY KEY,
 Descripcion nvarchar(40)
@@ -513,10 +514,13 @@ GO
 --HistorialBajasHotel: no hay informacion de bajas de hotel
 
 INSERT INTO FUGAZZETA.[Usuarios x Hoteles x Rol]
-(Username,Id_Hotel)
-SELECT U.Username, H.Id_Hotel FROM FUGAZZETA.Usuarios U, FUGAZZETA.Hoteles H where U.Username = 'admin' OR U.Username = 'guest'
-UPDATE FUGAZZETA.[Usuarios x Hoteles x Rol] SET Id_Rol = 1 where Username = 'admin'
-UPDATE FUGAZZETA.[Usuarios x Hoteles x Rol] SET	Id_Rol = 4 where Username = 'guest'
+(Username,Id_Hotel,Id_Rol)
+SELECT U.Username, H.Id_Hotel,1
+FROM FUGAZZETA.Usuarios U, FUGAZZETA.Hoteles H where U.Username = 'admin'
+INSERT INTO FUGAZZETA.[Usuarios x Hoteles x Rol]
+(Username,Id_Hotel,Id_Rol)
+SELECT U.Username, H.Id_Hotel,4
+FROM FUGAZZETA.Usuarios U, FUGAZZETA.Hoteles H where U.Username = 'guest'
 GO
 
 INSERT INTO FUGAZZETA.Regimenes

@@ -39,5 +39,15 @@ namespace FrbaHotel.ABM_de_Usuario
         {
             this.Close();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string username = celdaElegida(GridUsuarios, 0);
+            DialogResult modif = new AltaUsuario('M', username).ShowDialog();
+            if (modif == DialogResult.OK)
+            {
+                Close();
+            }
+        }
     }
 }
