@@ -186,6 +186,9 @@ DROP PROCEDURE FUGAZZETA.ActualizarReserva
 IF OBJECT_ID('FUGAZZETA.GenerarFactura') IS NOT NULL
 DROP PROCEDURE FUGAZZETA.GenerarFactura
 
+IF OBJECT_ID('FUGAZZETA.VerFuncionalidadesEnHotel') IS NOT NULL
+DROP PROCEDURE FUGAZZETA.VerFuncionalidadesEnHotel
+
 --Triggers
 IF OBJECT_ID('FUGAZZETA.TR_MovimientosHotel_A_I') IS NOT NULL
 DROP TRIGGER FUGAZZETA.TR_MovimientosHotel_A_I
@@ -463,6 +466,9 @@ insert into FUGAZZETA.Roles values('Guest',1)
 GO
 
 --Funcionalidades x Roles
+--AdminGeneral
+INSERT INTO FUGAZZETA.[Funcionalidades x Roles]
+SELECT Id_Funcionalidad,Id_Rol FROM FUGAZZETA.Funcionalidades, FUGAZZETA.Roles WHERE Id_Rol = 1
 --guest
 INSERT INTO FUGAZZETA.[Funcionalidades x Roles] values(7,4)
 INSERT INTO FUGAZZETA.[Funcionalidades x Roles] values(8,4)
@@ -1100,4 +1106,13 @@ BEGIN
 	Id_Regimen = @Regimen WHERE Id_Reserva = @Reserva
 END
 go
---- HASTA ACÁ SE PUEDE EJECUTAR BIEN. HAY QUE ORGANIZARNOS DESPUÉS COMO VAMOS DESARROLLANDO.
+
+CREATE PROC FUGAZZETA.VerFuncionalidadesEnHotel(@Usuario nvarchar(30),@Hotel int) AS
+BEGIN
+	SELECT R.Username, F.Id_Funcionalidad
+	FROM FUGAZZETA.[Usuarios x Hoteles x Rol] R, FUGAZZETA.[Funcionalidades x Roles] F
+	WHERE 
+		R.Id_Rol = F.Id_Rol
+	AND	R.Username = @Usuario
+	AND R.Id_Hotel = @Hotel
+END
