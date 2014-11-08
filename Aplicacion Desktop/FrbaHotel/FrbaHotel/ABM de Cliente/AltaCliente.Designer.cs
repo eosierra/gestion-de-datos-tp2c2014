@@ -60,6 +60,7 @@
             this.FechaPick = new System.Windows.Forms.DateTimePicker();
             this.label14 = new System.Windows.Forms.Label();
             this.Id = new System.Windows.Forms.Label();
+            this.Habilitado = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -351,11 +352,23 @@
             this.Id.TabIndex = 20;
             this.Id.Text = "Id";
             // 
+            // Habilitado
+            // 
+            this.Habilitado.AutoSize = true;
+            this.Habilitado.Location = new System.Drawing.Point(472, 173);
+            this.Habilitado.Name = "Habilitado";
+            this.Habilitado.Size = new System.Drawing.Size(73, 17);
+            this.Habilitado.TabIndex = 21;
+            this.Habilitado.Text = "Habilitado";
+            this.Habilitado.UseVisualStyleBackColor = true;
+            this.Habilitado.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // AltaCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(656, 350);
+            this.Controls.Add(this.Habilitado);
             this.Controls.Add(this.TxtMail);
             this.Controls.Add(this.Id);
             this.Controls.Add(this.label14);
@@ -423,5 +436,6 @@
         private System.Windows.Forms.DateTimePicker FechaPick;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label Id;
+        private System.Windows.Forms.CheckBox Habilitado;
     }
 }

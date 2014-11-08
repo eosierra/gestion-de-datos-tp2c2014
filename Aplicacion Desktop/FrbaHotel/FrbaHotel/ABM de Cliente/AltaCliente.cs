@@ -24,6 +24,7 @@ namespace FrbaHotel.ABM_de_Cliente
         {
             InitializeComponent();
             CargarTipoDocNacPaises();
+            Habilitado.Visible = false;
         }
 
         private void CmdLimpiar_Click(object sender, EventArgs e)
@@ -113,7 +114,8 @@ namespace FrbaHotel.ABM_de_Cliente
                 "', Localidad = '" + TxtLocalidad.Text +
                 "', Nacionalidad = '" + elPais.id +
                 "', Id_TipoDoc = '" + elTipoDoc.id +
-                "' WHERE Id_Cliente = '" + Id.Text + "'";
+                "', Habilitado =" + Convert.ToSByte(Habilitado.Checked) +
+                " WHERE Id_Cliente = '" + Id.Text + "'";
             bd.ejecutar(comando);
             
             MessageBox.Show("Actualización realizada con éxito");
@@ -146,7 +148,8 @@ namespace FrbaHotel.ABM_de_Cliente
                 TxtPiso.Text = dr["Piso"].ToString();
                 TxtDpto.Text = dr["Depto"].ToString();
                 TxtLocalidad.Text = dr["Localidad"].ToString();
-
+                Habilitado.Checked = Convert.ToBoolean(dr["Habilitado"].ToString());
+                    
                 string fecha = dr["Fecha_Nac"].ToString();
                 FechaPick.Value = convertirFecha(fecha);
                                
@@ -269,6 +272,16 @@ namespace FrbaHotel.ABM_de_Cliente
         }
 
         private void label14_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
 
         } 
