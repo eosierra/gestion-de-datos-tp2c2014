@@ -96,9 +96,14 @@ namespace FrbaHotel.ABM_de_Cliente
 
         private void Seleccionar_Click(object sender, EventArgs e)
         {
-            string apellidonombre = celdaElegida(GridClientes, 2) + ", " + celdaElegida(GridClientes, 1); 
-            dondeVuelve.agregar(celdaElegida(GridClientes, 0), apellidonombre);
-        }
+            string id = celdaElegida(GridClientes, 0);
+            
+            DialogResult modif = new AltaCliente('M', id).ShowDialog();
+            if (modif == DialogResult.OK)
+            {
+                Close();
+            }
+         }
 
     }
 }

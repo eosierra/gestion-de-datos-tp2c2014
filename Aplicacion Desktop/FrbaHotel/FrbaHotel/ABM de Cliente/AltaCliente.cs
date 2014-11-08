@@ -13,6 +13,12 @@ namespace FrbaHotel.ABM_de_Cliente
 {
     public partial class AltaCliente : Form
     {
+        public AltaCliente(char fun,string id)
+        {
+            InitializeComponent();
+            CargarTipoDocNacPaises();
+            cargar(id);
+        }
         public AltaCliente()
         {
             InitializeComponent();
@@ -80,6 +86,42 @@ namespace FrbaHotel.ABM_de_Cliente
             txt.Text = "";
         }
 
+        private void cargar(string id)
+        {
+            BD bd = new BD();
+            bd.obtenerConexion();
+            int elId = Convert.ToInt32(id);
+            string query = "SELECT * FROM FUGAZZETA.Clientes WHERE Id_Cliente = " + elId;
+            SqlDataReader dr = bd.lee(query);
+
+            while (dr.Read())
+            {
+                TxtNombre.Text = dr["Nombre"].ToString();
+                TxtApellido.Text = dr["Apellido"].ToString();
+                TxtNroDoc.Text = dr["Nro_Doc"].ToString();
+                TxtMail.Text = dr["Mail"].ToString();
+                TxtTelefono.Text = dr["Telefono"].ToString();
+                TxtCalle.Text = dr["Dom_Calle"].ToString();
+                TxtNroDirec.Text = dr["Nro_Calle"].ToString();
+                TxtPiso.Text = dr["Piso"].ToString();
+                TxtDpto.Text = dr["Depto"].ToString();
+                TxtLocalidad.Text = dr["Localidad"].ToString();
+
+
+            }
+            dr.Close();
+
+
+            /* query = "SELECT FR.Id_Rol,FR.Id_Funcionalidad, F.Descripcion FROM FUGAZZETA.[Funcionalidades x Roles] FR, FUGAZZETA.Funcionalidades F where FR.Id_Funcionalidad = F.Id_Funcionalidad AND FR.Id_Rol = " + elId;
+             dr = bd.lee(query);
+             while (dr.Read())
+             {
+                 ListFunciones.Items.Add(new Funcionalidad(dr[1].ToString(), dr[2].ToString()));
+             }*/
+            bd.cerrar();
+        }
+
+
         private string ifNull(TextBox txt)
         {
             if (txt.Text == "") return "NULL";
@@ -113,7 +155,8 @@ namespace FrbaHotel.ABM_de_Cliente
             dr.Close();
             query = "SELECT * FROM FUGAZZETA.TiposDoc";
             dr = bd.lee(query);
-            while (dr.Read()) TipoDoc.Items.Add(new TipoDoc(dr[0].ToString(), dr[1].ToString()));           
+            while (dr.Read()) TipoDoc.Items.Add(new TipoDoc(dr[0].ToString(), dr[1].ToString()));
+            bd.cerrar();
         }
 
         private void validarDocumento(BD bd)
