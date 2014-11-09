@@ -42,9 +42,13 @@ namespace FrbaHotel
             usuarioActual = null;
             Login.FrmLogin elLogin = new Login.FrmLogin(this);
             elLogin.Text = elLogin.Text.ToUpper();
-            elLogin.ShowDialog();
-            usuarioActual = elLogin.userActual;
-            LabelSesion.Text = "Sesión iniciada como " + usuarioActual;
+            if (elLogin.ShowDialog() == DialogResult.OK)
+            {
+                usuarioActual = elLogin.userActual;
+                LabelSesion.Text = "Sesión iniciada como " + usuarioActual;
+                bloquearMenues();
+                desbloquearMenues();
+            }
         }
 
         #region Abrir Menues
