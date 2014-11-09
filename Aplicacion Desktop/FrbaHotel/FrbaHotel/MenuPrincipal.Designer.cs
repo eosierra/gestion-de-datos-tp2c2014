@@ -50,6 +50,8 @@
             this.CheckInMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.CheckOutMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.EstadisticasMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.hABITACIONESToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nUEVAHABITACIONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,7 +79,8 @@
             this.ClientesMenu,
             this.HotelesMenu,
             this.ReservasMenu,
-            this.EstadisticasMenu});
+            this.EstadisticasMenu,
+            this.hABITACIONESToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1009, 24);
@@ -247,6 +250,21 @@
             this.EstadisticasMenu.Text = "ES&TADÍSTICAS";
             this.EstadisticasMenu.Click += new System.EventHandler(this.estadísticasMenu_Click);
             // 
+            // hABITACIONESToolStripMenuItem
+            // 
+            this.hABITACIONESToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nUEVAHABITACIONToolStripMenuItem});
+            this.hABITACIONESToolStripMenuItem.Name = "hABITACIONESToolStripMenuItem";
+            this.hABITACIONESToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
+            this.hABITACIONESToolStripMenuItem.Text = "HABITACIONES";
+            // 
+            // nUEVAHABITACIONToolStripMenuItem
+            // 
+            this.nUEVAHABITACIONToolStripMenuItem.Name = "nUEVAHABITACIONToolStripMenuItem";
+            this.nUEVAHABITACIONToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.nUEVAHABITACIONToolStripMenuItem.Text = "NUEVA HABITACION";
+            this.nUEVAHABITACIONToolStripMenuItem.Click += new System.EventHandler(this.nUEVAHABITACIONToolStripMenuItem_Click);
+            // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -292,5 +310,7 @@
         private System.Windows.Forms.ToolStripMenuItem ModificarReservaMenu;
         private System.Windows.Forms.ToolStripMenuItem ClientesMenu;
         private System.Windows.Forms.ToolStripMenuItem EditarClienteMenu;
+        private System.Windows.Forms.ToolStripMenuItem hABITACIONESToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nUEVAHABITACIONToolStripMenuItem;
     }
 }

@@ -129,6 +129,10 @@ namespace FrbaHotel
             abrir(new ABM_de_Cliente.BuscarCliente(this));
         }
 
+        private void nUEVAHABITACIONToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            abrir(new ABM_de_Habitacion.AltaHabitacion());
+        }
         #endregion
 
         #region ITraeBusqueda
@@ -171,5 +175,7 @@ namespace FrbaHotel
                 if (count == 0) m.Visible = false;
             }              
         }
+
+        
     }
 }

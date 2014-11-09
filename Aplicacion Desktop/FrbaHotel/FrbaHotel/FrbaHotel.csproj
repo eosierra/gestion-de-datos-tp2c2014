@@ -68,6 +68,7 @@
     <Compile Include="ABM de Habitacion\AltaHabitacion.Designer.cs">
       <DependentUpon>AltaHabitacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="ABM de Habitacion\TipoHabitacion.cs" />
     <Compile Include="ABM de Habitacion\Habitacion.cs" />
     <Compile Include="ABM de Hotel\BajaHotel.cs">
       <SubType>Form</SubType>
