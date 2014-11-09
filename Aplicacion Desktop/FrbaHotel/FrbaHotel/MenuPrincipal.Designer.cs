@@ -41,6 +41,8 @@
             this.ModificarUsuarioMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.ClientesMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.EditarClienteMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.HabitacionesMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.AltaHabitacionMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.HotelesMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.ModificarHotelMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.ReservasMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,8 +52,6 @@
             this.CheckInMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.CheckOutMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.EstadisticasMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.HabitacionesMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.AltaHabitacionMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -172,6 +172,23 @@
             this.EditarClienteMenu.Text = "EDICIÓN DE CLIENTES";
             this.EditarClienteMenu.Click += new System.EventHandler(this.EditarClienteMenu_Click);
             // 
+            // HabitacionesMenu
+            // 
+            this.HabitacionesMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AltaHabitacionMenu});
+            this.HabitacionesMenu.Name = "HabitacionesMenu";
+            this.HabitacionesMenu.Size = new System.Drawing.Size(102, 20);
+            this.HabitacionesMenu.Tag = "5";
+            this.HabitacionesMenu.Text = "HA&BITACIONES";
+            // 
+            // AltaHabitacionMenu
+            // 
+            this.AltaHabitacionMenu.Name = "AltaHabitacionMenu";
+            this.AltaHabitacionMenu.Size = new System.Drawing.Size(186, 22);
+            this.AltaHabitacionMenu.Tag = "5";
+            this.AltaHabitacionMenu.Text = "NUEVA HABITACION";
+            this.AltaHabitacionMenu.Click += new System.EventHandler(this.nUEVAHABITACIONToolStripMenuItem_Click);
+            // 
             // HotelesMenu
             // 
             this.HotelesMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -250,23 +267,6 @@
             this.EstadisticasMenu.Text = "ES&TADÍSTICAS";
             this.EstadisticasMenu.Click += new System.EventHandler(this.estadísticasMenu_Click);
             // 
-            // HabitacionesMenu
-            // 
-            this.HabitacionesMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.AltaHabitacionMenu});
-            this.HabitacionesMenu.Name = "HabitacionesMenu";
-            this.HabitacionesMenu.Size = new System.Drawing.Size(102, 20);
-            this.HabitacionesMenu.Tag = "5";
-            this.HabitacionesMenu.Text = "HA&BITACIONES";
-            // 
-            // AltaHabitacionMenu
-            // 
-            this.AltaHabitacionMenu.Name = "AltaHabitacionMenu";
-            this.AltaHabitacionMenu.Size = new System.Drawing.Size(186, 22);
-            this.AltaHabitacionMenu.Tag = "5";
-            this.AltaHabitacionMenu.Text = "NUEVA HABITACION";
-            this.AltaHabitacionMenu.Click += new System.EventHandler(this.nUEVAHABITACIONToolStripMenuItem_Click);
-            // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -282,7 +282,6 @@
             this.Name = "MenuPrincipal";
             this.Text = "FRBA HOTELES";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.MenuPrincipal_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

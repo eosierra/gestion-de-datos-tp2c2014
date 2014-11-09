@@ -23,7 +23,7 @@ namespace FrbaHotel
         public MenuPrincipal()
         {
             InitializeComponent();
-            while (usuarioActual == null) abrirLogin();
+            abrirLogin();
             #region Carga y bloqueo de menues
             agregarMenu(RolesMenu);
             agregarMenu(UsuariosMenu);
@@ -32,7 +32,7 @@ namespace FrbaHotel
             agregarMenu(HotelesMenu);
             agregarMenu(ReservasMenu);
             
-            bloquearMenues();
+            //bloquearMenues();
             #endregion
 
         }
@@ -42,7 +42,8 @@ namespace FrbaHotel
             usuarioActual = null;
             Login.FrmLogin elLogin = new Login.FrmLogin(this);
             elLogin.Text = elLogin.Text.ToUpper();
-            if (elLogin.ShowDialog() == DialogResult.OK)
+            DialogResult res = elLogin.ShowDialog();
+            if (res == DialogResult.OK)
             {
                 usuarioActual = elLogin.userActual;
                 LabelSesion.Text = "Sesión iniciada como " + usuarioActual;
@@ -177,11 +178,6 @@ namespace FrbaHotel
             dr.Close();
             foreach (ToolStripMenuItem m in menues)
                 if (m.Tag.ToString() == "0") m.Visible = false;
-        }
-
-        private void MenuPrincipal_Load(object sender, EventArgs e)
-        {
-            desbloquearMenues();
         }
 
         private void agregarMenu(ToolStripMenuItem menu)

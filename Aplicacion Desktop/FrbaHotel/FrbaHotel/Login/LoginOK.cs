@@ -25,7 +25,6 @@ namespace FrbaHotel.Login
         private void LoginOK_Load(object sender, EventArgs e)
         {
             CbHoteles.Items.Clear();
-            MessageBox.Show(parent.userActual);
             string query = "SELECT Id_Hotel,Id_Rol FROM FUGAZZETA.[Usuarios x Hoteles x Rol] WHERE Username = '" + parent.userActual + "'";
             BD bd = new BD();
             bd.obtenerConexion();
@@ -42,7 +41,7 @@ namespace FrbaHotel.Login
                 HotelxRol elegido = (CbHoteles.SelectedItem as HotelxRol);
                 menu.hotelActual = elegido.hotel.id;
                 menu.rolActual = elegido.rol.id;
-                parent.IrAMenuPrincipal(parent.userActual);
+                this.Close();
             }
             else
             {

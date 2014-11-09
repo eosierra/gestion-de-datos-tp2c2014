@@ -24,15 +24,14 @@ namespace FrbaHotel.Login
         private void CmdIngresar_Click(object sender, EventArgs e)
         {
             BD bd = new BD();
-            SqlConnection conexion = bd.obtenerConexion();
+            bd.obtenerConexion();
             string comando = "SELECT Username,Contraseña FROM FUGAZZETA.[UsuariosHabilitados] WHERE Username='" + TxtUser.Text + "'";
-            DataTableReader tabla = new DataTableReader(bd.ejecutar(comando));
+            SqlDataReader tabla = bd.lee(comando);
             try
             {
                 if (tabla.HasRows)
                 {
-                    while (tabla.Read())
-                    {
+                    tabla.Read();
                         string pass = tabla[1].ToString();
                         if (TxtPass.Text == pass)
                         {
@@ -40,12 +39,13 @@ namespace FrbaHotel.Login
                             LblError.Text = "";
                             bd.ejecutar("EXEC FUGAZZETA.LoginCorrecto '" + TxtUser.Text + "'");
                             tabla.Close();
-                            DialogResult sigue = new LoginOK(this, menu).ShowDialog();
-                            if (sigue == DialogResult.OK) IrAMenuPrincipal(TxtUser.Text);
+                            LoginOK login = new LoginOK(this, menu);
+                            login.StartPosition = FormStartPosition.CenterScreen;
+                            if (login.ShowDialog() == DialogResult.OK)
+                                IrAMenuPrincipal(userActual);
                         }
                         else
                         {
-                            tabla.Close();
                             try
                             {
                                 bd.ejecutar("EXEC FUGAZZETA.LoginIncorrecto '" + TxtUser.Text + "'");
@@ -56,18 +56,17 @@ namespace FrbaHotel.Login
                                 throw (ex as Exception);
                             }
                         }
-                    }
                     tabla.Close();
                 }
                 else throw new Exception("Usuario no encontrado o inhabilitado por el administrador.");
             }
             catch (Exception ex)
             {
-                tabla.Close();
                 LblError.Visible = true;
                 LblError.Text = ex.Message;
             }
             bd.cerrar();
+            tabla.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -79,6 +78,7 @@ namespace FrbaHotel.Login
 
         public void IrAMenuPrincipal(string elUser)
         {
+            this.DialogResult = DialogResult.OK;
             userActual = elUser;
             this.Close();
         }

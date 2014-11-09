@@ -36,15 +36,15 @@
             // 
             this.CbHoteles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CbHoteles.FormattingEnabled = true;
-            this.CbHoteles.Location = new System.Drawing.Point(23, 30);
+            this.CbHoteles.Location = new System.Drawing.Point(12, 12);
             this.CbHoteles.Name = "CbHoteles";
-            this.CbHoteles.Size = new System.Drawing.Size(150, 21);
+            this.CbHoteles.Size = new System.Drawing.Size(187, 21);
             this.CbHoteles.TabIndex = 0;
             // 
             // Entrar
             // 
             this.Entrar.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.Entrar.Location = new System.Drawing.Point(199, 30);
+            this.Entrar.Location = new System.Drawing.Point(205, 12);
             this.Entrar.Name = "Entrar";
             this.Entrar.Size = new System.Drawing.Size(75, 23);
             this.Entrar.TabIndex = 1;
@@ -56,13 +56,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(296, 76);
+            this.ClientSize = new System.Drawing.Size(292, 47);
             this.ControlBox = false;
             this.Controls.Add(this.Entrar);
             this.Controls.Add(this.CbHoteles);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "LoginOK";
             this.ShowIcon = false;
+            this.Text = "Ingrese el hotel para loguearse";
             this.Load += new System.EventHandler(this.LoginOK_Load);
             this.ResumeLayout(false);
 
