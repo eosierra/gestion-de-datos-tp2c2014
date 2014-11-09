@@ -43,18 +43,20 @@
             // 
             // Entrar
             // 
+            this.Entrar.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Entrar.Location = new System.Drawing.Point(199, 30);
             this.Entrar.Name = "Entrar";
             this.Entrar.Size = new System.Drawing.Size(75, 23);
             this.Entrar.TabIndex = 1;
             this.Entrar.Text = "ENTRAR";
             this.Entrar.UseVisualStyleBackColor = true;
+            this.Entrar.Click += new System.EventHandler(this.Entrar_Click);
             // 
             // LoginOK
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(300, 80);
+            this.ClientSize = new System.Drawing.Size(296, 76);
             this.ControlBox = false;
             this.Controls.Add(this.Entrar);
             this.Controls.Add(this.CbHoteles);

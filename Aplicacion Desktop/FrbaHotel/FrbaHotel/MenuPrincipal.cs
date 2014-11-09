@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using FrbaHotel.ABM_de_Hotel;
+using FrbaHotel.ABM_de_Rol;
 
 namespace FrbaHotel
 {
@@ -16,18 +18,20 @@ namespace FrbaHotel
         public int hotelActual;
         public int rolActual;
         List<ToolStripMenuItem> menues = new List<ToolStripMenuItem>();
+        List<ToolStripDropDownItem> items = new List<ToolStripDropDownItem>();
 
         public MenuPrincipal()
         {
             InitializeComponent();
             while (usuarioActual == null) abrirLogin();
             #region Carga y bloqueo de menues
-            menues.Add(RolesMenu);
-            menues.Add(UsuariosMenu);
-            menues.Add(ClientesMenu);
-            menues.Add(HotelesMenu);
-            menues.Add(ReservasMenu);
-
+            agregarMenu(RolesMenu);
+            agregarMenu(UsuariosMenu);
+            agregarMenu(ClientesMenu);
+            agregarMenu(HabitacionesMenu);
+            agregarMenu(HotelesMenu);
+            agregarMenu(ReservasMenu);
+            
             bloquearMenues();
             #endregion
 
@@ -36,7 +40,7 @@ namespace FrbaHotel
         private void abrirLogin()
         {
             usuarioActual = null;
-            Login.FrmLogin elLogin = new Login.FrmLogin();
+            Login.FrmLogin elLogin = new Login.FrmLogin(this);
             elLogin.Text = elLogin.Text.ToUpper();
             elLogin.ShowDialog();
             usuarioActual = elLogin.userActual;
@@ -145,12 +149,8 @@ namespace FrbaHotel
 
         private void bloquearMenues()
         {
-            foreach (ToolStripMenuItem m in menues)
-            {
-                m.Visible = true;
-                foreach (ToolStripDropDownItem item in m.DropDownItems)
-                    item.Visible = false;
-            }
+            foreach (ToolStripDropDownItem item in items) item.Visible = false;
+            foreach (ToolStripMenuItem menu in menues) menu.Visible = true;
         }
 
         private void desbloquearMenues()
@@ -160,22 +160,32 @@ namespace FrbaHotel
             SqlDataReader dr = bd.lee("EXEC FUGAZZETA.VerFuncionalidadesEnHotel '" + usuarioActual + "', " + hotelActual);
             while (dr.Read())
             {
-                foreach (ToolStripMenuItem m in menues)
+               foreach (ToolStripDropDownItem item in items)
                 {
-                    foreach (ToolStripDropDownItem item in m.DropDownItems)
-                        if (item.Tag.ToString() == dr[1].ToString()) item.Visible = true;
+                   if (item.Tag.ToString() == dr[1].ToString())
+                    {
+                        item.OwnerItem.Tag = 1;
+                        item.Visible = true;
+                    }
                 }
             }
+            
             dr.Close();
             foreach (ToolStripMenuItem m in menues)
-            {
-                int count = 0;
-                for (int i = 0; i < m.DropDownItems.Count; i++)
-                    if (m.DropDownItems[i].Visible) count++;
-                if (count == 0) m.Visible = false;
-            }              
+                if (m.Tag.ToString() == "0") m.Visible = false;
         }
 
+        private void MenuPrincipal_Load(object sender, EventArgs e)
+        {
+            desbloquearMenues();
+        }
+
+        private void agregarMenu(ToolStripMenuItem menu)
+        {
+            menu.Tag = 0;
+            menues.Add(menu);
+            foreach (ToolStripDropDownItem item in menu.DropDownItems) items.Add(item);
+        }
         
     }
 }

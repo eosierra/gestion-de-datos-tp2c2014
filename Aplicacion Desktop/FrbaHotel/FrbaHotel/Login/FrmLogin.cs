@@ -13,15 +13,16 @@ namespace FrbaHotel.Login
     public partial class FrmLogin : Form
     {
         public string userActual;
+        private MenuPrincipal menu;
 
-        public FrmLogin()
+        public FrmLogin(MenuPrincipal parent)
         {
+            menu = parent;
             InitializeComponent();
         }
        
         private void CmdIngresar_Click(object sender, EventArgs e)
         {
-            //viejoLogin();
             BD bd = new BD();
             SqlConnection conexion = bd.obtenerConexion();
             string comando = "SELECT Username,Contraseña FROM FUGAZZETA.[UsuariosHabilitados] WHERE Username='" + TxtUser.Text + "'";
@@ -30,34 +31,39 @@ namespace FrbaHotel.Login
             {
                 if (tabla.HasRows)
                 {
-                    tabla.Read();
-                    string pass = tabla[1].ToString();
-                    if (TxtPass.Text == pass)
+                    while (tabla.Read())
                     {
-                        LblError.Text = "";
-                        IrAMenuPrincipal(TxtUser.Text);
-                        bd.ejecutar("EXEC FUGAZZETA.LoginCorrecto '" + TxtUser.Text + "'");
-                    }
-                    else
-                    {
-                        try
+                        string pass = tabla[1].ToString();
+                        if (TxtPass.Text == pass)
                         {
-                            bd.ejecutar("EXEC FUGAZZETA.LoginIncorrecto '" + TxtUser.Text + "'");
-                            throw new Exception("Contraseña incorrecta");
+                            userActual = TxtUser.Text;
+                            LblError.Text = "";
+                            bd.ejecutar("EXEC FUGAZZETA.LoginCorrecto '" + TxtUser.Text + "'");
+                            tabla.Close();
+                            DialogResult sigue = new LoginOK(this, menu).ShowDialog();
+                            if (sigue == DialogResult.OK) IrAMenuPrincipal(TxtUser.Text);
                         }
-                        catch (SqlException ex)
+                        else
                         {
-                            throw (ex as Exception);
+                            tabla.Close();
+                            try
+                            {
+                                bd.ejecutar("EXEC FUGAZZETA.LoginIncorrecto '" + TxtUser.Text + "'");
+                                throw new Exception("Contraseña incorrecta");
+                            }
+                            catch (SqlException ex)
+                            {
+                                throw (ex as Exception);
+                            }
                         }
                     }
+                    tabla.Close();
                 }
-                else
-                {
-                    throw new Exception("Usuario no encontrado o inhabilitado por el administrador");
-                }
+                else throw new Exception("Usuario no encontrado o inhabilitado por el administrador.");
             }
             catch (Exception ex)
             {
+                tabla.Close();
                 LblError.Visible = true;
                 LblError.Text = ex.Message;
             }
@@ -67,9 +73,11 @@ namespace FrbaHotel.Login
         private void button2_Click(object sender, EventArgs e)
         {
             IrAMenuPrincipal("guest");
+            menu.hotelActual = 1;
+            menu.rolActual = 4;
         }
 
-        private void IrAMenuPrincipal(string elUser)
+        public void IrAMenuPrincipal(string elUser)
         {
             userActual = elUser;
             this.Close();
