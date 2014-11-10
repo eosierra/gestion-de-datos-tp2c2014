@@ -25,7 +25,7 @@ namespace FrbaHotel.Login
         private void LoginOK_Load(object sender, EventArgs e)
         {
             CbHoteles.Items.Clear();
-            string query = "SELECT Id_Hotel,Id_Rol FROM FUGAZZETA.[Usuarios x Hoteles x Rol] WHERE Username = '" + parent.userActual + "'";
+            string query = "SELECT UHR.Id_Hotel,UHR.Id_Rol FROM FUGAZZETA.Roles R, FUGAZZETA.[Usuarios x Hoteles x Rol] UHR WHERE R.Id_Rol=UHR.Id_Rol AND R.Estado=1 AND UHR.Username = '" + parent.userActual + "'";
             BD bd = new BD();
             bd.obtenerConexion();
             SqlDataReader dr = bd.lee(query);
