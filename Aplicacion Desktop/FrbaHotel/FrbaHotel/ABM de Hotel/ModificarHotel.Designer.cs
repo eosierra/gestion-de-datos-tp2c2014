@@ -76,7 +76,7 @@
             this.ActualizarDatos.Name = "ActualizarDatos";
             this.ActualizarDatos.Size = new System.Drawing.Size(208, 40);
             this.ActualizarDatos.TabIndex = 9;
-            this.ActualizarDatos.Text = "ACTUALIZAR DATOS";
+            this.ActualizarDatos.Text = "GUARDAR";
             this.ActualizarDatos.UseVisualStyleBackColor = true;
             this.ActualizarDatos.Click += new System.EventHandler(this.ActualizarDatos_Click);
             // 

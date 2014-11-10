@@ -11,10 +11,19 @@ using FrbaHotel.ABM_de_Regimen;
 
 namespace FrbaHotel.ABM_de_Hotel
 {
-    public partial class ModificarHotel : Form, ITraeBusqueda
+    public partial class ModificarHotel : Buscador, ITraeBusqueda
     {
         //Hotel hotelin;
         bool habilitado;
+        string adm;
+
+        public ModificarHotel(char fun,string tuAdmin)
+        {
+            funcion = fun;
+            InitializeComponent();
+            adm = tuAdmin;
+            
+        }
 
         public ModificarHotel()
         {
@@ -22,7 +31,8 @@ namespace FrbaHotel.ABM_de_Hotel
         }
 
         private void ModificarHotel_Load(object sender, EventArgs e)
-        {
+        {   
+                    
             groupBox1.Enabled = false;
             FechaPick.MaxDate = Program.hoy();
             
@@ -33,7 +43,15 @@ namespace FrbaHotel.ABM_de_Hotel
             {
                 ComboPais.Items.Add(new Pais(dr[0].ToString(), dr[1].ToString()));
             }
+
+            if (funcion=='A'){
+                groupBox1.Enabled = true;
+                Mostrar.Visible = false;
+                label2.Visible=false;
+                groupBox2.Enabled = false;
+            }
         }
+        
 
         private void Mostrar_Click(object sender, EventArgs e)
         {
@@ -137,14 +155,82 @@ namespace FrbaHotel.ABM_de_Hotel
 
         private void ActualizarDatos_Click(object sender, EventArgs e)
         {
-            DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", "Confirmar actualización de hotel", MessageBoxButtons.YesNo);
+            if (funcion=='A'){
+                DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", this.Text, MessageBoxButtons.YesNo);
 
             if (confirma == DialogResult.Yes)
             {
-                actualizarHotel();
+                agregarHotel();
+            }
+            }
+            else{
+                DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", "Confirmar actualización de hotel", MessageBoxButtons.YesNo);
+
+                if (confirma == DialogResult.Yes)
+                {
+                    actualizarHotel();
+                }
             }
         }
- 
+
+        private void agregarHotel()
+        {
+            BD bd = new BD();
+            bd.obtenerConexion();
+            try
+            {
+                string idPais = setPais(ComboPais);
+                string query = "INSERT INTO FUGAZZETA.Hoteles values ("
+                    + ifNull(TxtNombre) + ", "
+                    + ifNull(TxtMail) + ","
+                    + TxtTelefono.Text + ","
+                    + ifNull(TxtCalle) + ","
+                    + TxtNumero.Text + ","
+                    + ifNull(TxtCiudad) + ","
+                    + idPais + ","
+                    + ComboCE.Text + ",'"
+                    + FechaPick.Value.ToShortDateString() + "',"
+                    + TxtRecarga.Text + ",1)";
+
+                bd.ejecutar(query);
+
+
+                int idHotel=0;
+                query = "SELECT MAX(Id_Hotel) FROM FUGAZZETA.Hoteles";
+                SqlDataReader dr = bd.lee(query);
+                while (dr.Read())
+                {
+                    idHotel = Convert.ToInt32(dr[0]);
+                }
+                
+                query = "INSERT INTO FUGAZZETA.[Usuarios x Hoteles x Rol] values('" + adm + "'," + idHotel + ",2,0)";
+                bd.ejecutar(query);
+
+                bd.cerrar();
+                MessageBox.Show("Rol agregado con éxito");
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                bd.cerrar();
+                MessageBox.Show("Error: No se pudo ingresar el Hotel. " + ex.Message);
+            }
+        }
+
+        private string ifNull(TextBox txt)
+        {
+             
+            if (txt.Text == "") return "NULL";
+            else return "'" + txt.Text + "'";
+        
+        }
+
+        private string setPais(ComboBox cb)
+        {
+            if (cb.SelectedIndex == -1) return "NULL";
+            else return (cb.SelectedItem as Pais).id.ToString();
+        }
+
         private void actualizarHotel()
         {
             int elId = Convert.ToInt32(TxtId.Text);
