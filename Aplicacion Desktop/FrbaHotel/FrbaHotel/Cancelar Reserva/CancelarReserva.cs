@@ -35,7 +35,7 @@ namespace FrbaHotel.Cancelar_Reserva
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("No se pudo realizar la baja. " + ex.Message);
+                    MessageBox.Show("No se pudo realizar la baja. " + ex.Message, "ERROR",MessageBoxButtons.OK,MessageBoxIcon.Error);
                     this.DialogResult = DialogResult.Retry;
                 }
             }
@@ -80,12 +80,17 @@ namespace FrbaHotel.Cancelar_Reserva
             }
             else
             {
-                string query = "SELECT * FROM FUGAZZETA.ReservasNoCanceladas WHERE Id_Reserva = " + TxtCodigo.Text;
+                string condicion = "";
+                if (menu.usuarioActual != "guest")
+                {
+                    condicion = " AND Id_Hotel = " + menu.hotelActual;
+                }
+                string query = "SELECT * FROM FUGAZZETA.ReservasNoCanceladas WHERE Id_Reserva = " + TxtCodigo.Text + condicion;
                 SqlDataReader dr = bd.lee(query);
                 if (!dr.HasRows)
                 {
                     dr.Close();
-                    throw new Exception("La reserva que intenta cancelar no existe o ya fue cancelada.");
+                    throw new Exception("La reserva que intenta cancelar no existe, pertenece a otro hotel o ya fue cancelada.");
                 }
                 dr.Close();
             }
@@ -93,10 +98,7 @@ namespace FrbaHotel.Cancelar_Reserva
 
         private void CancelarReserva_Load(object sender, EventArgs e)
         {
-            if (menu.usuarioActual == "guest")
-            {
-                groupBox1.Enabled = false;
-            }
+            groupBox1.Enabled = !(menu.usuarioActual == "guest");
         }
 
     }

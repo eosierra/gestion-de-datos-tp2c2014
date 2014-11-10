@@ -30,6 +30,12 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         {
             groupCliente.Enabled = true;
             group3.Enabled = false;
+            if (menuP.usuarioActual != "guest")
+            {
+                ElegirHotel.Enabled = false;
+                idHotelActual = menuP.hotelActual;
+                TxtHotel.Text = idHotelActual.ToString();
+            }
         }
 
 

@@ -35,7 +35,7 @@ namespace FrbaHotel.Registrar_Estadia
             }
             catch (Exception ex)
             {
-                MessageBox.Show("No se pueden ver los datos. " + ex.Message,"Check in");
+                MessageBox.Show("No se pueden ver los datos. " + ex.Message,this.Text, MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
         }
 
@@ -49,7 +49,7 @@ namespace FrbaHotel.Registrar_Estadia
             {
                 try
                 {
-                    string comando = "SELECT * FROM FUGAZZETA.[ReservasModificables] WHERE Id_Reserva = " + TxtCodigo.Text;
+                    string comando = "SELECT * FROM FUGAZZETA.[ReservasModificables] WHERE Id_Reserva = " + TxtCodigo.Text + " AND Id_Hotel = " + menu.hotelActual;
                     SqlDataReader dr = bd.lee(comando);
                     if (dr.HasRows)
                     {
@@ -74,7 +74,7 @@ namespace FrbaHotel.Registrar_Estadia
                     else
                     {
                         dr.Close();
-                        throw new Exception("La reserva no existe, ya se ha cancelado o ya realizó el ingreso.");
+                        throw new Exception("Esto puede ser por varios motivos: La reserva no existe, pertenece a otro hotel, se ha cancelado o ya realizó el ingreso.");
                     }
                     dr.Close();
                 }

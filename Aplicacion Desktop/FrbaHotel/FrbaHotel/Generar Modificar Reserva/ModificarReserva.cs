@@ -39,15 +39,22 @@ namespace FrbaHotel.Generar_Modificar_Reserva
 
         private void Mostrar_Click(object sender, EventArgs e)
         {
+            string condicion = "";
             if (TxtReserva.Text == "") MessageBox.Show("No se ingresó ninguna reserva.", this.Text, MessageBoxButtons.OK);
             else
             {
                 idReserva = Int32.Parse(TxtReserva.Text);
                 BD bd = new BD();
                 bd.obtenerConexion();
-
+                if (menu.usuarioActual != "guest")
+                {
+                    HotelClick.Enabled = false;
+                    idHotel = menu.hotelActual;
+                    TxtHotel.Text = idHotel.ToString();
+                    condicion = " AND Id_Hotel = " + idHotel;
+                }
                 //CARGA DATOS ESTADIA
-                SqlDataReader dr = bd.lee("SELECT * FROM FUGAZZETA.[ReservasModificables] WHERE Id_Reserva = " + idReserva);
+                SqlDataReader dr = bd.lee("SELECT * FROM FUGAZZETA.[ReservasModificables] WHERE Id_Reserva = " + idReserva + condicion);
                 if (dr.HasRows)
                 {
                     while (dr.Read())
@@ -72,7 +79,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 else
                 {
                     dr.Close();
-                    MessageBox.Show("No se encontró la reserva.", this.Text);
+                    MessageBox.Show("No se encontró la reserva o la misma no pertenece al hotel logueado.", this.Text);
                 }
             }
         }
