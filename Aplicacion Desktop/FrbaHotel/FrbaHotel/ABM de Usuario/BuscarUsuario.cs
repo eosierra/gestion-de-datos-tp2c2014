@@ -12,10 +12,15 @@ namespace FrbaHotel.ABM_de_Usuario
 {
     public partial class BuscarUsuario : Buscador
     {
-        public BuscarUsuario(ITraeBusqueda owner)
+        string conCondicion;
+        MenuPrincipal menu;
+
+        public BuscarUsuario(MenuPrincipal owner)
         {
             InitializeComponent();
-            crearBuscador(owner,"Username,Nombre,Apellido,Id_TipoDoc,Nro_Doc,Mail,Telefono,Calle,NroCalle,Fecha_Nac,Habilitado","Usuarios");
+            menu = owner;
+            conCondicion = " WHERE Username IN (SELECT Username FROM FUGAZZETA.[Usuarios x Hoteles x Rol] WHERE Id_Hotel = " + menu.hotelActual + ")"; 
+            crearBuscador((owner as ITraeBusqueda),"Username,Nombre,Apellido,Id_TipoDoc,Nro_Doc,Mail,Telefono,Calle,NroCalle,Fecha_Nac,Habilitado","Usuarios" + conCondicion);
             setearGrid(GridUsuarios);
         }
 
