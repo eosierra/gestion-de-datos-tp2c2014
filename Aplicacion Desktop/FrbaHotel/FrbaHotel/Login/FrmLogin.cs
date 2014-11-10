@@ -88,5 +88,6 @@ namespace FrbaHotel.Login
             if (e.KeyChar == Convert.ToChar(Keys.Enter)) CmdIngresar_Click(sender, e);
         }
 
-    }
+        
+       }
 } 

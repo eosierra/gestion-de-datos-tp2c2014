@@ -230,7 +230,7 @@ Descripcion varchar(30))
 
 CREATE TABLE FUGAZZETA.Usuarios(
 Username nvarchar(30) primary key,
-Contraseña nvarchar(200),
+Contraseña nvarchar(1000),
 Nombre varchar(50),
 Apellido varchar(50),
 Id_TipoDoc int FOREIGN KEY REFERENCES FUGAZZETA.TiposDoc,
@@ -503,7 +503,7 @@ INSERT INTO FUGAZZETA.TiposDoc values ('LE')
 INSERT INTO FUGAZZETA.TiposDoc values ('Pasaporte')
 go
 
-INSERT INTO FUGAZZETA.Usuarios (Username, Contraseña) values ('admin','w23e')
+INSERT INTO FUGAZZETA.Usuarios (Username, Contraseña) values ('admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7')
 INSERT INTO FUGAZZETA.Usuarios (Username) values ('guest')
 go
 
