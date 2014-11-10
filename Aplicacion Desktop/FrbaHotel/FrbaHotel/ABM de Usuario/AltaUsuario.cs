@@ -154,9 +154,9 @@ namespace FrbaHotel.ABM_de_Usuario
 
             BD bd = new BD();
             bd.obtenerConexion();
-            SHA256 sha = new SHA256();
+            //SHA256 sha = new SHA256();
             ABM_de_Cliente.TipoDoc tipoDni = comboBox2.Items[comboBox2.SelectedIndex] as ABM_de_Cliente.TipoDoc;
-            string valores = "'" + TxtUser.Text + "',' " + sha.encriptarContraseña(TxtPass1.Text) + "',' " + Nombre.Text + "',' " + Apellido.Text + "',' " + tipoDni.id + "', '" + NroDoc.Text + "',' " + TxtMail.Text + "', '" + Telefono.Text + "',' " + Direc.Text + "',' " + NroDirec.Text + "',' " + Calendario.Value.ToShortDateString() + "','" + 0 + "','" + 1 + "'"; 
+            string valores = "'" + TxtUser.Text + "',' " + Hashing.SHA256Encrypt(TxtPass1.Text) + "',' " + Nombre.Text + "',' " + Apellido.Text + "',' " + tipoDni.id + "', '" + NroDoc.Text + "',' " + TxtMail.Text + "', '" + Telefono.Text + "',' " + Direc.Text + "',' " + NroDirec.Text + "',' " + Calendario.Value.ToShortDateString() + "','" + 0 + "','" + 1 + "'"; 
             bd.insertar("Usuarios", valores);
 
             for (int i = 0; i < ListaRoles.Items.Count; i++)

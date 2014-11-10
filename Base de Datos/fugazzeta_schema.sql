@@ -230,7 +230,7 @@ Descripcion varchar(30))
 
 CREATE TABLE FUGAZZETA.Usuarios(
 Username nvarchar(30) primary key,
-Contraseña nvarchar(40),
+Contraseña nvarchar(200),
 Nombre varchar(50),
 Apellido varchar(50),
 Id_TipoDoc int FOREIGN KEY REFERENCES FUGAZZETA.TiposDoc,

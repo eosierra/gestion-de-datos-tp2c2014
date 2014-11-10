@@ -152,6 +152,7 @@
     <Compile Include="Cancelar Reserva\CancelarReserva.Designer.cs">
       <DependentUpon>CancelarReserva.cs</DependentUpon>
     </Compile>
+    <Compile Include="Hashing.cs" />
     <Compile Include="Login\HotelxRol.cs" />
     <Compile Include="Login\LoginOK.cs">
       <SubType>Form</SubType>

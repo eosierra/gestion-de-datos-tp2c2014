@@ -33,7 +33,7 @@ namespace FrbaHotel.Login
                 {
                     tabla.Read();
                         string pass = tabla[1].ToString();
-                        if (TxtPass.Text == pass)
+                        if (Hashing.SHA256Encrypt(TxtPass.Text) == pass)
                         {
                             userActual = TxtUser.Text;
                             LblError.Text = "";
