@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 
 using System.Security.Cryptography;
 using FrbaHotel.ABM_de_Cliente;
+using FrbaHotel.Login;
 
 
 
@@ -21,6 +22,7 @@ namespace FrbaHotel.ABM_de_Usuario
 
     public partial class AltaUsuario : Buscador,ITraeBusqueda
     {
+        Char busca;
 
         public AltaUsuario(char func, string un)
         {
@@ -44,10 +46,7 @@ namespace FrbaHotel.ABM_de_Usuario
            
         }
         #region Botones
-        private void CmdQuitar_Click(object sender, EventArgs e)
-        {
-            ListaRoles.Items.Remove(ListaRoles.SelectedItem);
-        }
+       
 
         private void cargarTiposDoc()
         {
@@ -73,7 +72,6 @@ namespace FrbaHotel.ABM_de_Usuario
             Telefono.Text = "";
             TxtMail.Text = "";
             CbTipoDoc.Items.Clear();
-            ListaRoles.Items.Clear();
             Apellido.Text = "";
             NroDirec.Text = "";
             Calendario.Value = Program.hoy();
@@ -121,11 +119,7 @@ namespace FrbaHotel.ABM_de_Usuario
             bd.ejecutar(comando);
 
             bd.eliminar("[Usuarios x Hoteles x Rol]", "Username='" + TxtUser.Text +"'");
-            for (int i = 0; i < ListaRoles.Items.Count; i++)
-            {
-                Rol rol = ListaRoles.Items[i] as Rol;
-                bd.insertar("[Usuarios x Hoteles x Rol]", "'"+TxtUser.Text + "',1," + rol.id + ",0");
-            }
+            agregarHotelesxRol(bd);
 
             MessageBox.Show("Actualización realizada con éxito.", this.Text,MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -133,8 +127,6 @@ namespace FrbaHotel.ABM_de_Usuario
         private void AltaUsuario_Load(object sender, EventArgs e)
         {
             Calendario.MaxDate = Program.hoy();
-                  
-
         }
 
         private void validarDatosIngresados()
@@ -167,19 +159,23 @@ namespace FrbaHotel.ABM_de_Usuario
             string valores = "'" + TxtUser.Text + "','" + Hashing.SHA256Encrypt(TxtPass1.Text) + "',' " + Nombre.Text + "',' " + Apellido.Text + "',' " + tipoDni.id + "', '" + NroDoc.Text + "',' " + TxtMail.Text + "', '" + Telefono.Text + "',' " + Direc.Text + "',' " + NroDirec.Text + "',' " + Calendario.Value.ToShortDateString() + "','" + 0 + "','" + 1 + "'"; 
             bd.insertar("Usuarios", valores);
 
-            for (int i = 0; i < ListaRoles.Items.Count; i++)
+            agregarHotelesxRol(bd);
+            bd.cerrar();
+        }
+
+        private void agregarHotelesxRol(BD bd)
+        {
+            for (int i = 0; i < ListHoteles.Items.Count; i++)
             {
-                Rol rol = ListaRoles.Items[i] as Rol;
-                bd.insertar("[Usuarios x Hoteles x Rol]", "'" + TxtUser.Text + "'," + 1 + "," + rol.id + "," + 0);
+                Hotel h = ListHoteles.Items[i] as Hotel;
+                string v = "'" + TxtUser.Text + "', " + h.id + ", " + TxtRol.Tag.ToString() + ", 0";
+                bd.insertar("[Usuarios x Hoteles x Rol]", v);
             }
-
-
-
         }
 
         public void cargar(string username)
         {
-            ListaRoles.Items.Clear();
+            ListHoteles.Items.Clear();
             BD bd = new BD();
             bd.obtenerConexion();
             string query = "SELECT * FROM FUGAZZETA.Usuarios WHERE Username = '" + username + "'";
@@ -213,13 +209,24 @@ namespace FrbaHotel.ABM_de_Usuario
             }
             dr.Close();
             
-            query = "SELECT Username,R.Id_Rol,Nombre FROM FUGAZZETA.Roles R, FUGAZZETA.[Usuarios x Hoteles x Rol] UHR where R.Id_Rol = UHR.Id_Rol AND Username = '" + TxtUser.Text + "'";
+            query = @"SELECT TOP 1 HXR.Id_Rol, R.Nombre FROM FUGAZZETA.[Usuarios x Hoteles x Rol] HXR,
+                    FUGAZZETA.Roles R WHERE HXR.Id_Rol = R.Id_Rol AND Username = '" + TxtUser.Text + "'";
             dr = bd.lee(query);
             while (dr.Read())
             {
-                ListaRoles.Items.Add(new Rol(dr[1].ToString(), dr[2].ToString()));
+                TxtRol.Text = dr[1].ToString();
+                TxtRol.Tag = dr[0].ToString();
             }
-
+            dr.Close();
+            query = @"SELECT HXR.Id_Hotel, H.Nombre FROM FUGAZZETA.[Usuarios x Hoteles x Rol] HXR,
+            FUGAZZETA.Hoteles H WHERE HXR.Id_Hotel = H.Id_Hotel  AND Username = '" + TxtUser.Text + "'";
+            dr = bd.lee(query);
+            while (dr.Read())
+            {
+                Hotel h = new Hotel(dr[0].ToString(), dr[1].ToString());
+                ListHoteles.Items.Add(h);
+            }
+            dr.Close();
             bd.cerrar();
 
         }
@@ -228,15 +235,8 @@ namespace FrbaHotel.ABM_de_Usuario
 
 
         #region Botones
-        private void AgregarRol_Click_1(object sender, EventArgs e)
-        {
-            new BuscarRol(this,'S').ShowDialog();
-        }
 
-        private void QuitarRol_Click(object sender, EventArgs e)
-        {
-            ListaRoles.Items.Remove(ListaRoles.SelectedItem);
-        }
+
 
         private void LinkValida_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -245,18 +245,8 @@ namespace FrbaHotel.ABM_de_Usuario
 
         private void LimpiarPantalla_Click(object sender, EventArgs e)
         {
-            DialogResult confirma = MessageBox.Show("Está seguro de borrar todos los datos?", "Nuevo Usuario", MessageBoxButtons.OKCancel);
-            if (confirma == DialogResult.OK)
-            {
-                TxtUser.Text = "";
-                TxtPass1.Text = "";
-                TxtPass2.Text = "";
-                ListaRoles.Items.Clear();
-                LblError1.Text = "";
-
-
-
-            }
+            DialogResult confirma = MessageBox.Show("Está seguro de borrar todos los datos?", this.Text, MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (confirma == DialogResult.OK) LimpiarTodo_Click(sender, e);
         }
         
         
@@ -290,29 +280,34 @@ namespace FrbaHotel.ABM_de_Usuario
 
         void ITraeBusqueda.agregar(string id, string descripcion)
         {
-            bool sePuede = true;
-            bool sigue = true;
-            for (int i = 0; (i < ListaRoles.Items.Count - 1) && sigue; i++)
+            switch (busca)
             {
-                if (ListaRoles.Items[i].ToString() == descripcion)
-                {
-                    sigue = false;
-                    sePuede = false;
-                }
-            }
-            if (!sePuede)
-            {
-                MessageBox.Show("No se puede agregar.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                ListaRoles.Items.Add(new Rol(id, descripcion));
+                case 'H':
+                    Hotel agregable = new Hotel(id, descripcion);
+                    bool sePuede = true;
+                    bool sigue = true;
+                    for (int i = 0; (i < ListHoteles.Items.Count) && sigue; i++)
+                    {
+                        if (ListHoteles.Items[i].ToString() == agregable.ToString())
+                        {
+                            sigue = false;
+                            sePuede = false;
+                        }
+                    }
+                    if (sePuede) ListHoteles.Items.Add(agregable);
+                    else MessageBox.Show("No se puede agregar. Ya está el hotel en la lista.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+                case 'R':
+                    TxtRol.Text = descripcion;
+                    TxtRol.Tag = id;
+                    break;
             }
         }
 
 
         private void CmdAddHotel_Click(object sender, EventArgs e)
         {
+            busca = 'H';
             new BuscarHotel(this).ShowDialog();
         }
 
@@ -324,6 +319,13 @@ namespace FrbaHotel.ABM_de_Usuario
         private void Numero_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void RolClick_Click(object sender, EventArgs e)
+        {
+            busca = 'R';
+            new BuscarRol(this, 'S').ShowDialog();
+                
         }
             
 

@@ -30,5 +30,10 @@ namespace FrbaHotel.Login
         {
             return hotel.id + " - " + hotel.nombre + " / " + rol.nombre;
         }
+
+        public bool igualA(HotelxRol obj)
+        {
+            return (hotel.id == obj.hotel.id && rol.id == obj.rol.id);
+        }
     }
 }

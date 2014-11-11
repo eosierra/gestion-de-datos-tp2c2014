@@ -32,7 +32,6 @@
             this.TxtUser = new System.Windows.Forms.TextBox();
             this.TxtPass1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.GrupoDatos = new System.Windows.Forms.GroupBox();
             this.CmdQuitaHotel = new System.Windows.Forms.Button();
             this.CmdAddHotel = new System.Windows.Forms.Button();
@@ -58,12 +57,12 @@
             this.Limpiar = new System.Windows.Forms.Button();
             this.Guardar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.CambiarPass = new System.Windows.Forms.Button();
+            this.RolClick = new System.Windows.Forms.Button();
             this.Habilitado = new System.Windows.Forms.CheckBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.TxtRol = new System.Windows.Forms.TextBox();
+            this.CambiarPass = new System.Windows.Forms.Button();
             this.LinkValida = new System.Windows.Forms.LinkLabel();
-            this.CmdQuitarRol = new System.Windows.Forms.Button();
-            this.CmdAgregarRol = new System.Windows.Forms.Button();
-            this.ListaRoles = new System.Windows.Forms.ListBox();
             this.label11 = new System.Windows.Forms.Label();
             this.TxtPass2 = new System.Windows.Forms.TextBox();
             this.LblError1 = new System.Windows.Forms.Label();
@@ -106,15 +105,6 @@
             this.label2.Size = new System.Drawing.Size(64, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Contraseña:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 106);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(88, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Roles asignados:";
             // 
             // GrupoDatos
             // 
@@ -347,25 +337,62 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.CambiarPass);
+            this.groupBox2.Controls.Add(this.RolClick);
             this.groupBox2.Controls.Add(this.Habilitado);
+            this.groupBox2.Controls.Add(this.label14);
+            this.groupBox2.Controls.Add(this.TxtRol);
+            this.groupBox2.Controls.Add(this.CambiarPass);
             this.groupBox2.Controls.Add(this.LinkValida);
-            this.groupBox2.Controls.Add(this.CmdQuitarRol);
-            this.groupBox2.Controls.Add(this.CmdAgregarRol);
-            this.groupBox2.Controls.Add(this.ListaRoles);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.TxtPass2);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.TxtUser);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.TxtPass1);
-            this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Location = new System.Drawing.Point(29, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(379, 241);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos generales";
+            // 
+            // RolClick
+            // 
+            this.RolClick.Location = new System.Drawing.Point(174, 130);
+            this.RolClick.Name = "RolClick";
+            this.RolClick.Size = new System.Drawing.Size(62, 22);
+            this.RolClick.TabIndex = 16;
+            this.RolClick.Text = "ELEGIR";
+            this.RolClick.UseVisualStyleBackColor = true;
+            this.RolClick.Click += new System.EventHandler(this.RolClick_Click);
+            // 
+            // Habilitado
+            // 
+            this.Habilitado.AutoSize = true;
+            this.Habilitado.Location = new System.Drawing.Point(261, 218);
+            this.Habilitado.Name = "Habilitado";
+            this.Habilitado.Size = new System.Drawing.Size(112, 17);
+            this.Habilitado.TabIndex = 12;
+            this.Habilitado.Text = "Usuario Habilitado";
+            this.Habilitado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Habilitado.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(13, 135);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(26, 13);
+            this.label14.TabIndex = 15;
+            this.label14.Text = "Rol:";
+            // 
+            // TxtRol
+            // 
+            this.TxtRol.Location = new System.Drawing.Point(39, 132);
+            this.TxtRol.Name = "TxtRol";
+            this.TxtRol.ReadOnly = true;
+            this.TxtRol.Size = new System.Drawing.Size(129, 20);
+            this.TxtRol.TabIndex = 14;
             // 
             // CambiarPass
             // 
@@ -377,17 +404,6 @@
             this.CambiarPass.UseVisualStyleBackColor = true;
             this.CambiarPass.Click += new System.EventHandler(this.CambiarPass_Click);
             // 
-            // Habilitado
-            // 
-            this.Habilitado.AutoSize = true;
-            this.Habilitado.Location = new System.Drawing.Point(227, 164);
-            this.Habilitado.Name = "Habilitado";
-            this.Habilitado.Size = new System.Drawing.Size(112, 17);
-            this.Habilitado.TabIndex = 12;
-            this.Habilitado.Text = "Usuario Habilitado";
-            this.Habilitado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Habilitado.UseVisualStyleBackColor = true;
-            // 
             // LinkValida
             // 
             this.LinkValida.AutoSize = true;
@@ -398,34 +414,6 @@
             this.LinkValida.TabStop = true;
             this.LinkValida.Text = "Validar";
             this.LinkValida.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkValida_LinkClicked);
-            // 
-            // CmdQuitarRol
-            // 
-            this.CmdQuitarRol.Location = new System.Drawing.Point(115, 153);
-            this.CmdQuitarRol.Name = "CmdQuitarRol";
-            this.CmdQuitarRol.Size = new System.Drawing.Size(53, 24);
-            this.CmdQuitarRol.TabIndex = 10;
-            this.CmdQuitarRol.Text = "Quitar";
-            this.CmdQuitarRol.UseVisualStyleBackColor = true;
-            this.CmdQuitarRol.Click += new System.EventHandler(this.QuitarRol_Click);
-            // 
-            // CmdAgregarRol
-            // 
-            this.CmdAgregarRol.Location = new System.Drawing.Point(115, 122);
-            this.CmdAgregarRol.Name = "CmdAgregarRol";
-            this.CmdAgregarRol.Size = new System.Drawing.Size(53, 25);
-            this.CmdAgregarRol.TabIndex = 9;
-            this.CmdAgregarRol.Text = "Agregar";
-            this.CmdAgregarRol.UseVisualStyleBackColor = true;
-            this.CmdAgregarRol.Click += new System.EventHandler(this.AgregarRol_Click_1);
-            // 
-            // ListaRoles
-            // 
-            this.ListaRoles.FormattingEnabled = true;
-            this.ListaRoles.Location = new System.Drawing.Point(16, 122);
-            this.ListaRoles.Name = "ListaRoles";
-            this.ListaRoles.Size = new System.Drawing.Size(85, 108);
-            this.ListaRoles.TabIndex = 8;
             // 
             // label11
             // 
@@ -499,7 +487,6 @@
         private System.Windows.Forms.TextBox TxtUser;
         private System.Windows.Forms.TextBox TxtPass1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox GrupoDatos;
         private System.Windows.Forms.TextBox NroDoc;
         private System.Windows.Forms.Label label4;
@@ -519,9 +506,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox TxtPass2;
-        private System.Windows.Forms.ListBox ListaRoles;
-        private System.Windows.Forms.Button CmdQuitarRol;
-        private System.Windows.Forms.Button CmdAgregarRol;
         private System.Windows.Forms.TextBox Apellido;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox NroDirec;
@@ -535,5 +519,8 @@
         private System.Windows.Forms.Label LblError2;
         private System.Windows.Forms.CheckBox Habilitado;
         private System.Windows.Forms.Button CambiarPass;
+        private System.Windows.Forms.Button RolClick;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox TxtRol;
     }
 }

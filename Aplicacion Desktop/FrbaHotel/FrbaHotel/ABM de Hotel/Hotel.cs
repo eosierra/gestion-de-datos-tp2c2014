@@ -88,5 +88,10 @@ namespace FrbaHotel.ABM_de_Hotel
             }
 
         }
+
+        public override string ToString()
+        {
+            return id + ") " + nombre;
+        }
     }
 }
