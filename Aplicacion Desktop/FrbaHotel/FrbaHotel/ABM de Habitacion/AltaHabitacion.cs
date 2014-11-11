@@ -89,8 +89,18 @@ namespace FrbaHotel.ABM_de_Habitacion
 
         private void button1_Click(object sender, EventArgs e)
         {
+            try {
+                ValidarTxt(TxtNro, "Número");
+                ValidarTxt(TxtPiso, "Piso");
+                if (Interior.Checked==false){
+                    if (Exterior.Checked==false )throw new Exception("No seleccionó ninguna ubicación.");
+                }
+                if (CmbTipo.SelectedIndex == -1) throw new Exception("No seleccionó ningun tipo de habitación.");
+           
             if (funcion == 'M')
             {
+                if (ChkHabilitada.Checked == false) validarBaja();
+
                 DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", "Confirmar actualización de habitacion", MessageBoxButtons.YesNo);
 
                 if (confirma == DialogResult.Yes)
@@ -105,8 +115,6 @@ namespace FrbaHotel.ABM_de_Habitacion
             {
                 BD bd = new BD();
                 bd.obtenerConexion();
-                try
-                {
                     char frente='N';
                     if (Exterior.Checked==true){frente='S';}
                     if (Interior.Checked == true) { frente = 'N'; }
@@ -128,13 +136,32 @@ namespace FrbaHotel.ABM_de_Habitacion
                     MessageBox.Show("Habitacion agregada con éxito");
                     this.Close();
                 }
-                catch (Exception ex)
+                 }
+            }
+            catch (Exception ex)
                 {
                     bd.cerrar();
-                    MessageBox.Show("Error: No se pudo ingresar la habitacion. " + ex.Message);
+                    MessageBox.Show("Error: No se pudo ingresar la habitación. " + ex.Message);
                 }
+        }
+
+        private void validarBaja()
+        {
+            BD bd = new BD();
+            bd.obtenerConexion();
+            string query = "select R.Id_Reserva, Num_Habitacion from FUGAZZETA.[Habitaciones x Reservas] HR, FUGAZZETA.Reservas R where R.Id_Reserva=HR.Id_Reserva and Num_Habitacion= "+ TxtNro.Text +" and Fecha_Inicio >" + (Program.hoy().ToString());
+            SqlDataReader dr = bd.lee(query);
+            while (dr.Read())
+            {
+                if (!(dr.HasRows)) throw new Exception("No seleccionó ningun tipo de habitación.");
             }
-            }
+              
+            bd.cerrar();
+        }
+
+        private void ValidarTxt(TextBox txt, string campo)
+        {
+            if (txt.Text == "") throw new Exception("No completó el campo: " + campo + ".");
         }
 
         private void actualizarHabitacion()
