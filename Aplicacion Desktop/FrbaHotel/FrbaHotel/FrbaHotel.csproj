@@ -110,11 +110,11 @@
       <DependentUpon>AltaRol.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM de Rol\Funcionalidad.cs" />
-    <Compile Include="ABM de Usuario\Form1.cs">
+    <Compile Include="ABM de Usuario\NuevoPass.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM de Usuario\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ABM de Usuario\NuevoPass.Designer.cs">
+      <DependentUpon>NuevoPass.cs</DependentUpon>
     </Compile>
     <Compile Include="Agregable.cs" />
     <Compile Include="Buscador.cs">
@@ -239,8 +239,8 @@
     <EmbeddedResource Include="ABM de Usuario\BuscarUsuario.resx">
       <DependentUpon>BuscarUsuario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ABM de Usuario\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="ABM de Usuario\NuevoPass.resx">
+      <DependentUpon>NuevoPass.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Buscador.resx">
       <DependentUpon>Buscador.cs</DependentUpon>

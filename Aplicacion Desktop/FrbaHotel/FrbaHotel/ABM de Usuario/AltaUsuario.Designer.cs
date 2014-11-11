@@ -67,6 +67,7 @@
             this.TxtPass2 = new System.Windows.Forms.TextBox();
             this.LblError1 = new System.Windows.Forms.Label();
             this.LblError2 = new System.Windows.Forms.Label();
+            this.CambiarPass = new System.Windows.Forms.Button();
             this.GrupoDatos.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -343,6 +344,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.CambiarPass);
             this.groupBox2.Controls.Add(this.Habilitado);
             this.groupBox2.Controls.Add(this.LinkValida);
             this.groupBox2.Controls.Add(this.CmdQuitarRol);
@@ -357,7 +359,7 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Location = new System.Drawing.Point(29, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(373, 241);
+            this.groupBox2.Size = new System.Drawing.Size(379, 241);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos generales";
@@ -451,6 +453,16 @@
             this.LblError2.TabIndex = 11;
             this.LblError2.Text = "..............";
             // 
+            // CambiarPass
+            // 
+            this.CambiarPass.Location = new System.Drawing.Point(223, 53);
+            this.CambiarPass.Name = "CambiarPass";
+            this.CambiarPass.Size = new System.Drawing.Size(150, 22);
+            this.CambiarPass.TabIndex = 13;
+            this.CambiarPass.Text = "CAMBIAR CONTRASEÑA";
+            this.CambiarPass.UseVisualStyleBackColor = true;
+            this.CambiarPass.Click += new System.EventHandler(this.CambiarPass_Click);
+            // 
             // AltaUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -519,5 +531,6 @@
         private System.Windows.Forms.ListBox ListHoteles;
         private System.Windows.Forms.Label LblError2;
         private System.Windows.Forms.CheckBox Habilitado;
+        private System.Windows.Forms.Button CambiarPass;
     }
 }

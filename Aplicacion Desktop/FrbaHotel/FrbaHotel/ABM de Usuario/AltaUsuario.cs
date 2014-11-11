@@ -27,8 +27,10 @@ namespace FrbaHotel.ABM_de_Usuario
             cargarTiposDoc();
             cargar(un);
             TxtUser.Enabled = false;
+            TxtPass1.Enabled = false;
+            TxtPass2.Enabled = false;
             Limpiar.Visible = false;
-            
+            CambiarPass.Visible = true;
             funcion = func;
         }
 
@@ -37,6 +39,7 @@ namespace FrbaHotel.ABM_de_Usuario
             InitializeComponent();
             cargarTiposDoc();
             Habilitado.Visible = false;
+            CambiarPass.Visible = false;
            
         }
         #region Botones
@@ -79,23 +82,21 @@ namespace FrbaHotel.ABM_de_Usuario
 
         private void Guardar_Click(object sender, EventArgs e)
         {
-            if (funcion=='M'){
+            if (funcion=='M')
+            {
                 DialogResult modif = MessageBox.Show("Son todos los datos correctos?", "Confirmar actualización de usuario", MessageBoxButtons.YesNo);
-                if (modif == DialogResult.Yes)
-                {
-                    actualizarUsuario();
-                }
+                if (modif == DialogResult.Yes) actualizarUsuario();
             }
             else
             try
             {
                 agregarUsuario();
-                MessageBox.Show("Usuario agregado con exito");
+                MessageBox.Show("Usuario agregado con exito.", this.Text, MessageBoxButtons.OK,MessageBoxIcon.Information);
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -322,6 +323,11 @@ namespace FrbaHotel.ABM_de_Usuario
         private void CmdAddHotel_Click(object sender, EventArgs e)
         {
             new BuscarHotel(this).ShowDialog();
+        }
+
+        private void CambiarPass_Click(object sender, EventArgs e)
+        {
+            new NuevoPass(TxtUser.Text).ShowDialog();
         }
 
         
