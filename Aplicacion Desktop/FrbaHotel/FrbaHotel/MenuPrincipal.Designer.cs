@@ -53,6 +53,7 @@
             this.CheckInMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.CheckOutMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.EstadisticasMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.eDITARHABITACIONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,14 +94,14 @@
             this.SesionMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CerrarSesionMenu});
             this.SesionMenu.Name = "SesionMenu";
-            this.SesionMenu.Size = new System.Drawing.Size(58, 20);
+            this.SesionMenu.Size = new System.Drawing.Size(56, 20);
             this.SesionMenu.Tag = "0";
             this.SesionMenu.Text = "&SESIÓN";
             // 
             // CerrarSesionMenu
             // 
             this.CerrarSesionMenu.Name = "CerrarSesionMenu";
-            this.CerrarSesionMenu.Size = new System.Drawing.Size(159, 22);
+            this.CerrarSesionMenu.Size = new System.Drawing.Size(155, 22);
             this.CerrarSesionMenu.Text = "CERRAR SESIÓN";
             this.CerrarSesionMenu.Click += new System.EventHandler(this.cerrarSesiónMenu_Click);
             // 
@@ -110,14 +111,14 @@
             this.AltaRolMenu,
             this.ModificarRolMenu});
             this.RolesMenu.Name = "RolesMenu";
-            this.RolesMenu.Size = new System.Drawing.Size(53, 20);
+            this.RolesMenu.Size = new System.Drawing.Size(51, 20);
             this.RolesMenu.Tag = "1";
             this.RolesMenu.Text = "RO&LES";
             // 
             // AltaRolMenu
             // 
             this.AltaRolMenu.Name = "AltaRolMenu";
-            this.AltaRolMenu.Size = new System.Drawing.Size(138, 22);
+            this.AltaRolMenu.Size = new System.Drawing.Size(152, 22);
             this.AltaRolMenu.Tag = "1";
             this.AltaRolMenu.Text = "NUEVO ROL";
             this.AltaRolMenu.Click += new System.EventHandler(this.nuevoRolMenu_Click);
@@ -125,7 +126,7 @@
             // ModificarRolMenu
             // 
             this.ModificarRolMenu.Name = "ModificarRolMenu";
-            this.ModificarRolMenu.Size = new System.Drawing.Size(138, 22);
+            this.ModificarRolMenu.Size = new System.Drawing.Size(152, 22);
             this.ModificarRolMenu.Tag = "1";
             this.ModificarRolMenu.Text = "EDITAR ROL";
             this.ModificarRolMenu.Click += new System.EventHandler(this.modificarRolMenu_Click);
@@ -136,14 +137,14 @@
             this.AltaUsuarioMenu,
             this.ModificarUsuarioMenu});
             this.UsuariosMenu.Name = "UsuariosMenu";
-            this.UsuariosMenu.Size = new System.Drawing.Size(74, 20);
+            this.UsuariosMenu.Size = new System.Drawing.Size(71, 20);
             this.UsuariosMenu.Tag = "2";
             this.UsuariosMenu.Text = "&USUARIOS";
             // 
             // AltaUsuarioMenu
             // 
             this.AltaUsuarioMenu.Name = "AltaUsuarioMenu";
-            this.AltaUsuarioMenu.Size = new System.Drawing.Size(165, 22);
+            this.AltaUsuarioMenu.Size = new System.Drawing.Size(160, 22);
             this.AltaUsuarioMenu.Tag = "2";
             this.AltaUsuarioMenu.Text = "NUEVO USUARIO";
             this.AltaUsuarioMenu.Click += new System.EventHandler(this.nuevoUsuarioMenu_Click);
@@ -151,7 +152,7 @@
             // ModificarUsuarioMenu
             // 
             this.ModificarUsuarioMenu.Name = "ModificarUsuarioMenu";
-            this.ModificarUsuarioMenu.Size = new System.Drawing.Size(165, 22);
+            this.ModificarUsuarioMenu.Size = new System.Drawing.Size(160, 22);
             this.ModificarUsuarioMenu.Tag = "2";
             this.ModificarUsuarioMenu.Text = "EDITAR USUARIO";
             this.ModificarUsuarioMenu.Click += new System.EventHandler(this.modificarUsuarioMenu_Click);
@@ -161,14 +162,14 @@
             this.ClientesMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.EditarClienteMenu});
             this.ClientesMenu.Name = "ClientesMenu";
-            this.ClientesMenu.Size = new System.Drawing.Size(70, 20);
+            this.ClientesMenu.Size = new System.Drawing.Size(66, 20);
             this.ClientesMenu.Tag = "3";
             this.ClientesMenu.Text = "&CLIENTES";
             // 
             // EditarClienteMenu
             // 
             this.EditarClienteMenu.Name = "EditarClienteMenu";
-            this.EditarClienteMenu.Size = new System.Drawing.Size(191, 22);
+            this.EditarClienteMenu.Size = new System.Drawing.Size(183, 22);
             this.EditarClienteMenu.Tag = "3";
             this.EditarClienteMenu.Text = "EDICIÓN DE CLIENTES";
             this.EditarClienteMenu.Click += new System.EventHandler(this.EditarClienteMenu_Click);
@@ -176,16 +177,17 @@
             // HabitacionesMenu
             // 
             this.HabitacionesMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.AltaHabitacionMenu});
+            this.AltaHabitacionMenu,
+            this.eDITARHABITACIONToolStripMenuItem});
             this.HabitacionesMenu.Name = "HabitacionesMenu";
-            this.HabitacionesMenu.Size = new System.Drawing.Size(102, 20);
+            this.HabitacionesMenu.Size = new System.Drawing.Size(94, 20);
             this.HabitacionesMenu.Tag = "5";
             this.HabitacionesMenu.Text = "HA&BITACIONES";
             // 
             // AltaHabitacionMenu
             // 
             this.AltaHabitacionMenu.Name = "AltaHabitacionMenu";
-            this.AltaHabitacionMenu.Size = new System.Drawing.Size(186, 22);
+            this.AltaHabitacionMenu.Size = new System.Drawing.Size(177, 22);
             this.AltaHabitacionMenu.Tag = "5";
             this.AltaHabitacionMenu.Text = "NUEVA HABITACION";
             this.AltaHabitacionMenu.Click += new System.EventHandler(this.nUEVAHABITACIONToolStripMenuItem_Click);
@@ -196,14 +198,14 @@
             this.AltaHotelMenu,
             this.ModificarHotelMenu});
             this.HotelesMenu.Name = "HotelesMenu";
-            this.HotelesMenu.Size = new System.Drawing.Size(68, 20);
+            this.HotelesMenu.Size = new System.Drawing.Size(63, 20);
             this.HotelesMenu.Tag = "4";
             this.HotelesMenu.Text = "&HOTELES";
             // 
             // AltaHotelMenu
             // 
             this.AltaHotelMenu.Name = "AltaHotelMenu";
-            this.AltaHotelMenu.Size = new System.Drawing.Size(153, 22);
+            this.AltaHotelMenu.Size = new System.Drawing.Size(152, 22);
             this.AltaHotelMenu.Tag = "4";
             this.AltaHotelMenu.Text = "NUEVO HOTEL";
             this.AltaHotelMenu.Click += new System.EventHandler(this.nUEVOHOTELToolStripMenuItem_Click);
@@ -211,7 +213,7 @@
             // ModificarHotelMenu
             // 
             this.ModificarHotelMenu.Name = "ModificarHotelMenu";
-            this.ModificarHotelMenu.Size = new System.Drawing.Size(153, 22);
+            this.ModificarHotelMenu.Size = new System.Drawing.Size(152, 22);
             this.ModificarHotelMenu.Tag = "4";
             this.ModificarHotelMenu.Text = "EDITAR HOTEL";
             this.ModificarHotelMenu.Click += new System.EventHandler(this.modificarHotelMenu_Click);
@@ -225,14 +227,14 @@
             this.CheckInMenu,
             this.CheckOutMenu});
             this.ReservasMenu.Name = "ReservasMenu";
-            this.ReservasMenu.Size = new System.Drawing.Size(72, 20);
+            this.ReservasMenu.Size = new System.Drawing.Size(70, 20);
             this.ReservasMenu.Tag = "8";
             this.ReservasMenu.Text = "&RESERVAS";
             // 
             // AltaReservaMenu
             // 
             this.AltaReservaMenu.Name = "AltaReservaMenu";
-            this.AltaReservaMenu.Size = new System.Drawing.Size(184, 22);
+            this.AltaReservaMenu.Size = new System.Drawing.Size(175, 22);
             this.AltaReservaMenu.Tag = "7";
             this.AltaReservaMenu.Text = "NUEVA RESERVA";
             this.AltaReservaMenu.Click += new System.EventHandler(this.realizarNuevaReservaMenu_Click);
@@ -240,7 +242,7 @@
             // ModificarReservaMenu
             // 
             this.ModificarReservaMenu.Name = "ModificarReservaMenu";
-            this.ModificarReservaMenu.Size = new System.Drawing.Size(184, 22);
+            this.ModificarReservaMenu.Size = new System.Drawing.Size(175, 22);
             this.ModificarReservaMenu.Tag = "7";
             this.ModificarReservaMenu.Text = "EDITAR RESERVA";
             this.ModificarReservaMenu.Click += new System.EventHandler(this.editarReservaMenu_Click);
@@ -248,7 +250,7 @@
             // BajaReservaMenu
             // 
             this.BajaReservaMenu.Name = "BajaReservaMenu";
-            this.BajaReservaMenu.Size = new System.Drawing.Size(184, 22);
+            this.BajaReservaMenu.Size = new System.Drawing.Size(175, 22);
             this.BajaReservaMenu.Tag = "8";
             this.BajaReservaMenu.Text = "CANCELAR RESERVA";
             this.BajaReservaMenu.Click += new System.EventHandler(this.cancelarReservaMenu_Click);
@@ -256,7 +258,7 @@
             // CheckInMenu
             // 
             this.CheckInMenu.Name = "CheckInMenu";
-            this.CheckInMenu.Size = new System.Drawing.Size(184, 22);
+            this.CheckInMenu.Size = new System.Drawing.Size(175, 22);
             this.CheckInMenu.Tag = "9";
             this.CheckInMenu.Text = "CHECK IN";
             this.CheckInMenu.Click += new System.EventHandler(this.checkInMenu_Click);
@@ -264,7 +266,7 @@
             // CheckOutMenu
             // 
             this.CheckOutMenu.Name = "CheckOutMenu";
-            this.CheckOutMenu.Size = new System.Drawing.Size(184, 22);
+            this.CheckOutMenu.Size = new System.Drawing.Size(175, 22);
             this.CheckOutMenu.Tag = "9";
             this.CheckOutMenu.Text = "CHECK OUT";
             this.CheckOutMenu.Click += new System.EventHandler(this.checkOutMenu_Click);
@@ -272,10 +274,17 @@
             // EstadisticasMenu
             // 
             this.EstadisticasMenu.Name = "EstadisticasMenu";
-            this.EstadisticasMenu.Size = new System.Drawing.Size(95, 20);
+            this.EstadisticasMenu.Size = new System.Drawing.Size(91, 20);
             this.EstadisticasMenu.Tag = "13";
             this.EstadisticasMenu.Text = "ES&TADÍSTICAS";
             this.EstadisticasMenu.Click += new System.EventHandler(this.estadísticasMenu_Click);
+            // 
+            // eDITARHABITACIONToolStripMenuItem
+            // 
+            this.eDITARHABITACIONToolStripMenuItem.Name = "eDITARHABITACIONToolStripMenuItem";
+            this.eDITARHABITACIONToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.eDITARHABITACIONToolStripMenuItem.Text = "EDITAR HABITACION";
+            this.eDITARHABITACIONToolStripMenuItem.Click += new System.EventHandler(this.eDITARHABITACIONToolStripMenuItem_Click);
             // 
             // MenuPrincipal
             // 
@@ -325,5 +334,6 @@
         private System.Windows.Forms.ToolStripMenuItem HabitacionesMenu;
         private System.Windows.Forms.ToolStripMenuItem AltaHabitacionMenu;
         private System.Windows.Forms.ToolStripMenuItem AltaHotelMenu;
+        private System.Windows.Forms.ToolStripMenuItem eDITARHABITACIONToolStripMenuItem;
     }
 }

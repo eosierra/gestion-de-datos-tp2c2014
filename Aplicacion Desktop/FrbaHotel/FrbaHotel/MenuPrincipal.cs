@@ -149,6 +149,11 @@ namespace FrbaHotel
         {
             abrir(new ABM_de_Hotel.ModificarHotel('A',usuarioActual));
         }
+
+        private void eDITARHABITACIONToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            abrir(new ABM_de_Habitacion.BuscarHabitacion(this,hotelActual));
+        }
         #endregion
 
         #region ITraeBusqueda
@@ -193,6 +198,8 @@ namespace FrbaHotel
             menues.Add(menu);
             foreach (ToolStripDropDownItem item in menu.DropDownItems) items.Add(item);
         }
+
+  
 
         
         
