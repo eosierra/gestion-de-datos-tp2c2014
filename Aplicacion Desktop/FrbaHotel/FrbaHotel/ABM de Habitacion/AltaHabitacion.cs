@@ -36,6 +36,8 @@ namespace FrbaHotel.ABM_de_Habitacion
 
         private void cargarTipos()
         {
+            CmbTipo.Items.Clear();
+
             BD bd = new BD();
             bd.obtenerConexion();
             string query = "SELECT * FROM FUGAZZETA.TiposHabitacion ORDER BY Id_TipoHab";
@@ -68,7 +70,7 @@ namespace FrbaHotel.ABM_de_Habitacion
                     if (frente == "N") { Interior.Checked = true; }
 
                     string elItem = "";
-                    for (int i = 1; i < CmbTipo.Items.Count; i++)
+                    for (int i = 0; i < CmbTipo.Items.Count; i++)
                     {
 
                         if ((CmbTipo.Items[i] as TipoHabitacion).id.ToString() == dr["Id_TipoHab"].ToString())
@@ -99,8 +101,6 @@ namespace FrbaHotel.ABM_de_Habitacion
            
             if (funcion == 'M')
             {
-                if (ChkHabilitada.Checked == false) validarBaja();
-
                 DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", "Confirmar actualización de habitacion", MessageBoxButtons.YesNo);
 
                 if (confirma == DialogResult.Yes)
@@ -145,11 +145,12 @@ namespace FrbaHotel.ABM_de_Habitacion
                 }
         }
 
-        private void validarBaja()
+        /*private void validarBaja()
         {
             BD bd = new BD();
             bd.obtenerConexion();
-            string query = "select R.Id_Reserva, Num_Habitacion from FUGAZZETA.[Habitaciones x Reservas] HR, FUGAZZETA.Reservas R where R.Id_Reserva=HR.Id_Reserva and Num_Habitacion= "+ TxtNro.Text +" and Fecha_Inicio >" + (Program.hoy().ToString());
+            int num = Convert.ToInt32(TxtNro.Text);
+            string query = "select R.Id_Reserva, Num_Habitacion from FUGAZZETA.[Habitaciones x Reservas] HR, FUGAZZETA.Reservas R where R.Id_Reserva=HR.Id_Reserva and Num_Habitacion = " + num + " and Fecha_Inicio > cast(2013-01-01 00:00:00.000 as DATE)";
             SqlDataReader dr = bd.lee(query);
             while (dr.Read())
             {
@@ -157,7 +158,7 @@ namespace FrbaHotel.ABM_de_Habitacion
             }
               
             bd.cerrar();
-        }
+        }*/
 
         private void ValidarTxt(TextBox txt, string campo)
         {
