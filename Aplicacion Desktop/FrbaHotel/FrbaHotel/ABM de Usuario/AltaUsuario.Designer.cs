@@ -138,7 +138,7 @@
             // 
             // CmdQuitaHotel
             // 
-            this.CmdQuitaHotel.Location = new System.Drawing.Point(278, 280);
+            this.CmdQuitaHotel.Location = new System.Drawing.Point(303, 279);
             this.CmdQuitaHotel.Name = "CmdQuitaHotel";
             this.CmdQuitaHotel.Size = new System.Drawing.Size(53, 24);
             this.CmdQuitaHotel.TabIndex = 27;
@@ -147,7 +147,7 @@
             // 
             // CmdAddHotel
             // 
-            this.CmdAddHotel.Location = new System.Drawing.Point(278, 249);
+            this.CmdAddHotel.Location = new System.Drawing.Point(303, 248);
             this.CmdAddHotel.Name = "CmdAddHotel";
             this.CmdAddHotel.Size = new System.Drawing.Size(53, 25);
             this.CmdAddHotel.TabIndex = 26;
@@ -158,9 +158,9 @@
             // ListHoteles
             // 
             this.ListHoteles.FormattingEnabled = true;
-            this.ListHoteles.Location = new System.Drawing.Point(187, 226);
+            this.ListHoteles.Location = new System.Drawing.Point(159, 226);
             this.ListHoteles.Name = "ListHoteles";
-            this.ListHoteles.Size = new System.Drawing.Size(85, 108);
+            this.ListHoteles.Size = new System.Drawing.Size(138, 108);
             this.ListHoteles.TabIndex = 25;
             // 
             // Calendario
@@ -316,7 +316,7 @@
             // 
             // Limpiar
             // 
-            this.Limpiar.Location = new System.Drawing.Point(284, 406);
+            this.Limpiar.Location = new System.Drawing.Point(12, 360);
             this.Limpiar.Name = "Limpiar";
             this.Limpiar.Size = new System.Drawing.Size(118, 29);
             this.Limpiar.TabIndex = 7;
@@ -327,11 +327,12 @@
             // Guardar
             // 
             this.Guardar.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.Guardar.Location = new System.Drawing.Point(434, 406);
+            this.Guardar.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Guardar.Location = new System.Drawing.Point(0, 401);
             this.Guardar.Name = "Guardar";
-            this.Guardar.Size = new System.Drawing.Size(118, 29);
+            this.Guardar.Size = new System.Drawing.Size(819, 36);
             this.Guardar.TabIndex = 8;
-            this.Guardar.Text = "Guardar";
+            this.Guardar.Text = "GUARDAR";
             this.Guardar.UseVisualStyleBackColor = true;
             this.Guardar.Click += new System.EventHandler(this.Guardar_Click);
             // 
@@ -351,7 +352,7 @@
             this.groupBox2.Controls.Add(this.TxtPass1);
             this.groupBox2.Location = new System.Drawing.Point(29, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(379, 241);
+            this.groupBox2.Size = new System.Drawing.Size(379, 213);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos generales";
@@ -369,7 +370,7 @@
             // Habilitado
             // 
             this.Habilitado.AutoSize = true;
-            this.Habilitado.Location = new System.Drawing.Point(261, 218);
+            this.Habilitado.Location = new System.Drawing.Point(261, 177);
             this.Habilitado.Name = "Habilitado";
             this.Habilitado.Size = new System.Drawing.Size(112, 17);
             this.Habilitado.TabIndex = 12;
@@ -438,7 +439,7 @@
             // 
             this.LblError1.AutoSize = true;
             this.LblError1.ForeColor = System.Drawing.Color.Red;
-            this.LblError1.Location = new System.Drawing.Point(32, 258);
+            this.LblError1.Location = new System.Drawing.Point(42, 238);
             this.LblError1.Name = "LblError1";
             this.LblError1.Size = new System.Drawing.Size(49, 13);
             this.LblError1.TabIndex = 10;
@@ -458,7 +459,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(819, 447);
+            this.ClientSize = new System.Drawing.Size(819, 437);
             this.Controls.Add(this.LblError2);
             this.Controls.Add(this.LblError1);
             this.Controls.Add(this.groupBox2);

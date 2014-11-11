@@ -29,11 +29,17 @@ namespace FrbaHotel.ABM_de_Usuario
             InitializeComponent();
             cargarTiposDoc();
             cargar(un);
+            this.Text = "FRBA HOTELES - EDICION DE USUARIO";
             TxtUser.Enabled = false;
             TxtPass1.Enabled = false;
             TxtPass2.Enabled = false;
+            TxtPass2.Visible = false;
+            label11.Visible = false;
+
+            LinkValida.Visible = false;
             Limpiar.Visible = false;
             CambiarPass.Visible = true;
+
             funcion = func;
         }
 
@@ -83,8 +89,9 @@ namespace FrbaHotel.ABM_de_Usuario
         {
             if (funcion=='M')
             {
-                DialogResult modif = MessageBox.Show("Son todos los datos correctos?", "Confirmar actualización de usuario", MessageBoxButtons.YesNo);
+                DialogResult modif = MessageBox.Show("Son todos los datos correctos?", this.Text, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (modif == DialogResult.Yes) actualizarUsuario();
+                else this.DialogResult = modif;
             }
             else
             try
@@ -232,8 +239,6 @@ namespace FrbaHotel.ABM_de_Usuario
         }
 
         
-
-
         #region Botones
 
 
