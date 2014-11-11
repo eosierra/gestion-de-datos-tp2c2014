@@ -11,6 +11,7 @@ using FrbaHotel.ABM_de_Hotel;
 using System.Data.SqlClient;
 
 using System.Security.Cryptography;
+using FrbaHotel.ABM_de_Cliente;
 
 
 
@@ -108,14 +109,13 @@ namespace FrbaHotel.ABM_de_Usuario
             BD bd = new BD();
             bd.obtenerConexion();
             string comando =
-                "UPDATE FUGAZZETA.Usuarios SET Nombre = '" + Nombre.Text +
-                "', Apellido = '" + Apellido.Text +
-                "', Nro_Doc = '" + NroDoc.Text +
-                "', Mail = '" + TxtMail.Text +
-                "', Telefono = '" + Telefono.Text +
-                "', Calle = '" + Direc.Text +
-                "', NroCalle = '" + NroDirec.Text +
-                "', Fecha_Nac = '" + Calendario.Value.ToShortDateString() +
+                @"UPDATE FUGAZZETA.Usuarios
+                SET Nombre = '" + Nombre.Text + "', Apellido = '" + Apellido.Text +
+                "', Id_TipoDoc = " + (CbTipoDoc.SelectedItem as TipoDoc).id + ", Nro_Doc = " + NroDoc.Text +
+                ", Mail = '" + TxtMail.Text +
+                "', Telefono = " + Telefono.Text +
+                ", Calle = '" + Direc.Text +
+                "', NroCalle = " + NroDirec.Text + ", Fecha_Nac = '" + Calendario.Value.ToShortDateString() +
                 "', Habilitado = " + Convert.ToSByte(Habilitado.Checked)+ 
                 " WHERE Username = '" + TxtUser.Text + "'";
             bd.ejecutar(comando);
@@ -265,14 +265,8 @@ namespace FrbaHotel.ABM_de_Usuario
 
         private void validarContraseñas(object sender, EventArgs e)
         {
-            if (TxtPass1.Text != TxtPass2.Text)
-            {
-                LblError1.Text = "Las contraseñas no coinciden.";
-            }
-            else
-            {
-                LblError1.Text = "";
-            }
+            if (TxtPass1.Text != TxtPass2.Text) LblError1.Text = "Las contraseñas no coinciden.";
+            else LblError1.Text = "";
         }
 
         private void validarUser()
@@ -283,11 +277,8 @@ namespace FrbaHotel.ABM_de_Usuario
                 SqlConnection conexion = bd.obtenerConexion();
                 string comando = "SELECT Username,Contraseña FROM FUGAZZETA.Usuarios WHERE Username='" + TxtUser.Text + "'";
                 DataTableReader tabla = new DataTableReader(bd.ejecutar(comando));
-                if (!tabla.HasRows)
-                {
-                    MessageBox.Show("El nombre de usuario está disponible");
-                }
-                else { LblError1.Text = "El usuario ya existe"; }
+                if (!tabla.HasRows) MessageBox.Show("El nombre de usuario está disponible.");
+                else LblError1.Text = "El usuario ya existe.";
             }
             else
             {
@@ -330,7 +321,10 @@ namespace FrbaHotel.ABM_de_Usuario
             new NuevoPass(TxtUser.Text).ShowDialog();
         }
 
-        
+        private void Numero_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
             
 
         

@@ -58,6 +58,7 @@
             this.Limpiar = new System.Windows.Forms.Button();
             this.Guardar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.CambiarPass = new System.Windows.Forms.Button();
             this.Habilitado = new System.Windows.Forms.CheckBox();
             this.LinkValida = new System.Windows.Forms.LinkLabel();
             this.CmdQuitarRol = new System.Windows.Forms.Button();
@@ -67,7 +68,6 @@
             this.TxtPass2 = new System.Windows.Forms.TextBox();
             this.LblError1 = new System.Windows.Forms.Label();
             this.LblError2 = new System.Windows.Forms.Label();
-            this.CambiarPass = new System.Windows.Forms.Button();
             this.GrupoDatos.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -204,6 +204,7 @@
             this.NroDirec.Name = "NroDirec";
             this.NroDirec.Size = new System.Drawing.Size(51, 20);
             this.NroDirec.TabIndex = 15;
+            this.NroDirec.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Numero_KeyPress);
             // 
             // label12
             // 
@@ -254,6 +255,7 @@
             this.Telefono.Name = "Telefono";
             this.Telefono.Size = new System.Drawing.Size(277, 20);
             this.Telefono.TabIndex = 12;
+            this.Telefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Numero_KeyPress);
             // 
             // label7
             // 
@@ -295,6 +297,7 @@
             this.NroDoc.Name = "NroDoc";
             this.NroDoc.Size = new System.Drawing.Size(137, 20);
             this.NroDoc.TabIndex = 7;
+            this.NroDoc.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Numero_KeyPress);
             // 
             // label4
             // 
@@ -363,6 +366,16 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos generales";
+            // 
+            // CambiarPass
+            // 
+            this.CambiarPass.Location = new System.Drawing.Point(223, 53);
+            this.CambiarPass.Name = "CambiarPass";
+            this.CambiarPass.Size = new System.Drawing.Size(150, 22);
+            this.CambiarPass.TabIndex = 13;
+            this.CambiarPass.Text = "CAMBIAR CONTRASEÑA";
+            this.CambiarPass.UseVisualStyleBackColor = true;
+            this.CambiarPass.Click += new System.EventHandler(this.CambiarPass_Click);
             // 
             // Habilitado
             // 
@@ -452,16 +465,6 @@
             this.LblError2.Size = new System.Drawing.Size(49, 13);
             this.LblError2.TabIndex = 11;
             this.LblError2.Text = "..............";
-            // 
-            // CambiarPass
-            // 
-            this.CambiarPass.Location = new System.Drawing.Point(223, 53);
-            this.CambiarPass.Name = "CambiarPass";
-            this.CambiarPass.Size = new System.Drawing.Size(150, 22);
-            this.CambiarPass.TabIndex = 13;
-            this.CambiarPass.Text = "CAMBIAR CONTRASEÑA";
-            this.CambiarPass.UseVisualStyleBackColor = true;
-            this.CambiarPass.Click += new System.EventHandler(this.CambiarPass_Click);
             // 
             // AltaUsuario
             // 
