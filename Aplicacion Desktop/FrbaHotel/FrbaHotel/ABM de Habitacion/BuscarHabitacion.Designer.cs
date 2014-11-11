@@ -64,6 +64,7 @@
             this.TxtHabitacion.Name = "TxtHabitacion";
             this.TxtHabitacion.Size = new System.Drawing.Size(146, 20);
             this.TxtHabitacion.TabIndex = 4;
+            this.TxtHabitacion.TextChanged += new System.EventHandler(this.TxtHabitacion_TextChanged);
             // 
             // button2
             // 
@@ -82,6 +83,7 @@
             this.button1.TabIndex = 7;
             this.button1.Text = "SELECCIONAR";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // GridHabitaciones
             // 

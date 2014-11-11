@@ -7,11 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using FrbaHotel.ABM_de_Hotel;
 
 namespace FrbaHotel.ABM_de_Habitacion
 {
-    public partial class AltaHabitacion : Form
+    public partial class AltaHabitacion : Buscador
     {
+
+     public AltaHabitacion(char fun,string id,int hotel){
+        InitializeComponent();
+        cargarTipos();
+        funcion = fun;
+        cargar(id,hotel);
+        CmbTipo.Enabled = false;
+     }
+
+     
         public AltaHabitacion()
         {
             InitializeComponent();
@@ -30,6 +41,51 @@ namespace FrbaHotel.ABM_de_Habitacion
                 CmbTipo.Items.Add(tipo);
             }
         }
+
+        private void cargar(string id, int idHotel)
+        {
+            if (funcion == 'M')
+            {
+                BD bd = new BD();
+                bd.obtenerConexion();
+                int elId = Convert.ToInt32(id);
+                string query = "SELECT * FROM FUGAZZETA.Habitaciones WHERE Num_Habitacion = " + elId + " and Id_Hotel = " + idHotel;
+                SqlDataReader dr = bd.lee(query);
+
+                while (dr.Read())
+                {
+                    TxtNro.Text = dr["Num_Habitacion"].ToString();
+                    TxtPiso.Text = dr["Piso"].ToString();
+                    TxtDesc.Text = dr["Comodidades"].ToString();
+                    
+                    string frente = dr["Frente"].ToString();
+                    if (frente == "S") { Exterior.Checked = true; }
+                    if (frente == "N") { Interior.Checked = true; }
+
+                    string elItem = "";
+                    for (int i = 1; i < CmbTipo.Items.Count; i++)
+                    {
+
+                        if ((CmbTipo.Items[i] as TipoHabitacion).id.ToString() == dr["Id_TipoHab"].ToString())
+                        {
+                            elItem = CmbTipo.Items[i].ToString();
+                        }
+                    }
+                    CmbTipo.Text = elItem;
+                }
+                dr.Close();
+
+
+                /*query = "SELECT FR.Id_Rol,FR.Id_Funcionalidad, F.Descripcion FROM FUGAZZETA.[Funcionalidades x Roles] FR, FUGAZZETA.Funcionalidades F where FR.Id_Funcionalidad = F.Id_Funcionalidad AND FR.Id_Rol = " + elId;
+                dr = bd.lee(query);
+                while (dr.Read())
+                {
+                    ListFunciones.Items.Add(new Funcionalidad(dr[1].ToString(), dr[2].ToString()));
+                }*/
+                bd.cerrar();
+            }
+        }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
