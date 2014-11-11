@@ -47,13 +47,27 @@ namespace FrbaHotel.ABM_de_Cliente
         private void CmdGuardar_Click(object sender, EventArgs e)
         {
             if (funcion=='M'){
-                {
-                    DialogResult modif = MessageBox.Show("Son todos los datos correctos?", "Confirmar actualización de cliente", MessageBoxButtons.YesNo);
-                    if (modif == DialogResult.Yes)
-                    {
-                        actualizarCliente();
+                    BD bd = new BD();
+                    bd.obtenerConexion();
+                    try
+                        {
+                        validarDocumento(bd);
+                        validarDocumento(bd);
+                        bd.cerrar();
+                        DialogResult modif = MessageBox.Show("Son todos los datos correctos?", "Confirmar actualización de cliente", MessageBoxButtons.YesNo);
+                        if (modif == DialogResult.Yes)
+                            {
+                                actualizarCliente();
+                            }
                     }
-                }
+
+                    catch (Exception ex)
+                    {
+                        bd.cerrar();
+                        MessageBox.Show("Error: No se pudo actualizar al cliente. " + ex.Message);
+                    }
+
+                
             }
             else{
             DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", this.Text, MessageBoxButtons.YesNo);
@@ -64,6 +78,7 @@ namespace FrbaHotel.ABM_de_Cliente
                 bd.obtenerConexion();
                 try
                 {
+                    validarRepetido();
                     ValidarTxt(TxtNombre, "Nombre");
                     ValidarTxt(TxtApellido, "Apellido");
                     ValidarTxt(TxtNroDoc, "Número de Documento");
@@ -91,6 +106,21 @@ namespace FrbaHotel.ABM_de_Cliente
                 }
             }
         }
+        }
+
+        private void validarRepetido()
+        {
+            BD bd = new BD();
+            bd.obtenerConexion();
+            TipoDoc elTipoDoc = TipoDoc.Items[TipoDoc.SelectedIndex] as TipoDoc;
+            string query = "select * from FUGAZZETA.Clientes where (Id_TipoDoc=" + elTipoDoc.id + " and Nro_Doc=" + TxtNroDoc.Text + ") or mail='" + TxtMail.Text + "'";
+            SqlDataReader dr = bd.lee(query);
+            while (dr.Read())
+            {
+                if (dr.HasRows) { throw new Exception("El cliente ya existe."); }
+            }
+            dr.Close();
+            bd.cerrar();
         }
 
         private void actualizarCliente()
