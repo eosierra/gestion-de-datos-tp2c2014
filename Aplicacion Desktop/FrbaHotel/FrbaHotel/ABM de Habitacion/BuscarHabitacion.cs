@@ -18,7 +18,7 @@ namespace FrbaHotel.ABM_de_Habitacion
         public BuscarHabitacion(ITraeBusqueda owner,int hotel)
         {
             InitializeComponent();
-            crearBuscador(owner, "Num_Habitacion,Piso,Frente,Habilitado", "Habitaciones");
+            crearBuscador(owner, "Num_Habitacion,Piso,Id_TipoHab [Tipo Habitacion],Frente,Habilitado", "Habitaciones");
             setearGrid(GridHabitaciones);
             idHotel = hotel;
             
