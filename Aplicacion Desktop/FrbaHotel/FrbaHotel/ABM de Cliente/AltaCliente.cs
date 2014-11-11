@@ -77,8 +77,7 @@ namespace FrbaHotel.ABM_de_Cliente
                 BD bd = new BD();
                 bd.obtenerConexion();
                 try
-                {
-                    validarRepetido();
+                {                    
                     ValidarTxt(TxtNombre, "Nombre");
                     ValidarTxt(TxtApellido, "Apellido");
                     ValidarTxt(TxtNroDoc, "Número de Documento");
@@ -108,20 +107,7 @@ namespace FrbaHotel.ABM_de_Cliente
         }
         }
 
-        private void validarRepetido()
-        {
-            BD bd = new BD();
-            bd.obtenerConexion();
-            TipoDoc elTipoDoc = TipoDoc.Items[TipoDoc.SelectedIndex] as TipoDoc;
-            string query = "select * from FUGAZZETA.Clientes where (Id_TipoDoc=" + elTipoDoc.id + " and Nro_Doc=" + TxtNroDoc.Text + ") or mail='" + TxtMail.Text + "'";
-            SqlDataReader dr = bd.lee(query);
-            while (dr.Read())
-            {
-                if (dr.HasRows) { throw new Exception("El cliente ya existe."); }
-            }
-            dr.Close();
-            bd.cerrar();
-        }
+        
 
         private void actualizarCliente()
         {
