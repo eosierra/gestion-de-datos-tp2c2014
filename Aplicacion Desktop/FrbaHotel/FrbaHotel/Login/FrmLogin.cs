@@ -20,18 +20,21 @@ namespace FrbaHotel.Login
             menu = parent;
             InitializeComponent();
         }
-       
+
         private void CmdIngresar_Click(object sender, EventArgs e)
         {
-            BD bd = new BD();
-            bd.obtenerConexion();
-            string comando = "SELECT Username,Contraseña FROM FUGAZZETA.[UsuariosHabilitados] WHERE Username='" + TxtUser.Text + "'";
-            SqlDataReader tabla = bd.lee(comando);
-            try
+            if (TxtUser.Text == "guest") Guest_Click(sender, e);
+            else
             {
-                if (tabla.HasRows)
+                BD bd = new BD();
+                bd.obtenerConexion();
+                string comando = "SELECT Username,Contraseña FROM FUGAZZETA.[UsuariosHabilitados] WHERE Username='" + TxtUser.Text + "'";
+                SqlDataReader tabla = bd.lee(comando);
+                try
                 {
-                    tabla.Read();
+                    if (tabla.HasRows)
+                    {
+                        tabla.Read();
                         string pass = tabla[1].ToString();
                         if (Hashing.SHA256Encrypt(TxtPass.Text) == pass)
                         {
@@ -56,20 +59,21 @@ namespace FrbaHotel.Login
                                 throw (ex as Exception);
                             }
                         }
-                    tabla.Close();
+                        tabla.Close();
+                    }
+                    else throw new Exception("Usuario no encontrado o inhabilitado por el administrador.");
                 }
-                else throw new Exception("Usuario no encontrado o inhabilitado por el administrador.");
+                catch (Exception ex)
+                {
+                    LblError.Visible = true;
+                    LblError.Text = ex.Message;
+                }
+                bd.cerrar();
+                tabla.Close();
             }
-            catch (Exception ex)
-            {
-                LblError.Visible = true;
-                LblError.Text = ex.Message;
-            }
-            bd.cerrar();
-            tabla.Close();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Guest_Click(object sender, EventArgs e)
         {
             IrAMenuPrincipal("guest");
             menu.hotelActual = 1;

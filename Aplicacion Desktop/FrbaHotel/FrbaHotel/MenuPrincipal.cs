@@ -23,7 +23,6 @@ namespace FrbaHotel
         public MenuPrincipal()
         {
             InitializeComponent();
-            abrirLogin();
             #region Carga y bloqueo de menues
             agregarMenu(RolesMenu);
             agregarMenu(UsuariosMenu);
@@ -34,7 +33,8 @@ namespace FrbaHotel
             
             //bloquearMenues();
             #endregion
-
+            abrirLogin();
+            
         }
 
         private void abrirLogin()
@@ -50,8 +50,8 @@ namespace FrbaHotel
                 if (usuarioActual != "guest")
                     LabelSesion.Text += ". Hotel: " + hotelActual + ". Rol: " + rolActual;
                 bloquearMenues();
-                desbloquearMenues();
             }
+            desbloquearMenues();
         }
 
         #region Abrir Menues
@@ -140,17 +140,17 @@ namespace FrbaHotel
             abrir(new ABM_de_Cliente.BuscarCliente(this));
         }
 
-        private void nUEVAHABITACIONToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AltaHabitacionMenu_Click(object sender, EventArgs e)
         {
             abrir(new ABM_de_Habitacion.AltaHabitacion());
         }
 
-        private void nUEVOHOTELToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AltaHotelMenu_Click(object sender, EventArgs e)
         {
             abrir(new ABM_de_Hotel.ModificarHotel('A',usuarioActual));
         }
 
-        private void eDITARHABITACIONToolStripMenuItem_Click(object sender, EventArgs e)
+        private void EditarHabitacionMenu_Click(object sender, EventArgs e)
         {
             abrir(new ABM_de_Habitacion.BuscarHabitacion(this,hotelActual));
         }
@@ -166,7 +166,11 @@ namespace FrbaHotel
 
         private void bloquearMenues()
         {
-            foreach (ToolStripDropDownItem item in items) item.Visible = false;
+            foreach (ToolStripDropDownItem item in items)
+            {
+                item.Visible = false;
+                item.OwnerItem.Tag = 0;
+            }
             foreach (ToolStripMenuItem menu in menues) menu.Visible = true;
         }
 
@@ -186,8 +190,8 @@ namespace FrbaHotel
                     }
                 }
             }
-            
             dr.Close();
+            bd.cerrar();
             foreach (ToolStripMenuItem m in menues)
                 if (m.Tag.ToString() == "0") m.Visible = false;
         }
@@ -197,11 +201,7 @@ namespace FrbaHotel
             menu.Tag = 0;
             menues.Add(menu);
             foreach (ToolStripDropDownItem item in menu.DropDownItems) items.Add(item);
-        }
-
-  
-
-        
+        }        
         
     }
 }
