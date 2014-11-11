@@ -172,7 +172,7 @@ namespace FrbaHotel
             {
                foreach (ToolStripDropDownItem item in items)
                 {
-                   if (item.Tag.ToString() == dr[1].ToString())
+                    if (item.Tag.ToString() == dr[1].ToString())
                     {
                         item.OwnerItem.Tag = 1;
                         item.Visible = true;
