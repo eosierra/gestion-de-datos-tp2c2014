@@ -47,6 +47,8 @@ namespace FrbaHotel
             {
                 usuarioActual = elLogin.userActual;
                 LabelSesion.Text = "Sesión iniciada como " + usuarioActual;
+                if (usuarioActual != "guest")
+                    LabelSesion.Text += ". Hotel: " + hotelActual + ". Rol: " + rolActual;
                 bloquearMenues();
                 desbloquearMenues();
             }

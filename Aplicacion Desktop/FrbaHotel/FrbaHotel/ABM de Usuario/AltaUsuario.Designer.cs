@@ -50,7 +50,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.TxtMail = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.CbTipoDoc = new System.Windows.Forms.ComboBox();
             this.NroDoc = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.Nombre = new System.Windows.Forms.TextBox();
@@ -58,6 +58,7 @@
             this.Limpiar = new System.Windows.Forms.Button();
             this.Guardar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.Habilitado = new System.Windows.Forms.CheckBox();
             this.LinkValida = new System.Windows.Forms.LinkLabel();
             this.CmdQuitarRol = new System.Windows.Forms.Button();
             this.CmdAgregarRol = new System.Windows.Forms.Button();
@@ -66,7 +67,6 @@
             this.TxtPass2 = new System.Windows.Forms.TextBox();
             this.LblError1 = new System.Windows.Forms.Label();
             this.LblError2 = new System.Windows.Forms.Label();
-            this.Habilitado = new System.Windows.Forms.CheckBox();
             this.GrupoDatos.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -133,7 +133,7 @@
             this.GrupoDatos.Controls.Add(this.label7);
             this.GrupoDatos.Controls.Add(this.TxtMail);
             this.GrupoDatos.Controls.Add(this.label6);
-            this.GrupoDatos.Controls.Add(this.comboBox2);
+            this.GrupoDatos.Controls.Add(this.CbTipoDoc);
             this.GrupoDatos.Controls.Add(this.NroDoc);
             this.GrupoDatos.Controls.Add(this.label4);
             this.GrupoDatos.Controls.Add(this.Nombre);
@@ -279,14 +279,14 @@
             this.label6.TabIndex = 9;
             this.label6.Text = "Email:";
             // 
-            // comboBox2
+            // CbTipoDoc
             // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(147, 79);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(66, 21);
-            this.comboBox2.TabIndex = 7;
+            this.CbTipoDoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CbTipoDoc.FormattingEnabled = true;
+            this.CbTipoDoc.Location = new System.Drawing.Point(147, 79);
+            this.CbTipoDoc.Name = "CbTipoDoc";
+            this.CbTipoDoc.Size = new System.Drawing.Size(66, 21);
+            this.CbTipoDoc.TabIndex = 7;
             // 
             // NroDoc
             // 
@@ -361,6 +361,17 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos generales";
+            // 
+            // Habilitado
+            // 
+            this.Habilitado.AutoSize = true;
+            this.Habilitado.Location = new System.Drawing.Point(227, 164);
+            this.Habilitado.Name = "Habilitado";
+            this.Habilitado.Size = new System.Drawing.Size(112, 17);
+            this.Habilitado.TabIndex = 12;
+            this.Habilitado.Text = "Usuario Habilitado";
+            this.Habilitado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Habilitado.UseVisualStyleBackColor = true;
             // 
             // LinkValida
             // 
@@ -440,17 +451,6 @@
             this.LblError2.TabIndex = 11;
             this.LblError2.Text = "..............";
             // 
-            // Habilitado
-            // 
-            this.Habilitado.AutoSize = true;
-            this.Habilitado.Location = new System.Drawing.Point(227, 164);
-            this.Habilitado.Name = "Habilitado";
-            this.Habilitado.Size = new System.Drawing.Size(112, 17);
-            this.Habilitado.TabIndex = 12;
-            this.Habilitado.Text = "Usuario Habilitado";
-            this.Habilitado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Habilitado.UseVisualStyleBackColor = true;
-            // 
             // AltaUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -498,7 +498,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox TxtMail;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox CbTipoDoc;
         private System.Windows.Forms.Button Limpiar;
         private System.Windows.Forms.Button Guardar;
         private System.Windows.Forms.GroupBox groupBox2;

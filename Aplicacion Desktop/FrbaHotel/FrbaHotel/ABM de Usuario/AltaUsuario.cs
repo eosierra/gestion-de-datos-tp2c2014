@@ -52,7 +52,7 @@ namespace FrbaHotel.ABM_de_Usuario
             SqlDataReader dr = bd.lee(query);
             while (dr.Read())
             {
-                comboBox2.Items.Add(new ABM_de_Cliente.TipoDoc(dr[0].ToString(), dr[1].ToString()));
+                CbTipoDoc.Items.Add(new ABM_de_Cliente.TipoDoc(dr[0].ToString(), dr[1].ToString()));
             }
             bd.cerrar();
         }
@@ -68,11 +68,11 @@ namespace FrbaHotel.ABM_de_Usuario
             Direc.Text = "";
             Telefono.Text = "";
             TxtMail.Text = "";
-            comboBox2.Items.Clear();
+            CbTipoDoc.Items.Clear();
             ListaRoles.Items.Clear();
             Apellido.Text = "";
             NroDirec.Text = "";
-            Calendario.Dispose(); //no estoy segura si esta es la funcion que borra pero es lo mas parecido
+            Calendario.Value = Program.hoy();
             ListHoteles.Items.Clear();
 
         }
@@ -126,7 +126,7 @@ namespace FrbaHotel.ABM_de_Usuario
                 bd.insertar("[Usuarios x Hoteles x Rol]", "'"+TxtUser.Text + "',1," + rol.id + ",0");
             }
 
-            MessageBox.Show("Actualización realizada con éxito");
+            MessageBox.Show("Actualización realizada con éxito.", this.Text,MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void AltaUsuario_Load(object sender, EventArgs e)
@@ -138,15 +138,23 @@ namespace FrbaHotel.ABM_de_Usuario
 
         private void validarDatosIngresados()
         {
-            if (Nombre.Text == "")
-            {
-                throw new Exception("El nombre no puede ser vacío");
-            }
-            if (Apellido.Text == "")
-            {
-                throw new Exception("El apellido no puede ser vacio");
-            }
-            //faltan mas validaciones de los datos del usuario
+            if (TxtPass1.Text == "" || TxtPass1.Text != TxtPass2.Text)
+                throw new Exception("La contraseña no es válida.");
+            if (CbTipoDoc.SelectedIndex == -1)
+                throw new Exception("No eligió un tipo de documento.");
+            verVacio(TxtUser, "El usuario");
+            verVacio(Nombre,"El nombre");
+            verVacio(Apellido,"El apellido");
+            verVacio(Direc,"La calle");
+            verVacio(NroDirec,"La altura");
+            verVacio(TxtMail, "El mail");
+            verVacio(NroDoc, "El número de documento");
+            verVacio(Telefono, "El teléfono");           
+        }
+
+        private void verVacio(TextBox txt, string a)
+        {
+            if (txt.Text == "") throw new Exception(a + " no puede ser vacío.");
         }
 
         private void agregarUsuario()
@@ -154,8 +162,7 @@ namespace FrbaHotel.ABM_de_Usuario
 
             BD bd = new BD();
             bd.obtenerConexion();
-            //SHA256 sha = new SHA256();
-            ABM_de_Cliente.TipoDoc tipoDni = comboBox2.Items[comboBox2.SelectedIndex] as ABM_de_Cliente.TipoDoc;
+            ABM_de_Cliente.TipoDoc tipoDni = CbTipoDoc.Items[CbTipoDoc.SelectedIndex] as ABM_de_Cliente.TipoDoc;
             string valores = "'" + TxtUser.Text + "','" + Hashing.SHA256Encrypt(TxtPass1.Text) + "',' " + Nombre.Text + "',' " + Apellido.Text + "',' " + tipoDni.id + "', '" + NroDoc.Text + "',' " + TxtMail.Text + "', '" + Telefono.Text + "',' " + Direc.Text + "',' " + NroDirec.Text + "',' " + Calendario.Value.ToShortDateString() + "','" + 0 + "','" + 1 + "'"; 
             bd.insertar("Usuarios", valores);
 
@@ -192,15 +199,15 @@ namespace FrbaHotel.ABM_de_Usuario
                 Habilitado.Checked = Convert.ToBoolean(dr["Habilitado"].ToString());
 
                 string elItem = "";
-                for (int i = 0; i < comboBox2.Items.Count; i++)
+                for (int i = 0; i < CbTipoDoc.Items.Count; i++)
                 {
 
-                    if ((comboBox2.Items[i] as ABM_de_Cliente.TipoDoc).id.ToString() == dr["Id_TipoDoc"].ToString())
+                    if ((CbTipoDoc.Items[i] as ABM_de_Cliente.TipoDoc).id.ToString() == dr["Id_TipoDoc"].ToString())
                     {
-                        elItem = comboBox2.Items[i].ToString();
+                        elItem = CbTipoDoc.Items[i].ToString();
                     }
                 }
-                comboBox2.Text = elItem;
+                CbTipoDoc.Text = elItem;
                 
             }
             dr.Close();
@@ -259,7 +266,7 @@ namespace FrbaHotel.ABM_de_Usuario
         {
             if (TxtPass1.Text != TxtPass2.Text)
             {
-                LblError1.Text = "Las contraseñas no coinciden";
+                LblError1.Text = "Las contraseñas no coinciden.";
             }
             else
             {
@@ -303,7 +310,7 @@ namespace FrbaHotel.ABM_de_Usuario
             }
             if (!sePuede)
             {
-                MessageBox.Show("No se puede agregar");
+                MessageBox.Show("No se puede agregar.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
