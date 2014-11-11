@@ -18,7 +18,7 @@ namespace FrbaHotel.ABM_de_Habitacion
         public BuscarHabitacion(ITraeBusqueda owner,int hotel)
         {
             InitializeComponent();
-            crearBuscador(owner, "Num_Habitacion", "Habitaciones");
+            crearBuscador(owner, "Num_Habitacion,Piso,Frente,Habilitado", "Habitaciones");
             setearGrid(GridHabitaciones);
             idHotel = hotel;
             
@@ -32,45 +32,34 @@ namespace FrbaHotel.ABM_de_Habitacion
             cargarGrilla(GridHabitaciones, actual);
         }
 
+            
 
         
-
-        /*private void TxtRol_TextChanged(object sender, EventArgs e)
-        {
-            actual = todos;
-            addFiltroTextBox(TxtRol, "Nombre", GridRoles);
-            cargarGrilla(GridRoles, actual);
-
-        }*/
-
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        
-        /*private void button1_Click(object sender, EventArgs e)
+        private void TxtHabitacion_TextChanged(object sender, EventArgs e)
         {
-            if (funcion == 'S')
+            actual = todos;
+            addFiltroTextBox(TxtHabitacion, "Num_Habitacion", GridHabitaciones);
+            addFiltroPorID(idHotel, "Id_Hotel", GridHabitaciones);
+            cargarGrilla(GridHabitaciones, actual);
+        }
+
+        
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            string id = celdaElegida(GridHabitaciones, 0);
+            DialogResult modif = new AltaHabitacion('M',id,idHotel).ShowDialog();
+            if (modif == DialogResult.OK)
             {
-                string id = celdaElegida(GridRoles, 0);
-                string name = celdaElegida(GridRoles, 1);
-                Rol rol = new Rol(id, name);
-                dondeVuelve.agregar(id, name);
-                this.Close();
+                Close();
             }
-            if (funcion == 'M')
-            {
-                string id = celdaElegida(GridRoles, 0);
-                string name = celdaElegida(GridRoles, 1);
-                DialogResult modif = new AltaRol('M', id, name).ShowDialog();
-                if (modif == DialogResult.OK)
-                {
-                    Close();
-                }
-            }
-        }*/
+        }
+        }
     }
-}
+
        
 
