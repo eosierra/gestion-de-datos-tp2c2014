@@ -77,6 +77,8 @@ namespace FrbaHotel.ABM_de_Habitacion
                         }
                     }
                     CmbTipo.Text = elItem;
+
+                    ChkHabilitada.Checked = Convert.ToBoolean(dr["Habilitado"].ToString());
                 }
                 dr.Close();
                                                
@@ -139,10 +141,14 @@ namespace FrbaHotel.ABM_de_Habitacion
         {
             BD bd = new BD();
             bd.obtenerConexion();
+            char frente ='N';
+            if (Exterior.Checked == true) { frente = 'S'; }
+            if (Interior.Checked == true) { frente = 'N'; }
             string comando =
                 "UPDATE FUGAZZETA.Habitaciones SET Num_Habitacion =" + TxtNro.Text +
                 ", Piso = " + TxtPiso.Text +
-                ", Comodidades = '" + TxtDesc.Text + 
+                ", Comodidades = '" + TxtDesc.Text +
+                "', Frente = '" + frente +
                 "', Habilitado = " + Convert.ToSByte(ChkHabilitada.Checked) +
                 " WHERE Num_Habitacion = " + tuId + "AND Id_Hotel = " + tuHotel;
             bd.ejecutar(comando);
