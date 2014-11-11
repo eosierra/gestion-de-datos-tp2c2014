@@ -40,11 +40,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.ChkHabilitada = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(43, 250);
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.button1.Location = new System.Drawing.Point(43, 273);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(233, 23);
             this.button1.TabIndex = 23;
@@ -152,11 +154,23 @@
             this.label1.TabIndex = 12;
             this.label1.Text = "Número";
             // 
+            // ChkHabilitada
+            // 
+            this.ChkHabilitada.AutoSize = true;
+            this.ChkHabilitada.Location = new System.Drawing.Point(129, 250);
+            this.ChkHabilitada.Name = "ChkHabilitada";
+            this.ChkHabilitada.Size = new System.Drawing.Size(73, 17);
+            this.ChkHabilitada.TabIndex = 24;
+            this.ChkHabilitada.Text = "Habilitada";
+            this.ChkHabilitada.UseVisualStyleBackColor = true;
+            this.ChkHabilitada.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // AltaHabitacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(305, 287);
+            this.ClientSize = new System.Drawing.Size(305, 320);
+            this.Controls.Add(this.ChkHabilitada);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.TxtDesc);
             this.Controls.Add(this.label5);
@@ -190,5 +204,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox ChkHabilitada;
     }
 }

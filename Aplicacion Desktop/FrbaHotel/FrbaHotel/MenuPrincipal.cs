@@ -142,7 +142,7 @@ namespace FrbaHotel
 
         private void AltaHabitacionMenu_Click(object sender, EventArgs e)
         {
-            abrir(new ABM_de_Habitacion.AltaHabitacion());
+            abrir(new ABM_de_Habitacion.AltaHabitacion(hotelActual));
         }
 
         private void AltaHotelMenu_Click(object sender, EventArgs e)

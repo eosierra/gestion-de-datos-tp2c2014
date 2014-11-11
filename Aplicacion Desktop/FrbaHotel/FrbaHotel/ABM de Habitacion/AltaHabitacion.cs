@@ -13,20 +13,25 @@ namespace FrbaHotel.ABM_de_Habitacion
 {
     public partial class AltaHabitacion : Buscador
     {
+        string tuId;
+        int tuHotel;
 
      public AltaHabitacion(char fun,string id,int hotel){
         InitializeComponent();
         cargarTipos();
         funcion = fun;
-        cargar(id,hotel);
+        tuHotel=hotel;
+        tuId=id;
+        cargar();
         CmbTipo.Enabled = false;
      }
 
      
-        public AltaHabitacion()
+        public AltaHabitacion(int hotel)
         {
             InitializeComponent();
             cargarTipos();
+            tuHotel = hotel;
         }
 
         private void cargarTipos()
@@ -42,14 +47,14 @@ namespace FrbaHotel.ABM_de_Habitacion
             }
         }
 
-        private void cargar(string id, int idHotel)
+        private void cargar()
         {
             if (funcion == 'M')
             {
                 BD bd = new BD();
                 bd.obtenerConexion();
-                int elId = Convert.ToInt32(id);
-                string query = "SELECT * FROM FUGAZZETA.Habitaciones WHERE Num_Habitacion = " + elId + " and Id_Hotel = " + idHotel;
+                int elId = Convert.ToInt32(tuId);
+                string query = "SELECT * FROM FUGAZZETA.Habitaciones WHERE Num_Habitacion = " + elId + " and Id_Hotel = " + tuHotel;
                 SqlDataReader dr = bd.lee(query);
 
                 while (dr.Read())
@@ -74,14 +79,7 @@ namespace FrbaHotel.ABM_de_Habitacion
                     CmbTipo.Text = elItem;
                 }
                 dr.Close();
-
-
-                /*query = "SELECT FR.Id_Rol,FR.Id_Funcionalidad, F.Descripcion FROM FUGAZZETA.[Funcionalidades x Roles] FR, FUGAZZETA.Funcionalidades F where FR.Id_Funcionalidad = F.Id_Funcionalidad AND FR.Id_Rol = " + elId;
-                dr = bd.lee(query);
-                while (dr.Read())
-                {
-                    ListFunciones.Items.Add(new Funcionalidad(dr[1].ToString(), dr[2].ToString()));
-                }*/
+                                               
                 bd.cerrar();
             }
         }
@@ -89,6 +87,16 @@ namespace FrbaHotel.ABM_de_Habitacion
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (funcion == 'M')
+            {
+                DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", "Confirmar actualización de habitacion", MessageBoxButtons.YesNo);
+
+                if (confirma == DialogResult.Yes)
+                {
+                    actualizarHabitacion();
+                }
+            }
+            else{
             DialogResult confirma = MessageBox.Show("Son todos los datos correctos? Recuerde que el Tipo de Habitación es definitivo", this.Text, MessageBoxButtons.YesNo);
 
             if (confirma == DialogResult.Yes)
@@ -104,12 +112,14 @@ namespace FrbaHotel.ABM_de_Habitacion
                     TipoHabitacion elTipo = CmbTipo.Items[CmbTipo.SelectedIndex] as TipoHabitacion;
                     
                     string query = 
-                        "INSERT INTO FUGAZZETA.Habitaciones values (1,"
+                        "INSERT INTO FUGAZZETA.Habitaciones values ("
+                        +tuHotel+","
                         +TxtNro.Text+","
                         +TxtPiso.Text+",'"
                         +frente+"',"
                         +elTipo.id+",'"
-                        +TxtDesc.Text+"',1)"
+                        +TxtDesc.Text+"',"
+                        +Convert.ToSByte(ChkHabilitada.Checked) + ")"
                         ;
                     bd.ejecutar(query);
                     bd.cerrar();
@@ -122,6 +132,32 @@ namespace FrbaHotel.ABM_de_Habitacion
                     MessageBox.Show("Error: No se pudo ingresar la habitacion. " + ex.Message);
                 }
             }
+            }
+        }
+
+        private void actualizarHabitacion()
+        {
+            BD bd = new BD();
+            bd.obtenerConexion();
+            string comando =
+                "UPDATE FUGAZZETA.Habitaciones SET Num_Habitacion =" + TxtNro.Text +
+                ", Piso = " + TxtPiso.Text +
+                ", Comodidades = '" + TxtDesc.Text + 
+                "', Habilitado = " + Convert.ToSByte(ChkHabilitada.Checked) +
+                " WHERE Num_Habitacion = " + tuId + "AND Id_Hotel = " + tuHotel;
+            bd.ejecutar(comando);
+            
+            
+
+            bd.cerrar();
+            MessageBox.Show("Actualización realizada con éxito");
+           
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
         }
     }
-}
+
