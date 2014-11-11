@@ -124,3 +124,4 @@ C:\Users\Propietario\git\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\De
 C:\Users\Propietario\git\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.csproj.GenerateResource.Cache
 C:\Users\Propietario\git\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Login.LoginOK.resources
 C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Login.LoginOK.resources
+C:\Users\Propietario\git\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.ABM_de_Habitacion.BuscarHabitacion.resources
