@@ -347,9 +347,9 @@
             this.Id.Enabled = false;
             this.Id.Location = new System.Drawing.Point(74, 12);
             this.Id.Name = "Id";
-            this.Id.Size = new System.Drawing.Size(16, 13);
+            this.Id.Size = new System.Drawing.Size(13, 13);
             this.Id.TabIndex = 20;
-            this.Id.Text = "Id";
+            this.Id.Text = "--";
             // 
             // AltaCliente
             // 
