@@ -62,7 +62,7 @@ namespace FrbaHotel.Cancelar_Reserva
                 SqlDataReader dr = bd.lee(query);
                 while (dr.Read())
                 {
-                    if (dr[0].ToString() != TxtPass.Text)
+                    if (dr[0].ToString() != Hashing.SHA256Encrypt(TxtPass.Text))
                     {
                         dr.Close();
                         throw new Exception("La contraseña es incorrecta.");
