@@ -52,7 +52,7 @@ namespace FrbaHotel.ABM_de_Cliente
                     try
                         {
                         validarDocumento(bd);
-                        validarDocumento(bd);
+                        validarMail(bd);
                         bd.cerrar();
                         DialogResult modif = MessageBox.Show("Son todos los datos correctos?", "Confirmar actualización de cliente", MessageBoxButtons.YesNo);
                         if (modif == DialogResult.Yes)
@@ -245,7 +245,7 @@ namespace FrbaHotel.ABM_de_Cliente
 
         private void validarDocumento(BD bd)
         {
-            string comando = "SELECT Id_TipoDoc, Nro_Doc FROM FUGAZZETA.Clientes WHERE Nro_Doc = " + TxtNroDoc.Text + " AND Id_TipoDoc ";
+            string comando = "SELECT Id_TipoDoc, Nro_Doc FROM FUGAZZETA.ClientesDuplicados WHERE Nro_Doc = " + TxtNroDoc.Text + " AND Id_TipoDoc ";
             if (TipoDoc.SelectedIndex == -1) comando += "IS NULL";
             else comando += "= " + (TipoDoc.SelectedItem as TipoDoc).id.ToString();
             SqlDataReader tabla = bd.lee(comando);
@@ -259,7 +259,7 @@ namespace FrbaHotel.ABM_de_Cliente
 
         private void validarMail(BD bd)
         {
-            string comando = "SELECT Mail FROM FUGAZZETA.Clientes WHERE Mail='" + TxtMail.Text + "'";
+            string comando = "SELECT Mail FROM FUGAZZETA.ClientesDuplicados WHERE Mail='" + TxtMail.Text + "'";
             SqlDataReader tabla = bd.lee(comando);
             if (tabla.HasRows)
             {

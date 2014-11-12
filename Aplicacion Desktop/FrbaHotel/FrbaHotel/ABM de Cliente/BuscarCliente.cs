@@ -98,12 +98,31 @@ namespace FrbaHotel.ABM_de_Cliente
         {
             string id = celdaElegida(GridClientes, 0);
             
+            if (esDuplicado(id))MessageBox.Show("Este Cliente posee datos inconsistentes/duplicados. Actualice sus datos correctamente o comuniquese con un administrador."); 
+            
             DialogResult modif = new AltaCliente('M', id).ShowDialog();
             if (modif == DialogResult.OK)
             {
                 Close();
             }
          }
+
+        private bool esDuplicado(string id)
+        {
+            bool duplica=false;
+            BD bd = new BD();
+            bd.obtenerConexion();
+            string query = "SELECT * FROM FUGAZZETA.ClientesDuplicados where Id_Cliente="+id;
+            SqlDataReader dr = bd.lee(query);
+            while (dr.Read())
+            {
+                if(dr.HasRows){duplica=true;}
+                else { duplica = false; }
+            }
+            dr.Close();
+            bd.cerrar();
+            return duplica;
+        }
 
     }
 }
