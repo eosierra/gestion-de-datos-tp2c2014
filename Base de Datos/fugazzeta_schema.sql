@@ -508,8 +508,9 @@ INSERT INTO FUGAZZETA.Usuarios (Username) values ('guest')
 go
 
 INSERT INTO FUGAZZETA.Clientes
-	(Nro_Doc,Apellido,Nombre,Fecha_Nac,Mail,Dom_Calle,Nro_Calle,Piso,Depto)
+	(Id_TipoDoc,Nro_Doc,Apellido,Nombre,Fecha_Nac,Mail,Dom_Calle,Nro_Calle,Piso,Depto)
 	SELECT DISTINCT 
+	4,
 	Cliente_Pasaporte_Nro,
 	Cliente_Apellido,
 	Cliente_Nombre,
