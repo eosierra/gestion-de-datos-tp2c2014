@@ -680,15 +680,16 @@ SELECT DISTINCT Habitacion_Tipo_Codigo,Habitacion_Tipo_Descripcion,Habitacion_Ti
 SET IDENTITY_INSERT FUGAZZETA.TiposHabitacion OFF
 UPDATE FUGAZZETA.TiposHabitacion SET CantPersonas = cast(RIGHT(Id_TipoHab,1) as int)
 GO
-
+select * from gd_esquema.Maestra where Reserva_Cant_Noches<>Estadia_Cant_Noches
 SET IDENTITY_INSERT FUGAZZETA.Facturas ON
 INSERT INTO FUGAZZETA.Facturas
 (NroFactura,Id_Hotel,Fecha,Total,Id_Cliente)
 SELECT DISTINCT
-M.Factura_Nro,H.Id_Hotel,cast(M.Factura_Fecha as DATE), M.Factura_Total, C.Id_Cliente
+M.Factura_Nro,H.Id_Hotel,cast(M.Factura_Fecha as DATE), (Item_Factura_Monto*Reserva_Cant_Noches) + Factura_Total, C.Id_Cliente
 FROM gd_esquema.Maestra M, FUGAZZETA.Hoteles H, FUGAZZETA.Clientes C
 where
-	M.Factura_Nro IS NOT NULL
+	M.Consumible_Precio is null
+AND	M.Factura_Nro IS NOT NULL
 AND H.Calle = M.Hotel_Calle
 AND H.Nro_Calle = M.Hotel_Nro_Calle
 AND C.Nro_Doc = M.Cliente_Pasaporte_Nro
