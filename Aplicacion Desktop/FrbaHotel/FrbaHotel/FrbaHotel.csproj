@@ -166,7 +166,6 @@
     <Compile Include="Login\LoginOK.Designer.cs">
       <DependentUpon>LoginOK.cs</DependentUpon>
     </Compile>
-    <Compile Include="sha256.cs" />
     <Compile Include="Generar Modificar Reserva\BuscarHabitacionLibre.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -297,6 +296,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="App.config" />
     <None Include="Properties\DataSources\FrbaHotel.Registrar_Estadia.CheckOut.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

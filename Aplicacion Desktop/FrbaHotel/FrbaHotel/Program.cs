@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using FrbaHotel.Login;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace FrbaHotel
 {
@@ -23,8 +24,7 @@ namespace FrbaHotel
 
         internal static DateTime ahora()
         {
-            //Año, mes, dia, hora, minuto, segundo
-            return new DateTime(2014, 11, 12, 12, 00, 00);
+            return Convert.ToDateTime(ConfigurationSettings.AppSettings["FechaSistema"]);
         }
 
         internal static DateTime hoy()
