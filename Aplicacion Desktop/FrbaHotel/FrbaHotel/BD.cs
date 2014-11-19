@@ -5,6 +5,7 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Data;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace FrbaHotel
 {
@@ -15,11 +16,9 @@ namespace FrbaHotel
 
         public SqlConnection obtenerConexion()
             {
-                String connString = "Server=localhost\\SQLSERVER2008; " + "Database=GD2C2014;User Id=gd;Password=gd2014;" + "MultipleActiveResultSets=True";
-
                 if (Conexion.State == ConnectionState.Closed)
                 {
-                    Conexion.ConnectionString = connString;
+                    Conexion.ConnectionString = this.connectionString();
                     Conexion.Open();
                 }
                 return Conexion;
@@ -27,7 +26,7 @@ namespace FrbaHotel
 
         public String connectionString()
             {
-                return "Server=localhost\\SQLSERVER2008; " + "Database=GD2C2014;User Id=gd;Password=gd2014";
+                return "Server=localhost\\SQLSERVER2008;Database=GD2C2014;User Id=gd;Password=gd2014;MultipleActiveResultSets=True";
             }
 
         public DataTable ejecutar(string selectCommand)
