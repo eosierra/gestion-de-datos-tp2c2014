@@ -147,7 +147,7 @@ namespace FrbaHotel.Registrar_Estadia
 
         private void AgregarPersona_Click(object sender, EventArgs e)
         {
-            new ABM_de_Cliente.BuscarCliente(this).ShowDialog();
+            new ABM_de_Cliente.BuscarCliente(this, 'S').ShowDialog();
         }
 
         public void agregar(string id, string descripcion)

@@ -137,7 +137,7 @@ namespace FrbaHotel
 
         private void EditarClienteMenu_Click(object sender, EventArgs e)
         {
-            abrir(new ABM_de_Cliente.BuscarCliente(this));
+            abrir(new ABM_de_Cliente.BuscarCliente(this,'M'));
         }
 
         private void AltaHabitacionMenu_Click(object sender, EventArgs e)

@@ -14,8 +14,9 @@ namespace FrbaHotel.ABM_de_Cliente
     public partial class BuscarCliente : Buscador
     {
         int n = 100;
+        char fx;
 
-        public BuscarCliente(ITraeBusqueda owner)
+        public BuscarCliente(ITraeBusqueda owner, char funcion)
         {
             InitializeComponent();
             BD bd = new BD();
@@ -25,6 +26,7 @@ namespace FrbaHotel.ABM_de_Cliente
             crearBuscador(dondeVuelve, "*", "Clientes");
             bd.rellenarDesde("Descripcion", "TiposDoc", ComboDoc);
             bd.cerrar();
+            fx = funcion;
         }
 
         private void BuscarCliente_Load(object sender, EventArgs e)
@@ -98,12 +100,19 @@ namespace FrbaHotel.ABM_de_Cliente
         {
             string id = celdaElegida(GridClientes, 0);
             
-            if (esDuplicado(id))MessageBox.Show("Este Cliente posee datos inconsistentes/duplicados. Actualice sus datos correctamente o comuniquese con un administrador."); 
-            
-            DialogResult modif = new AltaCliente('M', id).ShowDialog();
-            if (modif == DialogResult.OK)
+            if (esDuplicado(id))
+                MessageBox.Show("Este cliente posee datos inconsistentes/duplicados. Por favor, actualice sus datos correctamente o comuníquese con un administrador.","FRBA HOTELES",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            switch (fx)
             {
-                Close();
+                case 'M':
+                    DialogResult modif = new AltaCliente(fx, id).ShowDialog();
+                    if (modif == DialogResult.OK)
+                    this.Close();
+                    break;
+                case 'S':
+                    dondeVuelve.agregar(celdaElegida(GridClientes, 0), celdaElegida(GridClientes, 1));
+                    this.Close();
+                    break;
             }
          }
 
@@ -115,10 +124,7 @@ namespace FrbaHotel.ABM_de_Cliente
             string query = "SELECT * FROM FUGAZZETA.ClientesDuplicados where Id_Cliente="+id;
             SqlDataReader dr = bd.lee(query);
             while (dr.Read())
-            {
-                if(dr.HasRows){duplica=true;}
-                else { duplica = false; }
-            }
+                duplica = dr.HasRows;
             dr.Close();
             bd.cerrar();
             return duplica;

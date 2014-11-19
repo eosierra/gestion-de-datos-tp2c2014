@@ -216,7 +216,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         private void BuscarCliente_Click(object sender, EventArgs e)
         {
             nBuscador = 1;
-            DialogResult sigue = new ABM_de_Cliente.BuscarCliente(this).ShowDialog();
+            DialogResult sigue = new ABM_de_Cliente.BuscarCliente(this,'S').ShowDialog();
             if (sigue == DialogResult.OK) group3.Enabled = true;
         }
 
