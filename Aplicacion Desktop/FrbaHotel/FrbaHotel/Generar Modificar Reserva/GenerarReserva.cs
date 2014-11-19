@@ -35,6 +35,10 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 ElegirHotel.Enabled = false;
                 idHotelActual = menuP.hotelActual;
                 TxtHotel.Text = idHotelActual.ToString();
+                BD db = new BD();
+                db.obtenerConexion();
+                completaRegimenes(db);
+                db.cerrar();
             }
         }
 
@@ -122,18 +126,13 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         private void validarHabitaciones()
         {
             if (ListHabitaciones.Items.Count == 0)
-            {
                 throw new Exception("No se seleccionó ninguna habitación para reservar.");
-            }
             validarOtrasHabitaciones();
         }
 
         private void validarRegimen()
         {
-            if (ComboRegimen.SelectedIndex == -1)
-            {
-                throw new Exception ("No se eligió ningún régimen.");
-            }
+            if (ComboRegimen.SelectedIndex == -1) throw new Exception ("No se eligió ningún régimen.");
         }
 
         private void valida(string tabla,string campo, int id, string mensajeException)
@@ -181,10 +180,19 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                             break;
                         }
                         //Si está validado, completa los datos.
+                        SqlDataReader r2d2;
                         idClienteActual = Int32.Parse(id);
                         TxtNombre.Text = reader[1].ToString() + " " + reader[2].ToString();
-                        TxtDoc.Text = reader[3].ToString() + " " + reader[4].ToString();
-                        TxtPais.Text = reader[13].ToString();
+
+                        r2d2 = db.lee("SELECT Descripcion FROM FUGAZZETA.TiposDoc WHERE Id_TipoDoc = " + reader[3].ToString());
+                        while (r2d2.Read())
+                            TxtDoc.Text = r2d2[0].ToString() + " " + reader[4].ToString();
+                        //r2d2.Close();
+                        r2d2 = db.lee("SELECT Nombre FROM FUGAZZETA.Paises WHERE Id_Pais =" + reader["Nacionalidad"].ToString());
+                        while (r2d2.Read())
+                            TxtPais.Text = r2d2[0].ToString();
+                        r2d2.Close();
+                        
                         TxtNac.Text = reader[5].ToString().Substring(0, 10);
                         TxtMail.Text = reader[6].ToString();
                         TxtTelefono.Text = reader[7].ToString();
@@ -196,20 +204,28 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 case 2:
                     ComboRegimen.Items.Clear();
                     idHotelActual = Int32.Parse(id);
-                    TxtHotel.Text = descripcion;
-                    query = "SELECT R.Id_Regimen, R.Descripcion FROM FUGAZZETA.Regimenes R, FUGAZZETA.[Regimenes x Hotel] H WHERE H.Id_Regimen = R.Id_Regimen and H.Id_Hotel = " + id;
-                    reader = db.lee(query);
-                    while (reader.Read())
-                    {
-                        ComboRegimen.Items.Add(new ABM_de_Regimen.Regimen(reader[0].ToString(),reader[1].ToString()));
-                    }
-                    reader.Close();
+                    string texto = "";
+                    if (descripcion.Length == 0) texto = id;
+                    else texto = descripcion;
+                    TxtHotel.Text = texto;
+                    completaRegimenes(db);
                     break;
                 case 3:
                     ListHabitaciones.Items.Add(new ABM_de_Habitacion.Habitacion(id, descripcion));
                     break;
             }
             db.cerrar();
+        }
+
+        private void completaRegimenes(BD db)
+        {
+            string query = "SELECT R.Id_Regimen, R.Descripcion FROM FUGAZZETA.Regimenes R, FUGAZZETA.[Regimenes x Hotel] H WHERE H.Id_Regimen = R.Id_Regimen and H.Id_Hotel = " + idHotelActual;
+            SqlDataReader reader = db.lee(query);
+            while (reader.Read())
+            {
+                ComboRegimen.Items.Add(new ABM_de_Regimen.Regimen(reader[0].ToString(), reader[1].ToString()));
+            }
+            reader.Close();
         }
 
         #region Botones
