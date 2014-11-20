@@ -19,27 +19,29 @@ namespace FrbaHotel.ABM_de_Habitacion
         public AltaHabitacion(char fun,string id,int hotel)
         {
             InitializeComponent();
-            cargarTipos();
+            cargarCombos();
             funcion = fun;
             tuHotel=hotel;
             tuId=id;
             cargar();
             CmbTipo.Enabled = false;
         }
-     
+
+           
         public AltaHabitacion(int hotel)
         {
             InitializeComponent();
-            cargarTipos();
+            cargarCombos();
             tuHotel = hotel;
         }
 
-        private void cargarTipos()
+        private void cargarCombos()
         {
             CmbTipo.Items.Clear();
 
             BD bd = new BD();
             bd.obtenerConexion();
+            
             string query = "SELECT * FROM FUGAZZETA.TiposHabitacion ORDER BY Id_TipoHab";
             SqlDataReader dr = bd.lee(query);
             while (dr.Read())
@@ -47,6 +49,17 @@ namespace FrbaHotel.ABM_de_Habitacion
                 TipoHabitacion tipo = new TipoHabitacion(dr[0].ToString(), dr[1].ToString());
                 CmbTipo.Items.Add(tipo);
             }
+            dr.Close();
+
+            query = "SELECT Id_Hotel, Nombre FROM FUGAZZETA.Hoteles ORDER BY Id_Hotel";
+            dr = bd.lee(query);
+            while (dr.Read())
+            {
+                Hotel hotel = new Hotel(dr[0].ToString(), dr[1].ToString());
+                CmbHotel.Items.Add(hotel);
+            }
+            dr.Close();
+
         }
 
         private void cargar()
@@ -94,10 +107,12 @@ namespace FrbaHotel.ABM_de_Habitacion
                 ValidarTxt(TxtNro, "Número");
                 ValidarTxt(TxtPiso, "Piso");
                 if (!Interior.Checked && !Exterior.Checked)
-                    throw new Exception("No seleccionó ninguna ubicación.");
+                    throw new Exception("No seleccionó la ubicación.");
                 if (CmbTipo.SelectedIndex == -1)
-                    throw new Exception("No seleccionó ningun tipo de habitación.");
-           
+                    throw new Exception("No seleccionó el tipo de habitación.");
+                if (CmbHotel.SelectedIndex ==-1)
+                    throw new Exception("No seleccionó el tipo de hotel.");
+
             if (funcion == 'M')
             {
                 DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", "Confirmar actualización de habitacion", MessageBoxButtons.YesNo);
@@ -119,10 +134,11 @@ namespace FrbaHotel.ABM_de_Habitacion
                     if (Interior.Checked) frente = 'N';
 
                     TipoHabitacion elTipo = CmbTipo.Items[CmbTipo.SelectedIndex] as TipoHabitacion;
-                    
+                    Hotel elHotel = CmbHotel.Items[CmbHotel.SelectedIndex] as Hotel;
+
                     string query = 
                         "INSERT INTO FUGAZZETA.Habitaciones values ("
-                        +tuHotel+","
+                        +elHotel.id+","
                         +TxtNro.Text+","
                         +TxtPiso.Text+",'"
                         +frente+"',"
@@ -197,16 +213,11 @@ namespace FrbaHotel.ABM_de_Habitacion
             new ABM_de_Hotel.BuscarHotel(this).ShowDialog();
         }
 
-        #region ITraeBusqueda Members
-
-        public void agregar(string id, string descripcion)
+        
+        private void TxtHotel_TextChanged(object sender, EventArgs e)
         {
-            Hotel nuevoHotel = new Hotel(id, descripcion);
-            TxtHotel.Text = nuevoHotel.ToString();
-            TxtHotel.Tag = nuevoHotel.id;
-        }
 
-        #endregion
+        }
     }
 }
 

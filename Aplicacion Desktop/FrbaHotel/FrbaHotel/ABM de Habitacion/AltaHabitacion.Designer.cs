@@ -41,9 +41,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.ChkHabilitada = new System.Windows.Forms.CheckBox();
-            this.ElegirHotel = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.TxtHotel = new System.Windows.Forms.TextBox();
+            this.CmbHotel = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // Guardar
@@ -169,16 +168,6 @@
             this.ChkHabilitada.Text = "Habilitada";
             this.ChkHabilitada.UseVisualStyleBackColor = true;
             // 
-            // ElegirHotel
-            // 
-            this.ElegirHotel.Location = new System.Drawing.Point(206, 12);
-            this.ElegirHotel.Name = "ElegirHotel";
-            this.ElegirHotel.Size = new System.Drawing.Size(92, 20);
-            this.ElegirHotel.TabIndex = 26;
-            this.ElegirHotel.Text = "SELECCIONAR";
-            this.ElegirHotel.UseVisualStyleBackColor = true;
-            this.ElegirHotel.Click += new System.EventHandler(this.ElegirHotel_Click);
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -188,21 +177,21 @@
             this.label6.TabIndex = 25;
             this.label6.Text = "HOTEL:";
             // 
-            // TxtHotel
+            // CmbHotel
             // 
-            this.TxtHotel.Location = new System.Drawing.Point(64, 13);
-            this.TxtHotel.Name = "TxtHotel";
-            this.TxtHotel.ReadOnly = true;
-            this.TxtHotel.Size = new System.Drawing.Size(136, 20);
-            this.TxtHotel.TabIndex = 27;
+            this.CmbHotel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbHotel.FormattingEnabled = true;
+            this.CmbHotel.Location = new System.Drawing.Point(71, 13);
+            this.CmbHotel.Name = "CmbHotel";
+            this.CmbHotel.Size = new System.Drawing.Size(227, 21);
+            this.CmbHotel.TabIndex = 28;
             // 
             // AltaHabitacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(310, 335);
-            this.Controls.Add(this.TxtHotel);
-            this.Controls.Add(this.ElegirHotel);
+            this.Controls.Add(this.CmbHotel);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.ChkHabilitada);
             this.Controls.Add(this.Guardar);
@@ -239,8 +228,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox ChkHabilitada;
-        private System.Windows.Forms.Button ElegirHotel;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox TxtHotel;
+        private System.Windows.Forms.ComboBox CmbHotel;
     }
 }
