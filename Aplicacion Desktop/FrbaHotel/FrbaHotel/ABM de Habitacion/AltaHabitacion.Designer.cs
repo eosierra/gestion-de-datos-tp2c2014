@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.Guardar = new System.Windows.Forms.Button();
             this.TxtDesc = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.CmbTipo = new System.Windows.Forms.ComboBox();
@@ -41,22 +41,25 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.ChkHabilitada = new System.Windows.Forms.CheckBox();
+            this.ElegirHotel = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.TxtHotel = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // button1
+            // Guardar
             // 
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(43, 273);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(233, 23);
-            this.button1.TabIndex = 23;
-            this.button1.Text = "Guardar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.Guardar.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.Guardar.Location = new System.Drawing.Point(43, 288);
+            this.Guardar.Name = "Guardar";
+            this.Guardar.Size = new System.Drawing.Size(233, 23);
+            this.Guardar.TabIndex = 23;
+            this.Guardar.Text = "Guardar";
+            this.Guardar.UseVisualStyleBackColor = true;
+            this.Guardar.Click += new System.EventHandler(this.Guardar_Click);
             // 
             // TxtDesc
             // 
-            this.TxtDesc.Location = new System.Drawing.Point(129, 159);
+            this.TxtDesc.Location = new System.Drawing.Point(129, 174);
             this.TxtDesc.Multiline = true;
             this.TxtDesc.Name = "TxtDesc";
             this.TxtDesc.Size = new System.Drawing.Size(147, 85);
@@ -65,17 +68,17 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(60, 162);
+            this.label5.Location = new System.Drawing.Point(52, 177);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(63, 13);
+            this.label5.Size = new System.Drawing.Size(71, 13);
             this.label5.TabIndex = 21;
-            this.label5.Text = "Descripción";
+            this.label5.Text = "Comodidades";
             // 
             // CmbTipo
             // 
             this.CmbTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CmbTipo.FormattingEnabled = true;
-            this.CmbTipo.Location = new System.Drawing.Point(129, 132);
+            this.CmbTipo.Location = new System.Drawing.Point(129, 147);
             this.CmbTipo.Name = "CmbTipo";
             this.CmbTipo.Size = new System.Drawing.Size(147, 21);
             this.CmbTipo.TabIndex = 20;
@@ -84,7 +87,7 @@
             // 
             this.Interior.AccessibleName = "N";
             this.Interior.AutoSize = true;
-            this.Interior.Location = new System.Drawing.Point(129, 109);
+            this.Interior.Location = new System.Drawing.Point(129, 124);
             this.Interior.Name = "Interior";
             this.Interior.Size = new System.Drawing.Size(58, 17);
             this.Interior.TabIndex = 19;
@@ -96,7 +99,7 @@
             // 
             this.Exterior.AccessibleName = "S";
             this.Exterior.AutoSize = true;
-            this.Exterior.Location = new System.Drawing.Point(129, 86);
+            this.Exterior.Location = new System.Drawing.Point(129, 101);
             this.Exterior.Name = "Exterior";
             this.Exterior.Size = new System.Drawing.Size(96, 17);
             this.Exterior.TabIndex = 18;
@@ -106,22 +109,24 @@
             // 
             // TxtPiso
             // 
-            this.TxtPiso.Location = new System.Drawing.Point(129, 58);
+            this.TxtPiso.Location = new System.Drawing.Point(129, 73);
             this.TxtPiso.Name = "TxtPiso";
             this.TxtPiso.Size = new System.Drawing.Size(57, 20);
             this.TxtPiso.TabIndex = 17;
+            this.TxtPiso.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Numero_KeyPress);
             // 
             // TxtNro
             // 
-            this.TxtNro.Location = new System.Drawing.Point(129, 32);
+            this.TxtNro.Location = new System.Drawing.Point(129, 47);
             this.TxtNro.Name = "TxtNro";
             this.TxtNro.Size = new System.Drawing.Size(57, 20);
             this.TxtNro.TabIndex = 16;
+            this.TxtNro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Numero_KeyPress);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(26, 135);
+            this.label4.Location = new System.Drawing.Point(26, 150);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(97, 13);
             this.label4.TabIndex = 15;
@@ -130,7 +135,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(68, 99);
+            this.label3.Location = new System.Drawing.Point(68, 114);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 13);
             this.label3.TabIndex = 14;
@@ -139,7 +144,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(96, 58);
+            this.label2.Location = new System.Drawing.Point(96, 73);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(27, 13);
             this.label2.TabIndex = 13;
@@ -148,7 +153,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(79, 32);
+            this.label1.Location = new System.Drawing.Point(79, 47);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 12;
@@ -157,21 +162,50 @@
             // ChkHabilitada
             // 
             this.ChkHabilitada.AutoSize = true;
-            this.ChkHabilitada.Location = new System.Drawing.Point(129, 250);
+            this.ChkHabilitada.Location = new System.Drawing.Point(129, 265);
             this.ChkHabilitada.Name = "ChkHabilitada";
             this.ChkHabilitada.Size = new System.Drawing.Size(73, 17);
             this.ChkHabilitada.TabIndex = 24;
             this.ChkHabilitada.Text = "Habilitada";
             this.ChkHabilitada.UseVisualStyleBackColor = true;
-            this.ChkHabilitada.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // ElegirHotel
+            // 
+            this.ElegirHotel.Location = new System.Drawing.Point(206, 12);
+            this.ElegirHotel.Name = "ElegirHotel";
+            this.ElegirHotel.Size = new System.Drawing.Size(92, 20);
+            this.ElegirHotel.TabIndex = 26;
+            this.ElegirHotel.Text = "SELECCIONAR";
+            this.ElegirHotel.UseVisualStyleBackColor = true;
+            this.ElegirHotel.Click += new System.EventHandler(this.ElegirHotel_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(11, 16);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(46, 13);
+            this.label6.TabIndex = 25;
+            this.label6.Text = "HOTEL:";
+            // 
+            // TxtHotel
+            // 
+            this.TxtHotel.Location = new System.Drawing.Point(64, 13);
+            this.TxtHotel.Name = "TxtHotel";
+            this.TxtHotel.ReadOnly = true;
+            this.TxtHotel.Size = new System.Drawing.Size(136, 20);
+            this.TxtHotel.TabIndex = 27;
             // 
             // AltaHabitacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(305, 320);
+            this.ClientSize = new System.Drawing.Size(310, 335);
+            this.Controls.Add(this.TxtHotel);
+            this.Controls.Add(this.ElegirHotel);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.ChkHabilitada);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Guardar);
             this.Controls.Add(this.TxtDesc);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.CmbTipo);
@@ -192,7 +226,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Guardar;
         private System.Windows.Forms.TextBox TxtDesc;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox CmbTipo;
@@ -205,5 +239,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox ChkHabilitada;
+        private System.Windows.Forms.Button ElegirHotel;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox TxtHotel;
     }
 }

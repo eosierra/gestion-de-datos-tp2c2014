@@ -11,21 +11,21 @@ using FrbaHotel.ABM_de_Hotel;
 
 namespace FrbaHotel.ABM_de_Habitacion
 {
-    public partial class AltaHabitacion : Buscador
+    public partial class AltaHabitacion : Buscador, ITraeBusqueda
     {
         string tuId;
         int tuHotel;
 
-     public AltaHabitacion(char fun,string id,int hotel){
-        InitializeComponent();
-        cargarTipos();
-        funcion = fun;
-        tuHotel=hotel;
-        tuId=id;
-        cargar();
-        CmbTipo.Enabled = false;
-     }
-
+        public AltaHabitacion(char fun,string id,int hotel)
+        {
+            InitializeComponent();
+            cargarTipos();
+            funcion = fun;
+            tuHotel=hotel;
+            tuId=id;
+            cargar();
+            CmbTipo.Enabled = false;
+        }
      
         public AltaHabitacion(int hotel)
         {
@@ -88,16 +88,15 @@ namespace FrbaHotel.ABM_de_Habitacion
             }
         }
 
-
-        private void button1_Click(object sender, EventArgs e)
+        private void Guardar_Click(object sender, EventArgs e)
         {
             try {
                 ValidarTxt(TxtNro, "Número");
                 ValidarTxt(TxtPiso, "Piso");
-                if (Interior.Checked==false){
-                    if (Exterior.Checked==false )throw new Exception("No seleccionó ninguna ubicación.");
-                }
-                if (CmbTipo.SelectedIndex == -1) throw new Exception("No seleccionó ningun tipo de habitación.");
+                if (!Interior.Checked && !Exterior.Checked)
+                    throw new Exception("No seleccionó ninguna ubicación.");
+                if (CmbTipo.SelectedIndex == -1)
+                    throw new Exception("No seleccionó ningun tipo de habitación.");
            
             if (funcion == 'M')
             {
@@ -116,8 +115,8 @@ namespace FrbaHotel.ABM_de_Habitacion
                 BD bd = new BD();
                 bd.obtenerConexion();
                     char frente='N';
-                    if (Exterior.Checked==true){frente='S';}
-                    if (Interior.Checked == true) { frente = 'N'; }
+                    if (Exterior.Checked) frente = 'S';
+                    if (Interior.Checked) frente = 'N';
 
                     TipoHabitacion elTipo = CmbTipo.Items[CmbTipo.SelectedIndex] as TipoHabitacion;
                     
@@ -188,10 +187,26 @@ namespace FrbaHotel.ABM_de_Habitacion
            
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void Numero_KeyPress(object sender, KeyPressEventArgs e)
         {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
 
+        private void ElegirHotel_Click(object sender, EventArgs e)
+        {
+            new ABM_de_Hotel.BuscarHotel(this).ShowDialog();
         }
+
+        #region ITraeBusqueda Members
+
+        public void agregar(string id, string descripcion)
+        {
+            Hotel nuevoHotel = new Hotel(id, descripcion);
+            TxtHotel.Text = nuevoHotel.ToString();
+            TxtHotel.Tag = nuevoHotel.id;
         }
+
+        #endregion
     }
+}
 
