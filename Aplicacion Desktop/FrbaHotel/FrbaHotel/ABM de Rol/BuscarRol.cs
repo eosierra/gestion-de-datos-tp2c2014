@@ -15,7 +15,7 @@ namespace FrbaHotel.ABM_de_Rol
         public BuscarRol(ITraeBusqueda owner,char fun)
         {
             InitializeComponent();
-            crearBuscador(owner, "Id_Rol,Nombre", "Roles");
+            crearBuscador(owner, "Id_Rol as ID,Nombre", "Roles");
             setearGrid(GridRoles);
             funcion = fun;
         }

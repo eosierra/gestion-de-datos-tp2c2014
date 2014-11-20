@@ -102,11 +102,11 @@
       <DependentUpon>ModificarHotel.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM de Hotel\Pais.cs" />
-    <Compile Include="ABM de Regimen\Form1.cs">
+    <Compile Include="ABM de Regimen\BuscarRegimen.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM de Regimen\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ABM de Regimen\BuscarRegimen.Designer.cs">
+      <DependentUpon>BuscarRegimen.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM de Regimen\Regimen.cs" />
     <Compile Include="ABM de Rol\AltaRol.cs">
@@ -230,6 +230,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ABM de Hotel\ModificarHotel.resx">
       <DependentUpon>ModificarHotel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM de Regimen\BuscarRegimen.resx">
+      <DependentUpon>BuscarRegimen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ABM de Rol\AltaRol.resx">
       <DependentUpon>AltaRol.cs</DependentUpon>

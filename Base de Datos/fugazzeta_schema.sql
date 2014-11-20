@@ -189,6 +189,9 @@ DROP PROCEDURE FUGAZZETA.GenerarFactura
 IF OBJECT_ID('FUGAZZETA.VerFuncionalidadesEnHotel') IS NOT NULL
 DROP PROCEDURE FUGAZZETA.VerFuncionalidadesEnHotel
 
+IF OBJECT_ID('FUGAZZETA.VerificarBajaRegimen') IS NOT NULL
+DROP PROCEDURE FUGAZZETA.VerificarBajaRegimen
+
 --Triggers
 IF OBJECT_ID('FUGAZZETA.TR_MovimientosHotel_A_I') IS NOT NULL
 DROP TRIGGER FUGAZZETA.TR_MovimientosHotel_A_I
@@ -829,13 +832,9 @@ WHERE (Habilitado = 1)
 GO
 
 CREATE VIEW FUGAZZETA.ReservasNoCanceladas AS
-SELECT 
-RS.Id_Reserva, RS.Id_Cliente, RS.Id_Hotel, RS.Fecha_Reserva, RS.Fecha_Inicio, RS.Fecha_Egreso,
-RS.Fecha_Fin_Reserva, RG.Descripcion as Regimen, RS.Id_EstadoReserva
-FROM FUGAZZETA.Reservas RS, FUGAZZETA.Regimenes RG
+SELECT * FROM FUGAZZETA.Reservas RS
 where
-	RS.Id_Regimen = RG.Id_Regimen
-AND RS.Id_EstadoReserva != 3
+	RS.Id_EstadoReserva != 3
 AND RS.Id_EstadoReserva != 4 
 AND RS.Id_EstadoReserva != 5
 go
@@ -1117,4 +1116,13 @@ BEGIN
 		R.Id_Rol = F.Id_Rol
 	AND	R.Username = @Usuario
 	AND R.Id_Hotel = @Hotel
+END
+go
+
+CREATE PROC FUGAZZETA.VerificarBajaRegimen (@Hotel int, @Regimen int, @Fecha date) AS
+BEGIN
+	SELECT * FROM FUGAZZETA.[ReservasNoCanceladas]
+	WHERE Id_Hotel = @Hotel
+	AND Id_Regimen = @Regimen
+	AND Fecha_Reserva > @Fecha
 END

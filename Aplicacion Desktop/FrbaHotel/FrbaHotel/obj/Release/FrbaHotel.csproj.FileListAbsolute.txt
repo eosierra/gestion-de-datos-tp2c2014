@@ -32,3 +32,4 @@ C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Deskt
 C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Release\FrbaHotel.ABM_de_Habitacion.BuscarHabitacion.resources
 C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Release\FrbaHotel.ABM_de_Usuario.NuevoPass.resources
 C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\bin\Release\FrbaHotel.exe.config
+C:\Users\Public\Documents\Emi\UTN\GestiondD\tpGestion\gestionDd\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Release\FrbaHotel.ABM_de_Regimen.BuscarRegimen.resources

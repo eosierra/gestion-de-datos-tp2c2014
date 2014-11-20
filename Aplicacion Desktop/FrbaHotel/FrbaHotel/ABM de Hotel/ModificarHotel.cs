@@ -16,6 +16,7 @@ namespace FrbaHotel.ABM_de_Hotel
         //Hotel hotelin;
         bool habilitado;
         string adm;
+        int nBuscador;
 
         public ModificarHotel(char fun,string tuAdmin)
         {
@@ -55,6 +56,7 @@ namespace FrbaHotel.ABM_de_Hotel
 
         private void Mostrar_Click(object sender, EventArgs e)
         {
+            nBuscador = 1;
             DialogResult habilita = new ABM_de_Hotel.BuscarHotel(this).ShowDialog();
             if (habilita == DialogResult.OK)
             {
@@ -65,51 +67,64 @@ namespace FrbaHotel.ABM_de_Hotel
 
         public void agregar(string id, string descripcion)
         {
-            ListRegimenes.Items.Clear();
-            BD bd = new BD();
-            bd.obtenerConexion();
-            int elId = Convert.ToInt32(id);
-            string query = "SELECT * FROM FUGAZZETA.Hoteles WHERE Id_Hotel = " + elId;
-            SqlDataReader dr = bd.lee(query);
-
-            while (dr.Read())
+            switch (nBuscador)
             {
-                TxtId.Text = dr["Id_Hotel"].ToString();
-                TxtNombre.Text = dr["Nombre"].ToString();
-                TxtMail.Text = dr["Mail"].ToString();
-                TxtTelefono.Text = dr["Telefono"].ToString();
-                TxtCalle.Text = dr["Calle"].ToString();
-                TxtNumero.Text = dr["Nro_Calle"].ToString();
-                TxtCiudad.Text = dr["Ciudad"].ToString();
-                TxtRecarga.Text = dr["Recarga"].ToString();
-                ComboCE.Text = dr["CantEstrella"].ToString();
+                case 1:
+                    ListRegimenes.Items.Clear();
+                    BD bd = new BD();
+                    bd.obtenerConexion();
+                    int elId = Convert.ToInt32(id);
+                    string query = "SELECT * FROM FUGAZZETA.Hoteles WHERE Id_Hotel = " + elId;
+                    SqlDataReader dr = bd.lee(query);
 
-                string elItem = "";
-                for (int i = 0; i < ComboPais.Items.Count; i++)
-                {
-                    
-                    if ((ComboPais.Items[i] as Pais).id.ToString() == dr["Pais"].ToString())
+                    while (dr.Read())
                     {
-                        elItem = ComboPais.Items[i].ToString();
+                        TxtId.Text = dr["Id_Hotel"].ToString();
+                        TxtNombre.Text = dr["Nombre"].ToString();
+                        TxtMail.Text = dr["Mail"].ToString();
+                        TxtTelefono.Text = dr["Telefono"].ToString();
+                        TxtCalle.Text = dr["Calle"].ToString();
+                        TxtNumero.Text = dr["Nro_Calle"].ToString();
+                        TxtCiudad.Text = dr["Ciudad"].ToString();
+                        TxtRecarga.Text = dr["Recarga"].ToString();
+                        ComboCE.Text = dr["CantEstrella"].ToString();
+
+                        string elItem = "";
+                        for (int i = 0; i < ComboPais.Items.Count; i++)
+                        {
+
+                            if ((ComboPais.Items[i] as Pais).id.ToString() == dr["Pais"].ToString())
+                            {
+                                elItem = ComboPais.Items[i].ToString();
+                            }
+                        }
+                        ComboPais.Text = elItem;
+
+                        string fecha = dr["Fec_creacion"].ToString();
+                        if (fecha != "") { FechaPick.Value = convertirFecha(fecha); }
+
+                        habilitado = Convert.ToBoolean(dr["Habilitado"].ToString());
                     }
-                }
-                ComboPais.Text = elItem;
-                                
-                string fecha = dr["Fec_creacion"].ToString();
-                if (fecha != "") { FechaPick.Value = convertirFecha(fecha); }
+                    dr.Close();
+                    completarDatosDeEstado();
 
-                habilitado = Convert.ToBoolean(dr["Habilitado"].ToString());
-             }
-            dr.Close();
-            completarDatosDeEstado();
-
-            query = "SELECT H.Id_Hotel,H.Id_Regimen, R.Descripcion FROM FUGAZZETA.[Regimenes x Hotel] H, FUGAZZETA.Regimenes R where H.Id_Regimen = R.Id_Regimen AND Id_Hotel = " + TxtId.Text;
-            dr = bd.lee(query);
-            while (dr.Read())
-            {
-                ListRegimenes.Items.Add(new Regimen(dr[1].ToString(), dr[2].ToString()));
+                    query = "SELECT H.Id_Hotel,H.Id_Regimen, R.Descripcion FROM FUGAZZETA.[Regimenes x Hotel] H, FUGAZZETA.Regimenes R where H.Id_Regimen = R.Id_Regimen AND Id_Hotel = " + TxtId.Text;
+                    dr = bd.lee(query);
+                    while (dr.Read())
+                    {
+                        ListRegimenes.Items.Add(new Regimen(dr[1].ToString(), dr[2].ToString()));
+                    }
+                    bd.cerrar();
+                    break;
+                case 2:
+                    bool sePuede = true;
+                    for (int i = 0; i < ListRegimenes.Items.Count && sePuede; i++)
+                      sePuede = !((ListRegimenes.Items[i] as Regimen).id.ToString() == id);
+                    if (sePuede)
+                        ListRegimenes.Items.Add(new Regimen(id, descripcion));
+                    else MessageBox.Show("Ya existe ese régimen.");
+                    break;
             }
-            bd.cerrar();
 
         }
 
@@ -206,8 +221,11 @@ namespace FrbaHotel.ABM_de_Hotel
                 query = "INSERT INTO FUGAZZETA.[Usuarios x Hoteles x Rol] values('" + adm + "'," + idHotel + ",2,0)";
                 bd.ejecutar(query);
 
+                foreach (Object reg in ListRegimenes.Items)
+                    bd.ejecutar("INSERT INTO FUGAZZETA.[Regimenes x Hotel] values (" + idHotel + ", " + (reg as Regimen).id + ")");
+
                 bd.cerrar();
-                MessageBox.Show("Rol agregado con éxito");
+                MessageBox.Show("Hotel agregado con éxito.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.Close();
             }
             catch (Exception ex)
@@ -242,7 +260,13 @@ namespace FrbaHotel.ABM_de_Hotel
                 nc, TxtCiudad.Text, elPais, cantE, FechaPick.Value, habilitado);
 
             hotelin.actualizar();
-            MessageBox.Show("Actualización realizada con éxito");
+
+            bd.ejecutar("DELETE FROM FUGAZZETA.[Regimenes x Hotel] WHERE Id_Hotel = " + TxtId.Text);
+            foreach (Object reg in ListRegimenes.Items)
+                bd.ejecutar("INSERT INTO FUGAZZETA.[Regimenes x Hotel] values (" + TxtId.Text + ", " + (reg as Regimen).id + ")");
+
+            bd.cerrar();
+            MessageBox.Show("Actualización realizada con éxito.",this.Text,MessageBoxButtons.OK);
             this.Close();
         }
 
@@ -269,9 +293,30 @@ namespace FrbaHotel.ABM_de_Hotel
                     habilitado = true;
                     completarDatosDeEstado();
                     groupBox2.Enabled = false;
-                    MessageBox.Show("Se ha habilitado el hotel con éxito");
+                    MessageBox.Show("Se ha habilitado el hotel con éxito.", this.Text,MessageBoxButtons.OK);
                 }
             }
+        }
+
+        private void QuitarRegimen_Click(object sender, EventArgs e)
+        {
+            if (ListRegimenes.SelectedIndex != -1)
+            {
+                string hotel = "0";
+                if (TxtId.Text != ".") hotel = TxtId.Text;
+                string reg = (ListRegimenes.SelectedItem as Regimen).id.ToString();
+                string fecha = Program.hoy().ToShortDateString();
+                SqlDataReader rd = bd.lee("EXEC FUGAZZETA.VerificarBajaRegimen " + hotel + ", " + reg + ", '" + fecha + "'");
+                if (rd.HasRows)
+                    MessageBox.Show("No se puede eliminar el régimen porque hay reservas con el mismo.", "FRBA HOTELES", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else ListRegimenes.Items.Remove(ListRegimenes.SelectedItem);
+            }
+        }
+
+        private void AddRegimen_Click(object sender, EventArgs e)
+        {
+            nBuscador = 2;
+            new BuscarRegimen(this).ShowDialog();
         }
     }
 }
