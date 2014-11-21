@@ -32,16 +32,22 @@ namespace FrbaHotel.Login
             while (dr.Read()) CbHoteles.Items.Add(new HotelxRol(dr[0].ToString(), dr[1].ToString()));
             dr.Close();
             bd.cerrar();
+            if (CbHoteles.Items.Count == 1){
+                loguear(CbHoteles.Items[0]);
+                this.DialogResult = DialogResult.OK;
+            }
+            if (CbHoteles.Items.Count == 0)
+            {
+                MessageBox.Show("No está registrado en ningun hotel.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.DialogResult = DialogResult.Retry; ;
+            }
         }
 
         private void Entrar_Click(object sender, EventArgs e)
         {
             if (CbHoteles.SelectedIndex != -1)
             {
-                HotelxRol elegido = (CbHoteles.SelectedItem as HotelxRol);
-                menu.hotelActual = elegido.hotel.id;
-                menu.rolActual = elegido.rol.id;
-                this.Close();
+                loguear(CbHoteles.SelectedItem);
             }
             else
             {
@@ -49,5 +55,14 @@ namespace FrbaHotel.Login
                 this.DialogResult = DialogResult.Retry;
             }
         }
-    }
+
+        private void loguear(object p)
+        {
+            HotelxRol elegido = (p as HotelxRol);
+            menu.hotelActual = elegido.hotel.id;
+            menu.rolActual = elegido.rol.id;
+            this.Close();
+        }
+
+     }
 }
