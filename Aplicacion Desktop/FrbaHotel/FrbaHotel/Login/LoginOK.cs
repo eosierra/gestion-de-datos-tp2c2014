@@ -32,12 +32,12 @@ namespace FrbaHotel.Login
             while (dr.Read()) CbHoteles.Items.Add(new HotelxRol(dr[0].ToString(), dr[1].ToString()));
             dr.Close();
             bd.cerrar();
+
             if (CbHoteles.Items.Count == 1){
                 loguear(CbHoteles.Items[0]);
                 this.DialogResult = DialogResult.OK;
             }
-            if (CbHoteles.Items.Count == 0)
-            {
+            if (CbHoteles.Items.Count == 0){
                 MessageBox.Show("No está registrado en ningun hotel.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.DialogResult = DialogResult.Retry; ;
             }
