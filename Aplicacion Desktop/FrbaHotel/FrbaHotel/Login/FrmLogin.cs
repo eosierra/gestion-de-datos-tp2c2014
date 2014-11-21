@@ -75,9 +75,24 @@ namespace FrbaHotel.Login
 
         private void Guest_Click(object sender, EventArgs e)
         {
-            IrAMenuPrincipal("guest");
-            menu.hotelActual = 1;
-            menu.rolActual = 4;
+            BD bd = new BD();
+            bd.obtenerConexion();
+            string comando = "SELECT Estado FROM FUGAZZETA.Roles WHERE Nombre='Guest'";
+            SqlDataReader estado = bd.lee(comando);
+            while (estado.Read())
+            {
+                if (Convert.ToInt32(estado[0]) == 1)
+                {
+                    IrAMenuPrincipal("guest");
+                    menu.hotelActual = 1;
+                    menu.rolActual = 4;
+                }
+                else MessageBox.Show("No es posible entrar como guest. Rol Inhabilitado.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            estado.Close();
+            bd.cerrar();
+            
+            
         }
 
         public void IrAMenuPrincipal(string elUser)
