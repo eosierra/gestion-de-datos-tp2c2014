@@ -38,7 +38,7 @@ namespace FrbaHotel.Login
             }
             if (CbHoteles.Items.Count == 0)
             {
-                MessageBox.Show("No está registrado en ningun hotel.", "ERROR", /*sarasa*/ MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No está registrado en ningun hotel.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.DialogResult = DialogResult.Retry; ;
             }
         }
