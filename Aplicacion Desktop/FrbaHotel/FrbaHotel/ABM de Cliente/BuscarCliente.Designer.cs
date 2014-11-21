@@ -215,6 +215,7 @@
             this.TxtDoc.Name = "TxtDoc";
             this.TxtDoc.Size = new System.Drawing.Size(161, 20);
             this.TxtDoc.TabIndex = 4;
+            this.TxtDoc.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Numero_KeyPress);
             // 
             // LblResultados
             // 

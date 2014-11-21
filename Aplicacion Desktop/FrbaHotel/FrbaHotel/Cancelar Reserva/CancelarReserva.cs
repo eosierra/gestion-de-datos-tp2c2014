@@ -22,7 +22,7 @@ namespace FrbaHotel.Cancelar_Reserva
         private void BtnCancelar_Click(object sender, EventArgs e)
         {
             string codigo = TxtCodigo.Text;
-            DialogResult confirma = MessageBox.Show("Está seguro de cancelar la reserva ID:" + codigo + "?","Cancelar Reserva",MessageBoxButtons.OKCancel);
+            DialogResult confirma = MessageBox.Show("Está seguro de cancelar la reserva ID:" + codigo + "?",this.Text,MessageBoxButtons.OKCancel);
                 if (confirma == DialogResult.OK)
             {
                 try
@@ -101,5 +101,10 @@ namespace FrbaHotel.Cancelar_Reserva
             groupBox1.Enabled = !(menu.usuarioActual == "guest");
         }
 
+
+        private void Numero_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
     }
 }

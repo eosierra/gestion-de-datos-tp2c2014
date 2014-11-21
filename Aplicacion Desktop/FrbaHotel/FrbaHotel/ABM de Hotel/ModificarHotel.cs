@@ -318,5 +318,10 @@ namespace FrbaHotel.ABM_de_Hotel
             nBuscador = 2;
             new BuscarRegimen(this).ShowDialog();
         }
+
+        private void Numero_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
     }
 }

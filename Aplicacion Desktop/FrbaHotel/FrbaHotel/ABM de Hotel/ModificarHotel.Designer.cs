@@ -77,7 +77,7 @@
             this.ActualizarDatos.Location = new System.Drawing.Point(248, 371);
             this.ActualizarDatos.Name = "ActualizarDatos";
             this.ActualizarDatos.Size = new System.Drawing.Size(208, 40);
-            this.ActualizarDatos.TabIndex = 9;
+            this.ActualizarDatos.TabIndex = 20;
             this.ActualizarDatos.Text = "GUARDAR";
             this.ActualizarDatos.UseVisualStyleBackColor = true;
             this.ActualizarDatos.Click += new System.EventHandler(this.ActualizarDatos_Click);
@@ -87,7 +87,7 @@
             this.Mostrar.Location = new System.Drawing.Point(84, 12);
             this.Mostrar.Name = "Mostrar";
             this.Mostrar.Size = new System.Drawing.Size(110, 20);
-            this.Mostrar.TabIndex = 8;
+            this.Mostrar.TabIndex = 1;
             this.Mostrar.Text = "SELECCIONAR";
             this.Mostrar.UseVisualStyleBackColor = true;
             this.Mostrar.Click += new System.EventHandler(this.Mostrar_Click);
@@ -143,7 +143,7 @@
             this.QuitarRegimen.Location = new System.Drawing.Point(388, 192);
             this.QuitarRegimen.Name = "QuitarRegimen";
             this.QuitarRegimen.Size = new System.Drawing.Size(22, 23);
-            this.QuitarRegimen.TabIndex = 46;
+            this.QuitarRegimen.TabIndex = 13;
             this.QuitarRegimen.Text = "-";
             this.QuitarRegimen.UseVisualStyleBackColor = true;
             this.QuitarRegimen.Click += new System.EventHandler(this.QuitarRegimen_Click);
@@ -154,7 +154,7 @@
             this.AddRegimen.Location = new System.Drawing.Point(388, 166);
             this.AddRegimen.Name = "AddRegimen";
             this.AddRegimen.Size = new System.Drawing.Size(22, 23);
-            this.AddRegimen.TabIndex = 10;
+            this.AddRegimen.TabIndex = 12;
             this.AddRegimen.Text = "+";
             this.AddRegimen.UseVisualStyleBackColor = true;
             this.AddRegimen.Click += new System.EventHandler(this.AddRegimen_Click);
@@ -173,7 +173,7 @@
             this.groupBox2.Location = new System.Drawing.Point(470, 115);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(210, 183);
-            this.groupBox2.TabIndex = 45;
+            this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Estado del hotel";
             // 
@@ -182,7 +182,7 @@
             this.CambiarEstado.Location = new System.Drawing.Point(12, 152);
             this.CambiarEstado.Name = "CambiarEstado";
             this.CambiarEstado.Size = new System.Drawing.Size(192, 25);
-            this.CambiarEstado.TabIndex = 10;
+            this.CambiarEstado.TabIndex = 14;
             this.CambiarEstado.Text = "Cambiar Estado";
             this.CambiarEstado.UseVisualStyleBackColor = true;
             this.CambiarEstado.Click += new System.EventHandler(this.CambiarEstado_Click);
@@ -281,7 +281,8 @@
             this.TxtRecarga.Location = new System.Drawing.Point(131, 218);
             this.TxtRecarga.Name = "TxtRecarga";
             this.TxtRecarga.Size = new System.Drawing.Size(65, 20);
-            this.TxtRecarga.TabIndex = 42;
+            this.TxtRecarga.TabIndex = 11;
+            this.TxtRecarga.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Numero_KeyPress);
             // 
             // label12
             // 
@@ -305,7 +306,7 @@
             this.ComboCE.Location = new System.Drawing.Point(116, 189);
             this.ComboCE.Name = "ComboCE";
             this.ComboCE.Size = new System.Drawing.Size(80, 21);
-            this.ComboCE.TabIndex = 40;
+            this.ComboCE.TabIndex = 10;
             // 
             // label5
             // 
@@ -325,7 +326,7 @@
             this.ComboPais.Location = new System.Drawing.Point(62, 145);
             this.ComboPais.Name = "ComboPais";
             this.ComboPais.Size = new System.Drawing.Size(158, 21);
-            this.ComboPais.TabIndex = 38;
+            this.ComboPais.TabIndex = 9;
             // 
             // label11
             // 
@@ -341,7 +342,7 @@
             this.TxtCiudad.Location = new System.Drawing.Point(62, 115);
             this.TxtCiudad.Name = "TxtCiudad";
             this.TxtCiudad.Size = new System.Drawing.Size(158, 20);
-            this.TxtCiudad.TabIndex = 36;
+            this.TxtCiudad.TabIndex = 8;
             // 
             // label10
             // 
@@ -354,15 +355,16 @@
             // 
             // TxtNumero
             // 
-            this.TxtNumero.Location = new System.Drawing.Point(254, 84);
+            this.TxtNumero.Location = new System.Drawing.Point(257, 83);
             this.TxtNumero.Name = "TxtNumero";
             this.TxtNumero.Size = new System.Drawing.Size(55, 20);
-            this.TxtNumero.TabIndex = 34;
+            this.TxtNumero.TabIndex = 6;
+            this.TxtNumero.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Numero_KeyPress);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(229, 86);
+            this.label9.Location = new System.Drawing.Point(233, 86);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(19, 13);
             this.label9.TabIndex = 33;
@@ -373,7 +375,7 @@
             this.TxtCalle.Location = new System.Drawing.Point(62, 84);
             this.TxtCalle.Name = "TxtCalle";
             this.TxtCalle.Size = new System.Drawing.Size(158, 20);
-            this.TxtCalle.TabIndex = 32;
+            this.TxtCalle.TabIndex = 5;
             // 
             // label8
             // 
@@ -389,7 +391,8 @@
             this.TxtTelefono.Location = new System.Drawing.Point(482, 54);
             this.TxtTelefono.Name = "TxtTelefono";
             this.TxtTelefono.Size = new System.Drawing.Size(141, 20);
-            this.TxtTelefono.TabIndex = 30;
+            this.TxtTelefono.TabIndex = 4;
+            this.TxtTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Numero_KeyPress);
             // 
             // label6
             // 
@@ -405,7 +408,7 @@
             this.TxtNombre.Location = new System.Drawing.Point(63, 54);
             this.TxtNombre.Name = "TxtNombre";
             this.TxtNombre.Size = new System.Drawing.Size(157, 20);
-            this.TxtNombre.TabIndex = 28;
+            this.TxtNombre.TabIndex = 2;
             // 
             // label7
             // 
@@ -421,7 +424,7 @@
             this.TxtMail.Location = new System.Drawing.Point(257, 54);
             this.TxtMail.Name = "TxtMail";
             this.TxtMail.Size = new System.Drawing.Size(141, 20);
-            this.TxtMail.TabIndex = 26;
+            this.TxtMail.TabIndex = 3;
             // 
             // label3
             // 
@@ -466,7 +469,7 @@
             this.FechaPick.Location = new System.Drawing.Point(479, 84);
             this.FechaPick.Name = "FechaPick";
             this.FechaPick.Size = new System.Drawing.Size(213, 20);
-            this.FechaPick.TabIndex = 21;
+            this.FechaPick.TabIndex = 7;
             // 
             // ModificarHotel
             // 

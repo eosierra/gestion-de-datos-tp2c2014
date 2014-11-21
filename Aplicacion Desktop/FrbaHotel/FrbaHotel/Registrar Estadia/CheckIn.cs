@@ -158,9 +158,9 @@ namespace FrbaHotel.Registrar_Estadia
         private void TxtCodigo_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
-            {
                 VerDatos_Click(sender, e);
-            }
+
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
 
         private void RealizarIngreso_Click(object sender, EventArgs e)
@@ -189,5 +189,6 @@ namespace FrbaHotel.Registrar_Estadia
             }
 
         }
+
     }
 }

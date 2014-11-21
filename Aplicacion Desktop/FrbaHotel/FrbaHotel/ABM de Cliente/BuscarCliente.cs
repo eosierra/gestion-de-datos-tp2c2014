@@ -36,6 +36,11 @@ namespace FrbaHotel.ABM_de_Cliente
             cargarGrilla(GridClientes, top(n, todos));            
         }
 
+        private void Numero_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
         private void Cancelar_Click(object sender, EventArgs e)
         {
             this.Close();

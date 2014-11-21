@@ -275,5 +275,10 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 Hasta.MinDate = new DateTime(nuevo.Year, nuevo.Month, nuevo.Day + 1);
             }
         }
+
+        private void Numero_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
     }
 }

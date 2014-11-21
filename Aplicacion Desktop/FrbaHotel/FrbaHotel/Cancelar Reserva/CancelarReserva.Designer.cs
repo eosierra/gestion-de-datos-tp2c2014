@@ -45,6 +45,7 @@
             this.TxtCodigo.Name = "TxtCodigo";
             this.TxtCodigo.Size = new System.Drawing.Size(189, 20);
             this.TxtCodigo.TabIndex = 0;
+            this.TxtCodigo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Numero_KeyPress);
             // 
             // label1
             // 
@@ -100,7 +101,7 @@
             this.TxtPass.Location = new System.Drawing.Point(76, 25);
             this.TxtPass.Name = "TxtPass";
             this.TxtPass.PasswordChar = '*';
-            this.TxtPass.Size = new System.Drawing.Size(149, 23);
+            this.TxtPass.Size = new System.Drawing.Size(201, 23);
             this.TxtPass.TabIndex = 11;
             // 
             // label3

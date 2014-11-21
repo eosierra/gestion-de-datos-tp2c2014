@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.GroupReserva = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Motivo = new System.Windows.Forms.TextBox();
             this.VerHabitaciones = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.GroupHabitaciones = new System.Windows.Forms.GroupBox();
@@ -48,11 +50,9 @@
             this.MostrarDatos = new System.Windows.Forms.Button();
             this.ActualizarDatos = new System.Windows.Forms.Button();
             this.CancelarTodo = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.Motivo = new System.Windows.Forms.TextBox();
             this.GroupReserva.SuspendLayout();
-            this.GroupHabitaciones.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.GroupHabitaciones.SuspendLayout();
             this.SuspendLayout();
             // 
             // GroupReserva
@@ -74,6 +74,25 @@
             this.GroupReserva.TabIndex = 0;
             this.GroupReserva.TabStop = false;
             this.GroupReserva.Text = "Datos de la reserva";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.Motivo);
+            this.groupBox1.Location = new System.Drawing.Point(520, 20);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(232, 158);
+            this.groupBox1.TabIndex = 62;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Motivo de la modificación";
+            // 
+            // Motivo
+            // 
+            this.Motivo.Location = new System.Drawing.Point(7, 16);
+            this.Motivo.MaxLength = 140;
+            this.Motivo.Multiline = true;
+            this.Motivo.Name = "Motivo";
+            this.Motivo.Size = new System.Drawing.Size(219, 128);
+            this.Motivo.TabIndex = 0;
             // 
             // VerHabitaciones
             // 
@@ -257,25 +276,6 @@
             this.CancelarTodo.UseVisualStyleBackColor = true;
             this.CancelarTodo.Click += new System.EventHandler(this.Cancelar_Click);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.Motivo);
-            this.groupBox1.Location = new System.Drawing.Point(520, 20);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(232, 158);
-            this.groupBox1.TabIndex = 62;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Motivo de la modificación";
-            // 
-            // Motivo
-            // 
-            this.Motivo.Location = new System.Drawing.Point(7, 16);
-            this.Motivo.MaxLength = 140;
-            this.Motivo.Multiline = true;
-            this.Motivo.Name = "Motivo";
-            this.Motivo.Size = new System.Drawing.Size(219, 128);
-            this.Motivo.TabIndex = 0;
-            // 
             // ModificarReserva
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -292,10 +292,10 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ModificarReserva_FormClosing);
             this.GroupReserva.ResumeLayout(false);
             this.GroupReserva.PerformLayout();
-            this.GroupHabitaciones.ResumeLayout(false);
-            this.GroupHabitaciones.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.GroupHabitaciones.ResumeLayout(false);
+            this.GroupHabitaciones.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

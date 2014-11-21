@@ -11,7 +11,7 @@ using FrbaHotel.ABM_de_Hotel;
 
 namespace FrbaHotel.ABM_de_Habitacion
 {
-    public partial class AltaHabitacion : Buscador, ITraeBusqueda
+    public partial class AltaHabitacion : Buscador
     {
         string tuId;
         int tuHotel;
@@ -208,16 +208,6 @@ namespace FrbaHotel.ABM_de_Habitacion
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
 
-        private void ElegirHotel_Click(object sender, EventArgs e)
-        {
-            new ABM_de_Hotel.BuscarHotel(this).ShowDialog();
-        }
-
-        
-        private void TxtHotel_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
 

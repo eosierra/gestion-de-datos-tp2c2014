@@ -217,9 +217,8 @@ namespace FrbaHotel.Registrar_Estadia
         private void TxtReserva_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
-            {
                 VerCO_Click(sender, e);
-            }
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
 
         #region Mostrar Totales
