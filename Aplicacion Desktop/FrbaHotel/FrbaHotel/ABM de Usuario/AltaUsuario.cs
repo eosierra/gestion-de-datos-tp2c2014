@@ -87,23 +87,33 @@ namespace FrbaHotel.ABM_de_Usuario
 
         private void Guardar_Click(object sender, EventArgs e)
         {
-            if (funcion=='M')
-            {
-                DialogResult modif = MessageBox.Show("Son todos los datos correctos?", this.Text, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                if (modif == DialogResult.Yes) actualizarUsuario();
-                else this.DialogResult = modif;
-            }
-            else
             try
             {
-                agregarUsuario();
-                MessageBox.Show("Usuario agregado con exito.", this.Text, MessageBoxButtons.OK,MessageBoxIcon.Information);
-                this.Close();
+                validarDatosIngresados();
+            
+                if (funcion=='M')
+                {
+                    DialogResult modif = MessageBox.Show("Son todos los datos correctos?", this.Text, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                    if (modif == DialogResult.Yes) actualizarUsuario();
+                    else this.DialogResult = modif;
+                }
+                else
+                try
+                {
+                    agregarUsuario();
+                    MessageBox.Show("Usuario agregado con exito.", this.Text, MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            
         }
 
         
