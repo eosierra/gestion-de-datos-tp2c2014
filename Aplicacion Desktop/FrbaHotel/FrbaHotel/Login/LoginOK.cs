@@ -38,7 +38,7 @@ namespace FrbaHotel.Login
                 this.DialogResult = DialogResult.OK;
             }
             if (CbHoteles.Items.Count == 0){
-                MessageBox.Show("No está registrado en ningun hotel.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No está habilitado en ningun hotel.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.DialogResult = DialogResult.Retry; ;
             }
         }
