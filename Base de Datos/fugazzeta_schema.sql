@@ -48,6 +48,9 @@ DROP TABLE FUGAZZETA.HistorialBajasHotel
 IF OBJECT_ID('FUGAZZETA.MovimientosReserva') IS NOT NULL
 DROP TABLE FUGAZZETA.MovimientosReserva
 
+IF OBJECT_ID('FUGAZZETA.MovimientosEstadia') IS NOT NULL
+DROP TABLE FUGAZZETA.MovimientosEstadia
+
 IF OBJECT_ID('FUGAZZETA.Usuarios') IS NOT NULL
 DROP TABLE FUGAZZETA.Usuarios
 
@@ -60,8 +63,11 @@ DROP TABLE FUGAZZETA.Facturas
 IF OBJECT_ID('FUGAZZETA.Roles') IS NOT NULL
 DROP TABLE FUGAZZETA.Roles
 
-IF OBJECT_ID('tempdb.dbo.#Estadias') IS NOT NULL
-DROP TABLE #Estadias
+IF OBJECT_ID('tempdb.dbo.#ReservasEstadias') IS NOT NULL
+DROP TABLE #ReservasEstadias
+
+IF OBJECT_ID('FUGAZZETA.Estadias') IS NOT NULL
+DROP TABLE FUGAZZETA.Estadias
 
 IF OBJECT_ID('FUGAZZETA.Reservas') IS NOT NULL
 DROP TABLE FUGAZZETA.Reservas
@@ -287,6 +293,7 @@ CREATE TABLE FUGAZZETA.Funcionalidades(
 Id_Funcionalidad int IDENTITY(1,1) PRIMARY KEY,
 Descripcion nvarchar(40)
 )
+
 CREATE TABLE FUGAZZETA.[Funcionalidades x Roles](
 Id_Funcionalidad int,
 Id_Rol int,
@@ -315,7 +322,6 @@ Id_Cliente int FOREIGN KEY REFERENCES FUGAZZETA.Clientes,
 Id_Hotel int FOREIGN KEY REFERENCES FUGAZZETA.Hoteles,
 Fecha_Reserva date,
 Fecha_Inicio date,
-Fecha_Egreso date,
 Fecha_Fin_Reserva date,
 Id_Regimen int FOREIGN KEY REFERENCES FUGAZZETA.Regimenes,
 Id_EstadoReserva int FOREIGN KEY REFERENCES FUGAZZETA.EstadosReserva
@@ -328,10 +334,27 @@ FechaMovimiento datetime,
 Motivo nvarchar(140),
 FOREIGN KEY (Id_Reserva) REFERENCES FUGAZZETA.Reservas
 )
+
+CREATE TABLE FUGAZZETA.Estadias(
+Id_Estadia int,
+Fecha_Ingreso date,
+Fecha_Egreso date,
+PRIMARY KEY (Id_Estadia),
+FOREIGN KEY (Id_Estadia) REFERENCES FUGAZZETA.Reservas
+)
+CREATE TABLE FUGAZZETA.MovimientosEstadia(
+Id_Estadia int NOT NULL,
+Proceso char NOT NULL,
+FechaMovimiento datetime,
+Username nvarchar(30),
+FOREIGN KEY (Id_Estadia) REFERENCES FUGAZZETA.Estadias,
+FOREIGN KEY (Username) REFERENCES FUGAZZETA.Usuarios
+)
+
 CREATE TABLE FUGAZZETA.[Acompañantes](
-Id_Reserva int FOREIGN KEY REFERENCES FUGAZZETA.Reservas,
+Id_Estadia int FOREIGN KEY REFERENCES FUGAZZETA.Estadias,
 Id_Cliente int FOREIGN KEY REFERENCES FUGAZZETA.Clientes,
-PRIMARY KEY (Id_Reserva,Id_Cliente)
+PRIMARY KEY (Id_Estadia,Id_Cliente)
 )
 CREATE TABLE FUGAZZETA.TiposHabitacion(
 Id_TipoHab INT IDENTITY (1,1) PRIMARY KEY,
@@ -342,10 +365,14 @@ CHECK (CantPersonas > 0)
 )
 CREATE TABLE FUGAZZETA.Facturas(
 NroFactura int IDENTITY(1,1) PRIMARY KEY,
-Id_Hotel INT FOREIGN KEY REFERENCES FUGAZZETA.Hoteles,
+Id_Hotel INT ,
+Id_Estadia int,
 Fecha date,
 Total numeric (10,2),
-Id_Cliente int FOREIGN KEY REFERENCES FUGAZZETA.Clientes
+Id_Cliente int ,
+FOREIGN KEY (Id_Hotel) REFERENCES FUGAZZETA.Hoteles,
+FOREIGN KEY (Id_Cliente) REFERENCES FUGAZZETA.Clientes,
+FOREIGN KEY (Id_Estadia) REFERENCES FUGAZZETA.Estadias
 )
 CREATE TABLE FUGAZZETA.[Items_Hospedaje](
 NroFactura int FOREIGN KEY REFERENCES FUGAZZETA.Facturas NOT NULL,
@@ -574,43 +601,69 @@ SELECT distinct
 		cast(DATEADD(d,Reserva_Cant_Noches,Reserva_Fecha_Inicio) as DATE) Fin_Reserva,
 		(select Id_Regimen from FUGAZZETA.Regimenes where Descripcion=Regimen_Descripcion) Id_Regimen,
 		6 Id_EstadoReserva
-	into #Estadias
+	into #ReservasEstadias
 	From gd_esquema.Maestra
 	where Estadia_Fecha_Inicio is not null
 
 -----------------INSERTO RESERVAS EFECTIVIZADAS/ESTADIAS--------------------------------
 SET IDENTITY_INSERT FUGAZZETA.Reservas ON
 Insert into FUGAZZETA.Reservas
-(Id_Reserva,Id_Cliente,Id_Hotel,Fecha_Inicio,Fecha_Egreso,Fecha_Fin_Reserva,Id_Regimen,Id_EstadoReserva)
-	select * FROM #Estadias
+(Id_Reserva,Id_Cliente,Id_Hotel,Fecha_Inicio,Fecha_Fin_Reserva,Id_Regimen,Id_EstadoReserva)
+	select 
+	Reserva_Codigo,
+	Id_Cliente,
+	Id_Hotel,
+	Inicio_Reserva,
+	Fin_Reserva,
+	Id_Regimen,
+	Id_EstadoReserva
+	 FROM #ReservasEstadias
 	SET IDENTITY_INSERT FUGAZZETA.Reservas OFF
 go	
 
 -----------------MODIFICO CAMPOS DISTINTOS DE LA TEMPORAL-----------------------------
-UPDATE #Estadias SET Egreso = null, Id_EstadoReserva = 1
+UPDATE #ReservasEstadias SET Id_EstadoReserva = 1
 
 -----------------INSERTO RESERVAS NO EFECTIVIZADAS = ((TOTALES - ESTADIAS))--------------------------
 SET IDENTITY_INSERT FUGAZZETA.Reservas ON
 Insert into FUGAZZETA.Reservas
-(Id_Reserva,Id_Cliente,Id_Hotel,Fecha_Inicio,Fecha_Egreso,Fecha_Fin_Reserva,Id_Regimen,Id_EstadoReserva)
+(Id_Reserva,Id_Cliente,Id_Hotel,Fecha_Inicio,Fecha_Fin_Reserva,Id_Regimen,Id_EstadoReserva)
 	
 	(SELECT DISTINCT
 		Reserva_Codigo,
 		(select top 1 Id_Cliente from FUGAZZETA.Clientes where Cliente_Mail=Mail and Cliente_Pasaporte_Nro=Nro_Doc),
 		(select Id_Hotel from FUGAZZETA.Hoteles where Calle = Hotel_Calle AND Nro_Calle = Hotel_Nro_Calle),
 		cast(Reserva_Fecha_Inicio as DATE),
-		null,
 		cast(DATEADD(d,Reserva_Cant_Noches,Reserva_Fecha_Inicio) as DATE),
 		(select Id_Regimen from FUGAZZETA.Regimenes where Descripcion=Regimen_Descripcion),
 		1
 	From gd_esquema.Maestra MP
 	where (Estadia_Fecha_Inicio is null)
 	EXCEPT
-	select * FROM #Estadias)
+		select 
+		Reserva_Codigo,
+		Id_Cliente,
+		Id_Hotel,
+		Inicio_Reserva,
+		Fin_Reserva,
+		Id_Regimen,
+		Id_EstadoReserva
+		 FROM #ReservasEstadias)
 	
 	SET IDENTITY_INSERT FUGAZZETA.Reservas OFF
 go	
------------------------------------
+
+--------Cargo Estadias-----------
+Insert into FUGAZZETA.Estadias
+(Id_Estadia,Fecha_Ingreso,Fecha_Egreso)
+	SELECT 
+		Reserva_Codigo,
+		Inicio_Reserva,
+		Egreso
+	From #ReservasEstadias
+go
+
+
 
 /*CREATE PROCEDURE FUGAZZETA.MigrarReservas AS
 BEGIN
@@ -683,12 +736,12 @@ SELECT DISTINCT Habitacion_Tipo_Codigo,Habitacion_Tipo_Descripcion,Habitacion_Ti
 SET IDENTITY_INSERT FUGAZZETA.TiposHabitacion OFF
 UPDATE FUGAZZETA.TiposHabitacion SET CantPersonas = cast(RIGHT(Id_TipoHab,1) as int)
 GO
-select * from gd_esquema.Maestra where Reserva_Cant_Noches<>Estadia_Cant_Noches
+
 SET IDENTITY_INSERT FUGAZZETA.Facturas ON
 INSERT INTO FUGAZZETA.Facturas
-(NroFactura,Id_Hotel,Fecha,Total,Id_Cliente)
+(NroFactura,Id_Hotel,Id_Estadia,Fecha,Total,Id_Cliente)
 SELECT DISTINCT
-M.Factura_Nro,H.Id_Hotel,cast(M.Factura_Fecha as DATE), (Item_Factura_Monto*Reserva_Cant_Noches) + Factura_Total, C.Id_Cliente
+M.Factura_Nro,H.Id_Hotel,(select Id_Estadia from FUGAZZETA.Estadias where Id_Estadia=Reserva_Codigo),cast(M.Factura_Fecha as DATE), (Item_Factura_Monto*Reserva_Cant_Noches) + Factura_Total, C.Id_Cliente
 FROM gd_esquema.Maestra M, FUGAZZETA.Hoteles H, FUGAZZETA.Clientes C
 where
 	M.Consumible_Precio is null
@@ -853,7 +906,7 @@ WHERE
 	H.Id_Hotel = HR.Id_Hotel
 AND H.Num_Habitacion = HR.Num_Habitacion
 AND HR.Id_Reserva = R.Id_Reserva
-AND R.Fecha_Egreso IS NULL
+AND R.Id_EstadoReserva IN(1,2)
 go
 
 
@@ -938,8 +991,10 @@ GO
 
 CREATE PROCEDURE FUGAZZETA.OcupacionEnHotelEnPeriodo (@Hotel int,@Desde date, @Hasta date) AS
 BEGIN
-SELECT * FROM FUGAZZETA.ReservasNoCanceladas
-WHERE Id_Hotel = @Hotel AND 
+SELECT Id_Reserva,Id_Cliente,Id_Hotel,Fecha_Reserva,Fecha_Inicio,Fecha_Fin_Reserva,Id_Regimen,Id_EstadoReserva FROM FUGAZZETA.ReservasNoCanceladas, FUGAZZETA.Estadias
+WHERE Id_Reserva=Id_Estadia
+AND Id_Hotel = @Hotel 
+AND 
 ((Fecha_Inicio between @Desde and @Hasta) OR
  (Fecha_Egreso between @Desde and @Hasta) OR
  (Fecha_Fin_Reserva between @Desde and @Hasta)
@@ -1082,9 +1137,10 @@ BEGIN
 END
 GO
 
-CREATE PROC FUGAZZETA.GenerarFactura (@Hotel int, @Hoy date, @Total numeric, @Cliente int) AS
+---FALTA AGREGAR ID ESTADIA
+CREATE PROC FUGAZZETA.GenerarFactura (@Hotel int, @Hoy date, @Total numeric, @Cliente int/*,@Estadia*/) AS
 BEGIN
-	INSERT INTO FUGAZZETA.Facturas VALUES (@Hotel, @Hoy, @Total,@Cliente)
+	INSERT INTO FUGAZZETA.Facturas(Id_Hotel,Fecha,Total,Id_Cliente) VALUES(@Hotel, @Hoy, @Total,@Cliente/*,@Estadia*/)
 	
 	SELECT NroFactura FROM FUGAZZETA.Facturas
 	WHERE Id_Hotel = @Hotel and Fecha = @Hoy and Total = @Total and Id_Cliente = @Cliente
