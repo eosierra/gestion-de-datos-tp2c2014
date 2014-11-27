@@ -11,6 +11,17 @@ namespace FrbaHotel.ABM_de_Regimen
 {
     public partial class BuscarRegimen : Buscador
     {
+        public BuscarRegimen(ITraeBusqueda owner,int id)
+        {
+            InitializeComponent();
+            
+            crearBuscador(owner, 
+                          "R.Id_Regimen as ID, Descripcion, Precio", 
+                          "Regimenes R,FUGAZZETA.[Regimenes x Hotel] H WHERE Id_Hotel="+id+" AND R.Id_Regimen=H.Id_Regimen AND Activo = 1");
+            setearGrid(GridRegimenes);
+            
+        }
+
         public BuscarRegimen(ITraeBusqueda owner)
         {
             InitializeComponent();

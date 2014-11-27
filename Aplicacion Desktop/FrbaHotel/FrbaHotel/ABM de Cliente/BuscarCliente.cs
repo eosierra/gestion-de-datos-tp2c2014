@@ -33,7 +33,14 @@ namespace FrbaHotel.ABM_de_Cliente
         {
             bd.obtenerConexion();
             mostrarCantidadResultados(todos);
-            cargarGrilla(GridClientes, top(n, todos));            
+            
+            if (fx=='S'){
+                label1.Visible = false;
+                label6.Visible = false;
+                TxtApellido.Visible = false;
+                TxtNombre.Visible = false;
+            }else
+                cargarGrilla(GridClientes, top(n, todos));
         }
 
         private void Numero_KeyPress(object sender, KeyPressEventArgs e)

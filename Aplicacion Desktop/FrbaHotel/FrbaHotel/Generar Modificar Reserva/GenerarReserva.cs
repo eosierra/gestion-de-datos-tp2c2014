@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using FrbaHotel.ABM_de_Regimen;
 
 namespace FrbaHotel.Generar_Modificar_Reserva
 {
@@ -28,8 +29,6 @@ namespace FrbaHotel.Generar_Modificar_Reserva
 
         private void GenerarReserva_Load(object sender, EventArgs e)
         {
-            groupCliente.Enabled = true;
-            group3.Enabled = false;
             if (menuP.usuarioActual != "guest")
             {
                 ElegirHotel.Enabled = false;
@@ -111,9 +110,9 @@ namespace FrbaHotel.Generar_Modificar_Reserva
 
         private void validarOtrasHabitaciones()
         {
-            for (int i = 0; i < ListHabitaciones.Items.Count - 2; i++)
+            for (int i = 0; i < ListHabitaciones.Items.Count; i++)
             {
-                if (ListHabitaciones.Items[i].ToString() == ListHabitaciones.Items[i + 1].ToString())
+                if (ListHabitaciones.Items[i].ToString() == ListHabitaciones.Items[i].ToString())
                 {
                     string eliminado = ListHabitaciones.Items[i].ToString();
                     ListHabitaciones.Items.RemoveAt(i);
@@ -132,7 +131,12 @@ namespace FrbaHotel.Generar_Modificar_Reserva
 
         private void validarRegimen()
         {
-            if (ComboRegimen.SelectedIndex == -1) throw new Exception ("No se eligió ningún régimen.");
+            if (ComboRegimen.SelectedIndex == -1)
+            {
+                MessageBox.Show("Seleccione un regimen para continuar. ", "FRBA Hoteles");
+                nBuscador = 4;
+                new BuscarRegimen(this,idHotelActual).ShowDialog();
+            }
         }
 
         private void valida(string tabla,string campo, int id, string mensajeException)
@@ -211,7 +215,28 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                     completaRegimenes(db);
                     break;
                 case 3:
-                    ListHabitaciones.Items.Add(new ABM_de_Habitacion.Habitacion(id, descripcion));
+                    bool sePuede = true;
+                    bool sigue = true;
+                    for (int i = 0; (i < ListHabitaciones.Items.Count) && sigue; i++)
+                    {
+                        if (ListHabitaciones.Items[i].ToString() == descripcion)
+                        {
+                            sigue = false;
+                            sePuede = false;
+                        }
+                    }
+                    if (!sePuede)
+                    {
+                        MessageBox.Show("No se puede agregar. Ya agregó esa habitación");
+                    }
+                    else
+                    {
+                        ListHabitaciones.Items.Add(new ABM_de_Habitacion.Habitacion(id, descripcion));
+                    }
+                    
+                    break;
+                case 4:
+                    ComboRegimen.Text = descripcion;
                     break;
             }
             db.cerrar();
@@ -267,11 +292,12 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             {
                 idRegimen = (ComboRegimen.SelectedItem as ABM_de_Regimen.Regimen).id.ToString();
             }
+
             DialogResult agregado = new BuscarHabitacionLibre(this,idHotelActual, DesdePick.Value.ToShortDateString(), HastaPick.Value.ToShortDateString(),idRegimen).ShowDialog();
-            if (agregado == DialogResult.OK)
+            /*if (agregado == DialogResult.OK)
             {
                 validarOtrasHabitaciones();
-            }
+            }*/
         }
 
         private void CancelarTodo_Click(object sender, EventArgs e)
@@ -284,6 +310,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         {
             try
             {
+                validarHotel();
                 valida("Hoteles", "Id_Hotel", idHotelActual, "Este hotel no está habilitado por la cadena.");
                 BD bd = new BD();
                 bd.obtenerConexion();
@@ -292,11 +319,18 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 group3.Enabled = false;
                 groupHab.Enabled = true;
                 ListHabitaciones.Items.Clear();
+                validarRegimen();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            
+        }
+
+        private void validarHotel()
+        {
+            if (TxtHotel.Text=="") throw new Exception("Seleccione un hotel");
         }
 
         private void PasoAtras_Click(object sender, EventArgs e)
@@ -307,6 +341,20 @@ namespace FrbaHotel.Generar_Modificar_Reserva
 
         #endregion
 
-        
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try{
+                validarHabitaciones();
+                groupHab.Enabled = false;
+                groupCliente.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+       
     }
 }
