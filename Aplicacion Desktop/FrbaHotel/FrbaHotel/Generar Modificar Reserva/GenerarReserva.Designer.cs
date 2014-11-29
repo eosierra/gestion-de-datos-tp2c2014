@@ -47,6 +47,7 @@
             this.groupCliente = new System.Windows.Forms.GroupBox();
             this.TxtDomicilio = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
+            this.BuscarCliente = new System.Windows.Forms.Button();
             this.TxtCiudad = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.TxtPais = new System.Windows.Forms.Label();
@@ -61,12 +62,12 @@
             this.label19 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.TxtDoc = new System.Windows.Forms.Label();
-            this.BuscarCliente = new System.Windows.Forms.Button();
             this.groupHab = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.PasoAtras = new System.Windows.Forms.Button();
             this.CostoHabitaciones = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.LblCostoHab = new System.Windows.Forms.Label();
             this.group3.SuspendLayout();
             this.groupCliente.SuspendLayout();
             this.groupHab.SuspendLayout();
@@ -282,6 +283,16 @@
             this.label29.TabIndex = 70;
             this.label29.Text = "Domicilio:";
             // 
+            // BuscarCliente
+            // 
+            this.BuscarCliente.Location = new System.Drawing.Point(17, 19);
+            this.BuscarCliente.Name = "BuscarCliente";
+            this.BuscarCliente.Size = new System.Drawing.Size(85, 29);
+            this.BuscarCliente.TabIndex = 57;
+            this.BuscarCliente.Text = "Buscar Cliente";
+            this.BuscarCliente.UseVisualStyleBackColor = true;
+            this.BuscarCliente.Click += new System.EventHandler(this.BuscarCliente_Click);
+            // 
             // TxtCiudad
             // 
             this.TxtCiudad.AutoSize = true;
@@ -422,18 +433,9 @@
             this.TxtDoc.TabIndex = 59;
             this.TxtDoc.Text = "......................";
             // 
-            // BuscarCliente
-            // 
-            this.BuscarCliente.Location = new System.Drawing.Point(17, 19);
-            this.BuscarCliente.Name = "BuscarCliente";
-            this.BuscarCliente.Size = new System.Drawing.Size(85, 29);
-            this.BuscarCliente.TabIndex = 57;
-            this.BuscarCliente.Text = "Buscar Cliente";
-            this.BuscarCliente.UseVisualStyleBackColor = true;
-            this.BuscarCliente.Click += new System.EventHandler(this.BuscarCliente_Click);
-            // 
             // groupHab
             // 
+            this.groupHab.Controls.Add(this.LblCostoHab);
             this.groupHab.Controls.Add(this.button1);
             this.groupHab.Controls.Add(this.label5);
             this.groupHab.Controls.Add(this.PasoAtras);
@@ -448,15 +450,26 @@
             this.groupHab.TabStop = false;
             this.groupHab.Text = "Paso 2 - Habitaciones a reservar";
             // 
+            // button1
+            // 
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.button1.Location = new System.Drawing.Point(107, 134);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 25);
+            this.button1.TabIndex = 74;
+            this.button1.Text = "Continuar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(6, 177);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(116, 15);
+            this.label5.Size = new System.Drawing.Size(126, 15);
             this.label5.TabIndex = 72;
-            this.label5.Text = "Costo Habitaciones:";
+            this.label5.Text = "Costo Habitaciones: $";
             // 
             // PasoAtras
             // 
@@ -477,16 +490,15 @@
             this.CostoHabitaciones.Size = new System.Drawing.Size(0, 15);
             this.CostoHabitaciones.TabIndex = 73;
             // 
-            // button1
+            // LblCostoHab
             // 
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button1.Location = new System.Drawing.Point(107, 134);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 25);
-            this.button1.TabIndex = 74;
-            this.button1.Text = "Continuar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.LblCostoHab.AutoSize = true;
+            this.LblCostoHab.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblCostoHab.Location = new System.Drawing.Point(128, 177);
+            this.LblCostoHab.Name = "LblCostoHab";
+            this.LblCostoHab.Size = new System.Drawing.Size(14, 15);
+            this.LblCostoHab.TabIndex = 75;
+            this.LblCostoHab.Text = "0";
             // 
             // GenerarReserva
             // 
@@ -554,5 +566,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label CostoHabitaciones;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label LblCostoHab;
     }
 }

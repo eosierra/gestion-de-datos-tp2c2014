@@ -76,6 +76,7 @@
             // 
             // Seleccionar
             // 
+            this.Seleccionar.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Seleccionar.Location = new System.Drawing.Point(88, 332);
             this.Seleccionar.Name = "Seleccionar";
             this.Seleccionar.Size = new System.Drawing.Size(146, 32);

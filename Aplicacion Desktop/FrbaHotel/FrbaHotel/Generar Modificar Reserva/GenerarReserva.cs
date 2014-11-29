@@ -8,11 +8,14 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using FrbaHotel.ABM_de_Regimen;
+using System.Globalization;
+using FrbaHotel.ABM_de_Habitacion;
 
 namespace FrbaHotel.Generar_Modificar_Reserva
 {
     public partial class GenerarReserva : Form, ITraeBusqueda
     {
+        int costoHabitaciones;
         int nBuscador;
         int idClienteActual;
         int idHotelActual;
@@ -108,6 +111,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         }
         #endregion
 
+       //NO SE USA
         private void validarOtrasHabitaciones()
         {
             for (int i = 0; i < ListHabitaciones.Items.Count; i++)
@@ -126,7 +130,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         {
             if (ListHabitaciones.Items.Count == 0)
                 throw new Exception("No se seleccionó ninguna habitación para reservar.");
-            validarOtrasHabitaciones();
+            //validarOtrasHabitaciones();
         }
 
         private void validarRegimen()
@@ -135,7 +139,12 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             {
                 MessageBox.Show("Seleccione un regimen para continuar. ", "FRBA Hoteles");
                 nBuscador = 4;
-                new BuscarRegimen(this,idHotelActual).ShowDialog();
+                DialogResult regimen = new BuscarRegimen(this,idHotelActual).ShowDialog();
+                if (regimen == DialogResult.Cancel)
+                {
+                    group3.Enabled = true;
+                    groupHab.Enabled = false;
+                }
             }
         }
 
@@ -215,25 +224,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                     completaRegimenes(db);
                     break;
                 case 3:
-                    bool sePuede = true;
-                    bool sigue = true;
-                    for (int i = 0; (i < ListHabitaciones.Items.Count) && sigue; i++)
-                    {
-                        if (ListHabitaciones.Items[i].ToString() == descripcion)
-                        {
-                            sigue = false;
-                            sePuede = false;
-                        }
-                    }
-                    if (!sePuede)
-                    {
-                        MessageBox.Show("No se puede agregar. Ya agregó esa habitación");
-                    }
-                    else
-                    {
-                        ListHabitaciones.Items.Add(new ABM_de_Habitacion.Habitacion(id, descripcion));
-                    }
-                    
+                                       
                     break;
                 case 4:
                     ComboRegimen.Text = descripcion;
@@ -276,6 +267,9 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             int posicion = ListHabitaciones.SelectedIndex;
             if (posicion > -1)
             {
+                Habitacion laHabitacion = ListHabitaciones.Items[ListHabitaciones.SelectedIndex] as Habitacion;
+                costoHabitaciones = costoHabitaciones - laHabitacion.precioUnitario;
+                LblCostoHab.Text = costoHabitaciones.ToString();
                 ListHabitaciones.Items.RemoveAt(posicion);
             }
         }
@@ -293,11 +287,8 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 idRegimen = (ComboRegimen.SelectedItem as ABM_de_Regimen.Regimen).id.ToString();
             }
 
-            DialogResult agregado = new BuscarHabitacionLibre(this,idHotelActual, DesdePick.Value.ToShortDateString(), HastaPick.Value.ToShortDateString(),idRegimen).ShowDialog();
-            /*if (agregado == DialogResult.OK)
-            {
-                validarOtrasHabitaciones();
-            }*/
+            DialogResult agregado = new BuscarHabitacionLibre(this,idHotelActual, DesdePick.Value.ToShortDateString(), HastaPick.Value.ToShortDateString(),idRegimen,'G').ShowDialog();
+            
         }
 
         private void CancelarTodo_Click(object sender, EventArgs e)
@@ -316,9 +307,9 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 bd.obtenerConexion();
                 string query = "EXEC FUGAZZETA.CancelarPorNoShow '" + Program.hoy().ToShortDateString() + "', '" + menuP.usuarioActual + "'";
                 bd.ejecutar(query);
+                ListHabitaciones.Items.Clear();
                 group3.Enabled = false;
                 groupHab.Enabled = true;
-                ListHabitaciones.Items.Clear();
                 validarRegimen();
             }
             catch (Exception ex)
@@ -345,8 +336,13 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         {
             try{
                 validarHabitaciones();
-                groupHab.Enabled = false;
-                groupCliente.Enabled = true;
+                int monto = (Convert.ToInt32(LblCostoHab.Text)) * (Convert.ToInt32((HastaPick.Value.Date - DesdePick.Value.Date).TotalDays) + 1);
+                DialogResult continuar = MessageBox.Show("El precio total de la reserva es: $"+monto+". Desea continuar con el registro?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (continuar == DialogResult.Yes)
+                {
+                    groupHab.Enabled = false;
+                    groupCliente.Enabled = true;
+                }
             }
             catch (Exception ex)
             {
@@ -355,6 +351,38 @@ namespace FrbaHotel.Generar_Modificar_Reserva
 
         }
 
-       
+
+
+        internal void habitacionParaReserva(string hotel, string numero, string tipo, string pu)
+        {
+            bool sePuede = true;
+            bool sigue = true;
+            for (int i = 0; (i < ListHabitaciones.Items.Count) && sigue; i++)
+            {
+                if (ListHabitaciones.Items[i].ToString() == numero+" - "+tipo+".")
+                {
+                    sigue = false;
+                    sePuede = false;
+                }
+            }
+            if (!sePuede)
+            {
+                MessageBox.Show("No se puede agregar. Ya agregó esa habitación");
+            }
+            else
+            {
+                ListHabitaciones.Items.Add(new ABM_de_Habitacion.Habitacion(hotel, numero,tipo,pu,'G'));
+                costoHabitaciones = costoHabitaciones + Int16.Parse(sacarPesos(pu));
+                LblCostoHab.Text = (costoHabitaciones).ToString();
+            }
+        }
+
+        private string sacarPesos(string pu)
+        {
+            string data = pu;
+            data.Remove(0, 1);
+            data.TrimStart('/');
+            return data.Substring(1);
+        }
     }
 }
