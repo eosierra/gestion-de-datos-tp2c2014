@@ -991,14 +991,12 @@ GO
 
 CREATE PROCEDURE FUGAZZETA.OcupacionEnHotelEnPeriodo (@Hotel int,@Desde date, @Hasta date) AS
 BEGIN
-SELECT Id_Reserva,Id_Cliente,Id_Hotel,Fecha_Reserva,Fecha_Inicio,Fecha_Fin_Reserva,Id_Regimen,Id_EstadoReserva FROM FUGAZZETA.ReservasNoCanceladas, FUGAZZETA.Estadias
+SELECT C.* FROM FUGAZZETA.ReservasNoCanceladas C, FUGAZZETA.Estadias E
 WHERE Id_Reserva=Id_Estadia
 AND Id_Hotel = @Hotel 
 AND 
 ((Fecha_Inicio between @Desde and @Hasta) OR
- (Fecha_Egreso between @Desde and @Hasta) OR
- (Fecha_Fin_Reserva between @Desde and @Hasta)
- )
+ (Fecha_Fin_Reserva between @Desde and @Hasta))
 end
 GO
 
@@ -1021,13 +1019,15 @@ BEGIN
 		BEGIN TRANSACTION
 		UPDATE FUGAZZETA.Reservas
 		SET Id_EstadoReserva = 6 WHERE Id_Reserva = @IdReserva
-		INSERT INTO FUGAZZETA.MovimientosReserva
-		VALUES (@IdReserva,'I',@Usuario,@Fecha,'Ingreso al hotel')
+		INSERT INTO FUGAZZETA.Estadias (Id_Estadia,Fecha_Ingreso)
+		VALUES (@IdReserva, CAST (@Fecha as DATE))
+		INSERT INTO FUGAZZETA.MovimientosEstadia
+		VALUES (@IdReserva,'I',@Fecha,@Usuario)
 		COMMIT TRANSACTION
 	END TRY
 	BEGIN CATCH
 		ROLLBACK
-		RAISERROR ('No se pudo realizar el ingreso.',10,1)
+		RAISERROR ('No se pudo realizar el ingreso.',16,1)
 	END CATCH
 END
 GO
@@ -1075,13 +1075,12 @@ end
 GO
 
 CREATE PROC FUGAZZETA.GenerarReserva 
-@Cliente int, @Hotel int,@Ahora datetime, @Inicio date, @Fin date, @Regimen int, @UsuarioActual nvarchar(30)
+@Cliente int, @Hotel int, @Ahora datetime, @Inicio date, @Fin date, @Regimen int, @UsuarioActual nvarchar(30)
 AS
 BEGIN
 DECLARE @IdReserva int
 	BEGIN TRANSACTION
 		INSERT INTO FUGAZZETA.Reservas
-		(Id_Cliente,Id_Hotel, Fecha_Reserva, Fecha_Inicio,Fecha_Fin_Reserva,Id_Regimen,Id_EstadoReserva)
 		VALUES (@Cliente,@Hotel,CAST(@Ahora as DATE),@Inicio,@Fin,@Regimen,1)
 		SET @IdReserva = (SELECT TOP 1 Id_Reserva FROM FUGAZZETA.MovimientosReserva order by 1 desc)
 		UPDATE FUGAZZETA.MovimientosReserva
@@ -1113,8 +1112,8 @@ GO
 
 CREATE PROC FUGAZZETA.ValidarEstadia (@id int, @Fecha date) AS 
 BEGIN
-	IF @id NOT IN(SELECT Id_Reserva FROM FUGAZZETA.Reservas WHERE Id_EstadoReserva = 6 
-				AND Fecha_Egreso IS NULL)
+	IF @id NOT IN(SELECT Id_Estadia FROM FUGAZZETA.Estadias WHERE Fecha_Egreso IS NULL)
+	AND @id NOT IN(SELECT Id_Reserva FROM FUGAZZETA.Reservas WHERE Id_EstadoReserva = 6)
 	RAISERROR('No se encontró la estadía.',16,1)
 	ELSE
 	BEGIN
@@ -1129,19 +1128,20 @@ GO
 
 CREATE PROC FUGAZZETA.RealizarEgreso (@Id int, @Ahora datetime, @Usuario nvarchar(30)) AS
 BEGIN
-	UPDATE FUGAZZETA.Reservas
+	UPDATE FUGAZZETA.Estadias
 	SET Fecha_Egreso = CAST(@Ahora as DATE)
-	WHERE Id_Reserva = @Id
-	INSERT INTO FUGAZZETA.MovimientosReserva
-	VALUES (@Id,'E',@Usuario,@Ahora,'Egreso del hotel')
+	WHERE Id_Estadia = @Id
+	INSERT INTO FUGAZZETA.MovimientosEstadia
+	VALUES (@Id,'E',@Ahora,@Usuario)
 END
 GO
 
 ---FALTA AGREGAR ID ESTADIA
-CREATE PROC FUGAZZETA.GenerarFactura (@Hotel int, @Hoy date, @Total numeric, @Cliente int/*,@Estadia*/) AS
+CREATE PROC FUGAZZETA.GenerarFactura (@Hotel int, @Hoy date, @Total numeric, @Cliente int,@Estadia int) AS
 BEGIN
-	INSERT INTO FUGAZZETA.Facturas(Id_Hotel,Fecha,Total,Id_Cliente) VALUES(@Hotel, @Hoy, @Total,@Cliente/*,@Estadia*/)
-	
+	INSERT INTO FUGAZZETA.Facturas
+	(Id_Hotel,Fecha,Total,Id_Cliente,Id_Estadia)
+	VALUES(@Hotel, @Hoy, @Total,@Cliente,@Estadia)
 	SELECT NroFactura FROM FUGAZZETA.Facturas
 	WHERE Id_Hotel = @Hotel and Fecha = @Hoy and Total = @Total and Id_Cliente = @Cliente
 END
