@@ -1064,9 +1064,9 @@ begin
 	AND	(H.Num_Habitacion) NOT IN 
 		(SELECT Num_Habitacion FROM FUGAZZETA.ProximasHabitacionesReservadas
 			WHERE
-				Id_Hotel = H.Id_Hotel
-			AND (Fecha_Inicio between @Desde and @Hasta)
-			OR (Fecha_Fin_Reserva between @Desde and @Hasta)
+				Id_Hotel = @Hotel
+			AND ((Fecha_Inicio between @Desde and @Hasta)
+			OR (Fecha_Fin_Reserva between @Desde and @Hasta))
 		)
 	AND Habilitado = 1
 	AND H.Id_TipoHab = T.Id_TipoHab
