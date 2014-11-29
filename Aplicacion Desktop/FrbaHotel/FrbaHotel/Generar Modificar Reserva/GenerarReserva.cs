@@ -308,6 +308,8 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 string query = "EXEC FUGAZZETA.CancelarPorNoShow '" + Program.hoy().ToShortDateString() + "', '" + menuP.usuarioActual + "'";
                 bd.ejecutar(query);
                 ListHabitaciones.Items.Clear();
+                LblCostoHab.Text = "0";
+                costoHabitaciones = 0;
                 group3.Enabled = false;
                 groupHab.Enabled = true;
                 validarRegimen();
