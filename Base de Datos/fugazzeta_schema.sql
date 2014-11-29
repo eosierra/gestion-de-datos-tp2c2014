@@ -1057,7 +1057,7 @@ begin
 	T.Descripcion,
 	H.Comodidades,
 	cast(T.CantPersonas as CHAR(1)) + ' personas' AS Capacidad,
-	'$ ' + cast((FUGAZZETA.CostoHabitacion(@Hotel,T.CantPersonas,@Regimen)) as varchar) as [Costo estimado por día]
+	'$' + cast((FUGAZZETA.CostoHabitacion(@Hotel,T.CantPersonas,@Regimen)) as varchar) as [Costo estimado por día]
 	FROM FUGAZZETA.Habitaciones H, FUGAZZETA.TiposHabitacion T
 	WHERE
 	H.Id_Hotel = @Hotel
