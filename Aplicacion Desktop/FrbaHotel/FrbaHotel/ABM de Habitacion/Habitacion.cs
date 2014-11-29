@@ -9,7 +9,7 @@ namespace FrbaHotel.ABM_de_Habitacion
     class Habitacion: Agregable
     {
         int hotel;
-        int numero;
+        public int numero;
         string tipo = null;
         public int precioUnitario;
         char fx;

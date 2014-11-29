@@ -84,9 +84,9 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             }
             reader.Close();
             
-            for (int i=0; i < ListHabitaciones.Items.Count - 1; i++)
+            for (int i=0; i < ListHabitaciones.Items.Count; i++)
             {
-                string numHabitacion = (ListHabitaciones.Items[i] as ABM_de_Habitacion.Habitacion).ToString();
+                string numHabitacion = (ListHabitaciones.Items[i] as ABM_de_Habitacion.Habitacion).numero.ToString();
                 query = "INSERT INTO FUGAZZETA.[Habitaciones x Reservas] values (" + idReservaGenerada + ", " + idHotelActual + ", " + numHabitacion + ")";
                 bd.ejecutar(query);
             }
