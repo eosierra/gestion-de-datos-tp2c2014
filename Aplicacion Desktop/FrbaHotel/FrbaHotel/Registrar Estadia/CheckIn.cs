@@ -55,7 +55,7 @@ namespace FrbaHotel.Registrar_Estadia
                     {
                         while (dr.Read())
                         {
-                            string fechaKey = dr[4].ToString().Substring(0, 10);
+                            string fechaKey = dr["Fecha_Inicio"].ToString().Substring(0, 10);
                             if (fechaKey != Program.hoy().ToShortDateString())
                             {
                                 dr.Close();
@@ -65,10 +65,15 @@ namespace FrbaHotel.Registrar_Estadia
                             idCliente = dr[1].ToString();
                             idHotel = dr[2].ToString();
                             TxtHotel.Text = dr[2].ToString();
-                            TxtFecReserva.Text = ifNull(dr[3].ToString()).Substring(0, 10);
+                            TxtFecReserva.Text = ifNull(dr["Fecha_Reserva"].ToString()).Substring(0, 10);
                             TxtFecInicio.Text = fechaKey;
-                            TxtFecFin.Text = dr[6].ToString().Substring(0, 10);
-                            TxtRegimen.Text = dr[7].ToString();
+                            TxtFecFin.Text = dr["Fecha_Fin_Reserva"].ToString().Substring(0, 10);
+                            
+                            SqlDataReader r2d2;
+                            r2d2 = bd.lee("SELECT Descripcion FROM FUGAZZETA.Regimenes WHERE Id_Regimen = " + dr["Id_Regimen"].ToString());
+                            while (r2d2.Read())
+                                TxtRegimen.Text = r2d2[0].ToString();
+                            r2d2.Close();
                         }
                     }
                     else
@@ -122,13 +127,21 @@ namespace FrbaHotel.Registrar_Estadia
                 while (reader.Read())
                 {
                     TxtNombre.Text = reader[1].ToString() + " " + reader[2].ToString();
-                    TxtDoc.Text = reader[3].ToString() + " " + reader[4].ToString();
                     TxtPais.Text = reader[13].ToString();
-                    TxtNac.Text = reader[5].ToString().Substring(0, 10);
+                    TxtNac.Text = reader["Fecha_Nac"].ToString().Substring(0,10);
                     TxtMail.Text = reader[6].ToString();
                     TxtTelefono.Text = reader[7].ToString();
                     TxtDomicilio.Text = reader[8].ToString() + " " + reader[9].ToString() + " " + reader[10].ToString() + " " + reader[11].ToString();
                     TxtCiudad.Text = reader[12].ToString();
+                    
+                    SqlDataReader r2d2;
+                    r2d2 = bd.lee("SELECT Descripcion FROM FUGAZZETA.TiposDoc WHERE Id_TipoDoc = " + reader[3].ToString());
+                    while (r2d2.Read())
+                        TxtDoc.Text = r2d2[0].ToString() + " " + reader[4].ToString();
+                    r2d2 = bd.lee("SELECT Nombre FROM FUGAZZETA.Paises WHERE Id_Pais =" + reader["Nacionalidad"].ToString());
+                    while (r2d2.Read())
+                        TxtPais.Text = r2d2[0].ToString();
+                    r2d2.Close();
                 }
                 reader.Close();
                 groupBox1.Enabled = true;
