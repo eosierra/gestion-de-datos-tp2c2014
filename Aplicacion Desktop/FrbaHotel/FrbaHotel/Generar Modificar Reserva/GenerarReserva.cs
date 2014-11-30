@@ -151,6 +151,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         private void valida(string tabla,string campo, int id, string mensajeException)
         {
             bool estaHabilitado = true;
+            DateTime fechaFin=DesdePick.Value;
             BD bd = new BD();
             bd.obtenerConexion();
             string query = "SELECT Habilitado FROM FUGAZZETA." + tabla + " where " + campo + " = " + id;
@@ -162,7 +163,13 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             dr.Close();
             if (!estaHabilitado)
             {
-                throw new Exception(mensajeException);
+                query = "SELECT top 1 Fecha_Fin FROM FUGAZZETA.HistorialBajasHotel where Id_Hotel="+id+" order by Fecha_Inicio";
+                dr = bd.lee(query);
+                while (dr.Read())
+                {
+                    fechaFin = Convert.ToDateTime(dr[0].ToString());
+                }
+                if (DesdePick.Value<fechaFin) throw new Exception(mensajeException);
             }
             bd.cerrar();
         }
