@@ -1180,5 +1180,5 @@ BEGIN
 	SELECT * FROM FUGAZZETA.[ReservasNoCanceladas]
 	WHERE Id_Hotel = @Hotel
 	AND Id_Regimen = @Regimen
-	AND Fecha_Reserva > @Fecha
+	AND Fecha_Inicio > @Fecha
 END
