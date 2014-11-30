@@ -32,7 +32,10 @@ namespace FrbaHotel.ABM_de_Usuario
 
         private void TxtUser_TextChanged(object sender, EventArgs e)
         {
+            actual = todos;
             addFiltroTextBox(TxtUser, "Username", GridUsuarios);
+            cargarGrilla(GridUsuarios, actual);
+            
         }
 
         private void Cancelar_Click(object sender, EventArgs e)
