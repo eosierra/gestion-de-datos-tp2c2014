@@ -70,8 +70,11 @@ namespace FrbaHotel.ABM_de_Cliente
         private void Buscar_Click(object sender, EventArgs e)
         {
             actual = todos;
-            String docActual = (ComboDoc.SelectedItem as TipoDoc).id.ToString();
-            filtroTexto(docActual, "Id_TipoDoc", GridClientes);
+            if (ComboDoc.SelectedIndex != -1)
+            {
+                String docActual = (ComboDoc.SelectedItem as TipoDoc).id.ToString();
+                filtroTexto(docActual, "Id_TipoDoc", GridClientes);
+            }
             addFiltroTextBox(TxtNombre, "Nombre", GridClientes);
             addFiltroTextBox(TxtApellido, "Apellido", GridClientes);
             addFiltroTextBox(TxtDoc, "Nro_Doc", GridClientes);
