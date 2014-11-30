@@ -144,6 +144,7 @@
             this.CmdQuitaHotel.TabIndex = 27;
             this.CmdQuitaHotel.Text = "Quitar";
             this.CmdQuitaHotel.UseVisualStyleBackColor = true;
+            this.CmdQuitaHotel.Click += new System.EventHandler(this.CmdQuitaHotel_Click);
             // 
             // CmdAddHotel
             // 

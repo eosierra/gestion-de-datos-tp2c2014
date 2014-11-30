@@ -342,6 +342,11 @@ namespace FrbaHotel.ABM_de_Usuario
             new BuscarRol(this, 'S').ShowDialog();
                 
         }
+
+        private void CmdQuitaHotel_Click(object sender, EventArgs e)
+        {
+            ListHoteles.Items.Remove(ListHoteles.SelectedItem);
+        }
             
 
         
