@@ -113,7 +113,7 @@ namespace FrbaHotel
             if (idElegido > 0)
             {
                 string conCondicion;
-                if (!actual.Contains("WHERE"))
+                if (!actual.Contains(" WHERE "))
                 {
                     conCondicion = " WHERE ";
                 }

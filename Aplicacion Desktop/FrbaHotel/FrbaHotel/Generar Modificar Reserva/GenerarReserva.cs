@@ -106,7 +106,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             if (!reservaValida())
             {
                 DateTime desde = DesdePick.Value;
-                HastaPick.MinDate = new DateTime(desde.Year, desde.Month, desde.Day + 1);
+                HastaPick.MinDate = desde.AddDays(1);
             }
         }
         #endregion

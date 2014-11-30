@@ -24,7 +24,10 @@ namespace FrbaHotel.ABM_de_Cliente
             dondeVuelve = owner;
             setearGrid(GridClientes);
             crearBuscador(dondeVuelve, "*", "Clientes");
-            bd.rellenarDesde("Descripcion", "TiposDoc", ComboDoc);
+            SqlDataReader reader = bd.lee("SELECT * FROM FUGAZZETA.TiposDoc");
+            while (reader.Read())
+                ComboDoc.Items.Add(new TipoDoc(reader[0].ToString(), reader[1].ToString()));
+            reader.Close();
             bd.cerrar();
             fx = funcion;
         }
@@ -39,6 +42,7 @@ namespace FrbaHotel.ABM_de_Cliente
                 label6.Visible = false;
                 TxtApellido.Visible = false;
                 TxtNombre.Visible = false;
+                LblResultados.Text = "Ingrese un filtro para buscar.";
             }else
                 cargarGrilla(GridClientes, top(n, todos));
         }
@@ -60,15 +64,16 @@ namespace FrbaHotel.ABM_de_Cliente
             TxtDoc.Text = "";
             ComboDoc.SelectedIndex = -1;
             TxtMail.Text = "";
-            cargarGrilla(GridClientes, todos);
+            cargarGrilla(GridClientes, top(n,todos));
         }
 
         private void Buscar_Click(object sender, EventArgs e)
         {
             actual = todos;
-            filtroTexto(TxtNombre.Text, "Nombre", GridClientes);
+            String docActual = (ComboDoc.SelectedItem as TipoDoc).id.ToString();
+            filtroTexto(docActual, "Id_TipoDoc", GridClientes);
+            addFiltroTextBox(TxtNombre, "Nombre", GridClientes);
             addFiltroTextBox(TxtApellido, "Apellido", GridClientes);
-            //addFiltroComboBox(ComboDoc, "Id_TipoDoc", GridClientes);
             addFiltroTextBox(TxtDoc, "Nro_Doc", GridClientes);
             addFiltroTextBox(TxtMail, "Mail", GridClientes);
             mostrarCantidadResultados(actual);
@@ -80,7 +85,7 @@ namespace FrbaHotel.ABM_de_Cliente
             int cant = Int32.Parse(cantidadResultados(consulta));
             if (cant > n)
             {
-                LblResultados.Text = "Mostrando primeros " +  n + " de " + cant + " resultados.";
+                LblResultados.Text = "Mostrando primeros " + n + " de " + cant + " resultados.";
             } else
             {
                 LblResultados.Text = "Se encontraron " + cant + " resultados.";
