@@ -48,30 +48,33 @@ namespace FrbaHotel.ABM_de_Rol
 
         private void Guardar_Click(object sender, EventArgs e)
         {
-            if (funcion=='A'){
+            
 
                 try
                 {
                     validaRol();
                     validaFunciones();
-                    agregaRol();
-                    MessageBox.Show("Rol agregado con éxito");
-                    this.Close();
+                    if (funcion=='A'){
+                        agregaRol();
+                        MessageBox.Show("Rol agregado con éxito");
+                        this.Close();
+                    }
+                    if (funcion=='M'){
+                        DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", "Confirmar actualización de rol", MessageBoxButtons.YesNo);
+                        if (confirma == DialogResult.Yes)
+                        {
+                            actualizarRol();
+                        }
+                    }
+
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
-            }
-            if (funcion=='M'){
-                DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", "Confirmar actualización de rol", MessageBoxButtons.YesNo);
-
-                if (confirma == DialogResult.Yes)
-                {
-                    actualizarRol();
-                }
-                }
         }
+            
+        
 
         private void actualizarRol()
         {
