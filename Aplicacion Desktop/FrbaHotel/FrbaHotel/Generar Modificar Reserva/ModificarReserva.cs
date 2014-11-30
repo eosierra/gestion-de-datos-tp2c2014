@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using FrbaHotel.ABM_de_Regimen;
+using FrbaHotel.ABM_de_Habitacion;
 
 namespace FrbaHotel.Generar_Modificar_Reserva
 {
@@ -21,6 +22,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         int nBuscador;
         DataTable habitacionesALiberar;
         bool cambioReserva;
+        int costoHabitaciones;
 
         public ModificarReserva(MenuPrincipal parent)
         {
@@ -62,14 +64,22 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                         idHotel = Int32.Parse(dr[2].ToString());
                         TxtHotel.Text = idHotel.ToString();
                         Desde.Value = Convert.ToDateTime(dr[4].ToString());
-                        Hasta.Value = Convert.ToDateTime(dr[6].ToString());
-                        idRegimen = dr[7].ToString();
+                        Hasta.Value = Convert.ToDateTime(dr[5].ToString());
+                        idRegimen = dr[6].ToString();
                     }
                     dr.Close();
 
                     //CARGA REGIMENES
                     restaurarRegimenes(bd);
                     CbRegimen.Text = idRegimen;
+                    string elRegimen = "";
+                    for (int i = 0; i < CbRegimen.Items.Count; i++)
+                    {
+                        if ((CbRegimen.Items[i] as Regimen).id.ToString() == idRegimen)
+                            elRegimen = CbRegimen.Items[i].ToString();                        
+                    }
+                    CbRegimen.Text = elRegimen;
+
 
                     //CARGA HABITACIONES
                     cargarYLiberarHabitaciones(bd);
@@ -86,12 +96,14 @@ namespace FrbaHotel.Generar_Modificar_Reserva
 
         private void restaurarRegimenes(BD bd)
         {
+            CbRegimen.Items.Clear();
             regimenes.Clear();
             SqlDataReader dr = bd.lee("SELECT R.Id_Regimen, R.Descripcion FROM FUGAZZETA.Regimenes R, FUGAZZETA.[Regimenes x Hotel] H WHERE H.Id_Regimen = R.Id_Regimen and H.Id_Hotel = " + idHotel);
-            while (dr.Read())
-                regimenes.Add(new Regimen(dr[0].ToString(), dr[1].ToString()));
+            while (dr.Read()){
+            regimenes.Add(new Regimen(dr[0].ToString(), dr[1].ToString()));
+            CbRegimen.Items.Add(new Regimen(dr[0].ToString(), dr[1].ToString()));
+            }
             dr.Close();
-            CbRegimen.DataSource = regimenes;
         }
 
         private void TxtReserva_KeyPress(object sender, KeyPressEventArgs e)
@@ -113,7 +125,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             {
                 case 1:
                     idHotel = Int32.Parse(id);
-                    TxtHotel.Text = descripcion;
+                    TxtHotel.Text = id+" - " +descripcion;
                     BD bd = new BD();
                     bd.obtenerConexion();
                     restaurarRegimenes(bd);
@@ -121,6 +133,18 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                     break;
                 case 2:
                     ListHabitaciones.Items.Add(new ABM_de_Habitacion.Habitacion(id, descripcion));
+                    break;
+                case 4:
+                    CbRegimen.Text = descripcion;
+                    HotelClick.Enabled = false;
+                    Desde.Enabled = false;
+                    Hasta.Enabled = false;
+                    VerHabitaciones.Enabled = false;
+                    CbRegimen.Enabled = false;
+                    ListHabitaciones.Items.Clear();
+                    GroupHabitaciones.Enabled = true;
+                    costoHab.Visible = true;
+                    LblCostoHab.Visible = true;
                     break;
             }
         }
@@ -144,12 +168,45 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             if (CbRegimen.SelectedIndex == -1) reg = "NULL";
             else reg = (CbRegimen.SelectedItem as Regimen).id.ToString();
             
-            DialogResult agregado = new BuscarHabitacionLibre(this, idHotel, Desde.Value.ToShortDateString(), Hasta.Value.ToShortDateString(), reg).ShowDialog();
+            DialogResult agregado = new BuscarHabitacionLibre(this, idHotel, Desde.Value.ToShortDateString(), Hasta.Value.ToShortDateString(), reg,'M').ShowDialog();
             if (agregado == DialogResult.OK)
             {
                 validarOtrasHabitaciones();
             }
         }
+
+        internal void habitacionParaReserva(string hotel, string numero, string tipo, string pu)
+        {
+            bool sePuede = true;
+            bool sigue = true;
+            for (int i = 0; (i < ListHabitaciones.Items.Count) && sigue; i++)
+            {
+                if (ListHabitaciones.Items[i].ToString() == numero + " - " + tipo + ".")
+                {
+                    sigue = false;
+                    sePuede = false;
+                }
+            }
+            if (!sePuede)
+            {
+                MessageBox.Show("No se puede agregar. Ya agregó esa habitación");
+            }
+            else
+            {
+                ListHabitaciones.Items.Add(new ABM_de_Habitacion.Habitacion(hotel, numero, tipo, pu, 'G'));
+                costoHabitaciones = costoHabitaciones + Int16.Parse(sacarPesos(pu));
+                LblCostoHab.Text = (costoHabitaciones).ToString();
+            }
+        }
+        
+        private string sacarPesos(string pu)
+        {
+            string data = pu;
+            data.Remove(0, 1);
+            data.TrimStart('/');
+            return data.Substring(1);
+        }
+
 
         private void validarOtrasHabitaciones()
         {
@@ -188,12 +245,44 @@ namespace FrbaHotel.Generar_Modificar_Reserva
 
         private void VerHabitaciones_Click(object sender, EventArgs e)
         {
-            HotelClick.Enabled = false;
-            Desde.Enabled = false;
-            Hasta.Enabled = false;
-            VerHabitaciones.Enabled = false;
-            ListHabitaciones.Items.Clear();
-            GroupHabitaciones.Enabled = true;
+            try
+            {
+                if (TxtHotel.Text == "") throw new Exception("Seleccione un hotel");
+                valida("Hoteles", "Id_Hotel", idHotel, "Este hotel no está habilitado por la cadena.");
+                BD bd = new BD();
+                bd.obtenerConexion();
+                string query = "EXEC FUGAZZETA.CancelarPorNoShow '" + Program.hoy().ToShortDateString() + "', '" + menu.usuarioActual + "'";
+                bd.ejecutar(query);
+                ListHabitaciones.Items.Clear();
+                LblCostoHab.Text = "0";
+                costoHabitaciones = 0;
+                validarRegimen();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            
+        }
+
+        private void valida(string tabla, string campo, int id, string mensajeException)
+        {
+            bool estaHabilitado = true;
+            BD bd = new BD();
+            bd.obtenerConexion();
+            string query = "SELECT Habilitado FROM FUGAZZETA." + tabla + " where " + campo + " = " + id;
+            SqlDataReader dr = bd.lee(query);
+            while (dr.Read())
+            {
+                estaHabilitado = Convert.ToBoolean(dr[0].ToString());
+            }
+            dr.Close();
+            if (!estaHabilitado)
+            {
+                throw new Exception(mensajeException);
+            }
+            bd.cerrar();
         }
 
         private void ModificarReserva_FormClosing(object sender, FormClosingEventArgs e)
@@ -226,7 +315,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             {
                 try
                 {
-                    validarRegimen();
+                    if (CbRegimen.SelectedIndex == -1) throw new Exception("No ha seleccionado régimen.");
                     validarHabitaciones();
                     BD bd = new BD();
                     bd.obtenerConexion();
@@ -236,7 +325,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                     bd.ejecutar(query);
                     for (int i = 0; i < ListHabitaciones.Items.Count; i++)
                     {
-                        query = "INSERT INTO FUGAZZETA.[Habitaciones x Reservas] values(" + idReserva + ", " + idHotel + ", " + ListHabitaciones.Items[i].ToString() + ")";
+                        query = "INSERT INTO FUGAZZETA.[Habitaciones x Reservas] values(" + idReserva + ", " + idHotel + ", " + (ListHabitaciones.Items[i] as Habitacion).numero.ToString() + ")";
                         bd.ejecutar(query);
                     }
                     cambioReserva = true;
@@ -264,7 +353,24 @@ namespace FrbaHotel.Generar_Modificar_Reserva
 
         private void validarRegimen()
         {
-            if (CbRegimen.SelectedIndex == -1) throw new Exception ("No seleccionó ningún régimen.");
+            if (CbRegimen.SelectedIndex == -1)
+            {
+                MessageBox.Show("Seleccione un regimen para continuar. ", "FRBA Hoteles");
+                nBuscador = 4;
+                DialogResult regimen = new BuscarRegimen(this, idHotel).ShowDialog();
+            }
+            else
+            {
+                HotelClick.Enabled = false;
+                Desde.Enabled = false;
+                Hasta.Enabled = false;
+                VerHabitaciones.Enabled = false;
+                CbRegimen.Enabled = false;
+                ListHabitaciones.Items.Clear();
+                GroupHabitaciones.Enabled = true;
+                costoHab.Visible = true;
+                LblCostoHab.Visible = true;
+            }
         }
 
         private void revalidarFecha(object sender, EventArgs e)
@@ -280,5 +386,19 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         {
 
         }
+
+        private void verReserva_Click(object sender, EventArgs e)
+        {
+            int posicion = ListHabitaciones.SelectedIndex;
+            if (posicion > -1)
+            {
+                Habitacion laHabitacion = ListHabitaciones.Items[ListHabitaciones.SelectedIndex] as Habitacion;
+                costoHabitaciones = costoHabitaciones - laHabitacion.precioUnitario;
+                LblCostoHab.Text = costoHabitaciones.ToString();
+                ListHabitaciones.Items.RemoveAt(posicion);
+            }
+        }
+
+     
     }
 }

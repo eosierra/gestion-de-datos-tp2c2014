@@ -29,13 +29,15 @@
         private void InitializeComponent()
         {
             this.GroupReserva = new System.Windows.Forms.GroupBox();
+            this.CbRegimen = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Motivo = new System.Windows.Forms.TextBox();
             this.VerHabitaciones = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.GroupHabitaciones = new System.Windows.Forms.GroupBox();
-            this.CbRegimen = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.LblCostoHab = new System.Windows.Forms.Label();
+            this.costoHab = new System.Windows.Forms.Label();
             this.ListHabitaciones = new System.Windows.Forms.ListBox();
             this.QuitarHab = new System.Windows.Forms.Button();
             this.AddHabitacion = new System.Windows.Forms.Button();
@@ -57,6 +59,8 @@
             // 
             // GroupReserva
             // 
+            this.GroupReserva.Controls.Add(this.CbRegimen);
+            this.GroupReserva.Controls.Add(this.label7);
             this.GroupReserva.Controls.Add(this.groupBox1);
             this.GroupReserva.Controls.Add(this.VerHabitaciones);
             this.GroupReserva.Controls.Add(this.label8);
@@ -74,6 +78,24 @@
             this.GroupReserva.TabIndex = 0;
             this.GroupReserva.TabStop = false;
             this.GroupReserva.Text = "Datos de la reserva";
+            // 
+            // CbRegimen
+            // 
+            this.CbRegimen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CbRegimen.FormattingEnabled = true;
+            this.CbRegimen.Location = new System.Drawing.Point(73, 119);
+            this.CbRegimen.Name = "CbRegimen";
+            this.CbRegimen.Size = new System.Drawing.Size(213, 21);
+            this.CbRegimen.TabIndex = 18;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(14, 122);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(52, 13);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "Regimen:";
             // 
             // groupBox1
             // 
@@ -96,11 +118,11 @@
             // 
             // VerHabitaciones
             // 
-            this.VerHabitaciones.Location = new System.Drawing.Point(254, 129);
+            this.VerHabitaciones.Location = new System.Drawing.Point(73, 146);
             this.VerHabitaciones.Name = "VerHabitaciones";
-            this.VerHabitaciones.Size = new System.Drawing.Size(32, 24);
+            this.VerHabitaciones.Size = new System.Drawing.Size(213, 34);
             this.VerHabitaciones.TabIndex = 61;
-            this.VerHabitaciones.Text = ">>";
+            this.VerHabitaciones.Text = "Modificar Habitaciones";
             this.VerHabitaciones.UseVisualStyleBackColor = true;
             this.VerHabitaciones.Click += new System.EventHandler(this.VerHabitaciones_Click);
             // 
@@ -115,8 +137,8 @@
             // 
             // GroupHabitaciones
             // 
-            this.GroupHabitaciones.Controls.Add(this.CbRegimen);
-            this.GroupHabitaciones.Controls.Add(this.label7);
+            this.GroupHabitaciones.Controls.Add(this.LblCostoHab);
+            this.GroupHabitaciones.Controls.Add(this.costoHab);
             this.GroupHabitaciones.Controls.Add(this.ListHabitaciones);
             this.GroupHabitaciones.Controls.Add(this.QuitarHab);
             this.GroupHabitaciones.Controls.Add(this.AddHabitacion);
@@ -128,37 +150,41 @@
             this.GroupHabitaciones.TabStop = false;
             this.GroupHabitaciones.Text = "Habitaciones a reservar";
             // 
-            // CbRegimen
+            // LblCostoHab
             // 
-            this.CbRegimen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CbRegimen.FormattingEnabled = true;
-            this.CbRegimen.Location = new System.Drawing.Point(65, 22);
-            this.CbRegimen.Name = "CbRegimen";
-            this.CbRegimen.Size = new System.Drawing.Size(128, 21);
-            this.CbRegimen.TabIndex = 18;
+            this.LblCostoHab.AutoSize = true;
+            this.LblCostoHab.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblCostoHab.Location = new System.Drawing.Point(139, 120);
+            this.LblCostoHab.Name = "LblCostoHab";
+            this.LblCostoHab.Size = new System.Drawing.Size(14, 15);
+            this.LblCostoHab.TabIndex = 77;
+            this.LblCostoHab.Text = "0";
+            this.LblCostoHab.Visible = false;
             // 
-            // label7
+            // costoHab
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 25);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(52, 13);
-            this.label7.TabIndex = 17;
-            this.label7.Text = "Regimen:";
+            this.costoHab.AutoSize = true;
+            this.costoHab.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.costoHab.Location = new System.Drawing.Point(14, 120);
+            this.costoHab.Name = "costoHab";
+            this.costoHab.Size = new System.Drawing.Size(126, 15);
+            this.costoHab.TabIndex = 76;
+            this.costoHab.Text = "Costo Habitaciones: $";
+            this.costoHab.Visible = false;
             // 
             // ListHabitaciones
             // 
             this.ListHabitaciones.FormattingEnabled = true;
-            this.ListHabitaciones.Location = new System.Drawing.Point(26, 63);
+            this.ListHabitaciones.Location = new System.Drawing.Point(16, 22);
             this.ListHabitaciones.Name = "ListHabitaciones";
-            this.ListHabitaciones.Size = new System.Drawing.Size(86, 82);
+            this.ListHabitaciones.Size = new System.Drawing.Size(124, 82);
             this.ListHabitaciones.Sorted = true;
             this.ListHabitaciones.TabIndex = 10;
             // 
             // QuitarHab
             // 
             this.QuitarHab.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.QuitarHab.Location = new System.Drawing.Point(118, 95);
+            this.QuitarHab.Location = new System.Drawing.Point(146, 75);
             this.QuitarHab.Name = "QuitarHab";
             this.QuitarHab.Size = new System.Drawing.Size(23, 24);
             this.QuitarHab.TabIndex = 13;
@@ -169,7 +195,7 @@
             // AddHabitacion
             // 
             this.AddHabitacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddHabitacion.Location = new System.Drawing.Point(118, 65);
+            this.AddHabitacion.Location = new System.Drawing.Point(146, 33);
             this.AddHabitacion.Name = "AddHabitacion";
             this.AddHabitacion.Size = new System.Drawing.Size(23, 24);
             this.AddHabitacion.TabIndex = 12;
@@ -188,9 +214,9 @@
             // 
             // HotelClick
             // 
-            this.HotelClick.Location = new System.Drawing.Point(213, 33);
+            this.HotelClick.Location = new System.Drawing.Point(213, 36);
             this.HotelClick.Name = "HotelClick";
-            this.HotelClick.Size = new System.Drawing.Size(73, 24);
+            this.HotelClick.Size = new System.Drawing.Size(73, 21);
             this.HotelClick.TabIndex = 20;
             this.HotelClick.Text = "Seleccionar";
             this.HotelClick.UseVisualStyleBackColor = true;
@@ -325,5 +351,7 @@
         private System.Windows.Forms.Button VerHabitaciones;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox Motivo;
+        private System.Windows.Forms.Label LblCostoHab;
+        private System.Windows.Forms.Label costoHab;
     }
 }

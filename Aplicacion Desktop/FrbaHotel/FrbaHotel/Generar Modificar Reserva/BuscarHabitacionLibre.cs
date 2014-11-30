@@ -17,6 +17,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         string hasta;
         string idRegimen;
         GenerarReserva padre;
+        ModificarReserva padreM;
 
         public BuscarHabitacionLibre(ITraeBusqueda owner, int hotelActual, string desdePick, string hastaPick, string regimen)
         {
@@ -38,6 +39,18 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             hasta = hastaPick;
             idRegimen = regimen;
             padre = owner;
+            setearGrid(GridHabitaciones);
+        }
+
+        public BuscarHabitacionLibre(ModificarReserva owner, int hotelActual, string desdePick, string hastaPick, string regimen, char fun)
+        {
+            fx = fun;
+            InitializeComponent();
+            hotel = hotelActual;
+            desde = desdePick;
+            hasta = hastaPick;
+            idRegimen = regimen;
+            padreM = owner;
             setearGrid(GridHabitaciones);
         }
 
@@ -66,8 +79,18 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 padre.habitacionParaReserva(hotel.ToString(), numero,tipo,pu);
             }
             else{
-                string numero = celdaElegida(GridHabitaciones, 0);
-                dondeVuelve.agregar(hotel.ToString(), numero);
+                if (fx == 'M')
+                {
+                    string numero = celdaElegida(GridHabitaciones, 0);
+                    string tipo = celdaElegida(GridHabitaciones, 1);
+                    string pu = celdaElegida(GridHabitaciones, 4);
+                    padreM.habitacionParaReserva(hotel.ToString(), numero, tipo, pu);
+                }
+                else
+                {
+                    string numero = celdaElegida(GridHabitaciones, 0);
+                    dondeVuelve.agregar(hotel.ToString(), numero);
+                }
             }
         }
     }
