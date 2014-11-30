@@ -378,7 +378,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             if (!(Desde.Value < Hasta.Value))
             {
                 DateTime nuevo = Desde.Value;
-                Hasta.MinDate = new DateTime(nuevo.Year, nuevo.Month, nuevo.Day + 1);
+                Hasta.MinDate = new DateTime(nuevo.Year, nuevo.Month, nuevo.Day);
             }
         }
 
