@@ -170,22 +170,39 @@ namespace FrbaHotel.ABM_de_Hotel
 
         private void ActualizarDatos_Click(object sender, EventArgs e)
         {
-            if (funcion=='A'){
-                DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", this.Text, MessageBoxButtons.YesNo);
-
-            if (confirma == DialogResult.Yes)
+            try
             {
-                agregarHotel();
-            }
-            }
-            else{
-                DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", "Confirmar actualización de hotel", MessageBoxButtons.YesNo);
-
-                if (confirma == DialogResult.Yes)
+                validarBlancos();
+                if (funcion == 'A')
                 {
-                    actualizarHotel();
+                    DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", this.Text, MessageBoxButtons.YesNo);
+
+                    if (confirma == DialogResult.Yes)
+                    {
+                        agregarHotel();
+                    }
+                }
+                else
+                {
+                    DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", "Confirmar actualización de hotel", MessageBoxButtons.YesNo);
+
+                    if (confirma == DialogResult.Yes)
+                    {
+                        actualizarHotel();
+                    }
                 }
             }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+        }
+
+        private void validarBlancos()
+        {
+            if (ComboCE.SelectedIndex == -1) throw new Exception("Seleccione la cantidad de estrellas");
+            if (TxtRecarga.Text == "") throw new Exception("Ingrese el recargo por estrella");
+            if (ListRegimenes.Items.Count == 0) throw new Exception("Seleccione al menos un regimen");
         }
 
         private void agregarHotel()
