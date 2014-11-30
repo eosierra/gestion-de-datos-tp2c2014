@@ -35,7 +35,7 @@
             this.Cantidad = new System.Windows.Forms.NumericUpDown();
             this.GridCarrito = new System.Windows.Forms.DataGridView();
             this.ColumnaEliminar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.TxtReserva = new System.Windows.Forms.TextBox();
+            this.TxtEstadia = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.VerCO = new System.Windows.Forms.Button();
             this.GroupConsumibles = new System.Windows.Forms.GroupBox();
@@ -171,22 +171,22 @@
             this.ColumnaEliminar.UseColumnTextForButtonValue = true;
             this.ColumnaEliminar.Width = 49;
             // 
-            // TxtReserva
+            // TxtEstadia
             // 
-            this.TxtReserva.Location = new System.Drawing.Point(111, 19);
-            this.TxtReserva.Name = "TxtReserva";
-            this.TxtReserva.Size = new System.Drawing.Size(100, 20);
-            this.TxtReserva.TabIndex = 1;
-            this.TxtReserva.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtReserva_KeyPress);
+            this.TxtEstadia.Location = new System.Drawing.Point(111, 19);
+            this.TxtEstadia.Name = "TxtEstadia";
+            this.TxtEstadia.Size = new System.Drawing.Size(100, 20);
+            this.TxtEstadia.TabIndex = 1;
+            this.TxtEstadia.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtReserva_KeyPress);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(13, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 13);
+            this.label1.Size = new System.Drawing.Size(98, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Código de reserva:";
+            this.label1.Text = "Código de Estadía:";
             // 
             // VerCO
             // 
@@ -563,7 +563,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.VerCO);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.TxtReserva);
+            this.Controls.Add(this.TxtEstadia);
             this.Name = "CheckOut";
             this.Text = "CheckOut";
             this.Load += new System.EventHandler(this.CheckOut_Load);
@@ -591,7 +591,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox TxtReserva;
+        private System.Windows.Forms.TextBox TxtEstadia;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button VerCO;
         private System.Windows.Forms.DataGridView GridCarrito;

@@ -13,7 +13,7 @@ namespace FrbaHotel.Registrar_Estadia
     public partial class CheckOut : Buscador, ITraeBusqueda
     {
         MenuPrincipal parent;
-        int idReserva;
+        int idEstadia;
         int idRegimen;
         int cantDiasEstadia;
         int cantDiasReserva;
@@ -95,18 +95,18 @@ namespace FrbaHotel.Registrar_Estadia
             groupBox1.Enabled = true;
             GroupTotal.Visible = true;
             LabelAllinc.Visible = false;
-                if (TxtReserva.Text == "")
+                if (TxtEstadia.Text == "")
             {
                 MessageBox.Show("No se ingresó ninguna reserva.");
             }
             else
             {
-                idReserva = Int32.Parse(TxtReserva.Text);
+                idEstadia = Int32.Parse(TxtEstadia.Text);
                 BD bd = new BD();
                 bd.obtenerConexion();
                 try
                 {
-                   SqlDataReader dr = bd.lee("EXEC FUGAZZETA.ValidarEstadia " + idReserva + ", '" + Program.hoy().ToShortDateString() + "'");
+                   SqlDataReader dr = bd.lee("EXEC FUGAZZETA.ValidarEstadia " + idEstadia + ", '" + Program.hoy().ToShortDateString() + "'");
                     while (dr.Read())
                     {
                         idRegimen = Int32.Parse(dr[1].ToString());
@@ -208,7 +208,7 @@ namespace FrbaHotel.Registrar_Estadia
         {
             BD bd2 = new BD();
             bd2.obtenerConexion();
-            string query = "EXEC FUGAZZETA.VerHabitacionesDeEstadia " + idReserva + ", '" + Program.hoy().ToShortDateString() + "'";
+            string query = "EXEC FUGAZZETA.VerHabitacionesDeEstadia " + idEstadia + ", '" + Program.hoy().ToShortDateString() + "'";
             GridHabitacion.DataSource = bd2.ejecutar(query);
             bd2.cerrar();
             
@@ -278,10 +278,10 @@ namespace FrbaHotel.Registrar_Estadia
             {
                 validarAbono();
                 int nroFactura = 0;
-                SqlDataReader dr = bd2.lee("EXEC FUGAZZETA.GenerarFactura " + idHotel + ", '" + Program.hoy().ToShortDateString() + "', " + LblTotal.Text + ", " + idCliente);
+                SqlDataReader dr = bd2.lee("EXEC FUGAZZETA.GenerarFactura " + idHotel + ", '" + Program.hoy().ToShortDateString() + "', " + LblTotal.Text + ", " + idCliente + ", " + TxtEstadia.Text);
                 while (dr.Read()) nroFactura = Int32.Parse(dr[0].ToString());
                 dr.Close();
-                bd2.ejecutar("EXEC FUGAZZETA.RealizarEgreso " + idReserva + ", '" + Program.ahora().ToString() + "', '" + parent.usuarioActual + "'");
+                bd2.ejecutar("EXEC FUGAZZETA.RealizarEgreso " + idEstadia + ", '" + Program.ahora().ToString() + "', '" + parent.usuarioActual + "'");
                 
                 //Items Hospedaje
                 string query = "INSERT INTO FUGAZZETA.Items_Hospedaje values (" + nroFactura + ", 1, " + cantDiasEstadia + ", " + LblSubEstadia.Text + ")";
