@@ -16,7 +16,7 @@ namespace FrbaHotel
     {
         public string usuarioActual;
         public int hotelActual;
-        public int rolActual;
+        public string rolActual;
         List<ToolStripMenuItem> menues = new List<ToolStripMenuItem>();
         List<ToolStripDropDownItem> items = new List<ToolStripDropDownItem>();
 
@@ -201,6 +201,11 @@ namespace FrbaHotel
             menu.Tag = 0;
             menues.Add(menu);
             foreach (ToolStripDropDownItem item in menu.DropDownItems) items.Add(item);
+        }
+
+        private void LabelSesion_Click(object sender, EventArgs e)
+        {
+
         }        
         
     }

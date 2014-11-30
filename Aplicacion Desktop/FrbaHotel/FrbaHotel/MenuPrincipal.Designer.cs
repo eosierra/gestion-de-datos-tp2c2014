@@ -71,6 +71,7 @@
             this.LabelSesion.TabIndex = 1;
             this.LabelSesion.Text = "Sesión iniciada";
             this.LabelSesion.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.LabelSesion.Click += new System.EventHandler(this.LabelSesion_Click);
             // 
             // menuStrip1
             // 

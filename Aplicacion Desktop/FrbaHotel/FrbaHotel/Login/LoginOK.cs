@@ -60,7 +60,7 @@ namespace FrbaHotel.Login
         {
             HotelxRol elegido = (p as HotelxRol);
             menu.hotelActual = elegido.hotel.id;
-            menu.rolActual = elegido.rol.id;
+            menu.rolActual = elegido.rol.nombre;
             this.Close();
         }
 

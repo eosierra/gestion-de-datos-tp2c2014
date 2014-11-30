@@ -85,7 +85,7 @@ namespace FrbaHotel.Login
                 {
                     IrAMenuPrincipal("guest");
                     menu.hotelActual = 1;
-                    menu.rolActual = 4;
+                    menu.rolActual = "Guest";
                 }
                 else MessageBox.Show("No es posible entrar como guest. Rol Inhabilitado.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
