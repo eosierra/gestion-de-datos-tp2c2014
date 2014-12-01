@@ -41,14 +41,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.ChkHabilitada = new System.Windows.Forms.CheckBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.CmbHotel = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // Guardar
             // 
             this.Guardar.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.Guardar.Location = new System.Drawing.Point(43, 288);
+            this.Guardar.Location = new System.Drawing.Point(41, 250);
             this.Guardar.Name = "Guardar";
             this.Guardar.Size = new System.Drawing.Size(233, 23);
             this.Guardar.TabIndex = 23;
@@ -58,7 +56,7 @@
             // 
             // TxtDesc
             // 
-            this.TxtDesc.Location = new System.Drawing.Point(129, 174);
+            this.TxtDesc.Location = new System.Drawing.Point(127, 136);
             this.TxtDesc.Multiline = true;
             this.TxtDesc.Name = "TxtDesc";
             this.TxtDesc.Size = new System.Drawing.Size(147, 85);
@@ -67,7 +65,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(52, 177);
+            this.label5.Location = new System.Drawing.Point(50, 139);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(71, 13);
             this.label5.TabIndex = 21;
@@ -77,7 +75,7 @@
             // 
             this.CmbTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CmbTipo.FormattingEnabled = true;
-            this.CmbTipo.Location = new System.Drawing.Point(129, 147);
+            this.CmbTipo.Location = new System.Drawing.Point(127, 109);
             this.CmbTipo.Name = "CmbTipo";
             this.CmbTipo.Size = new System.Drawing.Size(147, 21);
             this.CmbTipo.TabIndex = 20;
@@ -86,7 +84,7 @@
             // 
             this.Interior.AccessibleName = "N";
             this.Interior.AutoSize = true;
-            this.Interior.Location = new System.Drawing.Point(129, 124);
+            this.Interior.Location = new System.Drawing.Point(127, 86);
             this.Interior.Name = "Interior";
             this.Interior.Size = new System.Drawing.Size(58, 17);
             this.Interior.TabIndex = 19;
@@ -98,7 +96,7 @@
             // 
             this.Exterior.AccessibleName = "S";
             this.Exterior.AutoSize = true;
-            this.Exterior.Location = new System.Drawing.Point(129, 101);
+            this.Exterior.Location = new System.Drawing.Point(127, 63);
             this.Exterior.Name = "Exterior";
             this.Exterior.Size = new System.Drawing.Size(96, 17);
             this.Exterior.TabIndex = 18;
@@ -108,7 +106,7 @@
             // 
             // TxtPiso
             // 
-            this.TxtPiso.Location = new System.Drawing.Point(129, 73);
+            this.TxtPiso.Location = new System.Drawing.Point(127, 35);
             this.TxtPiso.Name = "TxtPiso";
             this.TxtPiso.Size = new System.Drawing.Size(57, 20);
             this.TxtPiso.TabIndex = 17;
@@ -116,7 +114,7 @@
             // 
             // TxtNro
             // 
-            this.TxtNro.Location = new System.Drawing.Point(129, 47);
+            this.TxtNro.Location = new System.Drawing.Point(127, 9);
             this.TxtNro.Name = "TxtNro";
             this.TxtNro.Size = new System.Drawing.Size(57, 20);
             this.TxtNro.TabIndex = 16;
@@ -125,7 +123,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(26, 150);
+            this.label4.Location = new System.Drawing.Point(24, 112);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(97, 13);
             this.label4.TabIndex = 15;
@@ -134,7 +132,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(68, 114);
+            this.label3.Location = new System.Drawing.Point(66, 76);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 13);
             this.label3.TabIndex = 14;
@@ -143,7 +141,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(96, 73);
+            this.label2.Location = new System.Drawing.Point(94, 35);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(27, 13);
             this.label2.TabIndex = 13;
@@ -152,7 +150,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(79, 47);
+            this.label1.Location = new System.Drawing.Point(77, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 12;
@@ -161,38 +159,18 @@
             // ChkHabilitada
             // 
             this.ChkHabilitada.AutoSize = true;
-            this.ChkHabilitada.Location = new System.Drawing.Point(129, 265);
+            this.ChkHabilitada.Location = new System.Drawing.Point(127, 227);
             this.ChkHabilitada.Name = "ChkHabilitada";
             this.ChkHabilitada.Size = new System.Drawing.Size(73, 17);
             this.ChkHabilitada.TabIndex = 24;
             this.ChkHabilitada.Text = "Habilitada";
             this.ChkHabilitada.UseVisualStyleBackColor = true;
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(11, 16);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(46, 13);
-            this.label6.TabIndex = 25;
-            this.label6.Text = "HOTEL:";
-            // 
-            // CmbHotel
-            // 
-            this.CmbHotel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CmbHotel.FormattingEnabled = true;
-            this.CmbHotel.Location = new System.Drawing.Point(71, 13);
-            this.CmbHotel.Name = "CmbHotel";
-            this.CmbHotel.Size = new System.Drawing.Size(227, 21);
-            this.CmbHotel.TabIndex = 28;
-            // 
             // AltaHabitacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(310, 335);
-            this.Controls.Add(this.CmbHotel);
-            this.Controls.Add(this.label6);
+            this.ClientSize = new System.Drawing.Size(310, 283);
             this.Controls.Add(this.ChkHabilitada);
             this.Controls.Add(this.Guardar);
             this.Controls.Add(this.TxtDesc);
@@ -228,7 +206,5 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox ChkHabilitada;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox CmbHotel;
     }
 }

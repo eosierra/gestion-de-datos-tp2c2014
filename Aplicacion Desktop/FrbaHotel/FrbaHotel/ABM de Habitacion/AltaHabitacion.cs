@@ -50,16 +50,6 @@ namespace FrbaHotel.ABM_de_Habitacion
                 CmbTipo.Items.Add(tipo);
             }
             dr.Close();
-
-            query = "SELECT Id_Hotel, Nombre FROM FUGAZZETA.Hoteles ORDER BY Id_Hotel";
-            dr = bd.lee(query);
-            while (dr.Read())
-            {
-                Hotel hotel = new Hotel(dr[0].ToString(), dr[1].ToString());
-                CmbHotel.Items.Add(hotel);
-            }
-            dr.Close();
-
         }
 
         private void cargar()
@@ -104,15 +94,14 @@ namespace FrbaHotel.ABM_de_Habitacion
         private void Guardar_Click(object sender, EventArgs e)
         {
             try {
+               
                 ValidarTxt(TxtNro, "Número");
                 ValidarTxt(TxtPiso, "Piso");
                 if (!Interior.Checked && !Exterior.Checked)
                     throw new Exception("No seleccionó la ubicación.");
                 if (CmbTipo.SelectedIndex == -1)
                     throw new Exception("No seleccionó el tipo de habitación.");
-                if (CmbHotel.SelectedIndex ==-1)
-                    throw new Exception("No seleccionó el tipo de hotel.");
-
+                
             if (funcion == 'M')
             {
                 DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", "Confirmar actualización de habitacion", MessageBoxButtons.YesNo);
@@ -129,16 +118,24 @@ namespace FrbaHotel.ABM_de_Habitacion
             {
                 BD bd = new BD();
                 bd.obtenerConexion();
+               
+                string habitacionRepetida = "select * from FUGAZZETA.Habitaciones H where Num_Habitacion=" + TxtNro.Text+" and Id_Hotel="+tuHotel.ToString();
+                SqlDataReader dr = bd.lee(habitacionRepetida);
+                while (dr.Read())
+                {
+                    if ((dr.HasRows)) throw new Exception("Ese número de habitación ya existe en el hotel.");
+                }
+                dr.Close();
+
                     char frente='N';
                     if (Exterior.Checked) frente = 'S';
                     if (Interior.Checked) frente = 'N';
 
                     TipoHabitacion elTipo = CmbTipo.Items[CmbTipo.SelectedIndex] as TipoHabitacion;
-                    Hotel elHotel = CmbHotel.Items[CmbHotel.SelectedIndex] as Hotel;
-
+                    
                     string query = 
                         "INSERT INTO FUGAZZETA.Habitaciones values ("
-                        +elHotel.id+","
+                        +tuHotel+","
                         +TxtNro.Text+","
                         +TxtPiso.Text+",'"
                         +frente+"',"
@@ -184,16 +181,26 @@ namespace FrbaHotel.ABM_de_Habitacion
         {
             BD bd = new BD();
             bd.obtenerConexion();
+
+            string habitacionRepetida = "select * from FUGAZZETA.Habitaciones H where Num_Habitacion=" + TxtNro.Text+" and Id_Hotel="+tuHotel.ToString()+" and Num_Habitacion<>"+tuId;
+            SqlDataReader dr = bd.lee(habitacionRepetida);
+            while (dr.Read())
+            {
+                if ((dr.HasRows)) throw new Exception("Ese número de habitación ya existe en el hotel.");
+            }
+            dr.Close();
+
             char frente ='N';
             if (Exterior.Checked == true) { frente = 'S'; }
             if (Interior.Checked == true) { frente = 'N'; }
             string comando =
-                "UPDATE FUGAZZETA.Habitaciones SET Num_Habitacion =" + TxtNro.Text +
+                "UPDATE FUGAZZETA.Habitaciones SET Id_Hotel="+tuHotel.ToString()+
+                ", Num_Habitacion =" + TxtNro.Text +
                 ", Piso = " + TxtPiso.Text +
                 ", Comodidades = '" + TxtDesc.Text +
                 "', Frente = '" + frente +
                 "', Habilitado = " + Convert.ToSByte(ChkHabilitada.Checked) +
-                " WHERE Num_Habitacion = " + tuId + "AND Id_Hotel = " + tuHotel;
+                " WHERE Num_Habitacion = " + tuId+" and Id_Hotel="+tuHotel.ToString();
             bd.ejecutar(comando);
             
             
