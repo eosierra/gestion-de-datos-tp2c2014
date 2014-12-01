@@ -155,7 +155,7 @@ namespace FrbaHotel.Registrar_Estadia
 
         private void QuitarPersona_Click(object sender, EventArgs e)
         {
-            ListPersonas.Items.Remove(ListPersonas.SelectedIndex);
+            ListPersonas.Items.Remove(ListPersonas.SelectedItem);
         }
 
         private void AgregarPersona_Click(object sender, EventArgs e)
