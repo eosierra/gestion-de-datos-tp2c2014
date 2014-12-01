@@ -85,7 +85,7 @@ namespace FrbaHotel.Cancelar_Reserva
                 {
                     condicion = " AND Id_Hotel = " + menu.hotelActual;
                 }
-                string query = "SELECT * FROM FUGAZZETA.ReservasNoCanceladas WHERE Id_Reserva = " + TxtCodigo.Text + condicion;
+                string query = "SELECT * FROM FUGAZZETA.ReservasModificables WHERE Id_Reserva = " + TxtCodigo.Text + condicion;
                 SqlDataReader dr = bd.lee(query);
                 if (!dr.HasRows)
                 {
