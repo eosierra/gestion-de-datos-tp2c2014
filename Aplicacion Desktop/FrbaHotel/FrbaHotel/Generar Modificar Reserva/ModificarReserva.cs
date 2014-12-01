@@ -23,6 +23,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         DataTable habitacionesALiberar;
         bool cambioReserva;
         int costoHabitaciones;
+        bool huboCambios;
 
         public ModificarReserva(MenuPrincipal parent)
         {
@@ -85,6 +86,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                     cargarYLiberarHabitaciones(bd);
                     GroupReserva.Enabled = true;
                     MostrarDatos.Enabled = false;
+                    huboCambios = false;
                 }
                 else
                 {
@@ -114,7 +116,16 @@ namespace FrbaHotel.Generar_Modificar_Reserva
 
         private void QuitarHab_Click(object sender, EventArgs e)
         {
-            if (ListHabitaciones.SelectedIndex != -1) ListHabitaciones.Items.Remove(ListHabitaciones.SelectedItem);
+            if (ListHabitaciones.SelectedIndex != -1)
+            {
+                ListHabitaciones.Items.Remove(ListHabitaciones.SelectedItem);
+                costoHabitaciones = 0;
+                foreach (Object hb in ListHabitaciones.Items)
+                {
+                    costoHabitaciones += (hb as Habitacion).precioUnitario;
+                }
+                LblCostoHab.Text = (costoHabitaciones).ToString();
+            }
         }
 
         #region ITraeBusqueda Members
@@ -155,10 +166,10 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         {
             nBuscador = 1;
             DialogResult nuevoHotel = new ABM_de_Hotel.BuscarHotel(this).ShowDialog();
+            huboCambios = (nuevoHotel == DialogResult.OK);
             if (nuevoHotel == DialogResult.OK)
-            {
                 ListHabitaciones.Items.Clear();
-            }
+            
         }
 
         private void AddHabitacion_Click(object sender, EventArgs e)
@@ -253,7 +264,11 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 bd.obtenerConexion();
                 string query = "EXEC FUGAZZETA.CancelarPorNoShow '" + Program.hoy().ToShortDateString() + "', '" + menu.usuarioActual + "'";
                 bd.ejecutar(query);
-                ListHabitaciones.Items.Clear();
+                if (huboCambios)
+                {
+                    MessageBox.Show(huboCambios.ToString());
+                    ListHabitaciones.Items.Clear();
+                }
                 LblCostoHab.Text = "0";
                 costoHabitaciones = 0;
                 validarRegimen();
@@ -303,7 +318,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                         bd.ejecutar("INSERT INTO FUGAZZETA.[Habitaciones x Reservas] values(" + reserva + ", " + hotel + ", " + habitacion + ")");
                     }
                     bd.cerrar();
-                    MessageBox.Show("Reserva cancelada.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Modificación cancelada.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -385,11 +400,6 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             }
         }
 
-        private void Numero_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-        }
-
         private void verReserva_Click(object sender, EventArgs e)
         {
             int posicion = ListHabitaciones.SelectedIndex;
@@ -402,6 +412,15 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             }
         }
 
+        private void CbRegimen_MouseClick(object sender, MouseEventArgs e)
+        {
+            huboCambios = true;
+        }
+
+        private void Desde_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
      
     }
 }

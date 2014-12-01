@@ -87,6 +87,7 @@
             this.CbRegimen.Name = "CbRegimen";
             this.CbRegimen.Size = new System.Drawing.Size(213, 21);
             this.CbRegimen.TabIndex = 18;
+            this.CbRegimen.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CbRegimen_MouseClick);
             // 
             // label7
             // 
@@ -229,6 +230,8 @@
             this.Hasta.Size = new System.Drawing.Size(213, 20);
             this.Hasta.TabIndex = 23;
             this.Hasta.ValueChanged += new System.EventHandler(this.revalidarFecha);
+            this.Hasta.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CbRegimen_MouseClick);
+            this.Hasta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Desde_KeyPress);
             // 
             // label10
             // 
@@ -246,6 +249,8 @@
             this.Desde.Size = new System.Drawing.Size(213, 20);
             this.Desde.TabIndex = 22;
             this.Desde.ValueChanged += new System.EventHandler(this.revalidarFecha);
+            this.Desde.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CbRegimen_MouseClick);
+            this.Desde.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Desde_KeyPress);
             // 
             // TxtHotel
             // 
