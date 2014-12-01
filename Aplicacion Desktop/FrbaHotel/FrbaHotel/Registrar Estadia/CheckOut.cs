@@ -319,13 +319,11 @@ namespace FrbaHotel.Registrar_Estadia
             string banco;
             string tipoCuenta;
             string nroCuenta;
+            string query ="";
 
             if (OpEfectivo.Checked)
             {
-                tipoPago = OpEfectivo.Tag.ToString();
-                banco = "NULL";
-                tipoCuenta = "NULL";
-                nroCuenta = "NULL";
+                query = "INSERT INTO FUGAZZETA.AbonoFacturas (NroFactura,Id_TipoPago) values (" + nf + ", 1)";
             }
             else
             {
@@ -334,10 +332,10 @@ namespace FrbaHotel.Registrar_Estadia
                 nroCuenta = TxtNCuenta.Text;
                 if (OpCA.Checked) tipoCuenta = OpCA.Tag.ToString();
                 else tipoCuenta = OpCC.Tag.ToString();
+                query = "INSERT INTO FUGAZZETA.AbonoFacturas values (" + nf + ", " + tipoPago + ", " + banco + ", '" + tipoCuenta + "', " + nroCuenta + ")";
             }
             BD db = new BD();
             db.obtenerConexion();
-            string query = "INSERT INTO FUGAZZETA.AbonoFacturas values (" + nf + ", " + tipoPago + ", " + banco + ", '" + tipoCuenta + "', " + nroCuenta + ")";
             db.ejecutar(query);
         }
 
