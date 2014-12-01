@@ -312,7 +312,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         {
             validarHabitaciones();
             int monto = (Convert.ToInt32(LblCostoHab.Text)) * (Convert.ToInt32((Hasta.Value.Date - Desde.Value.Date).TotalDays));
-            DialogResult continuar = MessageBox.Show("El precio total de la reserva es: $" + monto + ". Desea continuar con el registro?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult continuar = MessageBox.Show("El precio total de la reserva es: $" + monto + ". Desea continuar con la modificacion?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             DialogResult confirma = MessageBox.Show("Son todos los datos correctos?", this.Text, MessageBoxButtons.OKCancel);
             if (confirma == DialogResult.OK)
             {
