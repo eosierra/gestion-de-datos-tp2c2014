@@ -308,6 +308,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         {
             try
             {
+                validaDias();
                 validarHotel();
                 valida("Hoteles", "Id_Hotel", idHotelActual, "Este hotel no está habilitado por la cadena.");
                 BD bd = new BD();
@@ -328,6 +329,11 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             
         }
 
+        private void validaDias()
+        {
+            if (DesdePick.Value == HastaPick.Value) throw new Exception("La reserva debe tener al menos una noche");
+        }
+
         private void validarHotel()
         {
             if (TxtHotel.Text=="") throw new Exception("Seleccione un hotel");
@@ -345,7 +351,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         {
             try{
                 validarHabitaciones();
-                int monto = (Convert.ToInt32(LblCostoHab.Text)) * (Convert.ToInt32((HastaPick.Value.Date - DesdePick.Value.Date).TotalDays) + 1);
+                int monto = (Convert.ToInt32(LblCostoHab.Text)) * (Convert.ToInt32((HastaPick.Value.Date - DesdePick.Value.Date).TotalDays));
                 DialogResult continuar = MessageBox.Show("El precio total de la reserva es: $"+monto+". Desea continuar con el registro?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (continuar == DialogResult.Yes)
                 {
