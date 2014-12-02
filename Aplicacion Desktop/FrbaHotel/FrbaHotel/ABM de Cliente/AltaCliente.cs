@@ -92,7 +92,7 @@ namespace FrbaHotel.ABM_de_Cliente
                     string query = "INSERT INTO FUGAZZETA.Clientes values (" + ifNull(TxtNombre) + ", " + ifNull(TxtApellido) + @", 
                 " + tipoDoc + ", " + ifNull(TxtNroDoc) + ", '" + FechaPick.Value.ToShortDateString() + "', " + ifNull(TxtMail) + @",
                 " + ifNull(TxtTelefono) + ", " + ifNull(TxtCalle) + ", " + ifNull(TxtNroDirec) + ", " + ifNull(TxtPiso) + @",
-                " + ifNull(TxtDpto) + ", " + ifNull(TxtLocalidad) + ", " + idPais + ", " + idNac + ", 1)";
+                " + ifNull(TxtDpto) + ", " + ifNull(TxtLocalidad) + ", " + idPais + ", " + idNac + ","+ Convert.ToSByte(chkHabilitado.Checked)+")";
                     bd.ejecutar(query);
                     bd.cerrar();
                     this.DialogResult = DialogResult.OK;
@@ -129,6 +129,7 @@ namespace FrbaHotel.ABM_de_Cliente
                 "', Localidad = '" + TxtLocalidad.Text +
                 "', Nacionalidad = '" + elPais.id +
                 "', Id_TipoDoc = '" + elTipoDoc.id +
+                "', Habilitado = '" + Convert.ToSByte(chkHabilitado.Checked) +
                 "' WHERE Id_Cliente = '" + Id.Text + "'";
             bd.ejecutar(comando);
             
@@ -162,6 +163,7 @@ namespace FrbaHotel.ABM_de_Cliente
                 TxtPiso.Text = dr["Piso"].ToString();
                 TxtDpto.Text = dr["Depto"].ToString();
                 TxtLocalidad.Text = dr["Localidad"].ToString();
+                chkHabilitado.Checked = Convert.ToBoolean(dr["Habilitado"].ToString());
 
                 string fecha = dr["Fecha_Nac"].ToString();
                 FechaPick.Value = convertirFecha(fecha);

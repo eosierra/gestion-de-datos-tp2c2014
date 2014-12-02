@@ -60,6 +60,7 @@
             this.FechaPick = new System.Windows.Forms.DateTimePicker();
             this.label14 = new System.Windows.Forms.Label();
             this.Id = new System.Windows.Forms.Label();
+            this.chkHabilitado = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -303,7 +304,7 @@
             // 
             // CmdLimpiar
             // 
-            this.CmdLimpiar.Location = new System.Drawing.Point(510, 253);
+            this.CmdLimpiar.Location = new System.Drawing.Point(424, 196);
             this.CmdLimpiar.Name = "CmdLimpiar";
             this.CmdLimpiar.Size = new System.Drawing.Size(128, 32);
             this.CmdLimpiar.TabIndex = 16;
@@ -315,7 +316,7 @@
             // 
             this.CmdGuardar.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.CmdGuardar.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.CmdGuardar.Location = new System.Drawing.Point(0, 307);
+            this.CmdGuardar.Location = new System.Drawing.Point(0, 243);
             this.CmdGuardar.Name = "CmdGuardar";
             this.CmdGuardar.Size = new System.Drawing.Size(656, 43);
             this.CmdGuardar.TabIndex = 17;
@@ -351,11 +352,22 @@
             this.Id.TabIndex = 20;
             this.Id.Text = "--";
             // 
+            // chkHabilitado
+            // 
+            this.chkHabilitado.AutoSize = true;
+            this.chkHabilitado.Location = new System.Drawing.Point(461, 154);
+            this.chkHabilitado.Name = "chkHabilitado";
+            this.chkHabilitado.Size = new System.Drawing.Size(73, 17);
+            this.chkHabilitado.TabIndex = 21;
+            this.chkHabilitado.Text = "Habilitado";
+            this.chkHabilitado.UseVisualStyleBackColor = true;
+            // 
             // AltaCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(656, 350);
+            this.ClientSize = new System.Drawing.Size(656, 286);
+            this.Controls.Add(this.chkHabilitado);
             this.Controls.Add(this.TxtMail);
             this.Controls.Add(this.Id);
             this.Controls.Add(this.label14);
@@ -423,5 +435,6 @@
         private System.Windows.Forms.DateTimePicker FechaPick;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label Id;
+        private System.Windows.Forms.CheckBox chkHabilitado;
     }
 }
