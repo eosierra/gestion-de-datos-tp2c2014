@@ -21,6 +21,7 @@ namespace FrbaHotel.ABM_de_Habitacion
             InitializeComponent();
             cargarCombos();
             funcion = fun;
+            if (funcion=='M') TxtNro.Enabled=false;
             tuHotel=hotel;
             tuId=id;
             cargar();
