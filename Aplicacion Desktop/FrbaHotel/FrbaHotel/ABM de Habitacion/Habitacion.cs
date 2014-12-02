@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Globalization;
+using System.Data.SqlClient;
 
 namespace FrbaHotel.ABM_de_Habitacion
 {
     class Habitacion: Agregable
     {
-        int hotel;
+        public int hotel;
         public int numero;
         string tipo = null;
         public int precioUnitario;
@@ -39,16 +40,10 @@ namespace FrbaHotel.ABM_de_Habitacion
 
         public override string ToString()
         {
-            string retorno="";
             if (fx == 'G')
-            {
-                retorno = numero.ToString() + " - " + tipo + ".";
-            }
+                return numero.ToString() + " - " + tipo + ".";
             else
-            {
-                retorno = numero.ToString();
-            }
-            return retorno;
+                return numero.ToString();
         }
     }
 }

@@ -152,7 +152,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                     Hasta.Enabled = false;
                     VerHabitaciones.Enabled = false;
                     CbRegimen.Enabled = false;
-                    ListHabitaciones.Items.Clear();
+                    if (huboCambios) ListHabitaciones.Items.Clear();
                     GroupHabitaciones.Enabled = true;
                     costoHab.Visible = true;
                     LblCostoHab.Visible = true;
@@ -223,7 +223,9 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         {
             for (int i = 0; i < ListHabitaciones.Items.Count - 1; i++)
             {
-                if (ListHabitaciones.Items[i].ToString() == ListHabitaciones.Items[i + 1].ToString())
+                Habitacion h1 = (ListHabitaciones.Items[i] as Habitacion);
+                Habitacion h2 = (ListHabitaciones.Items[i+1] as Habitacion);
+                if ((h1.hotel == h2.hotel) & (h1.numero == h2.numero))
                 {
                     string eliminado = ListHabitaciones.Items[i].ToString();
                     ListHabitaciones.Items.RemoveAt(i);
@@ -384,7 +386,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 Hasta.Enabled = false;
                 VerHabitaciones.Enabled = false;
                 CbRegimen.Enabled = false;
-                ListHabitaciones.Items.Clear();
+                if (huboCambios) ListHabitaciones.Items.Clear();
                 GroupHabitaciones.Enabled = true;
                 costoHab.Visible = true;
                 LblCostoHab.Visible = true;
